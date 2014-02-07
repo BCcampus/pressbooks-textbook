@@ -1,0 +1,12 @@
+
+/* 
+    Created on : 4-Feb-2014, 3:10:35 PM
+    Author     : bpayne
+*/
+
+li.toplevel_page_pb_import a.toplevel_page_pb_import .wp-menu-image::before{
+	font-family: FontAwesome !important;
+	-webkit-font-smoothing: antialiased;
+	background: none;
+	content: '\f112' !important;
+}
