@@ -25,19 +25,6 @@ if ( ! defined( 'WPINC' ) ) {
 	die();
 }
 
-// Activate only if Pressbooks is installed
-if ( ! is_multisite() || ! get_site_option( 'pressbooks-activated' ) ) {
-
-	add_action( 'admin_notices', function() {
-		$html = "<div id='message' class='error fade'><p>";
-		$html .= __( 'Sorry, this Plugin can only be installed if the PressBooks plugin is installed.', 'pressbooks-textbook' );
-		$html .= "</p></div>";
-
-		echo $html;
-	} );
-	return;
-}
-
 class Textbook {
 
 	/**
@@ -91,7 +78,6 @@ class Textbook {
 		add_action( 'admin_menu', array( &$this, 'adminMenuAdjuster' ) );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueueAdminStyles' ) );
 		add_action( 'wp_enqueue_style', array( &$this, 'enqueueChildThemes' ) );
-		add_action( 'admin_notices', array( &$this, 'displayBlogWarning' ) );
 		add_filter( 'allowed_themes', array( &$this, 'filterChildThemes' ), 11 );
 	}
 	
@@ -231,24 +217,10 @@ class Textbook {
 		}
 	}
 
-	/**
-	 * Discourage installation on the main blog.
-	 */
-	function displayBlogWarning() {
-		$html = '';
-		// If main blog and network 
-		if ( get_current_blog_id() == 1 ) {
-			$html = "<div id='message' class='error fade'><p>";
-			$html .= __( 'PressBooks Textbook plugin is meant to be activated on books, <b>not</b> the main PB blog. Please deactivate plugin on this PB blog.', 'pressbooks-textbook' );
-			$html .= '</p></div>';
-			echo $html;
-		} else {
-			echo $html;
-		}
-
-		
-	}
 }
 
-$GLOBALS['pressbookstextbook'] = new Textbook();
+// Prohibit installation on the main blog, or PB is not installed
+if ( get_current_blog_id() != 1 || is_multisite() || get_site_option( 'pressbooks-activated' )) {
+	$GLOBALS['pressbookstextbook'] = new Textbook();
+}
 

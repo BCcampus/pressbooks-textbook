@@ -8,7 +8,7 @@
  Author URI: http://10up.com
  License: GPLv2 or later
 */
-
+	
 class MCE_Table_Buttons {
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
@@ -50,5 +50,6 @@ class MCE_Table_Buttons {
 		return $content;
 	}
 }
-
-$mce_table_buttons = new MCE_Table_Buttons;
+if ( ! class_exists( 'MCE_Table_Buttons' ) ) {
+	$mce_table_buttons = new MCE_Table_Buttons;
+}
