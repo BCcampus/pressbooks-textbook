@@ -1,9 +1,6 @@
 <?php
 /**
- * The WordPress Plugin Boilerplate.
- *
- * A foundation off of which to build well-documented WordPress plugins that
- * also follow WordPress Coding Standards and PHP best practices.
+ * PressBooks Textbook
  *
  * @package   PressBooks_Textbook
  * @author    Brad Payne <brad@bradpayne.ca>
@@ -95,24 +92,8 @@ class Textbook {
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueueAdminStyles' ) );
 		add_action( 'wp_enqueue_style', array( &$this, 'enqueueChildThemes' ) );
 		add_action( 'admin_notices', array( &$this, 'displayBlogWarning' ) );
-		add_filter( 'allowed_themes', array( &$this, 'filterChildThemes' ) );
+		add_filter( 'allowed_themes', array( &$this, 'filterChildThemes' ), 11 );
 	}
-
-	/**
-	 * Return an instance of this class.
-	 *
-	 * @since  1.0.0
-	 * @return object A single instance of this class.
-	 */
-//	static function getInstance() {
-//
-//		// If the single instance hasn't been set, set it now.
-//		if ( null == self::$instance ) {
-//			self::$instance = new self;
-//		}
-//
-//		return self::$instance;
-//	}
 	
 	/**
 	 * Include our files
@@ -231,20 +212,23 @@ class Textbook {
 	 * @return array
 	 */
 	function filterChildThemes( $themes ) {
-		
 		$pbt_themes = array();
 		
-		$registered_themes = search_theme_directories();
+		if ( \Pressbooks\Book::isBook() ) {
+			$registered_themes = search_theme_directories();
 
-		foreach ( $registered_themes as $key => $val ) {
-			if ($val['theme_root'] == PBT_PLUGIN_DIR . 'themes-book'){
-				$pbt_themes[$key] = 1;
+			foreach ( $registered_themes as $key => $val ) {
+				if ( $val['theme_root'] == PBT_PLUGIN_DIR . 'themes-book' ) {
+					$pbt_themes[$key] = 1;
+				}
 			}
+
+			$themes = array_merge( $themes, $pbt_themes );
+
+			return $themes;
+		} else {
+			return $pbt_themes;
 		}
-
-		$themes = array_merge($themes, $pbt_themes);
-
-		return $themes;
 	}
 
 	/**
