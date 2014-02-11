@@ -82,11 +82,11 @@ class Textbook {
 	}
 	
 	/**
-	 * Include our files
+	 * Include our plugins
 	 */
 	function includes() {
 		require_once( PBT_PLUGIN_DIR . 'symbionts/mce-table-buttons/mce_table_buttons.php');
-		
+		require_once( PBT_PLUGIN_DIR . 'symbionts/mce-textbook-buttons/mce-textbook-buttons.php');
 	}
 	
 	/**

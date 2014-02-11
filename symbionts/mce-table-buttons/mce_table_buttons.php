@@ -50,6 +50,4 @@ class MCE_Table_Buttons {
 		return $content;
 	}
 }
-if ( ! class_exists( 'MCE_Table_Buttons' ) ) {
-	$mce_table_buttons = new MCE_Table_Buttons;
-}
+$mce_table_buttons = new MCE_Table_Buttons;
