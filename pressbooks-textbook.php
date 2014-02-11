@@ -93,6 +93,7 @@ class Textbook {
 		    'mce-table-buttons/mce_table_buttons.php' => 1,
 		    'mce-textbook-buttons/mce-textbook-buttons.php' => 1,
 		    'creative-commons-configurator-1/cc-configurator.php' => 1,
+//		    'relevanssi/relevanssi.php' => 1,
 		);
 		// filter out active plugins
 		$pbt_plugin = $this->activePlugins( $pbt_plugin );

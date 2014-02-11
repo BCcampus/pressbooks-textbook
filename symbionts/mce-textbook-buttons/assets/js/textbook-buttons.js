@@ -50,7 +50,7 @@
 			ed.addButton('exercises', {
 				title: 'Exercises and Critical Thinking',
 				cmd: 'exercises',
-				image: url + '/exercises.png'
+				image: url + '/exercise.png'
 			});
 
 			ed.addCommand('exercises', function() {
