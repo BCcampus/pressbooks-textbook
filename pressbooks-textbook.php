@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PressBooks Textbook
  *
@@ -18,12 +19,15 @@
  * Domain Path:       /languages
  * GitHub Plugin URI: https://github.com/BCcampus/pressbooks-textbook
  */
+
 namespace PBT;
 
 // If file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die();
 }
+
+require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
 
 class Textbook {
 
@@ -64,43 +68,62 @@ class Textbook {
 
 		if ( ! defined( 'PBT_PLUGIN_URL' ) )
 				define( 'PBT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-		
+
 		// Load translations
 		add_action( 'init', array( $this, 'loadPluginTextDomain' ) );
 
 		// Setup our activation and deactivation hooks
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
 		register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
-		
+
 		// Hook in our pieces
-		add_action( 'plugins_loaded', array( &$this, 'includes'));
-		add_action( 'init', array(&$this, 'registerScriptsAndStyles'));
+		add_action( 'plugins_loaded', array( &$this, 'includes' ) );
+		add_action( 'init', array( &$this, 'registerScriptsAndStyles' ) );
 		add_action( 'admin_menu', array( &$this, 'adminMenuAdjuster' ) );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueueAdminStyles' ) );
 		add_action( 'wp_enqueue_style', array( &$this, 'enqueueChildThemes' ) );
 		add_filter( 'allowed_themes', array( &$this, 'filterChildThemes' ), 11 );
 	}
-	
+
 	/**
 	 * Include our plugins
 	 */
 	function includes() {
-		require_once( PBT_PLUGIN_DIR . 'symbionts/mce-table-buttons/mce_table_buttons.php');
-		require_once( PBT_PLUGIN_DIR . 'symbionts/mce-textbook-buttons/mce-textbook-buttons.php');
+		$pbt_plugin = array(
+		    'mce-table-buttons/mce_table_buttons.php' => 1,
+		    'mce-textbook-buttons/mce-textbook-buttons.php' => 1,
+		    'creative-commons-configurator-1/cc-configurator.php' => 1,
+		);
+		// filter out active plugins
+		$pbt_plugin = $this->activePlugins( $pbt_plugin );
+
+		foreach ( $pbt_plugin as $key => $val ) {
+			require_once( PBT_PLUGIN_DIR . 'symbionts/' . $key);
+		}
 	}
-	
+
+	private function activePlugins( $pbt_plugin ) {
+		// don't include plugins already active
+		foreach ( $pbt_plugin as $key => $val ) {
+			if ( 1 == is_plugin_active( $key ) || 1 == is_plugin_active_for_network( $key ) ) {
+				unset( $pbt_plugin[$key] );
+			}
+		}
+
+		return $pbt_plugin;
+	}
+
 	/**
 	 * Register all scripts and styles
 	 * 
 	 * @since 1.0.0
 	 */
-	function registerScriptsAndStyles(){
+	function registerScriptsAndStyles() {
 		// Register scripts
-		
 		// Register styles
 		register_theme_directory( PBT_PLUGIN_DIR . 'themes-book' );
 		wp_register_style( 'pbt-import-button', PBT_PLUGIN_URL . 'admin/assets/css/import-button.css', '', self::VERSION );
-		wp_register_style( 'pbt-open-textbooks', PBT_PLUGIN_URL . 'themes-book/opentextbook/style.css', array('pressbooks'), self::VERSION, 'screen' );
+		wp_register_style( 'pbt-open-textbooks', PBT_PLUGIN_URL . 'themes-book/opentextbook/style.css', array( 'pressbooks' ), self::VERSION, 'screen' );
 	}
 
 	/**
@@ -112,10 +135,10 @@ class Textbook {
 		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return;
 		}
-		
+
 		// Include our bits
 		$this->includes();
-		
+
 		add_option( 'pressbooks-textbook-activated', true );
 	}
 
@@ -147,7 +170,7 @@ class Textbook {
 	 *
 	 * @since    1.0.0
 	 */
-	 function loadPluginTextDomain() {
+	function loadPluginTextDomain() {
 
 		$domain = $this->plugin_slug;
 		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
@@ -179,7 +202,6 @@ class Textbook {
 //		wp_enqueue_script( $this->plugin_slug . '-plugin-script', plugins_url( 'assets/js/public.js', __FILE__ ), array( 'jquery' ), self::VERSION );
 	}
 
-
 	/**
 	 * Adds and Removes some admin buttons
 	 */
@@ -199,7 +221,7 @@ class Textbook {
 	 */
 	function filterChildThemes( $themes ) {
 		$pbt_themes = array();
-		
+
 		if ( \Pressbooks\Book::isBook() ) {
 			$registered_themes = search_theme_directories();
 
@@ -220,7 +242,7 @@ class Textbook {
 }
 
 // Prohibit installation on the main blog, or PB is not installed
-if ( get_current_blog_id() != 1 || is_multisite() || get_site_option( 'pressbooks-activated' )) {
+if ( get_current_blog_id() != 1 || is_multisite() || get_site_option( 'pressbooks-activated' ) ) {
 	$GLOBALS['pressbookstextbook'] = new Textbook();
 }
 

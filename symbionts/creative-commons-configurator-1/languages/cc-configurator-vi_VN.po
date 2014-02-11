@@ -1,0 +1,388 @@
+#  POT (Portable Object Template)
+# 
+#  This file is part of the Creative-Commons-Configurator plugin for WordPress.
+# 
+#  http://www.g-loaded.eu/2006/01/14/creative-commons-configurator-wordpress-plugin/
+# 
+#  Copyright (C) 2006-2013 George Notaras <gnot@g-loaded.eu>
+# 
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+# 
+# 
+# Translators:
+# bizover, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Creative-Commons-Configurator translations\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-07 20:39+0200\n"
+"PO-Revision-Date: 2013-11-20 10:30+0000\n"
+"Last-Translator: gnotaras <gnot@g-loaded.eu>\n"
+"Language-Team: Vietnamese (Viet Nam) (http://www.transifex.com/projects/p/cc-configurator/language/vi_VN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: vi_VN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: cc-configurator.php:65
+msgid "Settings"
+msgstr "thiết lập"
+
+#: cc-configurator.php:91
+msgid "Creative Commons"
+msgstr "sự sáng tạo chung"
+
+#: cc-configurator.php:91 bccl-admin-panel.php:42 bccl-admin-panel.php:493
+#: bccl-admin-panel.php:569
+msgid "License"
+msgstr "giấy phép"
+
+#: cc-configurator.php:144 bccl-admin-panel.php:431
+msgid "Creative Commons License"
+msgstr "giấy phép sáng tạo chung"
+
+#: cc-configurator.php:313
+msgid "by"
+msgstr "bởi"
+
+#: cc-configurator.php:315
+msgid "This work"
+msgstr "công việc này"
+
+#: cc-configurator.php:318
+msgid "unless otherwise expressly stated"
+msgstr "trừ phi có quy định rõ ràng"
+
+#: cc-configurator.php:318
+msgid "is licensed under a"
+msgstr "là được cho phép dưới một"
+
+#: cc-configurator.php:322
+msgid ""
+"Terms and conditions beyond the scope of this license may be available at"
+msgstr "Điều khoản và điều kiện vượt quá phạm vi của sự cho phép này có thể được cung cấp tại"
+
+#: bccl-settings.php:202
+msgid "CC-Configurator options saved"
+msgstr ""
+
+#: bccl-settings.php:222
+msgid "Creative Commons license saved."
+msgstr "tạo ra giấy phép chung đã lưu."
+
+#: bccl-settings.php:245
+msgid "CC-Configurator options were reset to defaults"
+msgstr ""
+
+#: bccl-settings.php:268
+msgid "CC-Configurator license has been removed."
+msgstr ""
+
+#: bccl-admin-panel.php:21
+msgid "Creative Commons Configurator"
+msgstr ""
+
+#: bccl-admin-panel.php:22
+msgid ""
+"Helps you publish your content under the terms of a Creative Commons "
+"license."
+msgstr ""
+
+#: bccl-admin-panel.php:41 bccl-admin-panel.php:161 bccl-admin-panel.php:198
+msgid "License Settings"
+msgstr "thiết lập cho phép"
+
+#: bccl-admin-panel.php:72
+msgid "You do not have sufficient permissions to access this page."
+msgstr "bạn không đủ quyền để truy cập trang này."
+
+#: bccl-admin-panel.php:162
+msgid ""
+"Welcome to the administration panel of the Creative-Commons-Configurator "
+"plugin for WordPress."
+msgstr "Chào mừng bạn đến bảng điều hành chính của bộ nối tạo ra bộ cấu hình chung cho WordPress."
+
+#: bccl-admin-panel.php:164
+msgid "Select License"
+msgstr "lựa chọn cho phép"
+
+#: bccl-admin-panel.php:165
+msgid ""
+"A license has not been set for your content. By pressing the following link "
+"you will be taken to the license selection wizard, hosted by the Creative "
+"Commons organization. Once you have completed the license selection process,"
+" you will be redirected back to this page."
+msgstr ""
+
+#: bccl-admin-panel.php:175
+msgid "New License"
+msgstr "giấy phép mới"
+
+#: bccl-admin-panel.php:203
+msgid "Current License"
+msgstr "giấy phép hiện hành"
+
+#: bccl-admin-panel.php:204
+msgid "A license has been set and will be used to license your work."
+msgstr "Giấy phép đã được thiết lập và sẽ được sử dụng để cho phép công việc của bạn."
+
+#: bccl-admin-panel.php:205
+msgid ""
+"If you need to set a different license, press the <em>Reset License</em> "
+"button below."
+msgstr ""
+
+#: bccl-admin-panel.php:208
+msgid "Reset License"
+msgstr "thiết lập lại giấy phép"
+
+#: bccl-admin-panel.php:214
+msgid "Message from the author"
+msgstr "thông báo từ tác giả"
+
+#: bccl-admin-panel.php:218
+msgid "This message can de deactivated in the settings below."
+msgstr "thông báo này có thể ngừng hoạt động trong thiết lập dưới đây."
+
+#: bccl-admin-panel.php:222
+msgid "Configuration"
+msgstr "cấu hình"
+
+#: bccl-admin-panel.php:223
+msgid ""
+"Here you can choose where and how license information should be added to "
+"your blog."
+msgstr "Ở đây bạn có thể chọn nơi và làm thế nào thông tin cho phép nên được thêm vào blog của bạn."
+
+#: bccl-admin-panel.php:231 bccl-admin-panel.php:234
+msgid "Syndicated Content"
+msgstr "cung cấp thông tin nội dung"
+
+#: bccl-admin-panel.php:237
+msgid "Include license information in the blog feeds. (<em>Recommended</em>)"
+msgstr "bao gồm thông tin cho phép trong nguồn cung cấp dữ liệu blog. (<em>được giới thiệu</em>)"
+
+#: bccl-admin-panel.php:245 bccl-admin-panel.php:248
+msgid "Page Head HTML"
+msgstr "trang chủ HTML"
+
+#: bccl-admin-panel.php:251
+msgid ""
+"Include license information in the page's HTML head. This will not be "
+"visible to human visitors, but search engine bots will be able to read it. "
+"Note that the insertion of license information in the HTML head is done in "
+"relation to the content types (posts, pages or attachment pages) on which "
+"the license text block is displayed (see the <em>text block</em> settings "
+"below). (<em>Recommended</em>)"
+msgstr "Bao gồm thông tin cho phép trong phần đầu HTML của trang. Điều này sẽ không được hiển thị cho người du khách, nhưng chương trình công cụ tìm kiếm sẽ có thể đọc nó. Lưu ý rằng việc đưa các thông tin cho phép vào phần đầu HTML được thực hiện liên quan đến các loại nội dung (bài viết, các trang hoặc các trang đính kèm) mà trên đó các khối văn bản giấy phép được hiển thị (see the <em>text block</em> settings below). (<em>Recommended</em>)"
+
+#: bccl-admin-panel.php:259 bccl-admin-panel.php:262
+msgid "Text Block"
+msgstr "khối văn bản"
+
+#: bccl-admin-panel.php:264
+msgid ""
+"By enabling the following options, a small block of text, which contains "
+"links to the author, the work and the used license, is appended to the "
+"published content."
+msgstr "Bằng cách cho phép các tùy chọn sau, một khối nhỏ của văn bản, trong đó có liên kết đến tác giả, tác phẩm và giấy phép sử dụng, được nối thêm vào nội dung công bố."
+
+#: bccl-admin-panel.php:268
+msgid ""
+"Posts: Add the text block with license information under the published "
+"posts. (<em>Recommended</em>)"
+msgstr "thông báo: Thêm khối văn bản với thông tin giấy phép theo các bài viết được xuất bản.. (<em>Recommended</em>)"
+
+#: bccl-admin-panel.php:274
+msgid ""
+"Pages: Add the text block with license information under the published "
+"pages."
+msgstr "các trang: Thêm khối văn bản với thông tin giấy phép theo các trang được xuất bản."
+
+#: bccl-admin-panel.php:280
+msgid ""
+"Attachments: Add the text block with license information under the attached "
+"content in attachment pages."
+msgstr "đính kèm: Thêm khối văn bản với thông tin giấy phép theo các nội dung đính kèm trong trang tập tin đính kèm."
+
+#: bccl-admin-panel.php:284
+msgid ""
+"By enabling the following option, the license image is also included in the "
+"license text block."
+msgstr "Bằng cách cho phép các tùy chọn sau đây, giấy phép hình ảnh cũng được bao gồm trong các khối văn bản giấy phép."
+
+#: bccl-admin-panel.php:288
+msgid "Include the license image in the text block."
+msgstr "bao gồm các giấy phép hình ảnh trong khối văn bản."
+
+#: bccl-admin-panel.php:296 bccl-admin-panel.php:300
+msgid "Extra Text Block Customization"
+msgstr "thêm khối văn bản tùy chọn"
+
+#: bccl-admin-panel.php:298 bccl-admin-panel.php:344
+msgid ""
+"The following settings have an effect only if the text block containing "
+"licensing information has been enabled above."
+msgstr "Các cài đặt sau có tác dụng chỉ khi khối văn bản có chứa thông tin bản quyền đã được kích hoạt trên."
+
+#: bccl-admin-panel.php:304
+msgid ""
+"Include extended information about the published work and its creator. By "
+"enabling this option, hyperlinks to the published content and its "
+"creator/publisher are also included into the license statement inside the "
+"block. This, by being an attribution example itself, will generally help "
+"others to attribute the work to you."
+msgstr "Bao gồm các thông tin mở rộng về công tác xuất bản và tác giả của nó. Bằng cách cho phép tùy chọn này, các siêu liên kết đến nội dung xuất bản và tác giả / nhà xuất bản của nó cũng được đưa vào báo cáo kết quả cấp giấy phép trong khối. ở đây, bởi là một ví dụ ghi chính nó, nói chung sẽ giúp đỡ người khác, cho rằng công việc cho bạn."
+
+#: bccl-admin-panel.php:322
+msgid ""
+"If extended information about the published work has been enabled, then you "
+"can choose which name will indicate the creator of the work. By default, the"
+" blog name is used."
+msgstr "Nếu thông tin mở rộng về công tác xuất bản đã được kích hoạt, sau đó bạn có thể chọn tên sẽ cho biết tác giả của tác phẩm. Theo mặc định, tên blog được sử dụng."
+
+#: bccl-admin-panel.php:330
+msgid ""
+"If you have added any extra permissions to your license, provide the URL to "
+"the webpage that contains them. It is highly recommended to use absolute "
+"URLs."
+msgstr "Nếu bạn có thêm bất kỳ điều khoản thêm giấy phép của bạn, cung cấp các URL cho trang web có chứa chúng. Nó rất cao nên sử dụng các URL tuyệt đối."
+
+#: bccl-admin-panel.php:332
+msgid "Example"
+msgstr "ví dụ"
+
+#: bccl-admin-panel.php:342 bccl-admin-panel.php:346
+msgid "Colors of the text block"
+msgstr "màu cho khối văn bản"
+
+#: bccl-admin-panel.php:350
+msgid ""
+"Set a color for the text that appears within the block (does not affect "
+"hyperlinks)."
+msgstr "Thiết lập một màu cho văn bản xuất hiện trong khối (không ảnh hưởng đến các liên kết)."
+
+#: bccl-admin-panel.php:352 bccl-admin-panel.php:361 bccl-admin-panel.php:370
+msgid "Default"
+msgstr "mặc định"
+
+#: bccl-admin-panel.php:359
+msgid "Set a background color for the block."
+msgstr "thiết lập một màu nền cho khối."
+
+#: bccl-admin-panel.php:368
+msgid "Set a color for the border of the block."
+msgstr "thiết lập một màu cho viền của khối."
+
+#: bccl-admin-panel.php:377
+msgid ""
+"Disable the internal formatting of the license block. If the internal "
+"formatting is disabled, then the color selections above have no effect any "
+"more. You can still format the license block via your own CSS. The <em>cc-"
+"block</em> and <em>cc-button</em> classes have been reserved for formatting "
+"the license block and the license button respectively."
+msgstr "Vô hiệu hóa các định dạng nội bộ của khối giấy phép. Nếu các định dạng nội bộ bị vô hiệu hóa, sau đó các lựa chọn màu sắc trên không có tác dụng nữa. Bạn vẫn có thể định dạng các khối giấy phép thông qua CSS của riêng bạn. The <em>cc-block</em> and <em>cc-button</em> các lớp học đã được dành riêng cho các định dạng khối giấy phép và giấy phép vào nút tương ứng."
+
+#: bccl-admin-panel.php:386 bccl-admin-panel.php:389
+msgid "Donations"
+msgstr "đóng góp"
+
+#: bccl-admin-panel.php:392
+#, php-format
+msgid ""
+"By checking this, the <em>message from the author</em> above goes away. "
+"Thanks for <a href=\"%s\">donating</a>!"
+msgstr ""
+
+#: bccl-admin-panel.php:405
+msgid "Save Changes"
+msgstr "lưu thay đổi"
+
+#: bccl-admin-panel.php:406
+msgid "Reset to defaults"
+msgstr ""
+
+#: bccl-admin-panel.php:432
+msgid "Licensing information"
+msgstr ""
+
+#: bccl-admin-panel.php:497
+msgid "Title:"
+msgstr ""
+
+#: bccl-admin-panel.php:659
+msgid ""
+"Default Creative Commons license &ndash; Use the license that has been set "
+"in the general license settings."
+msgstr ""
+
+#: bccl-admin-panel.php:663
+msgid ""
+"No Rights Reserved &ndash; Release this work to the <a "
+"href=\"http://wiki.creativecommons.org/Public_domain\">Public Domain</a> "
+"using the <a href=\"http://creativecommons.org/about/cc0\">Creative Commons "
+"CC0</a>, a form of copyright and related rights waiver."
+msgstr ""
+
+#: bccl-admin-panel.php:667
+msgid ""
+"All Rights Reserved &ndash; Reserve all rights provided by copyright law."
+msgstr ""
+
+#: bccl-admin-panel.php:671
+msgid ""
+"No automatic license &ndash; Let me add licensing information manually."
+msgstr ""
+
+#: bccl-utils.php:70
+msgid "Blog Name"
+msgstr "tên blog"
+
+#: bccl-utils.php:71
+msgid "First + Last Name"
+msgstr "tên + họ"
+
+#: bccl-utils.php:72
+msgid "Last + First Name"
+msgstr "họ + tên"
+
+#: bccl-utils.php:73
+msgid "Nickname"
+msgstr "biệt danh"
+
+#: bccl-utils.php:74
+msgid "Displayed Name"
+msgstr "hiển thị tên"
+
+#: bccl-licenses.php:28
+#, php-format
+msgid "Copyright &copy; %s - All Rights Reserved"
+msgstr ""
+
+#: bccl-licenses.php:30
+msgid "Information about licensing this work may be available at"
+msgstr ""
+
+#: bccl-licenses.php:38
+msgid ""
+"To the extent possible under law, the creator has waived all copyright and "
+"related or neighboring rights to this work."
+msgstr ""
+
+#: bccl-licenses.php:39
+#, php-format
+msgid ""
+"To the extent possible under law, %s has waived all copyright and related or"
+" neighboring rights to %s."
+msgstr ""
