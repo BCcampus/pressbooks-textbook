@@ -27,7 +27,7 @@ class TextbookButtons {
 		// Define plugin constants
 		
 		// Load translations
-		
+
 		// Hook in our bits
 		add_action( 'admin_init', array( $this, 'addFilters' ) );
 	}
@@ -83,5 +83,9 @@ class TextbookButtons {
 	}
 
 }
+// Display only if a textbook theme is active
+$t = wp_get_theme();
 
-$textbook_buttons = new TextbookButtons();
+if ( in_array( 'Pressbooks Textbook', $t->get( 'Tags' ) ) ) {
+	$textbook_buttons = new TextbookButtons();
+}

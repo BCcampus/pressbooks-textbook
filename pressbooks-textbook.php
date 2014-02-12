@@ -95,15 +95,22 @@ class Textbook {
 		    'creative-commons-configurator-1/cc-configurator.php' => 1,
 //		    'relevanssi/relevanssi.php' => 1,
 		);
-		// filter out active plugins
-		$pbt_plugin = $this->activePlugins( $pbt_plugin );
+
+		$pbt_plugin = $this->filterActivePlugins( $pbt_plugin );
 
 		foreach ( $pbt_plugin as $key => $val ) {
 			require_once( PBT_PLUGIN_DIR . 'symbionts/' . $key);
 		}
 	}
 
-	private function activePlugins( $pbt_plugin ) {
+	/**
+	 * Filters out active plugins
+	 * 
+	 * @param array $pbt_plugin
+	 * @return array
+	 */
+	
+	private function filterActivePlugins( $pbt_plugin ) {
 		// don't include plugins already active
 		foreach ( $pbt_plugin as $key => $val ) {
 			if ( 1 == is_plugin_active( $key ) || 1 == is_plugin_active_for_network( $key ) ) {
