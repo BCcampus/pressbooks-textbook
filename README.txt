@@ -9,61 +9,45 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 PressBooks Textbook adds functionality to the PressBooks plugin specific to textbooks.
 
 == Description ==
+**PressBooks Textbook** adds functionality to PressBooks to make it easier to author textbooks as well. The features it currently offers are: 
+* Textbook Theme
+* TinyMCE table buttons
+* TinyMCE textbook buttons 
+* Search functionality
+* Creative Commons attribution
+* Prominent admin buttons (Import, Plugin)
 
-
+Textbooks have styling considerations above and beyond regular books. Open textbooks are those that are licensed with a [creative commons license](http://creativecommons.org).
+This plugin was built primarily to support the creation, remixing and distribution of open textbooks for the [open textbook project in BC](http://open.bccampus.ca/about-2/).
 
 == Installation ==
 
+IMPORTANT! 
 
-= Using The WordPress Dashboard =
+You must first install [PressBooks](https://github.com/pressbooks/pressbooks). This plugin won't work without it.
 
-1. Navigate to the 'Add New' in the plugins dashboard
-2. Search for 'plugin-name'
-3. Click 'Install Now'
-4. Activate the plugin on the Plugin dashboard
+= Using Git =
 
-= Uploading in WordPress Dashboard =
+cd /pressbooks/wp-content/plugins
+git clone https://github.com/BCcampus/pressbooks-textbook.git 
 
-1. Navigate to the 'Add New' in the plugins dashboard
-2. Navigate to the 'Upload' area
-3. Select `plugin-name.zip` from your computer
-4. Click 'Install Now'
-5. Activate the plugin in the Plugin dashboard
+= Then, go to the WordPress Dashboard =
 
-= Using FTP =
-
-1. Download `plugin-name.zip`
-2. Extract the `plugin-name` directory to your computer
-3. Upload the `plugin-name` directory to the `/wp-content/plugins/` directory
-4. Activate the plugin in the Plugin dashboard
-
-
-== Frequently Asked Questions ==
-
-= A question that someone might have =
-
-An answer to that question.
-
-= What about foo bar? =
-
-Answer to foo bar dilemma.
+1. Navigate to the Network Admin -> Plugins
+2. Search for 'PressBooks Textbook'
+3. Click 'Network Activate'
 
 == Screenshots ==
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+1. Modified homepage
+2. Search feature
+3. Textbook specific buttons, styling maintain throughout export routines
+4. Textbook theme
 
 == Changelog ==
 
-= 1.0 =
-* A change since the previous version.
-* Another change.
+See: https://github.com/BCcampus/pressbooks-textbook/commits/master
 
-
-== Arbitrary section ==
 
 
 
@@ -71,18 +55,5 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 This plugin supports the [GitHub Updater](https://github.com/afragen/github-updater) plugin, so if you install that, this plugin becomes automatically updateable direct from GitHub. Any submission to WP.org repo will make this redundant.
 
-== A brief Markdown Example ==
-
-Ordered list:
-
-1. Some feature
-1. Another feature
-1. Something else about the plugin
-
-Unordered list:
-
-* something
-* something else
-* third thing
 
 
