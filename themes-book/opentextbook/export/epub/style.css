@@ -516,7 +516,7 @@ sup.footnote, sup.endnote {
 **************************/
 
 .bcc-box{
-	max-width: 100%;
+/*	max-width: 100%;*/
 	padding: 1% 3%;
 	margin-bottom: 15px; 
 }
