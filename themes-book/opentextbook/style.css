@@ -9,6 +9,25 @@ Tags: Pressbooks Textbook
 
 @import url("../../../pressbooks/themes-book/pressbooks-book/style.css");
 
+/*************************
+	Main content area
+**************************/
+#content{
+	width: 720px;
+}
+
+.nav{
+	width: 900px;
+	margin-left: -450px;
+}
+
+#sidebar{
+	margin-right: -24px;
+}
+
+/*************************
+	Footer
+**************************/
 p.cc-block{
 	background-color: #f9f9f9 !important;
 	border: 1px solid #dddddd !important;

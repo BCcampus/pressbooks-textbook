@@ -48,9 +48,6 @@ git clone https://github.com/BCcampus/pressbooks-textbook.git
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master
 
-
-
-
 == Updates ==
 
 This plugin supports the [GitHub Updater](https://github.com/afragen/github-updater) plugin, so if you install that, this plugin becomes automatically updateable direct from GitHub. Any submission to WP.org repo will make this redundant.

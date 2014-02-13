@@ -109,7 +109,6 @@ class Textbook {
 	 * @param array $pbt_plugin
 	 * @return array
 	 */
-	
 	private function filterActivePlugins( $pbt_plugin ) {
 		// don't include plugins already active
 		foreach ( $pbt_plugin as $key => $val ) {
@@ -143,7 +142,6 @@ class Textbook {
 		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return;
 		}
-
 		// Include our bits
 		$this->includes();
 
@@ -249,7 +247,7 @@ class Textbook {
 
 }
 
-// Prohibit installation on the main blog, or PB is not installed
+// Prohibit installation on the main blog, or if PB is not installed
 if ( get_current_blog_id() != 1 || is_multisite() || get_site_option( 'pressbooks-activated' ) ) {
 	$GLOBALS['pressbookstextbook'] = new Textbook();
 }
