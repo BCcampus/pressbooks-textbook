@@ -9,41 +9,6 @@ Tags: Pressbooks Textbook
 
 @import url("../../../pressbooks/themes-book/pressbooks-book/style.css");
 
-/*************************
-	Main content area
-**************************/
-@media screen and (min-width: 940px) {
-	#content{
-		width: 720px;
-	}
-
-	.nav{
-		width: 900px;
-		margin-left: -450px;
-	}
-
-	#sidebar{
-		margin-right: -24px;
-	}
-}
-
-/*************************
-	Footer
-**************************/
-p.cc-block{
-	background-color: #f9f9f9 !important;
-	border: 1px solid #dddddd !important;
-	font-size: small;
-	line-height: 17px;
-	width: 100% !important;
-	margin: 30px auto 8px !important;
-	border-radius: 4px;
-	
-}
-
-.screen-reader-text{
-	display:none;
-}
 /********************
 	@Font-Face 
 *********************/
@@ -79,6 +44,15 @@ h3, h4 {
 	text-transform: uppercase;
 }
 
+ol.orderedlist{
+	list-style-type: lower-alpha;
+	list-style-position: inside;
+	margin-left: 25px;
+}
+
+ol.orderedlist li::before{
+	content: normal;
+}
 /****************************************
 	TOC, Author page, Book Page
 *****************************************/
@@ -158,6 +132,24 @@ h3, h4 {
 	text-transform: none;
 }
 
+/*************************
+	Footer
+**************************/
+p.cc-block{
+	background-color: #f9f9f9 !important;
+	border: 1px solid #dddddd !important;
+	font-size: small;
+	line-height: 17px;
+	width: 100% !important;
+	margin: 30px auto 8px !important;
+	border-radius: 4px;
+	
+}
+
+.screen-reader-text{
+	display:none;
+}
+
 /*******************************
 	Textbook specific styles 
 ********************************/
@@ -203,4 +195,23 @@ h3, h4 {
 }
 .bcc-box.bcc-warning h3{
 	background-color: #c09853;
+}
+
+/*************************
+	Media queries
+**************************/
+
+@media screen and (min-width: 940px) {
+	#content{
+		width: 720px;
+	}
+
+	.nav{
+		width: 900px;
+		margin-left: -450px;
+	}
+
+	#sidebar{
+		margin-right: -24px;
+	}
 }
