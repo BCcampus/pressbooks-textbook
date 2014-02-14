@@ -12,17 +12,19 @@ Tags: Pressbooks Textbook
 /*************************
 	Main content area
 **************************/
-#content{
-	width: 720px;
-}
+@media screen and (min-width: 940px) {
+	#content{
+		width: 720px;
+	}
 
-.nav{
-	width: 900px;
-	margin-left: -450px;
-}
+	.nav{
+		width: 900px;
+		margin-left: -450px;
+	}
 
-#sidebar{
-	margin-right: -24px;
+	#sidebar{
+		margin-right: -24px;
+	}
 }
 
 /*************************
