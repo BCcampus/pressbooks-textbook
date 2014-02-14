@@ -44,13 +44,13 @@ h3, h4 {
 	text-transform: uppercase;
 }
 
-ol.orderedlist{
+ol.alphalist{
 	list-style-type: lower-alpha;
 	list-style-position: inside;
 	margin-left: 25px;
 }
 
-ol.orderedlist li::before{
+ol.alphalist li::before{
 	content: normal;
 }
 /****************************************
