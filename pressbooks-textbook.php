@@ -94,6 +94,7 @@ class Textbook {
 		    'mce-textbook-buttons/mce-textbook-buttons.php' => 1,
 		    'creative-commons-configurator-1/cc-configurator.php' => 1,
 //		    'relevanssi/relevanssi.php' => 1,
+		    'wp-latex/wp-latex.php' => 1, 
 		);
 
 		$pbt_plugin = $this->filterActivePlugins( $pbt_plugin );
@@ -143,9 +144,12 @@ class Textbook {
 			return;
 		}
 		// Include our bits
-		$this->includes();
-
-		add_option( 'pressbooks-textbook-activated', true );
+		// $this->includes();
+		
+		// register activation for other plugins?
+		// for latex_for_wp
+		
+		add_site_option( 'pressbooks-textbook-activated', true );
 	}
 
 	/**
@@ -158,7 +162,7 @@ class Textbook {
 			return;
 		}
 
-		delete_option( 'pressbooks-textbook-activated' );
+		delete_site_option( 'pressbooks-textbook-activated' );
 	}
 
 	/**
@@ -248,7 +252,7 @@ class Textbook {
 }
 
 // Prohibit installation on the main blog, or if PB is not installed
-if ( get_current_blog_id() != 1 || is_multisite() || get_site_option( 'pressbooks-activated' ) ) {
+if ( is_main_site() || is_multisite() || get_site_option( 'pressbooks-activated' ) ) {
 	$GLOBALS['pressbookstextbook'] = new Textbook();
 }
 
