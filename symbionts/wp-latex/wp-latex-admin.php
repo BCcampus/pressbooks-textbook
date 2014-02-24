@@ -8,6 +8,7 @@ class WP_LaTeX_Admin extends WP_LaTeX {
 	function init() {
 		parent::init();
 		$this->errors = new WP_Error;
+		// since we're activating at the network level, this needs to be called in the constructor
 		$this->activation_hook();
 
 		add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
@@ -19,11 +20,6 @@ class WP_LaTeX_Admin extends WP_LaTeX {
 
 		if ( 'Automattic_Latex_WPCOM' != $this->options['method'] && !is_writable( WP_CONTENT_DIR . '/latex' ) )
 			add_action( 'admin_notices', array( &$this, 'not_writeable_error' ) );
-		if ( !empty( $this->options['activated'] ) ) {
-			add_action( 'admin_notices', array( &$this, 'activated_notice' ) );
-			unset( $this->options['activated'] );
-			update_option( 'wp_latex', $this->options );
-		}
 
 		add_filter( 'plugin_action_links_' . plugin_basename( dirname( __FILE__ ) . '/wp-latex.php' ), array( &$this, 'plugin_action_links' ) );
 	}
@@ -36,15 +32,7 @@ class WP_LaTeX_Admin extends WP_LaTeX {
 	); ?></p></div>
 <?php
 	}
-
-	function activated_notice() {
-?>
-	<div id="latex-config" class="updated fade"><p><?php printf(
-		__( 'Make sure to check your <a href="%s">WP LaTeX Settings</a>.' ),
-		esc_url( admin_url( 'options-general.php?page=wp-latex' ) )
-	); ?></p></div>
-<?php
-	}
+	
 	function plugin_action_links( $links ) {
 		array_unshift( $links, '<a href="options-general.php?page=wp-latex">' . __( 'Settings' ) . "</a>" );
 		return $links;
@@ -435,7 +423,7 @@ tr.wp-latex-method-<?php echo $current_method; ?> {
 		global $themecolors;
 	
 		if ( empty($bg) )
-			$bg = isset( $themecolors['bg'] ) ? $themecolors['bg'] : 'ffffff';
+			$bg = isset( $themecolors['bg'] ) ? $themecolors['bg'] : 'transparent';
 		if ( empty($fg) )
 			$fg = isset( $themecolors['text'] ) ? $themecolors['text'] : '000000';
 	
@@ -467,7 +455,7 @@ tr.wp-latex-method-<?php echo $current_method; ?> {
 	
 //		$activated = true;
 
-		$this->options = compact( 'bg', 'fg', 'method', 'comments', 'css', 'latex_path', 'dvipng_path', 'dvips_path', 'convert_path', 'wrapper', 'activated' );
+		$this->options = compact( 'bg', 'fg', 'method', 'comments', 'css', 'latex_path', 'dvipng_path', 'dvips_path', 'convert_path', 'wrapper' );
 		update_option( 'wp_latex', $this->options );
 	}
 }

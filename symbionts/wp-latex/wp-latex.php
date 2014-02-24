@@ -106,12 +106,15 @@ class WP_LaTeX {
 	}
 	
 	function inline_to_shortcode( $content ) {
+		// double dollar
+		$content = preg_replace('/\${2}(.*)\${2}/isU', "\$latex $1 \$", $content);
+		
 		if ( false === strpos( $content, '$latex' ) )
 			return $content;
-
+					
 		return preg_replace_callback( '#(\s*)\$latex[= ](.*?[^\\\\])\$(\s*)#', array( &$this, 'inline_to_shortcode_callback' ), $content );
-	}
-
+		}
+				
 	function inline_to_shortcode_callback( $matches ) {
 		$r = "{$matches[1]}[latex";
 

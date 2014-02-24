@@ -98,12 +98,13 @@ class Textbook {
 		);
 
 		$pbt_plugin = $this->filterActivePlugins( $pbt_plugin );
-
+		
+		// include plugins
 		foreach ( $pbt_plugin as $key => $val ) {
 			require_once( PBT_PLUGIN_DIR . 'symbionts/' . $key);
-		}
+		}		
 	}
-
+	
 	/**
 	 * Filters out active plugins
 	 * 
@@ -143,11 +144,6 @@ class Textbook {
 		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return;
 		}
-		// Include our bits
-		// $this->includes();
-		
-		// register activation for other plugins?
-		// for latex_for_wp
 		
 		add_site_option( 'pressbooks-textbook-activated', true );
 	}
@@ -200,7 +196,6 @@ class Textbook {
 
 	function enqueueChildThemes() {
 		wp_enqueue_style( 'pbt-open-textbooks' );
-//		wp_enqueue_style( 'pbt-openstax' );
 	}
 
 	/**
@@ -240,9 +235,9 @@ class Textbook {
 					$pbt_themes[$key] = 1;
 				}
 			}
-
+			// add our theme
 			$themes = array_merge( $themes, $pbt_themes );
-
+			
 			return $themes;
 		} else {
 			return $pbt_themes;
