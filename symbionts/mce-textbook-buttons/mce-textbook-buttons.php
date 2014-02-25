@@ -9,8 +9,8 @@
  * @copyright 2014 Brad Payne
  *
  * @wordpress-plugin
- * Plugin Name:       MCE Textbook Buttons
- * Description:       Adds buttons to TinyMCE for textbook specific sytles
+ * Plugin Name:       MCE Textbook Buttons for PressBooks
+ * Description:       Adds buttons to TinyMCE for textbook specific sytles in PressBooks
  * Version:           1.0.0
  * Author:            Brad Payne
  * Text Domain:       mce-textbook-buttons

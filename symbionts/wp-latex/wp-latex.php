@@ -1,16 +1,23 @@
 <?php
-/*
-Plugin Name: WP LaTeX
-Plugin URI: http://automattic.com/code/
-Description: Converts inline latex code into PNG images that are displayed in your blog posts and comments.  Use either [latex]e^{\i \pi} + 1 = 0[/latex] or $latex e^{\i \pi} + 1 = 0$ syntax.
-Version: 1.8
-Author: Automattic, Inc.
-Author URI: http://automattic.com/
+/**
+ * @author    Brad Payne <brad@bradpayne.ca>
+ * @license   GPL-2.0+
+ * @copyright 2014 Brad Payne
+ * 
+ * Plugin Name: WP LaTeX for Pressbooks
+ * Description: Converts inline latex code into PNG images that are displayed in your PressBooks blog posts.  Use either [latex]e^{\i \pi} + 1 = 0[/latex] or $latex e^{\i \pi} + 1 = 0$ or $$ e^{\i \pi} + 1 = 0 $$ syntax.
+ * Version: 1.0.0
+ * Author: Brad Payne 
+ * License: GPL-2.0+
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
-Copyright: Automattic, Inc.
-Copyright: Sidney Markowitz.
-License: GPL2+
-*/
+/**
+ *
+ * This plugin is forked from the original WP Latex v1.8 http://wordpress.org/plugins/wp-latex/ (c) Sidney Markowitz, Automattic, Inc.
+ * It modifies the plugin to work with PressBooks, strips unwanted features, adds others — activated at the network level
+ *
+ */
 
 if ( !defined('ABSPATH') ) exit;
 
@@ -34,12 +41,10 @@ class WP_LaTeX {
 
 		add_filter( 'the_content', array( &$this, 'inline_to_shortcode' ), 8 );
 		add_shortcode( 'latex', array( &$this, 'shortcode' ) );
-
-		// This isn't really correct.  This adds all shortcodes to comments, not just LaTeX
-		if ( !has_filter( 'comment_text', 'do_shortcode' ) && $this->options['comments'] ) {
-			add_filter( 'comment_text', array( &$this, 'inline_to_shortcode' ) );
-			add_filter( 'comment_text', 'do_shortcode', 31 );
-		}
+		add_filter( 'no_texturize_shortcodes', function ( $excluded_shortcodes ) {
+			$excluded_shortcodes[] = 'wp-latex';
+			return $excluded_shortcodes;
+		} );
 	}
 
 	function wp_head() {
@@ -107,7 +112,7 @@ class WP_LaTeX {
 	
 	function inline_to_shortcode( $content ) {
 		// double dollar
-		$content = preg_replace('/\${2}(.*)\${2}/isU', "\$latex $1 \$", $content);
+		$content = preg_replace('/\${2}(.*)\${2}/isU', "[latex] $1 [/latex]", $content);
 		
 		if ( false === strpos( $content, '$latex' ) )
 			return $content;
@@ -140,7 +145,6 @@ class WP_LaTeX {
 if ( is_admin() ) {
 	require( dirname( __FILE__ ) . '/wp-latex-admin.php' );
 	$wp_latex = new WP_LaTeX_Admin;
-//	register_activation_hook( __FILE__, array( &$wp_latex, 'activation_hook' ) );
 } else {
 	$wp_latex = new WP_LaTeX;
 }

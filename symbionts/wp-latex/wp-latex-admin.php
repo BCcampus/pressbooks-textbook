@@ -1,4 +1,11 @@
 <?php
+/**
+ * Copyright 2014 Brad Payne. GPL v2, of course.
+ * 
+ * This plugin is forked from the original WP Latex v1.8 http://wordpress.org/plugins/wp-latex/ (c) Sidney Markowitz, Automattic, Inc.
+ * It modifies the plugin to work with PressBooks, strips unwanted features, adds others — activated at the network level
+ *
+ */
 
 if ( !defined('ABSPATH') ) exit;
 
@@ -9,7 +16,7 @@ class WP_LaTeX_Admin extends WP_LaTeX {
 		parent::init();
 		$this->errors = new WP_Error;
 		// since we're activating at the network level, this needs to be called in the constructor
-		$this->activation_hook();
+		$this->addOptions();
 
 		add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
 	}
@@ -90,9 +97,7 @@ class WP_LaTeX_Admin extends WP_LaTeX {
 				}
 			}
 		}
-	
-		$comments = intval( $new['comments'] != 0 );
-	
+		
 		if ( isset( $new['css'] ) ) {
 			$css = str_replace( array( "\n", "\r" ), "\n", $new['css'] );
 			$css = trim( preg_replace( '/[\n]+/', "\n", $css ) );
@@ -139,7 +144,7 @@ class WP_LaTeX_Admin extends WP_LaTeX {
 				$convert_path = $new['convert_path'];
 		}
 	
-		$this->options = compact( 'bg', 'fg', 'comments', 'css', 'latex_path', 'dvipng_path', 'dvips_path', 'convert_path', 'wrapper', 'method' );
+		$this->options = compact( 'bg', 'fg', 'css', 'latex_path', 'dvipng_path', 'dvips_path', 'convert_path', 'wrapper', 'method' );
 		update_option( 'wp_latex', $this->options );
 		return !count( $this->errors->get_error_codes() );
 	}
@@ -291,9 +296,10 @@ tr.wp-latex-method-<?php echo $current_method; ?> {
 		<tr>
 			<th scope="row"><?php _e( 'Syntax' ); ?></th>
 			<td class="syntax">
-				<p><?php printf( __( 'You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221; syntax %s<br /> to insert LaTeX into your posts.', 'wp-latex' ),
+				<p><?php printf( __( 'You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221; syntax %s OR %s<br /> to insert LaTeX into your posts.', 'wp-latex' ),
 					'<code>[latex]e^{\i \pi} + 1 = 0[/latex]</code>',
-					'<code>$latex e^{\i \pi} + 1 = 0$</code>'
+					'<code>$latex e^{\i \pi} + 1 = 0$</code>',
+					'<code>$$ e^{\i \pi} + 1 = 0 $$</code>'
 				); ?></p>
 				<p><?php _e( 'For more information, see the <a href="http://wordpress.org/extend/plugins/wp-latex/faq/">FAQ</a>' ); ?></p>
 			</td>
@@ -374,13 +380,6 @@ tr.wp-latex-method-<?php echo $current_method; ?> {
 			</td>
 		</tr>
 		<tr>
-			<th scope="row"><label for='wp-latex-comments'><?php _e( 'Comments', 'wp-latex' ); ?></label></th>
-			<td>
-				<input type='checkbox' name='wp_latex[comments]' value='1'<?php checked( $values['comments'], 1 ); ?> id='wp-latex-comments' />
-				<?php _e( 'Parse LaTeX in comments?', 'wp-latex' ); ?>
-			</td>
-		</tr>
-		<tr>
 			<th scope="row"><label for="wp-latex-css"><?php _e( 'Custom CSS to use with the LaTeX images', 'wp-latex' ); ?></label></th>
 			<td>
 				<textarea name='wp_latex[css]' id='wp-latex-css' rows="8" cols="50"><?php echo wp_specialchars( $values['css'] ); ?></textarea>
@@ -416,7 +415,7 @@ tr.wp-latex-method-<?php echo $current_method; ?> {
 	}
 	
 	// Sets up default options
-	function activation_hook() {
+	function addOptions() {
 		if ( is_array( $this->options ) )
 			extract( $this->options, EXTR_SKIP );
 	
@@ -429,12 +428,9 @@ tr.wp-latex-method-<?php echo $current_method; ?> {
 	
 		if ( empty( $method ) )
 			$method = 'Automattic_Latex_WPCOM';
-
-		if ( empty( $comments ) )
-			$comments = 0;
 	
 		if ( empty( $css ) )
-			$css = 'img.latex { vertical-align: middle; border: none; }';
+			$css = 'img.latex { vertical-align: middle; border: none; background: none; }';
 	
 		if ( empty( $latex_path ) )
 			$latex_path = trim( @exec( 'which latex' ) );
@@ -455,7 +451,7 @@ tr.wp-latex-method-<?php echo $current_method; ?> {
 	
 //		$activated = true;
 
-		$this->options = compact( 'bg', 'fg', 'method', 'comments', 'css', 'latex_path', 'dvipng_path', 'dvips_path', 'convert_path', 'wrapper' );
+		$this->options = compact( 'bg', 'fg', 'method', 'css', 'latex_path', 'dvipng_path', 'dvips_path', 'convert_path', 'wrapper' );
 		update_option( 'wp_latex', $this->options );
 	}
 }
