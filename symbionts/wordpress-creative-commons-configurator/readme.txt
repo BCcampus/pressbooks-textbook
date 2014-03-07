@@ -128,7 +128,7 @@ function append_copyright_notice_to_cc_text( $license_text ) {
     $extra_text = '<br />Copyright &copy; ' . get_the_date('Y') . ' - Some Rights Reserved';
     return $license_text . $extra_text;
 }
-add_filter( 'bccl_cc_license_text', 'append_copyright_notice_to_cc_block', 10, 1 );
+add_filter( 'bccl_cc_license_text', 'append_copyright_notice_to_cc_text', 10, 1 );
 `
 This code can be placed inside your theme's `functions.php` file.
 

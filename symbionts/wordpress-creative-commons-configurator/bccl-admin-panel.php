@@ -227,6 +227,47 @@ function bccl_set_license_options($cc_settings) {
         <table class="form-table">
         <tbody>
 
+        <tr>
+        <th scope="row">' . __( 'Derivative Work', 'cc-configurator' ) . '</th>
+        <td>
+        <fieldset>
+            <legend class="screen-reader-text"><span>' . __( 'Derivative Work', 'cc-configurator' ) . '</span></legend>
+            <input id="cc_derivative" type="checkbox" value="1" name="cc_derivative"' . (($cc_settings["cc_derivative"] == "1") ? ' checked="checked"' : '') . '" />
+            <label for="cc_derivative">
+            ' . __( 'Is this a derivative of another Creative Commons Licensed work?', 'cc-configurator' ) . '
+            </label><br>
+            
+            <p>                
+                <input type="text" id="cc_derivative_orig_title" name="cc_derivative_orig_title" value="' . $cc_settings["cc_derivative_orig_title"] . '" size="50" />
+                <label for="cc_derivative_orig_title">
+                ' . __( '<b>Original title</b> <small><i>(from which you are creating a derivative work)</i></small>', 'cc-configurator' ) . '
+                </label>
+            </p>
+            <p>
+                <input type="text" id="cc_derivative_orig_author" name="cc_derivative_orig_author" value="' . $cc_settings["cc_derivative_orig_author"] . '" size="50" />
+                <label for="cc_derivative_orig_author">
+                ' . __( '<b>Original author</b> <small><i>(from which you are creating a derivative work)</i></small>', 'cc-configurator' ) . '
+                </label>
+            </p>
+            <p>
+                <input type="text" id="cc_derivative_orig_src" name="cc_derivative_orig_src" value="' . $cc_settings["cc_derivative_orig_src"] . '" size="50" />
+                <label for="cc_derivative_orig_src">
+                ' . __( '<b>Original source</b> <small><i>(URL or hyperlink where the original material resides)</i></small>', 'cc_configurator' ) . '
+                </label>
+            </p>
+            <p>
+                <label for="cc_derivative_orig_lic">
+                ' . __( '<b>Original license</b> <small><i>(from which you are creating a derivative of)</i></small>', 'cc-configurator' ) . '
+                </label><br>
+                <input name="cc_derivative_orig_lic" type="radio" value="CC BY"' . (($cc_settings["cc_derivative_orig_lic"] == "CC BY") ? ' checked="checked"' : '') . '>CC BY <small><i>(Attribution)</i></small></input><br>
+                <input name="cc_derivative_orig_lic" type="radio" value="CC BY-SA"' . (($cc_settings["cc_derivative_orig_lic"] == "CC BY-SA") ? ' checked="checked"' : '') . ' >CC BY-SA <small><i>(Attribution-ShareAlike)</i></small></input><br>
+                <input name="cc_derivative_orig_lic" type="radio" value="CC BY-NC"' . (($cc_settings["cc_derivative_orig_lic"] == "CC BY-NC") ? ' checked="checked"' : '') . ' >CC BY-NC <small><i>(Attribution-NonCommercial)</i></small></input><br>
+                <input name="cc_derivative_orig_lic" type="radio" value="CC BY-NC-SA"' . (($cc_settings["cc_derivative_orig_lic"] == "CC BY-NC-SA") ? ' checked="checked"' : '') . ' >CC BY-NC-SA <small><i>(Attribution-NonCommercial-ShareAlike)</i></small></input>
+            </p>
+        </fieldset>
+        </td>
+        </tr>
+      
             <tr valign="top">
             <th scope="row">'.__('Syndicated Content', 'cc-configurator').'</th>
             <td>

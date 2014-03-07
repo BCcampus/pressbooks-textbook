@@ -325,6 +325,20 @@ function bccl_get_license_block( $work='', $css_class='', $show_button='default'
         }
 
         $license_text = $work . $additional_perms;
+
+        // Derivatives 
+        // @see: http://wiki.creativecommons.org/Best_practices_for_attribution
+        if ( "1" == $cc_settings['cc_derivative'] ) {
+                $orig_title = (empty( $cc_settings['cc_derivative_orig_title'] )) ? '' : 'of <cite>' . $cc_settings['cc_derivative_orig_title'] . '</cite>';
+                // hyperlink if both aren't empty
+                $orig_title = ( ! empty( $orig_title ) && ! empty( $cc_settings['cc_derivative_orig_src'] )) ? 'of <cite><a href="' . $cc_settings['cc_derivative_orig_src'] . '">' . $cc_settings['cc_derivative_orig_title'] . '</a></cite>' : $orig_title;
+                $orig_author = (empty( $cc_settings['cc_derivative_orig_author'] )) ? '' : 'by ' . $cc_settings['cc_derivative_orig_author'];
+                $orig_license = (empty( $cc_settings['cc_derivative_orig_lic'] )) ? '' : 'used under ' . $cc_settings['cc_derivative_orig_lic'];
+
+                $derivative_text = sprintf( 'This is a derivative %s %s %s. ', $orig_title, $orig_author, $orig_license );
+                $license_text = $derivative_text . $license_text;
+        }
+        
         // $pre_text = 'Copyright &copy; ' . get_the_date('Y') . ' - Some Rights Reserved' . '<br />';
         $license_text = apply_filters( 'bccl_cc_license_text', $license_text );
 

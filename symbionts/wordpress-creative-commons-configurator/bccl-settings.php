@@ -29,7 +29,12 @@ function bccl_get_default_options() {
         "cc_bgcolor"    => "#eef6e6",
         "cc_brdr_color" => "#cccccc",
         "cc_no_style"   => "0",
-        "cc_i_have_donated" => "0"
+        "cc_i_have_donated" => "0",
+        "cc_derivative" => "0",
+        "cc_derivative_orig_title" => "",
+        "cc_derivative_orig_author" => "",
+        "cc_derivative_orig_src" => "",
+        "cc_derivative_orig_lic" => "",
     );
 }
 

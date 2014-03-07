@@ -92,9 +92,8 @@ class Textbook {
 		$pbt_plugin = array(
 		    'mce-table-buttons/mce_table_buttons.php' => 1,
 		    'mce-textbook-buttons/mce-textbook-buttons.php' => 1,
-		    'creative-commons-configurator-1/cc-configurator.php' => 1,
+		    'wordpress-creative-commons-configurator/cc-configurator.php' => 1,
 //		    'relevanssi/relevanssi.php' => 1,
-//		    'wp-latex/wp-latex.php' => 1, 
 		);
 
 		$pbt_plugin = $this->filterActivePlugins( $pbt_plugin );
