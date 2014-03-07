@@ -61,7 +61,7 @@ class Textbook {
 	 *
 	 * @since 1.0.0
 	 */
-	function __construct() {
+	private function __construct() {
 		// Define plugin constants
 		if ( ! defined( 'PBT_PLUGIN_DIR' ) )
 				define( 'PBT_PLUGIN_DIR', __DIR__ . '/' );
@@ -86,6 +86,23 @@ class Textbook {
 	}
 
 	/**
+	 * Return an instance of this class.
+	 *
+	 * @since     1.0.0
+	 *
+	 * @return    object    A single instance of this class.
+	 */
+	public static function get_instance() {
+
+		// If the single instance hasn't been set, set it now.
+		if ( null == self::$instance ) {
+			self::$instance = new self;
+		}
+
+		return self::$instance;
+	}
+
+	/**
 	 * Include our plugins
 	 */
 	function includes() {
@@ -97,13 +114,13 @@ class Textbook {
 		);
 
 		$pbt_plugin = $this->filterActivePlugins( $pbt_plugin );
-		
+
 		// include plugins
 		foreach ( $pbt_plugin as $key => $val ) {
 			require_once( PBT_PLUGIN_DIR . 'symbionts/' . $key);
-		}		
+		}
 	}
-	
+
 	/**
 	 * Filters out active plugins
 	 * 
@@ -143,7 +160,7 @@ class Textbook {
 		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return;
 		}
-		
+
 		add_site_option( 'pressbooks-textbook-activated', true );
 	}
 
@@ -236,7 +253,7 @@ class Textbook {
 			}
 			// add our theme
 			$themes = array_merge( $themes, $pbt_themes );
-			
+
 			return $themes;
 		} else {
 			return $pbt_themes;
@@ -247,6 +264,11 @@ class Textbook {
 
 // Prohibit installation on the main blog, or if PB is not installed
 if ( is_main_site() || is_multisite() || get_site_option( 'pressbooks-activated' ) ) {
-	$GLOBALS['pressbookstextbook'] = new Textbook();
+	if ( is_admin() ) {
+		require (dirname( __FILE__ ) . '/admin/class-pressbooks-textbook-admin.php');
+		$pbt = new \PBT\TextbookAdmin();
+	} else {
+		$pbt = \PBT\Textbook::get_instance();
+	}
 }
 
