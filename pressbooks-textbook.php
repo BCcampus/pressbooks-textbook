@@ -21,6 +21,7 @@
  */
 
 namespace PBT;
+use PBT\Admin;
 
 // If file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -265,8 +266,8 @@ class Textbook {
 // Prohibit installation on the main blog, or if PB is not installed
 if ( is_main_site() || is_multisite() || get_site_option( 'pressbooks-activated' ) ) {
 	if ( is_admin() ) {
-		require (dirname( __FILE__ ) . '/admin/class-pressbooks-textbook-admin.php');
-		$pbt = new \PBT\TextbookAdmin();
+		require (dirname( __FILE__ ) . '/admin/class-pb-textbook-admin.php');
+		$pbt = new Admin\TextbookAdmin;
 	} else {
 		$pbt = \PBT\Textbook::get_instance();
 	}

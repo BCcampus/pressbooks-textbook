@@ -234,12 +234,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-@page chapter {
-	@bottom {
-		content: "THIS TEXTBOOK IS AVAILABLE FOR FREE AT OPEN.BCCAMPUS.CA";
-	}
-}
-
 /* Footnotes */
 @page {
     @footnotes {

@@ -16,9 +16,9 @@
  *
  */
 
-namespace PBT;
+namespace PBT\Admin;
 
-class TextbookAdmin extends Textbook {
+class TextbookAdmin extends \PBT\Textbook {
 
 	/**
 	 * Slug of the plugin screen.
