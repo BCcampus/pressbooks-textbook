@@ -16,7 +16,12 @@
 <div class="wrap">
 
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
+	<h4>Some of the features we'd like to see:</h4>
+	<ol>
+		<li>'fork' this textbook</li>
+		<li>OER (Open Educational Resources) search</li>
+		<li>making select export files available to the public</li>
+	</ol>
 
-	<p> This doesn't do anything</p>
-
+	<p>If you're interested in making code contributions, make a pull request or first visit our <a href="https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution-guidelines">guidelines for contributions</a>.</p>
 </div>
