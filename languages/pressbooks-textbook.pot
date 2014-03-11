@@ -1,13 +1,13 @@
 # Copyright (C) 2013 TODO
-# This file is distributed under the same license as the TODO package.
+# This file is distributed under the same license as the PressBooks_Textbook package.
 msgid ""
 msgstr ""
 "Project-Id-Version: TODO 1.0.0\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/plugins/pressbooks-textbook\n"
-"POT-Creation-Date: 2013-05-10 11:23:19+00:00\n"
-"PO-Revision-Date: 2013-05-10 10:37-0500\n"
-"Last-Translator: FULL NAME <email@example.com>\n"
-"Language-Team: LANGUAGE <translations@example.com >\n"
+"Report-Msgid-Bugs-To: http://github.com/BCcampus/pressbooks-textbook/issues\n"
+"POT-Creation-Date: 2014-02-10 11:23:19+00:00\n"
+"PO-Revision-Date: 2014-03-10 10:37-0500\n"
+"Last-Translator: Brad Payne <bpayne@bccampus.ca>\n"
+"Language-Team: LANGUAGE <bpayne@bccampus.ca>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,14 +18,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: class-pressbooks-textbook-admin.php:170
+#: class-pb-textbook-admin.php:170
 msgid "Page Title"
 msgstr ""
 
-#: class-pressbooks-textbook-admin.php:171
+#: class-pb-textbook-admin.php:171
 msgid "Menu Text"
 msgstr ""
 
-#: class-pressbooks-textbook-admin.php:197
+#: class-pb-textbook-admin.php:197
 msgid "Settings"
 msgstr ""

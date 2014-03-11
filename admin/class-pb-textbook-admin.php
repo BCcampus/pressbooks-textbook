@@ -12,7 +12,7 @@
 /**
  * Administrative functionality
  * 
- * for public-facing functionality, refer to `class-pressbooks-textbook.php`
+ * for public-facing functionality, refer to `pressbooks-textbook.php`
  *
  */
 
