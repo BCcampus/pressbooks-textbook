@@ -19,7 +19,7 @@
 
  */
 
-namespace PBT;
+namespace PBT\Plugins;
 
 class TextbookButtons {
 
@@ -87,5 +87,5 @@ class TextbookButtons {
 $t = wp_get_theme();
 
 if ( in_array( 'Pressbooks Textbook', $t->get( 'Tags' ) ) ) {
-	$textbook_buttons = new TextbookButtons();
+	$textbook_buttons = new \PBT\Plugins\TextbookButtons();
 }

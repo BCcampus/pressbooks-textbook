@@ -17,10 +17,10 @@
 				var selected_text = ed.selection.getContent();
 				var return_text = '';
 				if(selected_text != ''){
-				return_text = '<div class="bcc-box bcc-highlight"><h3>Learning Objectives</h3>\n\
+				return_text = '<div class="bcc-box bcc-highlight" data-txtbk-type="learningObjectives"><h3>Learning Objectives</h3>\n\
 					' + selected_text + '</div>';
 				} else {
-					return_text = '<div class="bcc-box bcc-highlight">\n\
+					return_text = '<div class="bcc-box bcc-highlight" data-txtbk-type="learningObjectives">\n\
 					<h3>Learning Objectives</h3>\n\
 					<p>Type your learning objectives here.</p>\n\
 					<ul><li>First</li><li>Second</li></ul>\n\
@@ -38,10 +38,10 @@
 				var selected_text = ed.selection.getContent();
 				var return_text = '';
 				if(selected_text != ''){
-				return_text = '<div class="bcc-box bcc-success"><h3>Key Takeaways</h3>\n\
+				return_text = '<div class="bcc-box bcc-success" data-txtbk-type="keyTakeAway"><h3>Key Takeaways</h3>\n\
 					' + selected_text + '</div>';
 				} else {
-					return_text = '<div class="bcc-box bcc-success">\n\
+					return_text = '<div class="bcc-box bcc-success" data-txtbk-type="keyTakeAway">\n\
 					<h3>Key Takeaways</h3>\n\
 					<p>Type your key takeaways here.</p>\n\
 					<ul><li>First</li><li>Second</li></ul>\n\
@@ -60,10 +60,10 @@
 				var return_text = '';
 				
 				if(selected_text != ''){
-				return_text = '<div class="bcc-box bcc-info"><h3>Exercises</h3>\n\
+				return_text = '<div class="bcc-box bcc-info" data-txtbk-type="exercises"><h3>Exercises</h3>\n\
 					' + selected_text + '</div>';
 				} else {
-					return_text = '<div class="bcc-box bcc-info">\n\
+					return_text = '<div class="bcc-box bcc-info" data-txtbk-type="exercises">\n\
 					<h3>Exercises</h3>\n\
 					<p>Type your exercies here.</p>\n\
 					<ol><li>First</li><li>Second</li></ol>\n\
