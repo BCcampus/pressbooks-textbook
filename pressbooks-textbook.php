@@ -138,22 +138,23 @@ class Textbook {
 	 * @return array
 	 */
 	private function filterActivePlugins( $pbt_plugin ) {
-		// don't include plugins already active
-		foreach ( $pbt_plugin as $key => $val ) {
-			if ( 1 == is_plugin_active( $key ) || 1 == is_plugin_active_for_network( $key ) ) {
-				unset( $pbt_plugin[$key] );
-			}
-		}
 		// activate only if one of our themes is being used
 		if ( false == $this->isTextbookTheme() ) {
 			unset( $pbt_plugin['mce-textbook-buttons/mce-textbook-buttons.php'] );
 			unset( $pbt_plugin['hypothesis/hypothesis.php'] );
 			unset( $pbt_plugin['creative-commons-configurator-1/cc-configurator.php'] );
 		}
+		
+		// don't include plugins already active
+		foreach ( $pbt_plugin as $key => $val ) {
+			if ( 1 == is_plugin_active( $key ) || 1 == is_plugin_active_for_network( $key ) ) {
+				unset( $pbt_plugin[$key] );
+			}
+		}
 
 		return $pbt_plugin;
 	}
-	
+
 	/**
 	 * Checks to see if one of our child themes is active
 	 * 

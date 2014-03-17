@@ -82,7 +82,8 @@ class TextbookAdmin extends \PBT\Textbook {
 		add_settings_field(
 			'latest_files_public', 
 			__( 'Share Latest Export Files', $this->plugin_slug ), 
-			'\PBT\Settings\latest_files_public_callback', 'open_file_settings', 
+			'\PBT\Settings\latest_files_public_callback', 
+			'open_file_settings', 
 			'latest_files_section'
 		);
 
