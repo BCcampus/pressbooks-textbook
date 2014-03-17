@@ -12,6 +12,8 @@ A plugin that extends PressBooks for textbook authoring.
 * Search functionality
 * Creative Commons attribution
 * Prominent admin buttons (Import, Plugin)
+* Annotation features
+* Distributing free electronic versions of your book
 
 Primary Use Case
 ------------
@@ -25,6 +27,7 @@ Contributors
 This plugin comes with and activates some existing wordpress plugins. Currently these plugins include:
 * [Creative Commons Configurator](https://github.com/gnotaras/wordpress-creative-commons-configurator) gnotaras 
 * [MCE Table Buttons](https://github.com/wp-plugins/mce-table-buttons) jakemgold, 10up, thinkoomph 
+* [Hypothesis] (https://wordpress.org/plugins/hypothesis/) timmmmyboy
 
 More Details
 ------------

@@ -11,8 +11,9 @@
  * @wordpress-plugin
  * Plugin Name:       PressBooks Textbook
  * Description:       A plugin that extends PressBooks for textbook authoring
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Brad Payne
+ * Author URI:        http://bradpayne.ca		
  * Text Domain:       pressbooks-textbook
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
@@ -21,6 +22,7 @@
  */
 
 namespace PBT;
+
 use PBT\Admin;
 
 // If file is called directly, abort.
@@ -38,7 +40,7 @@ class Textbook {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	const VERSION = '1.0.0';
+	const VERSION = '1.0.1';
 
 	/**
 	 * Unique identifier for plugin.
@@ -60,7 +62,7 @@ class Textbook {
 	 * Initialize the plugin by setting localization and loading public scripts
 	 * and styles.
 	 *
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 */
 	private function __construct() {
 		// Define plugin constants
@@ -80,10 +82,15 @@ class Textbook {
 		// Hook in our pieces
 		add_action( 'plugins_loaded', array( &$this, 'includes' ) );
 		add_action( 'init', array( &$this, 'registerScriptsAndStyles' ) );
+		add_action( 'template_redirect', '\PBT\Rewrite\do_open', 0 );
 		add_action( 'admin_menu', array( &$this, 'adminMenuAdjuster' ) );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueueAdminStyles' ) );
 		add_action( 'wp_enqueue_style', array( &$this, 'enqueueChildThemes' ) );
 		add_filter( 'allowed_themes', array( &$this, 'filterChildThemes' ), 11 );
+
+		// include other functions
+		require( PBT_PLUGIN_DIR . 'includes/pbt-utility.php' );
+		require( PBT_PLUGIN_DIR . 'includes/pbt-rewrite.php' );
 	}
 
 	/**
@@ -105,12 +112,15 @@ class Textbook {
 
 	/**
 	 * Include our plugins
+	 * 
+	 * @since 1.0.1
 	 */
 	function includes() {
 		$pbt_plugin = array(
 		    'mce-table-buttons/mce_table_buttons.php' => 1,
 		    'mce-textbook-buttons/mce-textbook-buttons.php' => 1,
 		    'creative-commons-configurator-1/cc-configurator.php' => 1,
+		    'hypothesis/hypothesis.php' => 1,
 //		    'relevanssi/relevanssi.php' => 1,
 		);
 
@@ -123,8 +133,9 @@ class Textbook {
 	}
 
 	/**
-	 * Filters out active plugins
+	 * Filters out active plugins, to avoid collisions with plugins already installed
 	 * 
+	 * @since 1.0.0
 	 * @param array $pbt_plugin
 	 * @return array
 	 */
@@ -142,14 +153,18 @@ class Textbook {
 	/**
 	 * Register all scripts and styles
 	 * 
-	 * @since 1.0.0
+	 * @since 1.0.1
 	 */
 	function registerScriptsAndStyles() {
-		// Register scripts
 		// Register styles
 		register_theme_directory( PBT_PLUGIN_DIR . 'themes-book' );
-		wp_register_style( 'pbt-import-button', PBT_PLUGIN_URL . 'admin/assets/css/import-button.css', '', self::VERSION );
+		wp_register_style( 'pbt-import-button', PBT_PLUGIN_URL . 'admin/assets/css/menu.css', '', self::VERSION );
 		wp_register_style( 'pbt-open-textbooks', PBT_PLUGIN_URL . 'themes-book/opentextbook/style.css', array( 'pressbooks' ), self::VERSION, 'screen' );
+
+		// Add a rewrite rule for the keyword "open"
+		add_rewrite_endpoint( 'open', EP_ROOT );
+		// Flush, if we haven't already been
+		\PBT\Rewrite\flusher();
 	}
 
 	/**
@@ -226,10 +241,12 @@ class Textbook {
 
 	/**
 	 * Adds and Removes some admin buttons
+	 * 
+	 * @since 1.0.1
 	 */
 	function adminMenuAdjuster() {
 		if ( \Pressbooks\Book::isBook() ) {
-			add_menu_page( __( 'Import', 'pressbooks-textbook' ), __( 'Import', 'pressbooks-textbook' ), 'edit_posts', 'pb_import', '\PressBooks\Admin\Laf\display_import', '', 15 );
+			add_menu_page( __( 'Import', $this->plugin_slug ), __( 'Import', $this->plugin_slug ), 'edit_posts', 'pb_import', '\PressBooks\Admin\Laf\display_import', '', 15 );
 			add_menu_page( 'Plugins', 'Plugins', 'manage_network_plugins', 'plugins.php', '', 'dashicons-admin-plugins', 65 );
 			remove_menu_page( 'pb_sell' );
 		}
@@ -238,6 +255,7 @@ class Textbook {
 	/**
 	 * Pressbooks filters allowed themes, this adds our themes to the list
 	 * 
+	 * @since 1.0.0
 	 * @param array $themes
 	 * @return array
 	 */

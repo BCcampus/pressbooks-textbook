@@ -4,7 +4,7 @@ Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution
 Tags: pressbooks, textbook
 Requires at least: 3.8.1
 Tested up to: 3.8.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,7 +20,7 @@ PressBooks Textbook adds functionality to the PressBooks plugin to make it easie
 * Creative Commons attribution
 * Prominent admin buttons (Import, Plugin)
 
-Textbooks have styling considerations above and beyond regular books. Open textbooks are those that are licensed with a [creative commons license](http://creativecommons.org).
+Textbooks have functional and styling considerations above and beyond regular books. Open textbooks are those that are licensed with a [creative commons license](http://creativecommons.org).
 This plugin was built primarily to support the creation, remixing and distribution of open textbooks for the [open textbook project in BC](http://open.bccampus.ca/about-2/).
 
 == Installation ==
@@ -32,7 +32,7 @@ The PressBooks github repository is updated frequently. [Stay up to date](https:
 
 = Using Git =
 
-cd /pressbooks/wp-content/plugins
+cd /wp-content/plugins
 git clone https://github.com/BCcampus/pressbooks-textbook.git 
 
 = OR, go to the WordPress Dashboard =
@@ -45,6 +45,13 @@ git clone https://github.com/BCcampus/pressbooks-textbook.git
 
 1. Upload `pressbooks-textbook` to the `/wp-content/plugins/` directory
 2. Activate the plugin at the network level, through the 'Plugins' menu in WordPress
+
+== Frequently Asked Questions ==
+
+= Dude, where's my functionality? = 
+
+Some of the functionality, like search and textbook buttons are tied directly to the `Open Textbooks` theme. Network Activate the 
+theme, then activate at the book level and you'll have access to those features and more. 
 
 == Screenshots ==
 
@@ -59,6 +66,11 @@ See: https://github.com/BCcampus/pressbooks-textbook/commits/master
 
 
 == Upgrade Notice == 
+
+= 1.0.1 =
+* annotation capabilities
+* administration menu page
+* download latest export files function
 
 = 1.0.0 =
 * initial release

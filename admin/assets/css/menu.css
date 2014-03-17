@@ -10,3 +10,10 @@ li.toplevel_page_pb_import a.toplevel_page_pb_import .wp-menu-image::before{
 	background: none;
 	content: '\f112' !important;
 }
+
+li.toplevel_page_pressbooks-textbook-settings a.toplevel_page_pressbooks-textbook-settings .wp-menu-image::before{
+	font-family: FontAwesome !important;
+	-webkit-font-smoothing: antialiased;
+	background: none;
+	content: '\f10a' !important;
+}

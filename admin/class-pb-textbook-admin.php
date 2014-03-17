@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PressBooks Textbook
+ * Administrative functionality, settings/options
  *
  * @package   PressBooks_Textbook
  * @author    Brad Payne <brad@bradpayne.ca>
@@ -9,31 +9,16 @@
  * @copyright 2014 Brad Payne
  * 
  */
-/**
- * Administrative functionality
- * 
- * for public-facing functionality, refer to `pressbooks-textbook.php`
- *
- */
 
 namespace PBT\Admin;
 
 class TextbookAdmin extends \PBT\Textbook {
 
 	/**
-	 * Slug of the plugin screen.
-	 *
-	 * @since    1.0.0
-	 *
-	 * @var      string
-	 */
-	protected $plugin_screen_hook_suffix = null;
-
-	/**
 	 * Initialize the plugin by loading admin scripts & styles and adding a
 	 * settings page and menu.
 	 *
-	 * @since     1.0.0
+	 * @since     1.0.1
 	 */
 	function __construct() {
 
@@ -41,66 +26,84 @@ class TextbookAdmin extends \PBT\Textbook {
 
 		// Add the options page and menu item.
 		add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
+		add_action( 'admin_init', array( $this, 'add_settings' ) );
 
 		// Add an action link pointing to the options page.
 		$plugin_basename = plugin_basename( plugin_dir_path( __DIR__ ) . $this->plugin_slug . '.php' );
 		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
 
+		// include other functions
+		require( PBT_PLUGIN_DIR . 'includes/pbt-settings.php' );
 
-//		add_action( '@TODO', array( $this, 'action_method_name' ) );
-//		add_filter( '@TODO', array( $this, 'filter_method_name' ) );
 	}
 
 	/**
 	 * Register the administration menu for this plugin into the WordPress Dashboard menu.
 	 *
-	 * @since    1.0.0
+	 * @since    1.0.1
 	 */
-	public function add_plugin_admin_menu() {
+	function add_plugin_admin_menu() {
 
-		$this->plugin_screen_hook_suffix = add_options_page(
-			__( 'PressBooks Textbook Options', $this->plugin_slug ), __( 'PB Textbook', $this->plugin_slug ), 'manage_options', $this->plugin_slug, array( $this, 'display_plugin_admin_page' )
+		add_menu_page(
+			__( 'PressBooks Textbook Settings', $this->plugin_slug ), __( 'PB Textbook', $this->plugin_slug ), 'manage_options', $this->plugin_slug . '-settings', array( $this, 'display_plugin_admin_page' ), '', 64
+		);
+	}
+
+	/**
+	 * Initializes PBT Settings page options
+	 * 
+	 * @since	1.0.1
+	 */
+	function add_settings() {
+
+		// group of settings
+		// $id, $title, $callback, $page(menu slug)
+		add_settings_section(
+			'latest_files_section', 
+			'Share your latest export files', 
+			'\PBT\Settings\latest_files_section_callback', 
+			'open_file_settings'
+		);
+
+		// register a settings field to a settings page and section
+		// $id, $title, $callback, $page, $section
+		add_settings_field(
+			'latest_files_public', 
+			__( 'Share Latest Export Files', $this->plugin_slug ), 
+			'\PBT\Settings\latest_files_public_callback', 'open_file_settings', 
+			'latest_files_section'
+		);
+
+		// $option_group(group name), $option_name, $sanitize_callback
+		register_setting(
+			'open_file_settings', 
+			'latest_files_public', 
+			'\PBT\Settings\latest_files_public_sanitize'
 		);
 	}
 
 	/**
 	 * Render the settings page for this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    1.0.1
 	 */
-	public function display_plugin_admin_page() {
-		
-		include_once( 'views/admin.php' );
+	function display_plugin_admin_page() {
+
+		include_once( 'views/admin-settings.php' );
 	}
 
 	/**
 	 * Add settings action link to the plugins page.
 	 *
-	 * @since    1.0.0
+	 * @since    1.0.1
 	 */
-	public function add_action_links( $links ) {
+	function add_action_links( $links ) {
 
 		return array_merge(
 			array(
-		    'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>'
+		    'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug . '-settings' ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>'
 			), $links
 		);
-	}
-
-	/**
-	 *
-	 * @since    1.0.0
-	 */
-	public function action_method_name() {
-		// @TODO: Define your action hook callback here
-	}
-
-	/**
-	 *
-	 * @since    1.0.0
-	 */
-	public function filter_method_name() {
-		// @TODO: Define your filter hook callback here
 	}
 
 }

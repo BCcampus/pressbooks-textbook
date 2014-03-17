@@ -172,6 +172,7 @@ p.cc-block{
 .bcc-highlight{
 	background-color: #f7f7f9;
 }
+
 .bcc-box.bcc-highlight h3{
 	background-color: #111111;
 }
@@ -179,6 +180,7 @@ p.cc-block{
 .bcc-success{
 	background-color: #eaf5ea;
 }
+
 .bcc-box.bcc-success h3{
 	background-color: #3a7a33;
 }
@@ -186,6 +188,7 @@ p.cc-block{
 .bcc-info{
 	background-color: #e3eff6;
 }
+
 .bcc-box.bcc-info h3{
 	background-color: #0b6396;
 }
@@ -193,8 +196,57 @@ p.cc-block{
 .bcc-warning {
 	background-color: #fcf8e3;
 }
+
 .bcc-box.bcc-warning h3{
 	background-color: #c09853;
+}
+
+span.export-file-icon{
+	width: 36px;
+	height: 36px;
+	background-size: 36px 36px;
+	display: inline-block;
+	margin: 0 5px 0 0;
+}
+
+span.small.epub {
+	background: url(../../../pressbooks/assets/images/epub-36.png) -0 0 no-repeat;
+
+}
+
+span.small.epub3 {
+	background: url(../../../pressbooks/assets/images/epub3-36.png) -0 0 no-repeat;
+
+}
+
+span.small.hpub {
+	background: url(../../../pressbooks/assets/images/hpub-36.png) -0 0 no-repeat;
+
+}
+
+span.small.icml {
+	background: url(../../../pressbooks/assets/images/icml-36.png) -0 0 no-repeat;
+
+}
+
+span.small.mobi {
+	background: url(../../../pressbooks/assets/images/mobi-36.png) -0 0 no-repeat;
+
+}
+
+span.small.pdf {
+	background: url(../../../pressbooks/assets/images/pdf-36.png) -0 0 no-repeat;
+
+}
+
+span.small.wxr {
+	background: url(../../../pressbooks/assets/images/wxr-36.png) -0 0 no-repeat;
+
+}
+
+span.small.xhtml {
+	background: url(../../../pressbooks/assets/images/xhtml-36.png) -0 0 no-repeat;
+
 }
 
 /*************************
