@@ -83,8 +83,6 @@ class Textbook {
 		add_action( 'plugins_loaded', array( &$this, 'includes' ) );
 		add_action( 'init', array( &$this, 'registerScriptsAndStyles' ) );
 		add_action( 'template_redirect', '\PBT\Rewrite\do_open', 0 );
-		add_action( 'admin_menu', array( &$this, 'adminMenuAdjuster' ) );
-		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueueAdminStyles' ) );
 		add_action( 'wp_enqueue_style', array( &$this, 'enqueueChildThemes' ) );
 		add_filter( 'allowed_themes', array( &$this, 'filterChildThemes' ), 11 );
 
@@ -146,8 +144,27 @@ class Textbook {
 				unset( $pbt_plugin[$key] );
 			}
 		}
+		// activate only if one of our themes is being used
+		if ( false == $this->isTextbookTheme() ) {
+			unset( $pbt_plugin['mce-textbook-buttons/mce-textbook-buttons.php'] );
+			unset( $pbt_plugin['hypothesis/hypothesis.php'] );
+			unset( $pbt_plugin['creative-commons-configurator-1/cc-configurator.php'] );
+		}
 
 		return $pbt_plugin;
+	}
+	
+	/**
+	 * Checks to see if one of our child themes is active
+	 * 
+	 * @return boolean
+	 */
+	protected function isTextbookTheme() {
+		$t = wp_get_theme()->Tags;
+		if ( is_array( $t ) && in_array( 'Pressbooks Textbook', $t ) ) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -218,38 +235,12 @@ class Textbook {
 	}
 
 	/**
-	 * Register and enqueue public-facing style sheet.
-	 *
-	 * @since    1.0.0
+	 * Queue child theme
+	 * 
+	 * @since 1.0.0
 	 */
-	function enqueueAdminStyles() {
-		wp_enqueue_style( 'pbt-import-button' );
-	}
-
 	function enqueueChildThemes() {
 		wp_enqueue_style( 'pbt-open-textbooks' );
-	}
-
-	/**
-	 * Register and enqueues public-facing JavaScript files.
-	 *
-	 * @since    1.0.0
-	 */
-	function enqueueScripts() {
-//		wp_enqueue_script( $this->plugin_slug . '-plugin-script', plugins_url( 'assets/js/public.js', __FILE__ ), array( 'jquery' ), self::VERSION );
-	}
-
-	/**
-	 * Adds and Removes some admin buttons
-	 * 
-	 * @since 1.0.1
-	 */
-	function adminMenuAdjuster() {
-		if ( \Pressbooks\Book::isBook() ) {
-			add_menu_page( __( 'Import', $this->plugin_slug ), __( 'Import', $this->plugin_slug ), 'edit_posts', 'pb_import', '\PressBooks\Admin\Laf\display_import', '', 15 );
-			add_menu_page( 'Plugins', 'Plugins', 'manage_network_plugins', 'plugins.php', '', 'dashicons-admin-plugins', 65 );
-			remove_menu_page( 'pb_sell' );
-		}
 	}
 
 	/**

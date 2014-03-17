@@ -83,9 +83,6 @@ class TextbookButtons {
 	}
 
 }
-// Display only if a textbook theme is active
-$t = wp_get_theme()->Tags;
 
-if ( is_array( $t ) && in_array( 'Pressbooks Textbook', $t ) ) {
-	$textbook_buttons = new \PBT\Plugins\TextbookButtons();
-}
+$textbook_buttons = new \PBT\Plugins\TextbookButtons();
+
