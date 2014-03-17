@@ -50,13 +50,3 @@ function latest_exports() {
 
 	return $latest;
 }
-
-/**
- * Checks for user option to display latest exports
- * 
- * @return bool
- */
-function get_open_option(){
-	
-	
-}
