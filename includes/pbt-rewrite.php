@@ -59,14 +59,14 @@ function do_open() {
 			} 
 			
 			$filename = $filename . '.' . $ext;
-			downloadOpenExportFile( $filename );
+			download_open_export_file( $filename );
 		}
 	}
 
 	wp_die( __( 'Error: Unknown export format.', 'pressbooks-textbook' ) );
 }
 
-function downloadOpenExportFile( $filename ) {
+function download_open_export_file( $filename ) {
 
 	$filepath = \PressBooks\Export\Export::getExportFolder() . $filename;
 	if ( ! is_readable( $filepath ) ) {

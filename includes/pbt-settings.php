@@ -18,7 +18,7 @@ namespace PBT\Settings;
  * @since 1.0.1
  */
 function latest_files_section_callback() {
-	echo "<p>If they exist, one of each of the latest (epub, pdf, xhtml, hpub, mobi, wxr, icml) export files will be available for download on the homepage.</p>"
+	echo "<p>If they exist and you have activated the <a href='themes.php'>Open Textbooks theme</a>, one of each of the latest (epub, pdf, xhtml, hpub, mobi, wxr, icml) export files will be available for download on the homepage.</p>"
 	. '<figure><img src="'.PBT_PLUGIN_URL .'admin/assets/img/latest-export-files.png" /><figcaption>The dowload links as they would appear on the homepage.</figcaption></figure>';
 }
 
