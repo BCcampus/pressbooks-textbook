@@ -13,11 +13,11 @@ A plugin that extends PressBooks for textbook authoring.
 * Creative Commons attribution
 * Prominent admin buttons (Import, Plugin)
 * Annotation features
-* Distributing free electronic versions of your book
+* Redistributing free electronic versions of your book
 
 Primary Use Case
 ------------
-Textbooks have styling considerations above and beyond regular books. Open textbooks are those that are licensed with a [creative commons license](http://creativecommons.org).
+Textbooks have functional and styling considerations above and beyond regular books. Open textbooks are those that are licensed with a [creative commons license](http://creativecommons.org).
 This plugin was built primarily to support the creation, remixing and distribution of open textbooks for the [open textbook project in BC](http://open.bccampus.ca/about-2/).
 
 Contributors
