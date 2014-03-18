@@ -53,6 +53,10 @@ ol.alphalist{
 ol.alphalist li::before{
 	content: normal;
 }
+
+.pullleft{
+	margin-right: 4%;
+}
 /****************************************
 	TOC, Author page, Book Page
 *****************************************/

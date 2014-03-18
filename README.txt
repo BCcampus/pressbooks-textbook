@@ -67,17 +67,14 @@ theme, then activate at the book level. You'll have access to those features and
 
 == Changelog ==
 
-See: https://github.com/BCcampus/pressbooks-textbook/commits/master
+See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
 
-
-== Upgrade Notice == 
-
-= 1.0.1 =
+= 1.0.1 2014/03/18 =
 * annotation capabilities
 * administration menu page
 * Redistribution capabilities for free, digital versions of your book
 
-= 1.0.0 =
+= 1.0.0 2014/03/13 =
 * initial release
 
 == How to contribute code == 

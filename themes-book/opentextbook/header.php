@@ -83,7 +83,7 @@
 			</nav>
 			      
 			  <div class="sub-nav">   
-			     <div class="alignright">
+			     <div class="alignright pullleft">
 				     <?php get_search_form(); ?>
 			     </div>			     
 				  <!-- Author Name -->   
