@@ -62,7 +62,7 @@ theme, then activate at the book level. You'll have access to those features and
 
 1. Modified home page 
 2. Search feature 
-3. Textbook specific buttons with styling maintain throughout export routines 
+3. Textbook specific buttons with styling maintained throughout export routines 
 4. Textbook theme 
 
 == Changelog ==
