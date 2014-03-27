@@ -65,7 +65,7 @@ function redistribute_absint_sanitize( $input ) {
  * Simple description for Hypothesis
  */
 function pbt_other_section_callback() {
-	echo "<p>The <a href='https://wordpress.org/plugins/hypothesis/'>Hypothesis</a> plugin adds annotation functionality to your book. </p>";
+	echo "<p>The Hypothesis plugin by timmmmyboy adds annotation functionality to your book. </p>";
 }
 
 /**
@@ -106,7 +106,7 @@ function other_absint_sanitize( $input ) {
  * Simple description for Hypothesis
  */
 function pbt_reuse_section_callback() {
-	echo "<p>The <a href='http://wordpress.org/plugins/creative-commons-configurator-1/'>Creative Commons Configurator</a> by <a href='https://github.com/gnotaras'>George Notaras</a> '<i>adds Creative Commons license information to your posts, pages, attachment pages and feeds.</i>'</p>";
+	echo "<p>The Creative Commons Configurator by George Notaras '<i>adds Creative Commons license information to your posts, pages, attachment pages and feeds.</i>'</p>";
 }
 
 /**
