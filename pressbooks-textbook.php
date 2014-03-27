@@ -30,8 +30,6 @@ if ( ! defined( 'WPINC' ) ) {
 	die();
 }
 
-require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
-
 class Textbook {
 
 	/**
@@ -122,11 +120,13 @@ class Textbook {
 //		    'relevanssi/relevanssi.php' => 1,
 		);
 
-		$pbt_plugin = $this->filterActivePlugins( $pbt_plugin );
+		$pbt_plugin = $this->filterPlugins( $pbt_plugin );
 
 		// include plugins
-		foreach ( $pbt_plugin as $key => $val ) {
-			require_once( PBT_PLUGIN_DIR . 'symbionts/' . $key);
+		if ( ! empty( $pbt_plugin ) ) {
+			foreach ( $pbt_plugin as $key => $val ) {
+				require_once( PBT_PLUGIN_DIR . 'symbionts/' . $key);
+			}
 		}
 	}
 
@@ -137,22 +137,60 @@ class Textbook {
 	 * @param array $pbt_plugin
 	 * @return array
 	 */
-	private function filterActivePlugins( $pbt_plugin ) {
+	private function filterPlugins( $pbt_plugin ) {
+		$already_active = get_option('active_plugins');
+		
 		// activate only if one of our themes is being used
-		if ( false == $this->isTextbookTheme() ) {
+		if ( false == self::isTextbookTheme() ) {
 			unset( $pbt_plugin['mce-textbook-buttons/mce-textbook-buttons.php'] );
 			unset( $pbt_plugin['hypothesis/hypothesis.php'] );
 			unset( $pbt_plugin['creative-commons-configurator-1/cc-configurator.php'] );
+			unset( $pbt_plugin['mce-table-buttons/mce_table_buttons.php'] );
+			
 		}
 		
 		// don't include plugins already active
-		foreach ( $pbt_plugin as $key => $val ) {
-			if ( 1 == is_plugin_active( $key ) || 1 == is_plugin_active_for_network( $key ) ) {
-				unset( $pbt_plugin[$key] );
+		if ( ! empty( $pbt_plugin ) ) {
+			foreach ( $pbt_plugin as $key => $val ) {
+				if ( in_array( $key, $already_active ) ) {
+					unset( $pbt_plugin[$key] );
+				}
+			}
+		}
+
+		// don't include plugins if the user doesn't want them
+		if ( ! empty( $pbt_plugin ) ) {
+			// get user options
+			$user_options = $this->getUserOptions();
+			
+			foreach ( $pbt_plugin as $key => $val ) {
+				
+				$name = strstr( $key, '/', true );
+				$pbt_option = "pbt_" . $name . "_active";
+
+				// either it doesn't exist, or the client doesn't want it
+				if ( array_key_exists( $pbt_option, $user_options ) ) {
+					// check the value
+					if ( false == $user_options[$pbt_option] ) {
+						unset( $pbt_plugin[$key] );
+					}
+				}
 			}
 		}
 
 		return $pbt_plugin;
+	}
+	
+	/**
+	 * 
+	 * @return array
+	 */
+	private function getUserOptions() {
+		( array ) $other = get_option( 'pbt_other_settings' );
+		( array ) $reuse = get_option( 'pbt_reuse_settings' );
+		( array ) $redistribute = get_option( 'pbt_redistribute_settings' );
+
+		return array_merge( $other, $reuse, $redistribute );
 	}
 
 	/**
@@ -160,7 +198,7 @@ class Textbook {
 	 * 
 	 * @return boolean
 	 */
-	protected function isTextbookTheme() {
+	static function isTextbookTheme() {
 		$t = wp_get_theme()->Tags;
 		if ( is_array( $t ) && in_array( 'Pressbooks Textbook', $t ) ) {
 			return true;
@@ -273,8 +311,8 @@ class Textbook {
 
 }
 
-// Prohibit installation on the main blog, or if PB is not installed
-if ( is_main_site() || is_multisite() || get_site_option( 'pressbooks-activated' ) ) {
+// Prohibit installation if PB is not installed
+if ( get_site_option( 'pressbooks-activated' ) ) {
 	if ( is_admin() ) {
 		require (dirname( __FILE__ ) . '/admin/class-pb-textbook-admin.php');
 		$pbt = new Admin\TextbookAdmin;
