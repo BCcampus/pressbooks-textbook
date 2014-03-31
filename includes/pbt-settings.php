@@ -13,9 +13,9 @@
 namespace PBT\Settings;
 
 /**
- * Provides a simple description
+ * Provides a simple description for plugins that support redistribution
  * 
- * @since 1.0.1
+ * @since 1.0.2
  */
 function redistribute_section_callback() {
 	echo "<p>If they exist, one of each of the latest export files (epub, pdf, xhtml, hpub, mobi, wxr, icml) will be available for download on the homepage.</p>"
@@ -25,7 +25,7 @@ function redistribute_section_callback() {
 /**
  * Fields callback
  * 
- * @since 1.0.1
+ * @since 1.0.2
  * @param $args
  */
 function latest_files_public_callback( $args ) {
@@ -47,8 +47,8 @@ function latest_files_public_callback( $args ) {
  * Redistribute Sanitization callback
  * 
  * @since 1.0.1
- * @param $args
- * @return 
+ * @param array $input
+ * @return array
  */
 function redistribute_absint_sanitize( $input ) {
 	$options = get_option( 'pbt_redistribute_settings' );
@@ -62,7 +62,9 @@ function redistribute_absint_sanitize( $input ) {
 }
 
 /**
- * Simple description for Hypothesis
+ * Simple description for Other plugins that support textbooks
+ * 
+ * @since 1.0.2
  */
 function pbt_other_section_callback() {
 	echo "<p>The Hypothesis plugin by timmmmyboy adds annotation functionality to your book. </p>";
@@ -70,6 +72,8 @@ function pbt_other_section_callback() {
 
 /**
  * Fields callback for Hypothesis
+ * 
+ * @since 1.0.2
  */
 function pbt_hypothesis_active_callback() {
 	$options = get_option( 'pbt_other_settings' );
@@ -87,9 +91,10 @@ function pbt_hypothesis_active_callback() {
 }
 
 /**
+ * Sanitization callback
  * 
- * @param type $args
- * @return type
+ * @param array $input
+ * @return array
  */
 function other_absint_sanitize( $input ) {
 	$options = get_option( 'pbt_other_settings' );
@@ -104,6 +109,8 @@ function other_absint_sanitize( $input ) {
 
 /**
  * Simple description for Hypothesis
+ * 
+ * @since 1.0.2
  */
 function pbt_reuse_section_callback() {
 	echo "<p>The Creative Commons Configurator by George Notaras '<i>adds Creative Commons license information to your posts, pages, attachment pages and feeds.</i>'</p>";
@@ -111,6 +118,8 @@ function pbt_reuse_section_callback() {
 
 /**
  * Fields callback for Creative Commons
+ * 
+ * @since 1.0.2
  */
 function pbt_ccc_active_callback() {
 	$options = get_option( 'pbt_reuse_settings' );
@@ -133,9 +142,9 @@ function pbt_ccc_active_callback() {
 /**
  * Sanitization callback
  * 
- * @since 1.0.1
- * @param $args
- * @return 
+ * @since 1.0.2
+ * @param array $input
+ * @return array
  */
 function reuse_absint_sanitize( $input ) {
 	$options = get_option( 'pbt_reuse_settings' );

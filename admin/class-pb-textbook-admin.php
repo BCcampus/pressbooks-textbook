@@ -75,7 +75,9 @@ class TextbookAdmin extends \PBT\Textbook {
 
 	
 	/**
+	 * Options for plugins that support redistribution
 	 * 
+	 * @since 1.0.2
 	 */
 	private function redistribute_settings(){
 		$page = $option = 'pbt_redistribute_settings';
@@ -118,7 +120,9 @@ class TextbookAdmin extends \PBT\Textbook {
 	}	
 	
 	/**
+	 * Options for plugins that support 'other' textbook functionality
 	 * 
+	 * @since 1.0.2
 	 */
 	private function other_settings(){
 		$page = $option = 'pbt_other_settings';
@@ -156,7 +160,9 @@ class TextbookAdmin extends \PBT\Textbook {
 	}
 	
 	/**
+	 * Options for plugins that support reuse
 	 * 
+	 * @since 1.0.2
 	 */
 	private function reuse_settings(){
 		$page = $option = 'pbt_reuse_settings';

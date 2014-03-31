@@ -4,7 +4,7 @@ Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution
 Tags: pressbooks, textbook
 Requires at least: 3.8.1
 Tested up to: 3.8.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -64,10 +64,15 @@ theme, then activate at the book level. You'll have access to those features and
 2. Search feature 
 3. Textbook specific buttons with styling maintained throughout export routines 
 4. Textbook theme 
+5. Customize your plugin options for each book in your collection
 
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 1.0.2 2014/03/31 = 
+* choose which plugins you want to include 
+* adding tabs to plugin options page
 
 = 1.0.1 2014/03/18 =
 * annotation capabilities
