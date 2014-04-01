@@ -4,7 +4,7 @@ Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution
 Tags: pressbooks, textbook
 Requires at least: 3.8.1
 Tested up to: 3.8.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -70,16 +70,19 @@ theme, then activate at the book level. You'll have access to those features and
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
 
-= 1.0.2 2014/03/31 = 
+= 1.0.3 (2014/04/01) = 
+* updating and fixing mce table plugin
+
+= 1.0.2 (2014/03/31) = 
 * choose which plugins you want to include 
 * adding tabs to plugin options page
 
-= 1.0.1 2014/03/18 =
+= 1.0.1 (2014/03/18) =
 * annotation capabilities
 * administration menu page
 * Redistribution capabilities for free, digital versions of your book
 
-= 1.0.0 2014/03/13 =
+= 1.0.0 (2014/03/13) =
 * initial release
 
 == How to contribute code == 
