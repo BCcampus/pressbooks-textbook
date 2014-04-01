@@ -65,7 +65,7 @@
 				} else {
 					return_text = '<div class="bcc-box bcc-info" itemscope itemtype="http://schema.org/Text">\n\
 					<h3 itemprop="learningResourceType">Exercises</h3>\n\
-					<p>Type your exercies here.</p>\n\
+					<p>Type your exercises here.</p>\n\
 					<ol><li>First</li><li>Second</li></ol>\n\
 					</div><p></p>';
 				}
