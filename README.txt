@@ -4,7 +4,7 @@ Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution
 Tags: pressbooks, textbook
 Requires at least: 3.8.1
 Tested up to: 3.8.1
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,6 +69,9 @@ theme, then activate at the book level. You'll have access to those features and
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 1.0.4 (2014/04/03) = 
+* fixing redistribution of export files option on home page, requires re-setting if previously set
 
 = 1.0.3 (2014/04/01) = 
 * updating and fixing mce table plugin
