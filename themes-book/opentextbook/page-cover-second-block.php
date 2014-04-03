@@ -42,7 +42,8 @@
 					<!-- display links to files -->
 					<?php
 					$files = \PBT\Utility\latest_exports();
-					if ( is_array( $files ) && (true == get_option( 'latest_files_public' )) ) {
+					$options = get_option( 'pbt_redistribute_settings' );
+					if ( is_array( $files ) && ( true == $options['latest_files_public'] ) ) {
 						echo '<h2>Alternate Formats</h2><p>This book is also available for free; download in the following formats:</p>';
 
 						$dir = \PressBooks\Export\Export::getExportFolder();
