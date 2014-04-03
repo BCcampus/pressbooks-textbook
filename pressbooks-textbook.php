@@ -163,7 +163,8 @@ class Textbook {
 			
 			// get user options
 			$user_options = $this->getUserOptions();
-
+			
+			if ( is_array( $user_options ) ) {
 				foreach ( $pbt_plugin as $key => $val ) {
 
 					$name = strstr( $key, '/', true );
@@ -178,6 +179,7 @@ class Textbook {
 					}
 				}
 			}
+		}
 
 		return $pbt_plugin;
 	}
