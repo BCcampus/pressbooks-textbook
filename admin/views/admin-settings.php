@@ -13,17 +13,17 @@
 <div class="wrap">
 
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
-		<!-- display settings errors -->
-		<?php
-		settings_errors();
-		
-		// message about functionality being tied to theme
-		if ( false == \PBT\Textbook::isTextbookTheme() ) {
-			echo "<div class='updated'><p>To access many features of this plugin, first <a href='themes.php'>activate one of our themes</a>, such as the Open Textbook theme.</p></div>";
-		}
-		?>
+	<!-- display settings errors -->
+	<?php
+	settings_errors();
+
+	// message about functionality being tied to theme
+	if ( false == \PBT\Textbook::isTextbookTheme() ) {
+		echo "<div class='updated'><p>To access many features of this plugin, first <a href='themes.php'>activate one of our themes</a>, such as the Open Textbook theme.</p></div>";
+	}
+	?>
 	<?php $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'reuse'; ?>
-		
+
 	<div id="icon-options-general" class="icon32"></div>
 	<h2 class="nav-tab-wrapper">
 		<a href="?page=pressbooks-textbook-settings&tab=reuse" class="nav-tab <?php echo $active_tab == 'reuse' ? 'nav-tab-active' : ''; ?>">Reuse</a>
@@ -54,8 +54,19 @@
 				break;
 
 			case 'remix':
-				echo "<h3>Combine content with other open content</h3>"
-				. "<p><b>Good News!</b> This functionality has been incorporated into PressBooks. We've contributed code back to PB to create the <a href='?page=pb_import'>import feature</a>.</p>";
+				require( PBT_PLUGIN_DIR . 'includes/modules/catalogue/EquellaFetch.php');
+				require( PBT_PLUGIN_DIR . 'includes/modules/catalogue/Filter.php');
+				
+				echo "<hgroup>"
+				. "<h2>Combine content with other open content</h2>"
+				. "<h3>Import documents</h3>"
+				. "</hgroup>"
+				. "<p><b>Good News!</b> The <a href='?page=pb_import'>import feature</a> has been incorporated into PressBooks. Our code contributions to PB core now makes it possible to import from EPUB, DOCX, ODT or XML files.</p>"
+				. "<h3>Download openly licensed textbooks</h3>";
+
+				$equellaFetch = new \PBT\Catalogue\EquellaFetch();
+				echo $equellaFetch->displayContent( 0 );
+				
 				break;
 
 			case 'redistribute':
@@ -68,7 +79,7 @@
 				do_settings_sections( 'pbt_other_settings' );
 				break;
 		}
-		if ( 'remix' != $active_tab && 'revise' != $active_tab) {
+		if ( 'remix' != $active_tab && 'revise' != $active_tab ) {
 			submit_button();
 		}
 		?>
