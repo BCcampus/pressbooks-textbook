@@ -4,7 +4,7 @@ Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution
 Tags: pressbooks, textbook
 Requires at least: 3.8.1
 Tested up to: 3.8.1
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,6 +21,7 @@ PressBooks Textbook adds functionality to the PressBooks plugin to make it easie
 * Prominent admin buttons (Import, Plugin)
 * Annotation functionality
 * Redistribution capabilities for free, digital versions of your book.
+* Download links to openly licensed textbooks, ready to remix.
 
 Textbooks have functional and styling considerations above and beyond regular books. Open textbooks are those that are licensed with a [creative commons license](http://creativecommons.org).
 This plugin was built primarily to support the creation, remixing and distribution of open textbooks for the [open textbook project in BC](http://open.bccampus.ca/about-2/).
@@ -69,6 +70,9 @@ theme, then activate at the book level. You'll have access to those features and
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 1.0.6 (2014/04/11) = 
+* fixing filter function to ameliorate conflicts with already active plugins.
 
 = 1.0.5 (2014/04/04) = 
 * adding download links to 31 openly licensed textbooks in various digital formats. Remix!
