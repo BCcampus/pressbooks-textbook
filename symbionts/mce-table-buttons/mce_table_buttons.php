@@ -57,7 +57,7 @@ class MCE_Table_Buttons {
 			wp_print_styles( 'mce-table-buttons' );
 		} else {
 			add_filter( 'mce_external_plugins', array( __CLASS__, 'mce_external_plugins_3_9' ) );
-			add_filter( 'mce_buttons_2', array( __CLASS__, 'mce_buttons_3_9' ) );
+			add_filter( 'mce_buttons_3', array( __CLASS__, 'mce_buttons_3_9' ) );
 		}
 
 		remove_filter( 'the_editor', array( __CLASS__, 'the_editor' ) ); // only needs to run once
