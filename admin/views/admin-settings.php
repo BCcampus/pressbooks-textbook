@@ -50,7 +50,7 @@
 				. "<p><b>Good News!</b> We've added some functionality to the TinyMCE editor</p>"
 				. "<ol><li><b>MCE Textbook Buttons</b> by Brad Payne adds the following textbook specific buttons: Learning Objectives (LO), Key Takeaways (KT), Excercies (EX).</li>"
 				. "<li><b>MCE Table Buttons</b> by jakemgold, 10up, thinkoomph adds table buttons to the editor.</li>"
-				. "<li><b>PB LaTeX</b> by Brad Payne adds the ability to include math equations using LaTeX markup.</li></ol>";
+				. "<li><b><a href='options-general.php?page=pb-latex'>PB LaTeX</a></b> by Brad Payne adds the ability to include math equations using LaTeX markup.</li></ol>";
 				break;
 
 			case 'remix':

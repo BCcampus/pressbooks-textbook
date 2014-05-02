@@ -2,9 +2,9 @@
 Contributors: bdolor
 Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution-guidelines
 Tags: pressbooks, textbook
-Requires at least: 3.8.1
-Tested up to: 3.8.1
-Stable tag: 1.0.6
+Requires at least: 3.8.3
+Tested up to: 3.9
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -70,6 +70,10 @@ theme, then activate at the book level. You'll have access to those features and
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 1.0.7 (2014/05/02) =
+* fix filtering of root child themes (thanks John!)
+* tested up to WP 3.9
 
 = 1.0.6 (2014/04/11) = 
 * fixing filter function to ameliorate conflicts with already active plugins.

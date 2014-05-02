@@ -296,7 +296,7 @@ class Textbook {
 	/**
 	 * Pressbooks filters allowed themes, this adds our themes to the list
 	 * 
-	 * @since 1.0.0
+	 * @since 1.0.7
 	 * @param array $themes
 	 * @return array
 	 */
@@ -316,7 +316,7 @@ class Textbook {
 
 			return $themes;
 		} else {
-			return $pbt_themes;
+			return $themes;
 		}
 	}
 
