@@ -1,0 +1,199 @@
+# Copyright (C) 2013 TinyMCE Spellcheck
+# This file is distributed under the same license as the TinyMCE Spellcheck package.
+msgid ""
+msgstr ""
+"Project-Id-Version: TinyMCE Spellcheck 0.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/tinymce-spellcheck\n"
+"POT-Creation-Date: 2013-08-08 13:05:44+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/atd-l10n.php:12
+msgid "Spelling"
+msgstr ""
+
+#: includes/atd-l10n.php:13
+msgid "Repeated Word"
+msgstr ""
+
+#: includes/atd-l10n.php:15
+msgid "No suggestions"
+msgstr ""
+
+#: includes/atd-l10n.php:17
+msgid "Explain..."
+msgstr ""
+
+#: includes/atd-l10n.php:18
+msgid "Ignore suggestion"
+msgstr ""
+
+#: includes/atd-l10n.php:19
+msgid "Ignore always"
+msgstr ""
+
+#: includes/atd-l10n.php:20
+msgid "Ignore all"
+msgstr ""
+
+#: includes/atd-l10n.php:22
+msgid "Edit Selection..."
+msgstr ""
+
+#: includes/atd-l10n.php:24
+msgid "proofread"
+msgstr ""
+
+#: includes/atd-l10n.php:25
+msgid "edit text"
+msgstr ""
+
+#: includes/atd-l10n.php:26 tinymce-spellcheck.php:235
+msgid "Proofread Writing"
+msgstr ""
+
+#: includes/atd-l10n.php:28
+msgid "No writing errors were found."
+msgstr ""
+
+#: includes/atd-l10n.php:29
+msgid "There was a problem communicating with the Proofreading service. Try again in one minute."
+msgstr ""
+
+#: includes/atd-l10n.php:30
+msgid "There was an error communicating with the proofreading service."
+msgstr ""
+
+#: includes/atd-l10n.php:32
+msgid "Replace selection with:"
+msgstr ""
+
+#: includes/atd-l10n.php:33
+msgid ""
+"The proofreader has suggestions for this post. Are you sure you want to publish it?\n"
+"\n"
+"Press OK to publish your post, or Cancel to view the suggestions and edit your post."
+msgstr ""
+
+#: includes/atd-l10n.php:34
+msgid ""
+"The proofreader has suggestions for this post. Are you sure you want to update it?\n"
+"\n"
+"Press OK to update your post, or Cancel to view the suggestions and edit your post."
+msgstr ""
+
+#: includes/config-options.php:48
+msgid "Proofreading"
+msgstr ""
+
+#: includes/config-options.php:50
+msgid "Automatically proofread content when:"
+msgstr ""
+
+#: includes/config-options.php:53
+msgid "a post or page is first published"
+msgstr ""
+
+#: includes/config-options.php:55
+msgid "a post or page is updated"
+msgstr ""
+
+#: includes/config-options.php:58
+msgid "English Options"
+msgstr ""
+
+#: includes/config-options.php:60
+msgid "Enable proofreading for the following grammar and style rules when writing posts and pages:"
+msgstr ""
+
+#: includes/config-options.php:63
+msgid "Bias Language"
+msgstr ""
+
+#: includes/config-options.php:65
+msgid "Clich&eacute;s"
+msgstr ""
+
+#: includes/config-options.php:67
+msgid "Complex Phrases"
+msgstr ""
+
+#: includes/config-options.php:69
+msgid "Diacritical Marks"
+msgstr ""
+
+#: includes/config-options.php:71
+msgid "Double Negatives"
+msgstr ""
+
+#: includes/config-options.php:73
+msgid "Hidden Verbs"
+msgstr ""
+
+#: includes/config-options.php:75
+msgid "Jargon"
+msgstr ""
+
+#: includes/config-options.php:77
+msgid "Passive Voice"
+msgstr ""
+
+#: includes/config-options.php:79
+msgid "Phrases to Avoid"
+msgstr ""
+
+#: includes/config-options.php:81
+msgid "Redundant Phrases"
+msgstr ""
+
+#: includes/config-options.php:83
+msgid "<a href=\"%s\">Learn more</a> about these options."
+msgstr ""
+
+#: includes/config-options.php:86
+msgid "Language"
+msgstr ""
+
+#: includes/config-options.php:89
+msgctxt "%1$s = http://codex.wordpress.org/Installing_WordPress_in_Your_Language, %2$s = WPLANG"
+msgid "The proofreader supports English, French, German, Portuguese, and Spanish. Your <a href=\"%1$s\">%2$s</a> value is the default proofreading language."
+msgstr ""
+
+#: includes/config-options.php:95
+msgid "Use automatically detected language to proofread posts and pages"
+msgstr ""
+
+#: includes/config-unignore.php:126
+msgid "Ignored Phrases"
+msgstr ""
+
+#: includes/config-unignore.php:128
+msgid "Identify words and phrases to ignore while proofreading your posts and pages:"
+msgstr ""
+
+#: includes/config-unignore.php:130
+msgid "Add"
+msgstr ""
+
+#: includes/config-unignore.php:135
+msgid "Be sure to click \"Update Profile\" at the bottom of the screen to save your changes."
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "TinyMCE Spellcheck"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Adds a contextual spell, style, and grammar checker to WordPress. This is a fork of the After the Deadline plugin."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Matthew Muro"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://matthewmuro.com"
+msgstr ""

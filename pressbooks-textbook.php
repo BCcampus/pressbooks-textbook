@@ -11,7 +11,7 @@
  * @wordpress-plugin
  * Plugin Name:       PressBooks Textbook
  * Description:       A plugin that extends PressBooks for textbook authoring
- * Version:           1.0.7
+ * Version:           1.0.8
  * Author:            Brad Payne
  * Author URI:        http://bradpayne.ca		
  * Text Domain:       pressbooks-textbook
@@ -38,7 +38,7 @@ class Textbook {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	const VERSION = '1.0.7';
+	const VERSION = '1.0.8';
 
 	/**
 	 * Unique identifier for plugin.
@@ -109,7 +109,7 @@ class Textbook {
 	/**
 	 * Include our plugins
 	 * 
-	 * @since 1.0.1
+	 * @since 1.0.8
 	 */
 	function includes() {
 		$pbt_plugin = array(
@@ -117,7 +117,7 @@ class Textbook {
 		    'mce-textbook-buttons/mce-textbook-buttons.php' => 1,
 		    'creative-commons-configurator-1/cc-configurator.php' => 1,
 		    'hypothesis/hypothesis.php' => 1,
-//		    'relevanssi/relevanssi.php' => 1,
+		    'tinymce-spellcheck/tinymce-spellcheck.php' => 1,
 		);
 
 		$pbt_plugin = $this->filterPlugins( $pbt_plugin );
@@ -133,27 +133,29 @@ class Textbook {
 	/**
 	 * Filters out active plugins, to avoid collisions with plugins already installed
 	 * 
-	 * @since 1.0.6
+	 * @since 1.0.8
 	 * @param array $pbt_plugin
 	 * @return array
 	 */
 	private function filterPlugins( $pbt_plugin ) {
 		$already_active = get_option('active_plugins');
 		$network_already_active = get_site_option('active_sitewide_plugins');
-		
+
 		// activate only if one of our themes is being used
 		if ( false == self::isTextbookTheme() ) {
 			unset( $pbt_plugin['mce-textbook-buttons/mce-textbook-buttons.php'] );
 			unset( $pbt_plugin['hypothesis/hypothesis.php'] );
 			unset( $pbt_plugin['creative-commons-configurator-1/cc-configurator.php'] );
 			unset( $pbt_plugin['mce-table-buttons/mce_table_buttons.php'] );
+			unset( $pbt_plugin['tinymce-spellcheck/tinymce-spellcheck.php'] );
+
 			
 		}
 		
 		// don't include plugins already active at the site level, network level
 		if ( ! empty( $pbt_plugin ) ) {
 			foreach ( $pbt_plugin as $key => $val ) {
-				if ( array_key_exists( $key, $already_active ) || array_key_exists( $key, $network_already_active )) {
+				if ( in_array( $key, $already_active ) || array_key_exists( $key, $network_already_active )) {
 					unset( $pbt_plugin[$key] );
 				}
 				
@@ -230,7 +232,7 @@ class Textbook {
 
 		// Add a rewrite rule for the keyword "open"
 		add_rewrite_endpoint( 'open', EP_ROOT );
-		// Flush, if we haven't already been
+		// Flush, if we haven't already 
 		\PBT\Rewrite\flusher();
 	}
 

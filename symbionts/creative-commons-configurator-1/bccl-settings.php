@@ -198,6 +198,10 @@ function bccl_save_settings($post_payload) {
         }
     }
 
+    // Forcing 'syndicate content' to off
+    // It creates invalid EPUB output, plus there is no 'feed' in PB
+    $cc_settings['cc_feed'] = 0;
+    
     // Finally update the CC-Configurator options.
     update_option('cc_settings', $cc_settings);
 

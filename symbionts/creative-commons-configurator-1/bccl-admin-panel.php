@@ -263,25 +263,12 @@ function bccl_set_license_options($cc_settings) {
                 <input name="cc_derivative_orig_lic" type="radio" value="CC BY-SA"' . (($cc_settings["cc_derivative_orig_lic"] == "CC BY-SA") ? ' checked="checked"' : '') . ' >CC BY-SA <small><i>(Attribution-ShareAlike)</i></small></input><br>
                 <input name="cc_derivative_orig_lic" type="radio" value="CC BY-NC"' . (($cc_settings["cc_derivative_orig_lic"] == "CC BY-NC") ? ' checked="checked"' : '') . ' >CC BY-NC <small><i>(Attribution-NonCommercial)</i></small></input><br>
                 <input name="cc_derivative_orig_lic" type="radio" value="CC BY-NC-SA"' . (($cc_settings["cc_derivative_orig_lic"] == "CC BY-NC-SA") ? ' checked="checked"' : '') . ' >CC BY-NC-SA <small><i>(Attribution-NonCommercial-ShareAlike)</i></small></input>
-            </p>
+		<input id="cc_feed" type="hidden" value="0" name="cc_feed"" />
+</p>
         </fieldset>
         </td>
         </tr>
       
-            <tr valign="top">
-            <th scope="row">'.__('Syndicated Content', 'cc-configurator').'</th>
-            <td>
-            <fieldset>
-                <legend class="screen-reader-text"><span>'.__('Syndicated Content', 'cc-configurator').'</span></legend>
-                <input id="cc_feed" type="checkbox" value="1" name="cc_feed" '. (($cc_settings["cc_feed"]=="1") ? 'checked="checked"' : '') .'" />
-                <label for="cc_feed">
-                '.__('Include license information in the blog feeds. (<em>Recommended</em>)', 'cc-configurator').'
-                </label>
-                <br />
-            </fieldset>
-            </td>
-            </tr>
-
             <tr valign="top">
             <th scope="row">'.__('Page Head HTML', 'cc-configurator').'</th>
             <td>

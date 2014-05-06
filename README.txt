@@ -4,7 +4,7 @@ Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution
 Tags: pressbooks, textbook
 Requires at least: 3.8.3
 Tested up to: 3.9
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,6 +16,7 @@ PressBooks Textbook adds functionality to the PressBooks plugin to make it easie
 * Textbook Theme
 * TinyMCE table buttons
 * TinyMCE textbook buttons 
+* TinyMCE spell check
 * Search functionality
 * Creative Commons attribution
 * Prominent admin buttons (Import, Plugin)
@@ -70,6 +71,11 @@ theme, then activate at the book level. You'll have access to those features and
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 1.0.8 (2014/05/06) =
+* adding spell check to tinyMCE
+* fix for checking active plugins at book level
+* disable including license in feeds (for a valid EPUB export)
 
 = 1.0.7 (2014/05/02) =
 * fix filtering of root child themes (thanks John!)
