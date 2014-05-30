@@ -328,7 +328,7 @@ function bccl_get_license_block( $work='', $css_class='', $show_button='default'
 
         // Derivatives 
         // @see: http://wiki.creativecommons.org/Best_practices_for_attribution
-        if ( "1" == $cc_settings['cc_derivative'] ) {
+        if ( ! empty($cc_settings['cc_derivative']) && "1" == $cc_settings['cc_derivative'] ) {
                 $orig_title = (empty( $cc_settings['cc_derivative_orig_title'] )) ? '' : 'of <cite>' . $cc_settings['cc_derivative_orig_title'] . '</cite>';
                 // hyperlink if both aren't empty
                 $orig_title = ( ! empty( $orig_title ) && ! empty( $cc_settings['cc_derivative_orig_src'] )) ? 'of <cite><a href="' . $cc_settings['cc_derivative_orig_src'] . '">' . $cc_settings['cc_derivative_orig_title'] . '</a></cite>' : $orig_title;

@@ -58,6 +58,25 @@ ol.alphalist li::before{
 	margin-right: 4%;
 }
 /****************************************
+	Cover page
+*****************************************/
+.alt-formats{
+	float: left;
+	max-width: 340px;
+	width: 35%;
+}
+
+.alt-formats h4{
+	border-bottom-color: #FFFFFF;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	padding-bottom: 10px;
+	width: 100%;
+}
+
+
+
+/****************************************
 	TOC, Author page, Book Page
 *****************************************/
 
@@ -94,10 +113,10 @@ ol.alphalist li::before{
 	margin: 100px 0 80px;
 }
 .entry-title span {
-    border-bottom: 1px solid #333;
-    padding: 0 0.2em 0.3em;
-    text-align: center;
-    width: 20%;
+	border-bottom: 1px solid #333;
+	padding: 0 0.2em 0.3em;
+	text-align: center;
+	width: 20%;
 }
 .chapter_subtitle {
 	font-size: 1em;
@@ -117,11 +136,11 @@ ol.alphalist li::before{
 	margin-top: -80px;
 }
 .aphorism {
-    margin-bottom: 80px;
-    margin-left: 100px;
-    margin-top: -80px;
-    padding: 0;
-    text-align: right;
+	margin-bottom: 80px;
+	margin-left: 100px;
+	margin-top: -80px;
+	padding: 0;
+	text-align: right;
 }
 .aphorism cite {
 	float: none;
@@ -147,7 +166,7 @@ p.cc-block{
 	width: 100% !important;
 	margin: 30px auto 8px !important;
 	border-radius: 4px;
-	
+
 }
 
 .screen-reader-text{
@@ -159,7 +178,7 @@ p.cc-block{
 ********************************/
 
 .bcc-box{
-/*	width: 100%;*/
+	/*	width: 100%;*/
 	padding: 2% 3%;
 	margin-bottom: 15px; 
 	border-radius: 4px;
@@ -170,7 +189,7 @@ p.cc-block{
 	margin: -2% -3% 15px;
 	color: #ffffff;
 	padding: 15px 0 15px;
-	
+
 }
 
 .bcc-highlight{
@@ -269,5 +288,36 @@ span.small.xhtml {
 
 	#sidebar{
 		margin-right: -24px;
+	}
+}
+
+@media screen and (max-width: 990px ){
+	.alt-formats{
+		float: none;
+		margin-bottom: 2em;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 2em;
+		max-width: 80%;
+		overflow-x: hidden;
+		overflow-y: hidden;
+		width: auto;
+	}
+}
+
+@media screen and (max-width: 780px){
+	.alt-formats{
+		margin-bottom: 0;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 10px;
+		max-width: 75%;
+		width: auto;
+	}
+}
+
+@media screen and (max-width: 620px){
+	.alt-formats{
+		max-width: 95%;
 	}
 }
