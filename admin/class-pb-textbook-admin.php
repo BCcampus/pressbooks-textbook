@@ -28,6 +28,8 @@ class TextbookAdmin extends \PBT\Textbook {
 		add_action( 'admin_menu', array( &$this, 'adminMenuAdjuster' ) );
 		add_action( 'admin_init', array( &$this, 'adminSettings' ) );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueueAdminStyles' ) );
+		// needs to be delayed to come after PB
+		add_action( 'wp_dashboard_setup', array( &$this, 'addOtbNewsFeed' ), 11 ); 
 
 		// Add an action link pointing to the options page.
 		$plugin_basename = plugin_basename( plugin_dir_path( __DIR__ ) . $this->plugin_slug . '.php' );
@@ -73,7 +75,34 @@ class TextbookAdmin extends \PBT\Textbook {
 		$this->reuse_settings();
 	}
 
-	
+	/**
+	 * Add blog feed from open.bccampus.ca
+	 * 
+	 * @since 1.1.0
+	 */
+	function addOtbNewsFeed() {
+		// remove PB news from their blog
+		remove_meta_box('pb_dashboard_widget_metadata', 'dashboard', 'side');
+		// add our own
+		add_meta_box( 'pbt_news_feed', __( 'Open Texbook News', $this->plugin_slug ), array( $this, 'displayOtbFeed' ), 'dashboard', 'side', 'high' );
+	}
+
+	/**
+	 * Callback function that adds our feed
+	 * 
+	 * @since 1.1.0
+	 */
+	function displayOtbFeed() {
+		wp_widget_rss_output( array(
+		    'url' => 'http://open.bccampus.ca/?feed=rss2',
+		    'title' => __( 'Open Textbook News', $this->plugin_slug ),
+		    'items' => 5,
+		    'show_summary' => 1,
+		    'show_author' => 0,
+		    'show_date' => 1,
+		) );
+	}
+
 	/**
 	 * Options for plugins that support redistribution
 	 * 

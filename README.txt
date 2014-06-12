@@ -4,7 +4,7 @@ Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution
 Tags: pressbooks, textbook
 Requires at least: 3.8.3
 Tested up to: 3.9
-Stable tag: 1.0.9
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -71,6 +71,9 @@ theme, then activate at the book level. You'll have access to those features and
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 1.1.0 (2014/06/12) =
+* adding news feed to admin dashboard
 
 = 1.0.9 (2014/05/30) =
 * adding copyright description to cover page
