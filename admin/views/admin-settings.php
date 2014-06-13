@@ -64,9 +64,21 @@
 				. "<p><b>Good News!</b> The <a href='?page=pb_import'>import feature</a> has been incorporated into PressBooks. Our code contributions to PB core now makes it possible to import from EPUB, DOCX, ODT or XML files.</p>"
 				. "<h3>Download openly licensed textbooks</h3>";
 
-				$equellaFetch = new \PBT\Catalogue\EquellaFetch();
-				echo $equellaFetch->displayContent( 0 );
-				
+				// check if it's in the cache
+				$textbooks = wp_cache_get('open-textbooks', 'pbt');
+
+				// check if we need to regenerate cache
+				if ( $textbooks ) {
+					echo $textbooks;
+				} else {
+					$equellaFetch = new \PBT\Catalogue\EquellaFetch();
+					$filter = new \PBT\Catalogue\Filter( $equellaFetch );
+					$textbooks = $filter->displayBySubject();
+					
+					wp_cache_set( 'open-textbooks', $textbooks, 'pbt', 60 * 60 * 3 );
+
+					echo $textbooks;
+				}
 				break;
 
 			case 'redistribute':

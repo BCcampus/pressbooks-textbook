@@ -19,15 +19,14 @@ class EquellaFetch {
 	private $subjectPath2 = '/xml/item/subject_class_level2';
 	private $contributorPath = '/xml/contributordetails/institution';
 	private $keywordPath = '/xml/item/keywords';
-	private $whereClause = '';
+	public $whereClause = '';
 	private $url = '';
-	private $justTheResultsMaam = array();
-	private $filter;
+	public $justTheResultsMaam = array();
 	private $availableResults = 0;
 	private $searchTerm = '';
-	private $keywordFlag = false;
-	private $byContributorFlag = false;
-	private $uuid = '';
+	public $keywordFlag = false;
+	public $byContributorFlag = false;
+	public $uuid = '';
 	private $collectionUuid = '7567d816-90cc-4547-af7a-3dbd43277639';
 
 	const OPR_IS = ' is ';
@@ -42,7 +41,7 @@ class EquellaFetch {
 		$this->searchBySubject( $this->searchTerm );
 
 		// Instantiate filter object  
-		$this->filter = new Filter( $this->keywordFlag, $this->byContributorFlag, $this->justTheResultsMaam, $this->whereClause, $this->uuid );
+		//$this->filter = new Filter( $this->keywordFlag, $this->byContributorFlag, $this->justTheResultsMaam, $this->whereClause, $this->uuid );
 	}
 
 	/**
@@ -188,30 +187,6 @@ class EquellaFetch {
 
 		$this->availableResults = $result['available'];
 		$this->justTheResultsMaam = $result['results'];
-	}
-
-	/**
-	 * Need to deliver the results in html
-	 *
-	 * @param int $startHere - the first record to start from (not zero based)
-	 * @param string $url - optinal, only required for generating short URL script
-	 * @return String - an HTML blob of the results 
-	 */
-	public function displayContent( $startHere, $url = '', $detail = false ) {
-		$limit = 0;
-		$html = '';
-
-		//if it's not already an integer, make it one.
-		$startHere = intval( $startHere );
-
-		if ( is_int( $startHere ) ) {
-			//display all the results starting at the first one (from a search form)
-			$html .= $this->filter->displayBySubject( 0, 0 );
-
-			return $html;
-		} else {
-			return false;
-		}
 	}
 
 	/**
