@@ -75,7 +75,7 @@
 					$filter = new \PBT\Catalogue\Filter( $equellaFetch );
 					$textbooks = $filter->displayBySubject();
 					
-					wp_cache_set( 'open-textbooks', $textbooks, 'pbt', 60 * 60 * 3 );
+					wp_cache_set( 'open-textbooks', $textbooks, 'pbt', 10800 );
 
 					echo $textbooks;
 				}

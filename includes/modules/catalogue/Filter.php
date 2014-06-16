@@ -36,21 +36,20 @@ class Filter {
 	 * @param string $uuid 
 	 */
 	public function __construct( EquellaFetch $response ) {
-		/* check to be sure that we can get results from an equella array */
-		$this->resultsData = $response->justTheResultsMaam;
+		/* get results from an equella array */
+		$this->resultsData = $response->getResults();
 		$this->size = count( $this->resultsData );
-		$this->uuid = $response->uuid;
+		$this->uuid = $response->getUuid();
 
-		if ( $response->keywordFlag == true ) {
+		if ( $response->getKeywordFlag() == true ) {
 			$this->keyword = $subject;
 		}
-		if ( $response->byContributorFlag == true ) {
+		if ( $response->getContributorFlag() == true ) {
 			$this->contributor = $subject;
 		}
-		if ( $response->byContributorFlag == false && $response->keywordFlag == false ) {
-			$this->subject = $response->whereClause;
+		elseif ( $response->getContributorFlag() == false && $response->getKeywordFlag() == false ) {
+			$this->subject = $response->getWhereClause();
 		}
-		
 	}
 
 	/**

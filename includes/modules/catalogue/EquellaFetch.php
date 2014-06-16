@@ -19,14 +19,14 @@ class EquellaFetch {
 	private $subjectPath2 = '/xml/item/subject_class_level2';
 	private $contributorPath = '/xml/contributordetails/institution';
 	private $keywordPath = '/xml/item/keywords';
-	public $whereClause = '';
+	private $whereClause = '';
 	private $url = '';
-	public $justTheResultsMaam = array();
+	private $justTheResultsMaam = array();
 	private $availableResults = 0;
 	private $searchTerm = '';
-	public $keywordFlag = false;
-	public $byContributorFlag = false;
-	public $uuid = '';
+	private $keywordFlag = false;
+	private $byContributorFlag = false;
+	private $uuid = '';
 	private $collectionUuid = '7567d816-90cc-4547-af7a-3dbd43277639';
 
 	const OPR_IS = ' is ';
@@ -37,11 +37,27 @@ class EquellaFetch {
 	 * 
 	 */
 	public function __construct() {
-
 		$this->searchBySubject( $this->searchTerm );
+	}
+	
+	public function getUuid() {
+		return $this->uuid;
+	}
 
-		// Instantiate filter object  
-		//$this->filter = new Filter( $this->keywordFlag, $this->byContributorFlag, $this->justTheResultsMaam, $this->whereClause, $this->uuid );
+	public function getKeywordFlag() {
+		return $this->keywordFlag;
+	}
+
+	public function getContributorFlag() {
+		return $this->byContributorFlag;
+	}
+
+	public function getResults() {
+		return $this->justTheResultsMaam;
+	}
+
+	public function getWhereClause() {
+		return $this->whereClause;
 	}
 
 	/**
