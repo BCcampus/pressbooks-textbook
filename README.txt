@@ -74,6 +74,8 @@ See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more det
 
 = 1.1.0 (2014/06/12) =
 * adding news feed to admin dashboard
+* updating mce table buttons plugin
+* dependency injection, caching added to remix tab 
 
 = 1.0.9 (2014/05/30) =
 * adding copyright description to cover page
