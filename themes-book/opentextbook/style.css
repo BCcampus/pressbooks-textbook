@@ -267,6 +267,11 @@ span.small.wxr {
 
 }
 
+span.small.vanillawxr {
+	background: url(../../../pressbooks/assets/images/vanillawxr-36.png) -0 0 no-repeat;
+
+}
+
 span.small.xhtml {
 	background: url(../../../pressbooks/assets/images/xhtml-36.png) -0 0 no-repeat;
 

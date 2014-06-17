@@ -59,17 +59,17 @@
 						$dir = \PressBooks\Export\Export::getExportFolder();
 						foreach ( $files as $ext => $filename ) {
 							$file_extension = substr( strrchr( $ext, '.' ), 1 );
-							$pre_suffix = strstr( $ext, '._3.epub' );
+							$pre_suffix = (false == strstr( $ext, '._3.epub' )) ? strstr( $ext, '._vanilla.xml') : strstr( $ext, '._3.epub' );
 
 							switch ( $file_extension ) {
 								case 'html':
 									$file_class = 'xhtml';
 									break;
 								case 'xml':
-									$file_class = 'wxr';
+									$file_class = ( false == $pre_suffix) ? 'wxr' : 'vanillawxr';
 									break;
 								case 'epub':
-									('._3.epub' == $pre_suffix ) ? $file_class = 'epub3' : $file_class = 'epub';
+									$file_class =  ( false  == $pre_suffix ) ? 'epub' : 'epub3';
 									break;
 								default:
 									$file_class = $file_extension;

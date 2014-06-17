@@ -84,7 +84,7 @@ class TextbookAdmin extends \PBT\Textbook {
 		// remove PB news from their blog
 		remove_meta_box('pb_dashboard_widget_metadata', 'dashboard', 'side');
 		// add our own
-		add_meta_box( 'pbt_news_feed', __( 'Open Texbook News', $this->plugin_slug ), array( $this, 'displayOtbFeed' ), 'dashboard', 'side', 'high' );
+		add_meta_box( 'pbt_news_feed', __( 'Open Textbook News', $this->plugin_slug ), array( $this, 'displayOtbFeed' ), 'dashboard', 'side', 'high' );
 	}
 
 	/**

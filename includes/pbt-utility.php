@@ -26,6 +26,7 @@ function latest_exports() {
 	    '.icml',
 	    '.html',
 	    '.xml',
+	    '._vanilla.xml'
 	);
 
 	$dir = \PressBooks\Export\Export::getExportFolder();

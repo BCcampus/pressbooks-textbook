@@ -53,6 +53,9 @@ function do_open() {
 				case 'epub3':
 					$ext = '_3.epub';
 					break;
+				case 'vanillawxr':
+					$ext = '_vanilla.xml';
+					break;
 				default:
 					$ext = $_GET['type'];
 					break;
