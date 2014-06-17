@@ -247,6 +247,8 @@ class Textbook {
 		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return;
 		}
+		// @TODO - update timezone and tagline
+		// update_option('blogdescription', 'The Open Textbook Project provides flexible and affordable access to higher education resources');
 
 		add_site_option( 'pressbooks-textbook-activated', true );
 	}

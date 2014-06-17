@@ -13,6 +13,13 @@
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<?php
+if ( is_front_page() ) {
+
+	echo get_seo_meta_elements();
+}
+?>
 <link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/favicon.ico" />
 <title><?php
 	global $page, $paged;
@@ -51,17 +58,17 @@
 	 
 	 	<!-- home page wrap -->
 	 	
-	 		<div class="book-info-container">
+		<span itemscope itemtype="http://schema.org/CreativeWork">
+			<div class="book-info-container hfeed">
 	 
 		<?php else: ?>  	 
-			
-		<div class="nav-container">
+		
+		<span itemscope itemtype="http://schema.org/CreativeWork">		
+			<div class="nav-container">
 				<nav>
 			
 			 		<!-- Book Title -->
-				    <h1 class="book-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-			    
-			   
+					<h1 class="book-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><span itemprop="name"><?php bloginfo( 'name' ); ?></span></a></h1>
 			    
 					    <div class="sub-nav-left">
 							<!-- Logo -->
@@ -90,7 +97,7 @@
 			    <div class="author-wrap"> 
 			    	<?php $metadata = pb_get_book_information(); ?>
 					<?php if ( ! empty( $metadata['pb_author'] ) ): ?>
-			     	<h3><?php echo $metadata['pb_author']; ?></h3>
+				    <span itemprop="author" itemscope itemtype="http://schema.org.Person"><h3 itemprop="name"><?php echo $metadata['pb_author']; ?></h3></span>
 		     		<?php endif; ?>
 			     </div> <!-- end .author-name -->
 
@@ -101,6 +108,6 @@
 
 	<div class="wrapper"><!-- for sitting footer at the bottom of the page -->	    
 			<div id="wrap">	    
-				<div id="content">
+				<div id="content" class="hfeed">
 
 	 <?php endif; ?>	
