@@ -17,11 +17,11 @@
 				var selected_text = ed.selection.getContent();
 				var return_text = '';
 				if(selected_text != ''){
-				return_text = '<div class="bcc-box bcc-highlight" itemscope itemtype="http://schema.org/Text"><h3 itemprop="learningResourceType">Learning Objectives</h3>\n\
+				return_text = '<div class="bcc-box bcc-highlight"><h3 itemprop="educationalUse">Learning Objectives</h3>\n\
 					' + selected_text + '</div><p></p>';
 				} else {
-					return_text = '<div class="bcc-box bcc-highlight" itemscope itemtype="http://schema.org/Text">\n\
-					<h3 itemprop="learningResourceType">Learning Objectives</h3>\n\
+					return_text = '<div class="bcc-box bcc-highlight">\n\
+					<h3 itemprop="educationalUse">Learning Objectives</h3>\n\
 					<p>Type your learning objectives here.</p>\n\
 					<ul><li>First</li><li>Second</li></ul>\n\
 					</div><p></p>';
@@ -38,11 +38,11 @@
 				var selected_text = ed.selection.getContent();
 				var return_text = '';
 				if(selected_text != ''){
-				return_text = '<div class="bcc-box bcc-success" itemscope itemtype="http://schema.org/Text"><h3 itemprop="learningResourceType">Key Takeaways</h3>\n\
+				return_text = '<div class="bcc-box bcc-success"><h3 itemprop="educationalUse">Key Takeaways</h3>\n\
 					' + selected_text + '</div><p></p>';
 				} else {
-					return_text = '<div class="bcc-box bcc-success" itemscope itemtype="http://schema.org/Text">\n\
-					<h3 itemprop="learningResourceType">Key Takeaways</h3>\n\
+					return_text = '<div class="bcc-box bcc-success">\n\
+					<h3 itemprop="educationalUse">Key Takeaways</h3>\n\
 					<p>Type your key takeaways here.</p>\n\
 					<ul><li>First</li><li>Second</li></ul>\n\
 					</div><p></p>';
@@ -60,11 +60,11 @@
 				var return_text = '';
 				
 				if(selected_text != ''){
-				return_text = '<div class="bcc-box bcc-info" itemscope itemtype="http://schema.org/Text"><h3 itemprop="learningResourceType">Exercises</h3>\n\
+				return_text = '<div class="bcc-box bcc-info"><h3 itemprop="educationalUse">Exercises</h3>\n\
 					' + selected_text + '</div><p></p>';
 				} else {
-					return_text = '<div class="bcc-box bcc-info" itemscope itemtype="http://schema.org/Text">\n\
-					<h3 itemprop="learningResourceType">Exercises</h3>\n\
+					return_text = '<div class="bcc-box bcc-info">\n\
+					<h3 itemprop="educationalUse">Exercises</h3>\n\
 					<p>Type your exercises here.</p>\n\
 					<ol><li>First</li><li>Second</li></ol>\n\
 					</div><p></p>';
@@ -85,9 +85,10 @@
 		createControl: function(n, cm) {
 			return null;
 		}
-
+		
 	});
 
 	// Register plugin
 	tinymce.PluginManager.add('textbookbuttons', tinymce.plugins.textbookbuttons);
+	
 })();

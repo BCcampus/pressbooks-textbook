@@ -16,8 +16,10 @@
 
 <?php
 if ( is_front_page() ) {
-
-	echo get_seo_meta_elements();
+	echo pbt_get_seo_meta_elements();
+	echo pbt_get_microdata_meta_elements();
+} else {
+	echo pbt_get_microdata_meta_elements();
 }
 ?>
 <link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/favicon.ico" />
@@ -58,17 +60,18 @@ if ( is_front_page() ) {
 	 
 	 	<!-- home page wrap -->
 	 	
-		<span itemscope itemtype="http://schema.org/CreativeWork">
+		<span itemscope itemtype="http://schema.org/Book" itemref="about alternativeHeadline author copyrightHolder copyrightYear datePublished description editor 
+		      image inLanguage keywords publisher audience educationalAlignment educationalUse interactivityType learningResourceType typicalAgeRange">
 			<div class="book-info-container hfeed">
 	 
 		<?php else: ?>  	 
 		
-		<span itemscope itemtype="http://schema.org/CreativeWork">		
+		<span itemscope itemtype="http://schema.org/WebPage" itemref="about copyrightHolder copyrightYear inLanguage publisher">		
 			<div class="nav-container">
 				<nav>
 			
 			 		<!-- Book Title -->
-					<h1 class="book-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><span itemprop="name"><?php bloginfo( 'name' ); ?></span></a></h1>
+					<h1 class="book-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 			    
 					    <div class="sub-nav-left">
 							<!-- Logo -->
@@ -97,7 +100,7 @@ if ( is_front_page() ) {
 			    <div class="author-wrap"> 
 			    	<?php $metadata = pb_get_book_information(); ?>
 					<?php if ( ! empty( $metadata['pb_author'] ) ): ?>
-				    <span itemprop="author" itemscope itemtype="http://schema.org.Person"><h3 itemprop="name"><?php echo $metadata['pb_author']; ?></h3></span>
+				    <h3><?php echo $metadata['pb_author']; ?></h3></span>
 		     		<?php endif; ?>
 			     </div> <!-- end .author-name -->
 
