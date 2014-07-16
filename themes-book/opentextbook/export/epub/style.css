@@ -8,6 +8,11 @@ Version: 1.1
 Author: bpayne
 */
 
+
+
+/*__INSERT_EPUB_HOUSE_STYLE__*/
+
+
 /* FONTS
 ===========	*/
 
@@ -153,7 +158,7 @@ p.bl_indent {
 	font-size: .75em;
     font-style: italic;
     margin-top: 0;
-/*    position: relative;*/
+    position: relative;
     top: -80px;
 }
 
@@ -170,6 +175,10 @@ p.bl_indent {
 	font-size: 0.7em;
 	text-indent: 0;
 	margin-bottom: 0.5em;
+}
+div.license-attribution{
+	text-align: center;
+	margin-bottom: 1em;
 }
 
 /* TABLE OF CONTENTS
@@ -208,17 +217,25 @@ p.bl_indent {
 }
 
 #toc span.chapter-author,
+#toc span.chapter-license,
 #toc span.chapter-subtitle {
 	display: block;
 	font-style: italic;
 	margin-left: 1em;
 }
 #toc span.chapter-author,
+#toc span.chapter-license,
 #toc span.chapter-subtitle {
 	margin-bottom: 5px;
 }
 #toc span.chapter-subtitle + 
 span.chapter-author {
+	margin-top: -5px;
+	margin-bottom: 5px;
+}
+
+span.chapter-author +
+span.chapter-license {
 	margin-top: -5px;
 	margin-bottom: 5px;
 }
@@ -257,7 +274,9 @@ h3.chapter-number {
 	display: inline-block;
 	padding: 0 2em 0 1em;
 }
-
+div.chapter.numberless h3.chapter-number {
+	display: none;
+}
 
 
 /*  BODY TITLES
@@ -510,6 +529,8 @@ sup.footnote, sup.endnote {
 .index .ugc  p.sub-entry {
 	padding-left:30px;
 }
+
+/*__INSERT_MOBI_HOUSE_STYLE__*/
 
 /*************************
 	Textbook styles 

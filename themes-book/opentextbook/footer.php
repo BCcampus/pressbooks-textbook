@@ -43,8 +43,18 @@
 				?>
 
 				</table>
-				<?php endif; ?>
-				<?php endif; ?>
+			<?php endif; ?>
+		
+			<?php
+			// avoid a fatal PHP call for those instances that don't have the latest
+			// version of PB
+			// @TODO remove this logic, eventually
+			if ( function_exists( 'pressbooks_copyright_license' ) ) {
+				echo pressbooks_copyright_license();
+			}
+			?>
+		
+		<?php endif; ?>
 		<p class="cie-name">
 			<?php
 			if ( 'opentextbc.ca' == $_SERVER['SERVER_NAME'] ) {
@@ -56,7 +66,7 @@
 		</p>
 	</div><!-- #inner -->
 </div><!-- #footer -->
-</span><!-- schema.org CreativeWork -->
+</span><!-- schema.org -->
 <?php wp_footer(); ?>
 </body>
 </html>

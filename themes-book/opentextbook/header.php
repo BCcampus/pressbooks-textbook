@@ -111,6 +111,6 @@ if ( is_front_page() ) {
 
 	<div class="wrapper"><!-- for sitting footer at the bottom of the page -->	    
 			<div id="wrap">	    
-				<div id="content" class="hfeed">
+				<div id="content">
 
 	 <?php endif; ?>	

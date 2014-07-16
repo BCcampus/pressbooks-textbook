@@ -39,6 +39,7 @@ function pbt_get_seo_meta_elements() {
 
 function pbt_get_microdata_meta_elements() {
 	// map items that are already captured
+	$html = '';
 	$micro_mapping = array(
 	    'about' => 'pb_bisac_subject',
 	    'alternativeHeadline' => 'pb_subtitle',
@@ -74,7 +75,7 @@ function pbt_get_microdata_meta_elements() {
 	    'audience' => 'student',
 	    'interactivityType' => 'mixed',
 	    'learningResourceType' => 'textbook',
-	    'typicalAgeRange' => '17+',
+	    'typicalAgeRange' => '17-',
 	);
 
 	foreach ( $lrmi_meta as $itemprop => $content ) {

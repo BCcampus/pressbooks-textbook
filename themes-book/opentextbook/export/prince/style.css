@@ -6,6 +6,9 @@ Reference @see: http://www.princexml.com/doc/8.1/
 
 ================== */
 
+/*__INSERT_PDF_HOUSE_STYLE__*/
+
+
 /* FONTS
 ===========    */
 
@@ -14,26 +17,39 @@ Reference @see: http://www.princexml.com/doc/8.1/
   font-family: "Crimson";
   font-weight: bold;
   font-style: normal;
-  src: url(../../fonts/CrimsonText-Bold.ttf) format("truetype");
+  src: url(../../fonts/Crimson-Bold.otf) format("opentype");
+}
+@font-face {
+  font-family: "Crimson";
+  font-weight: bold;
+  font-style: italic;
+  src: url(../../fonts/Crimson-BoldItalic.otf) format("opentype");
 }
 @font-face {
   font-family: "Crimson";
   font-weight: normal;
   font-style: italic;
-  src: url(../../fonts/CrimsonText-Italic.ttf) format("truetype");
+  src: url(../../fonts/Crimson-Italic.otf) format("opentype");
 }
 @font-face {
   font-family: "Crimson";
   font-weight: normal;
   font-style: normal;
-  src: url(../../fonts/CrimsonText-Roman.ttf) format("truetype");
+  src: url(../../fonts/Crimson-Roman.otf) format("opentype");
 }
 @font-face {
   font-family: "Crimson";
   font-weight: 600;
   font-style: normal;
-  src: url(../../fonts/CrimsonText-Semibold.ttf) format("truetype");
+  src: url(../../fonts/Crimson-Semibold.otf) format("opentype");
 }
+@font-face {
+  font-family: "Crimson";
+  font-weight: 600;
+  font-style: italic;
+  src: url(../../fonts/Crimson-SemiboldItalic.otf) format("opentype");
+}
+
 @font-face {
   font-family: "Roboto Condensed";
   font-weight: normal;
@@ -189,6 +205,11 @@ h1, h2, h3, h4, h5, h6 {
 
 }
 
+/* Part */
+@page part {
+  
+}
+
 /* Chapter */
 @page chapter {
 	font: 6.5pt "Roboto Condensed", sans-serif;	
@@ -321,6 +342,11 @@ div.part {
 	padding-bottom: 0.25em;
 	padding: part;	
 }
+
+div.part.invisible {
+	display: none;
+}
+ 
 body {
 	font: 10.5pt/1.4 "Crimson","Times New Roman", serif;
 	prince-hyphenate-before: 3;
@@ -598,6 +624,9 @@ body > h1.title:first-of-type {
 	margin: .5cm 0 0;
 	font-weight: 600;
 }
+#toc .part.invisible {
+	display: none;
+}
 #toc .part a::before {
 	content: counter(part, upper-roman)". ";
 	counter-increment: part; 
@@ -621,6 +650,15 @@ body > h1.title:first-of-type {
 	left: 0;
 	top: 0;	
 }
+#toc .chapter .section a::before {
+	content:'';
+	counter-increment: none;
+}
+#toc .chapter.numberless a::before {
+	content:'' ;
+	counter-increment: none;
+	margin-right: 0;	
+}
 #toc .part a::after {
 	content:'' ;
 }
@@ -632,18 +670,30 @@ body > h1.title:first-of-type {
 	margin-top: 1.3em;
 }
 #toc span.chapter-author,
+#toc span.chapter-license,
 #toc span.chapter-subtitle {
 	display: inline-block;
+	font-style: italic;
     margin-left: 2em;
     text-indent: 0;
 	width: 75%;
 }
-#toc span.chapter-author {
-	font-style: italic;
-	margin-top: .2cm;
-	position:relative;
-}
 
+#toc span.chapter-author,
+#toc span.chapter-license,
+#toc span.chapter-subtitle {
+	margin-bottom: 5px;
+}
+#toc span.chapter-subtitle + 
+span.chapter-author, 
+span.chapter-author +
+span.chapter-license, 
+#toc span.chapter-subtitle + 
+span.chapter-license{
+	margin-bottom: 5px;
+	position: relative;
+	top: -5px;
+}
 /*end toc*/
 
 
@@ -697,7 +747,10 @@ h3.chapter-number {
 	border-bottom: 0.5px solid #000;
 	font-weight: lighter;
 	display: inline-block;
-	padding: 0 2em 0 1em;
+	padding: 0 2em 0 2em;
+}
+div.chapter.numberless h3.chapter-number {
+	display: none;
 }
 h3.front-matter-number, 
 h3.part-number, 
@@ -999,6 +1052,11 @@ img.aligncenter {
 }
 .index .ugc  p.sub-entry {
 	padding-left:30px;
+}
+
+div.license-attribution > p:first-of-type {
+	text-align:center;
+	font-size: 0.75em;
 }
 
 /*************************
