@@ -84,20 +84,3 @@ function pbt_get_microdata_meta_elements() {
 	}
 	return $html;
 }
-
-/**
- * TinyMCE will brilliantly strip out attributes like itemprop, itemscope, etc
- * This reverses that brilliance
- * 
- * @TODO - make this better.
- * 
- * @param array $init
- * @return string
- */
-function pbt_mce_mod_for_schema_org( $init ) {
-
-	$init['extended_valid_elements'] = "span[*],img[*],h3[*],div[*]";
-	return $init;
-}
-
-add_filter( 'tiny_mce_before_init', 'pbt_mce_mod_for_schema_org' );

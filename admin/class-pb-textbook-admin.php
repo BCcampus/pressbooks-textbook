@@ -28,12 +28,13 @@ class TextbookAdmin extends \PBT\Textbook {
 		add_action( 'admin_menu', array( &$this, 'adminMenuAdjuster' ) );
 		add_action( 'admin_init', array( &$this, 'adminSettings' ) );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueueAdminStyles' ) );
+		add_filter( 'tiny_mce_before_init', array( &$this, 'modForSchemaOrg') );
 		// needs to be delayed to come after PB
 		add_action( 'wp_dashboard_setup', array( &$this, 'addOtbNewsFeed' ), 11 ); 
 
 		// Add an action link pointing to the options page.
 		$plugin_basename = plugin_basename( plugin_dir_path( __DIR__ ) . $this->plugin_slug . '.php' );
-		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
+		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'addActionLinks' ) );
 
 		// include other functions
 		require( PBT_PLUGIN_DIR . 'includes/pbt-settings.php' );
@@ -55,6 +56,19 @@ class TextbookAdmin extends \PBT\Textbook {
 	}
 
 	/**
+	 * Initializes PBT Settings page options
+	 * 
+	 * @since	1.0.1
+	 */
+	function adminSettings() {
+
+		$this->redistributeSettings();
+		$this->otherSettings();
+		$this->reuseSettings();
+		$this->allowedPostTags();
+	}
+	
+	/**
 	 * Register and enqueue public-facing style sheet.
 	 *
 	 * @since    1.0.0
@@ -62,19 +76,25 @@ class TextbookAdmin extends \PBT\Textbook {
 	function enqueueAdminStyles() {
 		wp_enqueue_style( 'pbt-import-button' );
 	}
-
+	
 	/**
-	 * Initializes PBT Settings page options
+	 * TinyMCE will brilliantly strip out attributes like itemprop, itemscope, etc
+	 * This reverses that brilliance
 	 * 
-	 * @since	1.0.1
+	 * @TODO - make this better.
+	 * @since 1.1.5
+	 * @param array $init
+	 * @return string
 	 */
-	function adminSettings() {
+	function modForSchemaOrg( $init ) {
 
-		$this->redistribute_settings();
-		$this->other_settings();
-		$this->reuse_settings();
+		$ext = "span[*],img[*],h3[*],div[*],a[*],meta[*]";
+
+		$init['extended_valid_elements'] = $ext;
+
+		return $init;
 	}
-
+	
 	/**
 	 * Add blog feed from open.bccampus.ca
 	 * 
@@ -108,7 +128,7 @@ class TextbookAdmin extends \PBT\Textbook {
 	 * 
 	 * @since 1.0.2
 	 */
-	private function redistribute_settings(){
+	private function redistributeSettings(){
 		$page = $option = 'pbt_redistribute_settings';
 		$section = 'redistribute_section';
 		
@@ -153,7 +173,7 @@ class TextbookAdmin extends \PBT\Textbook {
 	 * 
 	 * @since 1.0.2
 	 */
-	private function other_settings(){
+	private function otherSettings(){
 		$page = $option = 'pbt_other_settings';
 		$section = 'other_section';
 		
@@ -193,7 +213,7 @@ class TextbookAdmin extends \PBT\Textbook {
 	 * 
 	 * @since 1.0.2
 	 */
-	private function reuse_settings(){
+	private function reuseSettings(){
 		$page = $option = 'pbt_reuse_settings';
 		$section = 'reuse_section';
 		
@@ -228,7 +248,39 @@ class TextbookAdmin extends \PBT\Textbook {
 			'\PBT\Settings\reuse_absint_sanitize'
 		);
 	}
+	
+	/**
+	 * Modifies a global variable to prevent wp_kses from stripping it out
+	 * 
+	 * @since 1.1.5
+	 * @global type $allowedposttags
+	 */
+	function allowedPostTags() {
+		global $allowedposttags;
 
+		$microdata_atts = array(
+		    'itemprop' => true,
+		    'itemscope' => true,
+		    'itemtype' => true,
+		);
+
+		$allowedposttags['iframe'] = array(
+		    'src' => true,
+		    'height' => true,
+		    'width' => true,
+		    'allowfullscreen' => true,
+		    'name' => true,
+		);
+
+		$allowedposttags['div'] += $microdata_atts;
+		$allowedposttags['a'] += $microdata_atts;
+		$allowedposttags['img'] += $microdata_atts;
+		$allowedposttags['h3'] += $microdata_atts;
+		$allowedposttags['span'] += array( 'content' => true ) + $microdata_atts;
+		$allowedposttags['meta'] = array( 'content' => true ) + $microdata_atts;
+		$allowedposttags['time'] = array( 'datetime' => true ) + $microdata_atts;
+	}
+	
 	/**
 	 * Render the settings page for this plugin.
 	 *
