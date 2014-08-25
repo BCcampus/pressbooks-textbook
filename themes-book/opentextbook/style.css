@@ -44,6 +44,16 @@ h3, h4 {
 	text-transform: uppercase;
 }
 
+h1 + p,
+h2 + p,
+h3 + p,
+h4 + p,
+h5 + p,
+h6 + p { 
+	margin-top: -5px;
+	margin-bottom: 15px;
+}
+
 ol.alphalist{
 	list-style-type: lower-alpha;
 	list-style-position: inside;

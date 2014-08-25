@@ -1,9 +1,9 @@
 === TinyMCE Spellcheck ===
 Contributors: mmuro
 Tags: writing, spell, spelling, spellchecker, grammar, style, plugin, edit, proofreading, English, French, German, Portuguese, Spanish
-Stable tag: 1.2
+Stable tag: 1.3
 Requires at least: 3.6
-Tested up to: 3.9
+Tested up to: 4.0
 
 TinyMCE Spellcheck adds the spellcheck button back to the editor in WordPress 3.6 and up.
 
@@ -36,6 +36,11 @@ This plugin is unsupported.  If there's a bug, please use the Github repo.
 3. TinyMCE Spellcheck profile options
 
 == Changelog ==
+
+**Version 1.3 - Aug 01, 2014**
+
+* Update security of some AJAX calls to check for nonce and referer
+* Fix bug to remove &lt;span&gt;s from highlighted words
 
 **Version 1.2 - Apr 18, 2014**
 

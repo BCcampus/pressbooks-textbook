@@ -4,7 +4,7 @@ Plugin Name: TinyMCE Spellcheck
 Description: Adds a contextual spell, style, and grammar checker to WordPress 3.6+
 Author: Matthew Muro
 Author URI: http://matthewmuro.com
-Version: 1.2
+Version: 1.3
 */
 
 /*
@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 
 function TSpell_configuration_load() {
-	wp_safe_redirect( admin_url( 'profile.php#atd' ) );
+	wp_safe_redirect( get_edit_profile_url( get_current_user_id() ) . '#atd' );
 	exit;
 }
 
@@ -35,7 +35,7 @@ include( 'includes/config-options.php' );
 include( 'includes/config-unignore.php' );
 include( 'includes/proxy.php' );
 
-define('TSPELL_VERSION', '20140418');
+define('TSPELL_VERSION', '20140801');
 
 /**
  * Update a user's After the Deadline Setting
@@ -127,8 +127,8 @@ function TSpell_change_mce_settings( $init_array ) {
 
 	$user = wp_get_current_user();
 
-	$init_array['atd_rpc_url']        = admin_url( 'admin-ajax.php?action=proxy_atd&url=' );
-	$init_array['atd_ignore_rpc_url'] = admin_url( 'admin-ajax.php?action=atd_ignore&phrase=' );
+	$init_array['atd_rpc_url']        = admin_url( 'admin-ajax.php?action=proxy_atd&_wpnonce=' . wp_create_nonce( 'proxy_atd' ) . '&url=' );
+	$init_array['atd_ignore_rpc_url'] = admin_url( 'admin-ajax.php?action=atd_ignore&_wpnonce=' . wp_create_nonce( 'tspell_ignore' ) . '&phrase=' );
 	$init_array['atd_rpc_id']         = 'WPORG-' . md5(get_bloginfo('wpurl'));
 	$init_array['atd_theme']          = 'wordpress';
 	$init_array['atd_ignore_enable']  = 'true';
@@ -156,7 +156,7 @@ function TSpell_settings() {
     header( 'Content-Type: text/javascript' );
 
 	/* set the RPC URL for AtD */
-	echo "AtD.rpc = " . json_encode( esc_url_raw( admin_url( 'admin-ajax.php?action=proxy_atd&url=' ) ) ) . ";\n";
+	echo "AtD.rpc = " . json_encode( esc_url_raw( admin_url( 'admin-ajax.php?action=proxy_atd&_wpnonce=' . wp_create_nonce( 'proxy_atd' ) . '&url=' ) ) ) . ";\n";
 
 	/* set the API key for AtD */
 	echo "AtD.api_key = " . json_encode( 'WPORG-' . md5( get_bloginfo( 'wpurl' ) ) ) . ";\n";
@@ -167,8 +167,9 @@ function TSpell_settings() {
     /* honor the types we want to show */
     echo "AtD.showTypes(" . json_encode( TSpell_get_setting( $user->ID, 'TSpell_options' ) ) .");\n";
 
-    /* this is not an AtD/jQuery setting but I'm putting it in AtD to make it easy for the non-viz plugin to find it */
-	echo "AtD.rpc_ignore = " . json_encode( esc_url_raw( admin_url( 'admin-ajax.php?action=atd_ignore&phrase=' ) ) ) . ";\n";
+	/* this is not an AtD/jQuery setting but I'm putting it in AtD to make it easy for the non-viz plugin to find it */
+	$admin_ajax_url = admin_url( 'admin-ajax.php?action=atd_ignore&_wpnonce=' . wp_create_nonce( 'atd_ignore' ) . '&phrase=' );
+	echo "AtD.rpc_ignore = " . json_encode( esc_url_raw( $admin_ajax_url ) ) . ";\n";
 
     die;
 }

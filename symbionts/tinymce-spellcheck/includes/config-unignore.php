@@ -12,6 +12,8 @@ function TSpell_ignore_call() {
 	if ( ! $user || $user->ID == 0 )
 		return;
 
+	check_admin_referer( 'tspell_ignore' );
+
 	$ignores = explode( ',', TSpell_get_setting( $user->ID, 'TSpell_ignored_phrases') );
 	array_push( $ignores, $_GET['phrase'] );
 
@@ -30,6 +32,9 @@ function TSpell_ignore_call() {
 function TSpell_process_unignore_update() {
 
 	if ( ! TSpell_is_allowed() )
+		return;
+
+	if ( ! isset( $_POST['TSpell_ignored_phrases'] ) )
 		return;
 
     $user = wp_get_current_user();

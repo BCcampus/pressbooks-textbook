@@ -17,6 +17,7 @@ PressBooks Textbook adds functionality to the PressBooks plugin to make it easie
 * TinyMCE table buttons
 * TinyMCE textbook buttons 
 * TinyMCE spell check
+* TinyMCE anchor button
 * Search functionality
 * Creative Commons attribution
 * Prominent admin buttons (Import, Plugin)
