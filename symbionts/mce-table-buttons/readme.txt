@@ -3,8 +3,8 @@ Contributors: jakemgold, 10up, thinkoomph
 Donate link: http://10up.com/plugins-modules/wordpress-mce-table-buttons/
 Tags: tables, table, editor, WYSIWYG, buttons, tinymce
 Requires at least: 3.4
-Tested up to: 3.9
-Stable tag: 3.1
+Tested up to: 4.0
+Stable tag: 3.2
 
 Adds table editing controls to the visual content editor (TinyMCE).
 
@@ -29,6 +29,10 @@ Note that the table controls are contained in the “kitchen sink” toolbar, to
 1. The editor with the new table editing controls in WordPress 3.4 through 3.8.
 
 == Changelog ==
+
+= 3.2 =
+* WordPress 4.0 support, including a much newer TinyMCE plugin, with many new features, including background color and horizontal alignment
+* Dramatically improved support for paragraphed content inside of a cell (paragraph breaks no longer disappear on save)
 
 = 3.1 =
 * Updated core TinyMCE table plugin from 4.0.20 to 4.0.21 in sync with WordPress - mostly bug and accessibility fixes

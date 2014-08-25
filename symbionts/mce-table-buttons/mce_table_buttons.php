@@ -3,7 +3,7 @@
  Plugin Name: MCE Table Buttons
  Plugin URI: http://10up.com/plugins-modules/wordpress-mce-table-buttons/
  Description: Add <strong>controls for table editing</strong> to the visual content editor with this <strong>light weight</strong> plug-in.
- Version: 3.1
+ Version: 3.2
  Author: Jake Goldman, 10up, Oomph
  Author URI: http://10up.com
  License: GPLv2 or later
@@ -39,7 +39,7 @@ class MCE_Table_Buttons {
 	public static function _setup_plugin() {
 		add_filter( 'mce_external_plugins', array( __CLASS__, 'mce_external_plugins' ) );
 		add_filter( 'mce_buttons_3', array( __CLASS__, 'mce_buttons_2' ) );
-		add_action( 'content_save_pre', array( __CLASS__, 'content_save_pre'), 100 );
+		add_action( 'content_save_pre', array( __CLASS__, 'content_save_pre'), 20 );
 	}
 
 	/**
@@ -50,6 +50,7 @@ class MCE_Table_Buttons {
 	 */
 	public static function mce_external_plugins( $plugin_array ) {
 		global $tinymce_version;
+		$variant = ( defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ) ? '' : '.min';
 
 		if ( version_compare( $tinymce_version, '400', '<' ) ) {
 
@@ -60,10 +61,13 @@ class MCE_Table_Buttons {
 			$plugin_array['table'] = $plugin_dir_url . 'tinymce3-table/editor_plugin.js';
 			$plugin_array['mcetablebuttons'] = $plugin_dir_url . 'tinymce3-assets/mce-table-buttons.js';
 
+		} elseif ( version_compare( $tinymce_version, '4100', '<' ) ) {
+
+			$plugin_array['table'] = plugin_dir_url( __FILE__ ) . 'tinymce4-table/plugin' . $variant . '.js';
+
 		} else {
 
-			$variant = ( defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ) ? '' : '.min';
-			$plugin_array['table'] = plugin_dir_url( __FILE__ ) . 'tinymce4-table/plugin' . $variant . '.js';
+			$plugin_array['table'] = plugin_dir_url( __FILE__ ) . 'tinymce41-table/plugin' . $variant . '.js';
 
 		}
 
@@ -116,8 +120,15 @@ class MCE_Table_Buttons {
 	 * @return string Editor content before WordPress massaging
 	 */
 	public static function content_save_pre( $content ) {
-		if ( substr( $content, -8 ) == '</table>' )
-			$content .= "\n<br />";
+		if ( false !== strpos( $content, '<table' ) ) {
+			// paragraphed content inside of a td requires first paragraph to have extra line breaks (or else autop breaks)
+			$content  = preg_replace( "/<td([^>]*)>(.+\r?\n\r?\n)/m", "<td$1>\n\n$2", $content );
+
+			// make sure there's space around the table
+			if ( substr( $content, -8 ) == '</table>' ) {
+				$content .= "\n<br />";
+			}
+		}
 		
 		return $content;
 	}
