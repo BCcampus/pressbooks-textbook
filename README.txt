@@ -3,8 +3,8 @@ Contributors: bdolor
 Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution-guidelines
 Tags: pressbooks, textbook
 Requires at least: 3.8.3
-Tested up to: 3.9.1
-Stable tag: 1.1.5
+Tested up to: 3.9.2
+Stable tag: 1.1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +72,10 @@ theme, then activate at the book level. You'll have access to those features and
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 1.1.6 (2014/08/27) =
+* updating tinymce table plugin to latest version
+* updating tinymce spellcheck plugin to latest version
 
 = 1.1.5 (2014/07/22) =
 * adding anchor button to TinyMCE
