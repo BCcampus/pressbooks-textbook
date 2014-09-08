@@ -121,9 +121,20 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.'/>";
 		}
 		// if it's a wxr
 		if ( ! stristr( $string, '.xml' ) == false ) {
-			$result = "<img src='" . PBT_PLUGIN_URL . "admin/assets/img/drive-download.png'/> DOWNLOAD <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-xml.png' alt='XML file' />";
+			$result = "<img src='" . PBT_PLUGIN_URL . "admin/assets/img/drive-download.png'/> DOWNLOAD <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-xml.png' alt='XML file. This icon is licensed under a Creative Commons
+Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 		}
-
+		// if it's an odt
+		if ( ! stristr( $string, '.odt' ) == false ) {
+			$result = "<img src='" . PBT_PLUGIN_URL . "admin/assets/img/drive-download.png'/> DOWNLOAD <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document.png' alt='ODT file. This icon is licensed under a Creative Commons
+Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
+		}
+		// if it's a tex 
+		if ( ! stristr( $string, '.tex' ) == false ) {
+			$result = "<img src='" . PBT_PLUGIN_URL . "admin/assets/img/drive-download.png' /> DOWNLOAD <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-tex.png' alt='TEX file. This icon is licensed under a Creative Commons
+Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
+		}		
+		
 		return $result;
 	}
 
@@ -146,6 +157,7 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.'/>";
 
 			return $result;
 		}
+		
 		if ( ! stristr( $string, 'CC-BY-NC-ND' ) == false ) {
 			$result .= "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nc-nd/3.0/'>
         <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png' />
@@ -205,7 +217,17 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.'/>";
 
 			return $result;
 		}
+		
+		if ( ! stristr( $string, 'CC0' ) == false ) {
+			$result .= "<figure><a rel='license' href='http://creativecommons.org/publicdomain/mark/1.0/'>
+        <img alt='Public Domain Mark' style='border-width:0' src='http://i.creativecommons.org/p/mark/1.0/88x31.png' />
+        </a><figcaption><small class='muted'>Except where otherwise noted, <a rel='license' href='http://creativecommons.org/publicdomain/mark/1.0/'>
+	this work is free of known copyright restrictions
+        </a></small></figcaption></figure>";
 
+			return $result;
+		}
+		
 		//default
 		$result .= "<figure><a rel='license' href='http://creativecommons.org/licenses/by-sa/2.5/ca/deed.en_US'>
         <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-sa/2.5/ca/88x31.png' /></a>

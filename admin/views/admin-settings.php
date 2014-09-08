@@ -30,6 +30,7 @@
 		<a href="?page=pressbooks-textbook-settings&tab=revise" class="nav-tab <?php echo $active_tab == 'revise' ? 'nav-tab-active' : ''; ?>">Revise</a>
 		<a href="?page=pressbooks-textbook-settings&tab=remix" class="nav-tab <?php echo $active_tab == 'remix' ? 'nav-tab-active' : ''; ?>">Remix</a>
 		<a href="?page=pressbooks-textbook-settings&tab=redistribute" class="nav-tab <?php echo $active_tab == 'redistribute' ? 'nav-tab-active' : ''; ?>">Redistribute</a>
+		<a href="?page=pressbooks-textbook-settings&tab=retain" class="nav-tab <?php echo $active_tab == 'retain' ? 'nav-tab-active' : ''; ?>">Retain</a>
 		<a href="?page=pressbooks-textbook-settings&tab=other" class="nav-tab <?php echo $active_tab == 'other' ? 'nav-tab-active' : ''; ?>">Other</a>
 	</h2>
 	<!-- Create the form that will be used to modify display options -->
@@ -40,7 +41,7 @@
 
 		switch ( $active_tab ) {
 
-			case 'reuse':
+			case 'reuse':				
 				settings_fields( 'pbt_reuse_settings' );
 				do_settings_sections( 'pbt_reuse_settings' );
 				break;
@@ -50,19 +51,32 @@
 				. "<p><b>Good News!</b> We've added some functionality to the TinyMCE editor</p>"
 				. "<ol><li><b>MCE Textbook Buttons</b> by Brad Payne adds the following textbook specific buttons: Learning Objectives (LO), Key Takeaways (KT), Excercies (EX).</li>"
 				. "<li><b>MCE Table Buttons</b> by jakemgold, 10up, thinkoomph adds table buttons to the editor.</li>"
-				. "<li><b><a href='options-general.php?page=pb-latex'>PB LaTeX</a></b> by Brad Payne adds the ability to include math equations using LaTeX markup.</li></ol>";
+				. "<li><b><a href='options-general.php?page=pb-latex'>PB LaTeX</a></b> by Brad Payne adds the ability to include math equations using LaTeX markup.</li>"
+				. "<li>Anchor tags!</li></ol>";
 				break;
 
 			case 'remix':
+
+				echo 
+				"<h3>Import documents</h3>"
+				. "<p><b>Good News!</b> The <a href='?page=pb_import'>import feature</a> has been incorporated into PressBooks. Our code contributions to PB core now makes it possible to import from EPUB, DOCX, ODT or XML files.</p>";
+				echo "<h3>Search, Import</h3>"
+				. "<p>Remixing starts with finding the right content. <a href='admin.php?page=api_search_import'>Search this instance of PressBooks for relevant content and import it into yours.</p>";
+								
+				
+					
+				break;
+
+			case 'redistribute':
+				settings_fields( 'pbt_redistribute_settings' );
+				do_settings_sections( 'pbt_redistribute_settings' );
+				break;
+			
+			case 'retain':
 				require( PBT_PLUGIN_DIR . 'includes/modules/catalogue/EquellaFetch.php');
 				require( PBT_PLUGIN_DIR . 'includes/modules/catalogue/Filter.php');
 				
-				echo "<hgroup>"
-				. "<h2>Combine content with other open content</h2>"
-				. "<h3>Import documents</h3>"
-				. "</hgroup>"
-				. "<p><b>Good News!</b> The <a href='?page=pb_import'>import feature</a> has been incorporated into PressBooks. Our code contributions to PB core now makes it possible to import from EPUB, DOCX, ODT or XML files.</p>"
-				. "<h3>Download openly licensed textbooks</h3>";
+				echo "<h3>Download openly licensed textbooks</h3>";
 
 				// check if it's in the cache
 				$textbooks = wp_cache_get('open-textbooks', 'pbt');
@@ -79,11 +93,6 @@
 
 					echo $textbooks;
 				}
-				break;
-
-			case 'redistribute':
-				settings_fields( 'pbt_redistribute_settings' );
-				do_settings_sections( 'pbt_redistribute_settings' );
 				break;
 
 			case 'other':

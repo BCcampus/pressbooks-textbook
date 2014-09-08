@@ -27,10 +27,11 @@ class TextbookAdmin extends \PBT\Textbook {
 		// Add the options page and menu item.
 		add_action( 'admin_menu', array( &$this, 'adminMenuAdjuster' ) );
 		add_action( 'admin_init', array( &$this, 'adminSettings' ) );
+		add_action( 'init', '\PBT\Search\ApiSearch::formSubmit', 50 );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueueAdminStyles' ) );
-		add_filter( 'tiny_mce_before_init', array( &$this, 'modForSchemaOrg') );
+		add_filter( 'tiny_mce_before_init', array( &$this, 'modForSchemaOrg' ) );
 		// needs to be delayed to come after PB
-		add_action( 'wp_dashboard_setup', array( &$this, 'addOtbNewsFeed' ), 11 ); 
+		add_action( 'wp_dashboard_setup', array( &$this, 'addOtbNewsFeed' ), 11 );
 
 		// Add an action link pointing to the options page.
 		$plugin_basename = plugin_basename( plugin_dir_path( __DIR__ ) . $this->plugin_slug . '.php' );
@@ -38,9 +39,9 @@ class TextbookAdmin extends \PBT\Textbook {
 
 		// include other functions
 		require( PBT_PLUGIN_DIR . 'includes/pbt-settings.php' );
-
+		require( PBT_PLUGIN_DIR . 'includes/modules/search/class-pbt-apisearch.php' );
 	}
-	
+
 	/**
 	 * Adds and Removes some admin buttons
 	 * 
@@ -50,6 +51,7 @@ class TextbookAdmin extends \PBT\Textbook {
 		if ( \Pressbooks\Book::isBook() ) {
 			add_menu_page( __( 'Import', $this->plugin_slug ), __( 'Import', $this->plugin_slug ), 'edit_posts', 'pb_import', '\PressBooks\Admin\Laf\display_import', '', 15 );
 			add_menu_page( __( 'PressBooks Textbook Settings', $this->plugin_slug ), __( 'PB Textbook', $this->plugin_slug ), 'manage_options', $this->plugin_slug . '-settings', array( $this, 'displayPluginAdminPage' ), '', 64 );
+			add_submenu_page( $this->plugin_slug . '-settings', __('Search and Import', $this->plugin_slug), __('Search and Import', $this->plugin_slug), 'edit_posts', 'api_search_import',array( $this, 'displayApiSearchPage' ), '', 65 );
 			add_menu_page( 'Plugins', 'Plugins', 'manage_network_plugins', 'plugins.php', '', 'dashicons-admin-plugins', 65 );
 			remove_menu_page( 'pb_sell' );
 		}
@@ -226,17 +228,17 @@ class TextbookAdmin extends \PBT\Textbook {
 			add_option( 'pbt_reuse_settings', $defaults );
 		}	
 
-		// Creative Commons Configurator
+		// Creative Commons 
 		add_settings_section(
 			$section,
-			'Creative Commons Configurator',
+			'Creative Commons',
 			'\PBT\Settings\pbt_reuse_section_callback',
 			$page
 		);
 		
 		add_settings_field(
 			'pbt_creative-commons-configurator-1_active',
-			__( 'Creative Commons Configurator', $this->plugin_slug ),
+			__( 'B. Creative Commons Configurator', $this->plugin_slug ),
 			'\PBT\Settings\pbt_ccc_active_callback',
 			$page,
 			$section
@@ -289,6 +291,14 @@ class TextbookAdmin extends \PBT\Textbook {
 	function displayPluginAdminPage() {
 
 		include_once( 'views/admin-settings.php' );
+	}
+	/**
+	 * Render the API search page
+	 * 
+	 * @since 1.1.6
+	 */
+	function displayApiSearchPage() {
+		include_once( 'views/api-search.php');
 	}
 
 	/**

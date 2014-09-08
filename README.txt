@@ -3,7 +3,7 @@ Contributors: bdolor
 Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution-guidelines
 Tags: pressbooks, textbook
 Requires at least: 3.8.3
-Tested up to: 3.9.2
+Tested up to: 4.0
 Stable tag: 1.1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html

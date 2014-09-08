@@ -331,7 +331,7 @@ class Textbook {
 // Prohibit installation if PB is not installed
 if ( get_site_option( 'pressbooks-activated' ) ) {
 	if ( is_admin() ) {
-		require (dirname( __FILE__ ) . '/admin/class-pb-textbook-admin.php');
+		require (dirname( __FILE__ ) . '/admin/class-pbt-textbook-admin.php');
 		$pbt = new Admin\TextbookAdmin;
 	} else {
 		$pbt = \PBT\Textbook::get_instance();

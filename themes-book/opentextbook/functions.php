@@ -44,6 +44,7 @@ function pbt_get_microdata_meta_elements() {
 	    'about' => 'pb_bisac_subject',
 	    'alternativeHeadline' => 'pb_subtitle',
 	    'author' => 'pb_author',
+	    'contributor' => 'pb_contributing_authors',
 	    'copyrightHolder' => 'pb_copyright_holder',
 	    'copyrightYear' => 'pb_copyright_year',
 	    'datePublished' => 'pb_publication_date',
