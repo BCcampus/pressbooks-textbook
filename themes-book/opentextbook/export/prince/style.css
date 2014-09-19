@@ -10,7 +10,9 @@ Reference @see: http://www.princexml.com/doc/8.1/
 
 
 /* FONTS
-===========    */
+===========	*/
+
+/*__INSERT_PDF_HOUSE_STYLE__*/
 
 
 @font-face {
@@ -361,8 +363,6 @@ p {
 	margin-bottom: 0;
 	hyphens: auto;
 	prince-hyphenate-lines: 2;
-	orphans: 1;
-	widows:2;
 }
 p + p,
 .indent {

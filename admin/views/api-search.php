@@ -11,6 +11,8 @@
  * @copyright 2014 Brad Payne
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
+
+//$pbt_search = new \PBT\Search\ApiSearch();
 ?>
 
 <div class="wrap">
@@ -18,11 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
 
 	<?php
-	$pbt_import_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/options-general.php?page=api_search_import&import=1' );
-	$pbt_revoke_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/options-general.php?page=api_search_import&revoke=1' );
+	$pbt_import_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/options-general.php?page=api_search_import&import=1', 'pbt-import' );
+	$pbt_revoke_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/options-general.php?page=api_search_import&revoke=1', 'pbt-revoke-import' );
 	$pbt_current_import = get_option( 'pbt_current_import' );
+	$not_found = get_option( 'pbt_terms_not_found' );
 
-	
 // IMPORT show only if there is an import in progress
 	if ( is_array( $pbt_current_import ) ) {
 		?>
@@ -32,22 +34,22 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		<script type="text/javascript">
 			// <![CDATA[
-			jQuery(function($) {
+			jQuery(function ($) {
 				// Power hover
 				$('tr').not(':first').hover(
-					function() {
+					function () {
 						$(this).css('background', '#ffff99');
 					},
-					function() {
+					function () {
 						$(this).css('background', '');
 					}
 				);
 				// Power select
-				$("#checkall").click(function() {
+				$("#checkall").click(function () {
 					$(':checkbox').prop('checked', this.checked);
 				});
 				// Abort import
-				$('#abort_button').bind('click', function() {
+				$('#abort_button').bind('click', function () {
 					if (!confirm('<?php esc_attr_e( 'Are you sure you want to abort the import?', 'pressbooks-textbook' ); ?>')) {
 						return false;
 					}
@@ -59,14 +61,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			});
 			// ]]>
 		</script>			
-		?>
-		<form id="pbt_import_form" action="<?php echo $import_form_url ?>" method="post">
-
+		<form id='pbt_import_form' action='<?= $pbt_import_url; ?>' method='post'>
 			<table class="wp-list-table widefat">
 				<thead>
 					<tr>
 						<th style="width:10%;"><?php _e( 'Import', 'pressbooks-textbook' ); ?></th>
-						<th><?php _e( 'Title', 'pressbooks-textbook' ); ?></th>
+						<th><?php _e( 'Chapter Title', 'pressbooks-textbook' ); ?></th>
+						<th><?php _e( 'Book Title', 'pressbooks-textbook' ); ?></th>
+						<th><?php _e( 'License', 'pressbooks-textbook' ); ?></th>
 						<th style="width:10%;"><?php _e( 'Front Matter', 'pressbooks-textbook' ); ?></th>
 						<th style="width:10%;"><?php _e( 'Chapter', 'pressbooks-textbook' ); ?></th>
 						<th style="width:10%;"><?php _e( 'Back Matter', 'pressbooks-textbook' ); ?></th>
@@ -79,19 +81,38 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					</tr>
 					<?php
 					$i = 1;
-					foreach ( $current_import['chapters'] as $key => $chapter ) {
-						?>
-						<tr <?php if ( $i % 2 ) echo 'class="alt"'; ?> >
-							<td><input type='checkbox' id='selective_import_<?php echo $i; ?>' name='chapters[<?php echo $key; ?>][import]' value='1'></td>
-							<td><label for="selective_import_<?php echo $i; ?>"><?php echo $chapter; ?></label></td>
-							<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='front-matter'></td>
-							<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='chapter' checked='checked'></td>
-							<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='back-matter'></td>
+
+					foreach ( $pbt_current_import as $book_id => $book ) {
+						// set book title, author, license
+						$book_title = $book['title'];
+						$book_license = $book['license'];
+						$book_author = $book['author'];
+
+						foreach ( $book['chapters'] as $key => $chapter ) {
+
+							// book author/license sets chapter author/license if not set 
+							$license = ( empty( $chapter['post_license'] ) ) ? $book_license : $chapter['post_license'];
+							$author = ( empty( $chapter['post_authors'] ) ) ? $book_author : $chapter['post_authors'];
+							?>
+
+							<tr <?php if ( $i % 2 ) echo 'class="alt"'; ?> >
+
+								<td><input type='checkbox' id='selective_import_<?= $i; ?>' name='chapters[<?= $key; ?>][import]' value='1'></td>
+						<input type='hidden' name='chapters[<?= $key; ?>][book]' value='<?= $book_id; ?>'>
+						<td><label for="selective_import_<?php echo $i; ?>"><a href='<?= $chapter['post_link'] ?>' target='_blank'><?= $chapter['post_title']; ?></a></label></td>
+						<td><label><?= $book_title; ?></label></td>
+						<td><label><?= $license; ?></label></td>
+						<input type='hidden' name='chapters[<?= $key; ?>][license]' value='<?= $license; ?>'>
+						<input type='hidden' name='chapters[<?= $key; ?>][author]' value='<?= $author; ?>'>
+						<td><input type='radio' name='chapters[<?= $key; ?>][type]' value='front-matter'></td>
+						<td><input type='radio' name='chapters[<?= $key; ?>][type]' value='chapter' checked='checked'></td>
+						<td><input type='radio' name='chapters[<?= $key; ?>][type]' value='back-matter'></td>
 						</tr>
 						<?php
 						++ $i;
 					}
-					?>
+				}
+				?>
 				</tbody>
 			</table>
 
@@ -102,15 +123,29 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				?></p>
 
 		</form>
-<?php } else { ?>
-	<form method="post" id="search_api" action="<?php $pbt_import_url; ?>">
-		<input type="text" name="search_api" id="search_api" />
-		<input type="hidden" name="pbt_import" value="1" />
 
-		<?php submit_button( __( 'Search the collection', 'pressbooks-textbook' ) ); ?>
+	<?php } else {
 
-	</form>	
-	
-<?php } ?>
+		if ( false != $not_found ) {
+			?>
+
+			<div class="error">
+				<p>Sorry, the search term(s) <b><?= $not_found; ?></b> did not return any results, try again</p>
+			</div>
+			<?php
+		}
+		?>
+
+		<form method="post" id="search_api_form" action="<?= $pbt_import_url ?>">
+			<p><label for="search_api">Search terms</label>
+				<input type="text" name="search_api" id="search_api" /></p>
+
+	<!--		<input type="radio" name="search_scope" value="books" checked>Books<br>
+	<input type="radio" name="search_scope"value="chapters">Chapters<br>-->
+			<?php submit_button( __( 'Search the collection', 'pressbooks-textbook' ) ); ?>
+
+		</form>	
+
+	<?php } ?>
 
 </div>

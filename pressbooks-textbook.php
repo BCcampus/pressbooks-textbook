@@ -87,7 +87,7 @@ class Textbook {
 		// include other functions
 		require( PBT_PLUGIN_DIR . 'includes/pbt-utility.php' );
 		require( PBT_PLUGIN_DIR . 'includes/pbt-rewrite.php' );
-		
+
 		wp_cache_add_global_groups( array( 'pbt' ) );
 	}
 
@@ -325,7 +325,7 @@ class Textbook {
 			return $themes;
 		}
 	}
-
+	
 }
 
 // Prohibit installation if PB is not installed
