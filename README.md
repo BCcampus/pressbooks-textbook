@@ -15,6 +15,7 @@ A plugin that extends PressBooks for textbook authoring.
 * Prominent admin buttons (Import, Plugin)
 * Annotation features
 * Redistributing free electronic versions of your book
+* A remix 'eco-system' — Search and Import chapters from the same instance of PressBooks
 
 Primary Use Case
 ------------
