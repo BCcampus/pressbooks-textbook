@@ -51,7 +51,10 @@ class TextbookAdmin extends \PBT\Textbook {
 		if ( \Pressbooks\Book::isBook() ) {
 			add_menu_page( __( 'Import', $this->plugin_slug ), __( 'Import', $this->plugin_slug ), 'edit_posts', 'pb_import', '\PressBooks\Admin\Laf\display_import', '', 15 );
 			add_menu_page( __( 'PressBooks Textbook Settings', $this->plugin_slug ), __( 'PB Textbook', $this->plugin_slug ), 'manage_options', $this->plugin_slug . '-settings', array( $this, 'displayPluginAdminPage' ), '', 64 );
-			add_submenu_page( $this->plugin_slug . '-settings', __('Search and Import', $this->plugin_slug), __('Search and Import', $this->plugin_slug), 'edit_posts', 'api_search_import',array( $this, 'displayApiSearchPage' ), '', 65 );
+			// check if class exists
+			if ( class_exists('\PressBooks\Api_v1\Api') ){
+				add_submenu_page( $this->plugin_slug . '-settings', __('Search and Import', $this->plugin_slug), __('Search and Import', $this->plugin_slug), 'edit_posts', 'api_search_import',array( $this, 'displayApiSearchPage' ), '', 65 );
+			}
 			add_menu_page( 'Plugins', 'Plugins', 'manage_network_plugins', 'plugins.php', '', 'dashicons-admin-plugins', 65 );
 			remove_menu_page( 'pb_sell' );
 		}
@@ -231,14 +234,14 @@ class TextbookAdmin extends \PBT\Textbook {
 		// Creative Commons 
 		add_settings_section(
 			$section,
-			'Creative Commons',
+			'Add a Creative Commons license',
 			'\PBT\Settings\pbt_reuse_section_callback',
 			$page
 		);
 		
 		add_settings_field(
 			'pbt_creative-commons-configurator-1_active',
-			__( 'B. Creative Commons Configurator', $this->plugin_slug ),
+			__( 'Creative Commons Configurator (optional)', $this->plugin_slug ),
 			'\PBT\Settings\pbt_ccc_active_callback',
 			$page,
 			$section

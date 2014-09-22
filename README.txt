@@ -4,7 +4,7 @@ Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution
 Tags: pressbooks, textbook
 Requires at least: 3.8.3
 Tested up to: 4.0
-Stable tag: 1.1.6
+Stable tag: 1.1.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -72,6 +72,9 @@ theme, then activate at the book level. You'll have access to those features and
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 1.1.7 (2014/09/22) =
+* adds the ability to search and import chapters from within your own instance of PB
 
 = 1.1.6 (2014/08/27) =
 * updating tinymce table plugin to latest version

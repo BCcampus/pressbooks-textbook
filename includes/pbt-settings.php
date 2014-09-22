@@ -114,13 +114,11 @@ function other_absint_sanitize( $input ) {
  */
 function pbt_reuse_section_callback() {
 	echo "<p>Give people the right to share, or build upon your work by using a <a target='_blank' href='https://creativecommons.org/about'>Creative Commons license</a>.</p>"
-	. "<h3>A. Creative Commons License Module (<i>recommended</i>)</h3>"
-	. "<ol><li>Select your license from the dropdown menu in <a href='wp-admin/post-new.php?post_type=metadata'>Book Info</a>"
-	. "<p><a href='wp-admin/post-new.php?post_type=metadata'><img src='" . PBT_PLUGIN_URL . "admin/assets/img/copyright-license.png' /></a></p></li>"
-	. "<li>Select 'Display the copyright license' in Appearance -> <a href='wp-admin/themes.php?page=pressbooks_theme_options'>Theme Options</a>"
-	. "<p><a href='wp-admin/themes.php?page=pressbooks_theme_options'><img src='" . PBT_PLUGIN_URL . "admin/assets/img/copyright-display.png' /></a></p></li></ol>"
-	. "Reasons we recommend using the built-in Creative Commons License Module:<ol>"
-	. "<li>Information about the license you select makes it through all the export routines."
+	. "<h3>Two easy steps, using built-in functionality (<i>recommended</i>)</h3>"
+	. "<ol><li>Select your 'Copyright license' from the dropdown menu in the Copyright section on the <a href='wp-admin/post-new.php?post_type=metadata'>Book Info</a> page.</li>"
+	. "<li>Check the box labelled 'Display the copyright license' in Appearance -> <a href='wp-admin/themes.php?page=pressbooks_theme_options'>Theme Options</a></li></ol>"
+	. "<h4>We recommend using the built-in Creative Commons License Module because it's fast, flexible and thorough.</h4><h5>Details:</h5><ul>"
+	. "<li>Information about the license you select makes it through all the export routines:"
 	. "<ul>"
 	. "<li>PDF, HPUB output - adds to copyright page, and if there are section/page licenses, to the TOC (like section author)</li>
 		<li>EPUB/EPUB3 output -adds to copyright page and metadata in OPF</li>
@@ -133,10 +131,10 @@ function pbt_reuse_section_callback() {
 	. "<li>It uses the <a target='_blank' href='https://api.creativecommons.org/docs/readme_15.html'>webservice API</a> that Creative Commons supplies.</li>"
 	. "<li>It comes with some language capabilities (depending on what Language you've defined in 'Book Info' and what the API supports.</li>"
 	. "<li>The WP transients API was used to leverage caching and minimize calls to the Creative Commons API. The cache gets updated if any of the title, section author or section license is modified by the user.</li>
-		<li>Where license information could be included in metadata fields, such as in an EPUB output, it was.</li>
-		<li>The web output places the license information in the footer of each web page.</li>
-		</ol>"
-	. "<p>The second license option (below) does not contain all of the above mentioned features, however the Creative Commons Configurator (below) will display a license of your choosing (only on the web version of your book)</p>";
+	<li>The web output places the license information in the footer of each web page.</li>
+	</ul>"
+	. "<h5>The second license option (below) does not contain all of the above mentioned features, however the Creative Commons Configurator will display a license of your choosing (only on the web version of your book)</h5>"
+	. "<hr>";
 }
 
 /**

@@ -133,15 +133,15 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				<p>Sorry, the search term(s) <b><?= $not_found; ?></b> did not return any results, try again</p>
 			</div>
 			<?php
+			// clear it
+			delete_option( 'pbt_terms_not_found' );
 		}
 		?>
-
+		<p><i>Search this instance of PressBooks for chapters that contain the following:</i></p>
 		<form method="post" id="search_api_form" action="<?= $pbt_import_url ?>">
 			<p><label for="search_api">Search terms</label>
 				<input type="text" name="search_api" id="search_api" /></p>
 
-	<!--		<input type="radio" name="search_scope" value="books" checked>Books<br>
-	<input type="radio" name="search_scope"value="chapters">Chapters<br>-->
 			<?php submit_button( __( 'Search the collection', 'pressbooks-textbook' ) ); ?>
 
 		</form>	
