@@ -107,12 +107,13 @@ class ApiSearch {
 			$importer = new Import\PBImport();
 			$ok = $importer->import( $books );
 
-			$msg = "Tried to import a file from this PressBooks instance and ";
+			$msg = "Tried to import a post from this PressBooks instance and ";
 			$msg .= ( $ok ) ? 'succeeded :)' : 'failed :(';
 
 			if ( $ok ) {
 				// Success! Redirect to organize page
 				$success_url = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pressbooks';
+				self::log( $msg, $books );
 				\PressBooks\Redirect\location( $success_url );
 			}
 
@@ -268,6 +269,35 @@ class ApiSearch {
 
 		\PressBooks\Book::deleteBookObjectCache();
 		return delete_option( 'pbt_current_import' );
+	}
+	
+	/**
+	 * Log for the import functionality, for tracking bugs 
+	 * 
+	 * @param type $message
+	 * @param array $more_info
+	 */
+	static function log( $message, array $more_info ) {
+		$subject = '[ PBT Search and Import Log ]';
+		$logs_email = array(
+		    'wp-admin@bccampus.ca',
+		);
+
+		$time = strftime( '%c' );
+		$info = array(
+		    'time' => $time,
+		    'site_url' => site_url(),
+		);
+		
+		$msg = print_r( array_merge( $info, $more_info ), true ) . $message;
+		
+		// Write to error log
+		error_log( $subject . "\n" . $msg );
+
+		// Email logs
+		foreach ( $logs_email as $email ) {
+			error_log( $time . ' - ' . $msg, 1, $email, "From: no-reply@bccampus.ca\n" );
+		}
 	}
 
 }
