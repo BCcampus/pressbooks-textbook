@@ -22,8 +22,11 @@
 				<?php if ( ! empty( $metadata['pb_author'] ) ): ?>
 				<p class="book-author vcard author"><span class="fn"><?php echo $metadata['pb_author']; ?></span></p>
 			     	<span class="stroke"></span>
-		     	<?php endif; ?>
+				<?php endif; ?>
 				
+				<?php if ( ! empty( $metadata['pb_contributing_authors'] ) ): ?>
+					<p class="book-author"><?= $metadata['pb_contributing_authors']; ?> </p>
+				<?php endif; ?>
 					
 				<?php if ( ! empty( $metadata['pb_about_140'] ) ) : ?>
 					<p class="sub-title"><?php echo $metadata['pb_about_140']; ?></p>

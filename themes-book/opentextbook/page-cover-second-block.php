@@ -81,7 +81,7 @@
 							// rewrite rule
 							$url = "open/download?filename={$filename}&type={$file_class}";
 							echo '<link itemprop="bookFormat" href="http://schema.org/EBook">'
-								. '<a itemprop="offers" itemscope itemtype="http://schema.org/Offer" href="' . $url . '">'
+								. '<a rel="nofollow" itemprop="offers" itemscope itemtype="http://schema.org/Offer" href="' . $url . '">'
 								. '<span class="export-file-icon small ' . $file_class . '" title="' . esc_attr( $filename ) . '"></span>'
 								. '<meta itemprop="price" content="$0.00"><link itemprop="availability" href="http://schema.org/InStock"></a>';
 						}
