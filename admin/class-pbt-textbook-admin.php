@@ -41,7 +41,7 @@ class TextbookAdmin extends \PBT\Textbook {
 		require( PBT_PLUGIN_DIR . 'includes/pbt-settings.php' );
 		require( PBT_PLUGIN_DIR . 'includes/modules/search/class-pbt-apisearch.php' );
 	}
-
+	
 	/**
 	 * Adds and Removes some admin buttons
 	 * 
@@ -51,7 +51,7 @@ class TextbookAdmin extends \PBT\Textbook {
 		if ( \Pressbooks\Book::isBook() ) {
 			add_menu_page( __( 'Import', $this->plugin_slug ), __( 'Import', $this->plugin_slug ), 'edit_posts', 'pb_import', '\PressBooks\Admin\Laf\display_import', '', 15 );
 			add_menu_page( __( 'PressBooks Textbook Settings', $this->plugin_slug ), __( 'PB Textbook', $this->plugin_slug ), 'manage_options', $this->plugin_slug . '-settings', array( $this, 'displayPluginAdminPage' ), '', 64 );
-			// check if class exists
+			// check if the functionality we need is available
 			if ( class_exists('\PressBooks\Api_v1\Api') ){
 				add_submenu_page( $this->plugin_slug . '-settings', __('Search and Import', $this->plugin_slug), __('Search and Import', $this->plugin_slug), 'edit_posts', 'api_search_import',array( $this, 'displayApiSearchPage' ), '', 65 );
 			}
@@ -59,7 +59,7 @@ class TextbookAdmin extends \PBT\Textbook {
 			remove_menu_page( 'pb_sell' );
 		}
 	}
-
+	
 	/**
 	 * Initializes PBT Settings page options
 	 * 

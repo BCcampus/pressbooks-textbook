@@ -107,7 +107,7 @@ class Textbook {
 
 		return self::$instance;
 	}
-
+	
 	/**
 	 * Include our plugins
 	 * 
