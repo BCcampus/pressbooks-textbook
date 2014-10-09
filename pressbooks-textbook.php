@@ -90,7 +90,7 @@ class Textbook {
 
 		wp_cache_add_global_groups( array( 'pbt' ) );
 	}
-
+	
 	/**
 	 * Return an instance of this class.
 	 *
@@ -120,6 +120,7 @@ class Textbook {
 		    'creative-commons-configurator-1/cc-configurator.php' => 1,
 		    'hypothesis/hypothesis.php' => 1,
 		    'tinymce-spellcheck/tinymce-spellcheck.php' => 1,
+		    'disable-comments/disable-comments.php' => 1,
 		);
 
 		$pbt_plugin = $this->filterPlugins( $pbt_plugin );
@@ -150,8 +151,7 @@ class Textbook {
 			unset( $pbt_plugin['creative-commons-configurator-1/cc-configurator.php'] );
 			unset( $pbt_plugin['mce-table-buttons/mce_table_buttons.php'] );
 			unset( $pbt_plugin['tinymce-spellcheck/tinymce-spellcheck.php'] );
-
-			
+			unset( $pbt_plugin['disable-comments/disable-comments.php'] );	
 		}
 		
 		// don't include plugins already active at the site level, network level
@@ -330,9 +330,9 @@ class Textbook {
 
 // Prohibit installation if PB is not installed
 if ( get_site_option( 'pressbooks-activated' ) ) {
-	if ( is_admin() ) {
+	if ( is_admin() ) {		
 		require (dirname( __FILE__ ) . '/admin/class-pbt-textbook-admin.php');
-		$pbt = new Admin\TextbookAdmin;
+		$pbt = new Admin\TextbookAdmin;		
 	} else {
 		$pbt = \PBT\Textbook::get_instance();
 	}

@@ -87,6 +87,10 @@ function pbt_get_microdata_meta_elements() {
 }
 
 /**
+ * Modifies 'chapters' to 'page' for text processed in __() to avoid confusion. 
+ * Lightly modified function, original author Lumen Learning
+ * https://github.com/lumenlearning/candela
+ * 
  * 
  * @param type $translated
  * @param type $original
@@ -135,6 +139,9 @@ function pbt_terminology_modify( $translated, $original, $domain ) {
 }
 
 /**
+ * Modifies 'chapter' to 'page' for text processed in _x()
+ * Lightly modified function, original author Lumen Learning
+ * https://github.com/lumenlearning/candela
  * 
  * @param type $translated
  * @param type $original

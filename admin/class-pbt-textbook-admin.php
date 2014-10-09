@@ -50,11 +50,13 @@ class TextbookAdmin extends \PBT\Textbook {
 	function adminMenuAdjuster() {
 		if ( \Pressbooks\Book::isBook() ) {
 			add_menu_page( __( 'Import', $this->plugin_slug ), __( 'Import', $this->plugin_slug ), 'edit_posts', 'pb_import', '\PressBooks\Admin\Laf\display_import', '', 15 );
-			add_menu_page( __( 'PressBooks Textbook Settings', $this->plugin_slug ), __( 'PB Textbook', $this->plugin_slug ), 'manage_options', $this->plugin_slug . '-settings', array( $this, 'displayPluginAdminPage' ), '', 64 );
+			add_options_page( __( 'PressBooks Textbook Settings', $this->plugin_slug ), __( 'PB Textbook', $this->plugin_slug ), 'manage_options', $this->plugin_slug . '-settings', array( $this, 'displayPluginAdminPage' ), '', 64 );
+			add_menu_page( __( 'PressBooks Textbook', $this->plugin_slug ), __( 'PB Textbook', $this->plugin_slug ), 'edit_posts', $this->plugin_slug , array( $this, 'displayPBTPage' ), '', 64 );
 			// check if the functionality we need is available
 			if ( class_exists('\PressBooks\Api_v1\Api') ){
-				add_submenu_page( $this->plugin_slug . '-settings', __('Search and Import', $this->plugin_slug), __('Search and Import', $this->plugin_slug), 'edit_posts', 'api_search_import',array( $this, 'displayApiSearchPage' ), '', 65 );
+				add_submenu_page( $this->plugin_slug, __('Search and Import', $this->plugin_slug), __('Search and Import', $this->plugin_slug), 'edit_posts', 'api_search_import',array( $this, 'displayApiSearchPage' ), '', 65 );
 			}
+			add_submenu_page( $this->plugin_slug, __('Download Textbooks', $this->plugin_slug), __('Download Textbooks', $this->plugin_slug), 'edit_posts', 'download_textbooks',array( $this, 'displayDownloadTextbooks' ), '', 66 );
 			add_menu_page( 'Plugins', 'Plugins', 'manage_network_plugins', 'plugins.php', '', 'dashicons-admin-plugins', 65 );
 			remove_menu_page( 'pb_sell' );
 		}
@@ -224,7 +226,7 @@ class TextbookAdmin extends \PBT\Textbook {
 		
 		// Reuse
 		$defaults = array(
-		    'pbt_creative-commons-configurator-1_active' => 1
+		    'pbt_creative-commons-configurator-1_active' => 0
 		);
 
 		if ( false == get_option( 'pbt_reuse_settings' ) ) {
@@ -295,12 +297,28 @@ class TextbookAdmin extends \PBT\Textbook {
 
 		include_once( 'views/admin-settings.php' );
 	}
+	
+	function displayPBTPage(){
+		
+		include_once( 'views/pbt-home.php');
+	}
+	/**
+	 * Render the downloand textbooks page for editors
+	 * 
+	 * @since 1.1.8
+	 */
+	function displayDownloadTextbooks(){
+		
+		include_once( 'views/download-textbooks.php');
+	}
+	
 	/**
 	 * Render the API search page
 	 * 
 	 * @since 1.1.6
 	 */
 	function displayApiSearchPage() {
+		
 		include_once( 'views/api-search.php');
 	}
 

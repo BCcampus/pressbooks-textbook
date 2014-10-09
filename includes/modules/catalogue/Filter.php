@@ -87,8 +87,8 @@ class Filter {
 	 */
 	private function addLogo( $string ) {
 
-		if ( ! stristr( $string, 'Buy a print copy' ) == false ) {
-			$result = "BUY PRINT COPY ";
+		if ( ! stristr( $string, 'print copy' ) == false ) {
+			$result = "PRINT <i class='icon-print'></i>";
 		} else {
 			$result = " WEBSITE <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-code.png' alt='External website. This icon is licensed under a Creative Commons
 		Attribution 3.0 License. Copyright Yusuke Kamiyamane. '/>";
@@ -127,6 +127,14 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 		// if it's an odt
 		if ( ! stristr( $string, '.odt' ) == false ) {
 			$result = "<img src='" . PBT_PLUGIN_URL . "admin/assets/img/drive-download.png'/> DOWNLOAD <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document.png' alt='ODT file. This icon is licensed under a Creative Commons
+Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
+		}
+		if ( ! stristr( $string, '.hpub' ) == false ) {
+			$result = "<img src='" . PBT_PLUGIN_URL . "admin/assets/img/drive-download.png'/> DOWNLOAD <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document.png' alt='HPUB file. This icon is licensed under a Creative Commons
+Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
+		}
+		if ( ! stristr( $string, '.html' ) == false ) {
+			$result = "<img src='" . PBT_PLUGIN_URL . "admin/assets/img/drive-download.png'/> DOWNLOAD <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-code.png' alt='HTML file. This icon is licensed under a Creative Commons
 Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 		}
 		// if it's a tex 
@@ -279,7 +287,10 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 			$html .= "<strong>Last modified:</strong> " . date( 'M j, Y', strtotime( $this->resultsData[$start]['modifiedDate'] ) );
 			$html .= "<p><strong>Description:</strong> " . $desc . "</p>";
 			$html .= "</li><ul>";
-			foreach ( $this->resultsData[$start]['attachments'] as $attachment ) {
+			
+			$attachments = $this->reOrderAttachments($this->resultsData[$start]['attachments']);
+			
+			foreach ( $attachments  as $attachment ) {
 				(array_key_exists( 'size', $attachment )) ? $file_size = $this->determineFileSize( $attachment['size'] ) : $file_size = '';
 
 				$html .= "<li><a class='btn btn-small' href='" . $attachment['links']['view'] . "' title='" . $attachment['description'] . "'>
@@ -303,6 +314,88 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 		}
 
 		return $html;
+	}
+	
+	/**
+	 * Reorders an array of attachments based on an arbitrary hierarchy
+	 * 
+	 * @param array $attachments
+	 * @return array $new_order of attachments
+	 */
+	private function reOrderAttachments( array $attachments ) {
+		$new_order = array();
+		$filetype = '';
+
+		// string hunting
+		foreach ( $attachments as $key => $attachment ) {
+
+			if ( isset( $attachment['filename'] ) ) {
+				$filetype = strstr( $attachment['filename'], '.' );
+			} else {
+				$filetype = '';
+			}
+
+			if ( isset( $attachment['url'] ) ) {
+				$sfu = parse_url( $attachment['url'] );
+				if ( 0 == strcmp( 'opentextbook.docsol.sfu.ca', $sfu['host'] ) ) {
+					$filetype = '.print';
+				}
+			}
+
+			switch ( $filetype ) {
+
+				case '.pdf':
+					$val = 'b';
+					break;
+				case '.epub':
+					$val = 'c';
+					break;
+				case '.mobi':
+					$val = 'd';
+					break;
+				case '.print':
+					$val = 'e';
+					break;
+				case '.xml':
+					$val = 'f';
+					break;
+				case '._vanilla.xml':
+					$val = 'g';
+					break;
+				case '.html':
+					$val = 'h';
+					break;
+				case '.tex':
+					$val = 'i';
+					break;
+				case '.odt':
+					$val = 'j';
+					break;
+				case '.docx':
+					$val = 'k';
+					break;
+				case '._3.epub':
+					$val = 'l';
+					break;
+				case '.hpub':
+					$val = 'm';
+					break;
+				default:
+					$val = 'a';
+					break;
+			}
+
+			$sort[$key] = $val;
+		}
+		// sort it alphabetically
+		asort( $sort );
+
+		// rebuild the array
+		foreach ( $sort as $k => $v ) {
+			$new_order[] = $attachments[$k];
+		}
+
+		return $new_order;
 	}
 
 }

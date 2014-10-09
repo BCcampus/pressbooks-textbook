@@ -12,7 +12,6 @@
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-//$pbt_search = new \PBT\Search\ApiSearch();
 ?>
 
 <div class="wrap">
