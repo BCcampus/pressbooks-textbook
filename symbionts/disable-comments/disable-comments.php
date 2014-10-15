@@ -8,6 +8,7 @@
  * Description:  Comments can be disabled according to post type.
  * Version: 1.0.0
  * Author: Brad Payne 
+ * Original Author: Samir Shah
  * License: GPL-2.0+
  * Text Domain: disable-comments
  * Domain Path: /languages/
@@ -21,9 +22,10 @@
  * 
  * This fork modifies the plugin to work with PressBooks; strips unwanted features, adds others.
  * 
- * Designed to be activated only at the site level for site autonomy
- * The default state is to disable the comments at the site level. 
- * Requires the user to actively turn it on if they want comments.
+ * Designed to be activated only at the site level for site autonomy. Also gets rid of the atomic/permanently destructive 
+ * comment disabling that the original plugin currently has. 
+ * The default state is to disable the comments for the custom post types that PressBooks defines. 
+ * Requires the user to actively turn comments on if they want comments.
  *
  */
 if ( ! defined( 'ABSPATH' ) ) exit;

@@ -4,7 +4,7 @@ Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution
 Tags: pressbooks, textbook
 Requires at least: 3.8.3
 Tested up to: 4.0
-Stable tag: 1.1.7
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,6 +91,13 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 1.2.0 (2014/10/15) =
+* adds ability to enable/disable comments
+* modifies term 'chapter' to 'page'
+* adds contributing authors to the homepage
+* moves location of the plugin settings
+* moves location of textbook downloads, for greater access
 
 = 1.1.7 (2014/09/22) =
 * adds the ability to search and import chapters from within your own instance of PB
