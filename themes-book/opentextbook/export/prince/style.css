@@ -531,10 +531,16 @@ body > h1.title:first-of-type {
 	font-family: "Crimson","Times New Roman", serif;
 	font-weight: normal;
 }	
-#title-page > .author, #title-page > .contributing-authors {
+#title-page > .author {
 	font-size: 12pt;
 	font-weight: normal;
 	margin-top: 3cm;
+}
+
+#title-page > .contributing-authors{
+	font-size: 12pt;
+	font-weight: normal;
+	margin-top: 1cm;
 }
 
 #title-page > .publisher {

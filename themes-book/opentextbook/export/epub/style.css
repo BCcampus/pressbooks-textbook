@@ -141,11 +141,18 @@ p.bl_indent {
 	font-family: "Times New Roman", Times, Georgia, serif;
 	font-weight: normal;
 }
-#title-page .author, #title-page .contributing-authors {
+#title-page .author {
 	font-size: .875em;
 	font-weight: normal;
 	margin-top: 2em;
 }
+
+#title-page .contributing-authors {
+	font-size: .875em;
+	font-weight: normal;
+	margin-top: 1em;
+}
+
 #title-page .publisher {
 	float: bottom;
 	font-size: .875em;
