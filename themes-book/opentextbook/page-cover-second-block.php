@@ -1,4 +1,4 @@
-			<section class="second-block-wrap"> 
+			<section class="second-block-wrap">
 				<div class="second-block clearfix">
 						<div class="description-book-info">
 							<?php $metadata = pb_get_book_information();?>
@@ -8,11 +8,11 @@
 										$about_unlimited = pb_decode( $metadata['pb_about_unlimited'] );
 										$about_unlimited = preg_replace( '/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', $about_unlimited ); // Make valid HTML by removing first <p> and last </p>
 										echo $about_unlimited; ?></p>
-								<?php endif; ?>	
-							<!-- if there is a custom copyright description -->		
+								<?php endif; ?>
+							<!-- if there is a custom copyright description -->
 							<?php if ( ! empty ($metadata['pb_custom_copyright'])) : ?>
 									<h2><?php _e('Copyright', 'pressbooks') ;?></h2>
-									<p><?php 
+									<p><?php
 										$custom_copyright = pb_decode( $metadata['pb_custom_copyright']);
 										$custom_copyright = preg_replace( '/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', $custom_copyright );
 										echo $custom_copyright;?>
@@ -22,9 +22,9 @@
 								  <div id="twitter" data-url="<?php the_permalink(); ?>" data-text="Check out this great book on PressBooks." data-title="Tweet"></div>
 								  <div id="facebook" data-url="<?php the_permalink(); ?>" data-text="Check out this great book on PressBooks." data-title="Like"></div>
 								  <div id="googleplus" data-url="<?php the_permalink(); ?>" data-text="Check out this great book on PressBooks." data-title="+1"></div>
-							  </div>	
+							  </div>
 						</div>
-							
+
 								<?php	$args = $args = array(
 										    'post_type' => 'back-matter',
 										    'tax_query' => array(
@@ -35,10 +35,10 @@
 										        )
 										    )
 										); ?>
-			
-		      				
+
+
 								<div class="author-book-info">
-		      				
+
 		      						<?php $loop = new WP_Query( $args );
 											while ( $loop->have_posts() ) : $loop->the_post(); ?>
 										    <h4><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h4>
@@ -46,48 +46,6 @@
 										    the_excerpt();
 										    echo '</div>';
 											endwhile; ?>
-								</div>	
-					<!-- display links to files -->
-					<?php
-					$files = \PBT\Utility\latest_exports();
-					$options = get_option( 'pbt_redistribute_settings' );
-					if ( is_array( $files ) && ( true == $options['latest_files_public'] ) ) {
-						echo '<div class="alt-formats">'
-						. '<h4>Alternate Formats</h4>'
-						. '<p>This book is also available for free; download in the following formats:</p>';
-
-						$dir = \PressBooks\Export\Export::getExportFolder();
-						foreach ( $files as $ext => $filename ) {
-							$file_extension = substr( strrchr( $ext, '.' ), 1 );
-							$pre_suffix = (false == strstr( $ext, '._3.epub' )) ? strstr( $ext, '._vanilla.xml') : strstr( $ext, '._3.epub' );
-
-							switch ( $file_extension ) {
-								case 'html':
-									$file_class = 'xhtml';
-									break;
-								case 'xml':
-									$file_class = ( false == $pre_suffix) ? 'wxr' : 'vanillawxr';
-									break;
-								case 'epub':
-									$file_class =  ( false  == $pre_suffix ) ? 'epub' : 'epub3';
-									break;
-								default:
-									$file_class = $file_extension;
-									break;
-							}
-
-							$filename = strstr( $filename, '.', true );
-
-							// rewrite rule
-							$url = "open/download?filename={$filename}&type={$file_class}";
-							echo '<link itemprop="bookFormat" href="http://schema.org/EBook">'
-								. '<a rel="nofollow" itemprop="offers" itemscope itemtype="http://schema.org/Offer" href="' . $url . '">'
-								. '<span class="export-file-icon small ' . $file_class . '" title="' . esc_attr( $filename ) . '"></span>'
-								. '<meta itemprop="price" content="$0.00"><link itemprop="availability" href="http://schema.org/InStock"></a>';
-						}
-						// end .alt-formats
-						echo "</div";
-					}
-					?>
+								</div>
 					</div><!-- end .secondary-block -->
-				</section> <!-- end .secondary-block --> 
+				</section> <!-- end .secondary-block -->
