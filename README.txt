@@ -25,6 +25,7 @@ PressBooks Textbook adds functionality to the PressBooks plugin to make it easie
 * Optionally redistributing free, digital versions of your book.
 * Download links to openly licensed textbooks, ready to remix.
 * A remix 'eco-system' — Search and Import chapters from the same instance of PressBooks
+* Disable/enable comments
 
 Textbooks have functional and styling considerations above and beyond regular books. Open textbooks are those that are licensed with a [creative commons license](http://creativecommons.org).
 This plugin was built primarily to support the creation, remixing and distribution of open textbooks for the [open textbook project in BC](http://open.bccampus.ca/about-2/).

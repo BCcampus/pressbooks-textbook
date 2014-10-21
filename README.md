@@ -18,6 +18,7 @@ A plugin that extends PressBooks for textbook authoring.
 * Optionally redistributing free, electronic versions of your book
 * Download links to openly licensed textbooks, ready to remix.
 * A remix 'eco-system' — Search and Import chapters from the same instance of PressBooks
+* Disable/enable comments
 
 Primary Use Case
 ------------
