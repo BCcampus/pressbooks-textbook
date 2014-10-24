@@ -71,13 +71,17 @@ ol.alphalist li::before{
 	Cover page
 *****************************************/
 .alt-formats{
-	float: left;
-	max-width: 340px;
-	width: 35%;
+	float: right;
+	max-width: 350px;
+	width: 36.5%;
+	margin-top: 20px;
+	text-align: center;
 }
 
 .alt-formats h4{
-	border-bottom-color: #FFFFFF;
+	text-align: center;
+	color: #1f1f1d;
+	border-bottom-color: #000000;
 	border-bottom-style: solid;
 	border-bottom-width: 1px;
 	padding-bottom: 10px;

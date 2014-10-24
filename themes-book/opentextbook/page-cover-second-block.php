@@ -47,47 +47,5 @@
 										    echo '</div>';
 											endwhile; ?>
 								</div>	
-					<!-- display links to files -->
-					<?php
-					$files = \PBT\Utility\latest_exports();
-					$options = get_option( 'pbt_redistribute_settings' );
-					if ( is_array( $files ) && ( true == $options['latest_files_public'] ) ) {
-						echo '<div class="alt-formats">'
-						. '<h4>Alternate Formats</h4>'
-						. '<p>This book is also available for free; download in the following formats:</p>';
-
-						$dir = \PressBooks\Export\Export::getExportFolder();
-						foreach ( $files as $ext => $filename ) {
-							$file_extension = substr( strrchr( $ext, '.' ), 1 );
-							$pre_suffix = (false == strstr( $ext, '._3.epub' )) ? strstr( $ext, '._vanilla.xml') : strstr( $ext, '._3.epub' );
-
-							switch ( $file_extension ) {
-								case 'html':
-									$file_class = 'xhtml';
-									break;
-								case 'xml':
-									$file_class = ( false == $pre_suffix) ? 'wxr' : 'vanillawxr';
-									break;
-								case 'epub':
-									$file_class =  ( false  == $pre_suffix ) ? 'epub' : 'epub3';
-									break;
-								default:
-									$file_class = $file_extension;
-									break;
-							}
-
-							$filename = strstr( $filename, '.', true );
-
-							// rewrite rule
-							$url = "open/download?filename={$filename}&type={$file_class}";
-							echo '<link itemprop="bookFormat" href="http://schema.org/EBook">'
-								. '<a rel="nofollow" itemprop="offers" itemscope itemtype="http://schema.org/Offer" href="' . $url . '">'
-								. '<span class="export-file-icon small ' . $file_class . '" title="' . esc_attr( $filename ) . '"></span>'
-								. '<meta itemprop="price" content="$0.00"><link itemprop="availability" href="http://schema.org/InStock"></a>';
-						}
-						// end .alt-formats
-						echo "</div";
-					}
-					?>
 					</div><!-- end .secondary-block -->
 				</section> <!-- end .secondary-block --> 
