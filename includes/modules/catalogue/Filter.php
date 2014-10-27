@@ -153,54 +153,52 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 	 * @return string
 	 */
 	private function licensePicker( $string ) {
-		$result = '';
+		$result = 'license error';
 
-		//evaluate  
-		if ( ! stristr( $string, 'CC-BY-NC-SA' ) == false ) {
-			$result .= "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US'>
+		$xml = simplexml_load_string( $string );
+
+		if ( $xml ) {
+			$license = $xml->lom->rights->description[0];
+
+			switch ( $license ) {
+				case 'CC-BY-NC-SA':
+
+					$result = "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US'>
         <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png' />
         </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US'>
         Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
         This license lets others remix, tweak, and build upon your work non-commercially, as long as they credit you and license their new creations under the identical terms.</small></figcaption></figure>";
+					break;
 
-			return $result;
-		}
-		
-		if ( ! stristr( $string, 'CC-BY-NC-ND' ) == false ) {
-			$result .= "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nc-nd/3.0/'>
+				case 'CC-BY-NC-ND':
+					$result = "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nc-nd/3.0/'>
         <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png' />
         </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-nc-nd/3.0/'>
         Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License</a>.
         This license only allows others to download your works 
         and share them with others as long as they credit you, but they can’t change them in any way or use them commercially.</small></figcaption></figure>";
+					break;
 
-			return $result;
-		}
-
-		if ( ! stristr( $string, 'CC-BY-NC' ) == false ) {
-			$result .= "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nc/3.0/'>
+				case 'CC-BY-NC':
+					$result = "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nc/3.0/'>
         <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-nc/3.0/88x31.png' />
         </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-nc/3.0/'>
         Creative Commons Attribution-NonCommercial 3.0 Unported License</a>.
         This license lets others remix, tweak, and build upon your work non-commercially, 
         and although their new works must also acknowledge you and be non-commercial, 
         they don’t have to license their derivative works on the same terms.</small></figcaption></figure>";
+					break;
 
-			return $result;
-		}
-
-		if ( ! stristr( $string, 'CC-BY-ND' ) == false ) {
-			$result .= "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nd/3.0/deed.en_US'>
+				case 'CC-BY-ND':
+					$result = "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nd/3.0/deed.en_US'>
         <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-nd/3.0/88x31.png' />
         </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-nd/3.0/deed.en_US'>
         Creative Commons Attribution-NoDerivs 3.0 Unported License</a>.
         This license allows for redistribution, commercial and non-commercial, as long as it is passed along unchanged and in whole, with credit to you.</small></figcaption></figure>";
+					break;
 
-			return $result;
-		}
-
-		if ( ! stristr( $string, 'CC-BY-SA' ) == false ) {
-			$result .= "<p><a rel='license' href='http://creativecommons.org/licenses/by-sa/3.0/deed.en_US'>
+				case 'CC-BY-SA':
+					$result = "<figure><a rel='license' href='http://creativecommons.org/licenses/by-sa/3.0/deed.en_US'>
         <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-sa/3.0/88x31.png' />
         </a><figcaption><small class='muted'>This work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-sa/3.0/deed.en_US'>
         Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
@@ -210,37 +208,34 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
         All new works based on yours will carry the same license, so any derivatives will also allow commercial use. 
         This is the license used by Wikipedia, and is recommended for materials that would benefit from incorporating content 
         from Wikipedia and similarly licensed projects.</small></figcaption></figure>";
+					break;
 
-			return $result;
-		}
-
-		if ( ! stristr( $string, 'CC-BY' ) == false ) {
-			$result .= "<figure><a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'>
+				case 'CC-BY':
+					$result = "<figure><a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'>
         <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by/3.0/88x31.png' />
         </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'>
         Creative Commons Attribution 3.0 Unported License</a>.
         This license lets others distribute, remix, tweak, and build upon your work, even commercially, as long as they credit you for the original creation. 
         This is the most accommodating of licenses offered. 
         Recommended for maximum dissemination and use of licensed materials.</small></figcaption></figure>";
+					break;
 
-			return $result;
-		}
-		
-		if ( ! stristr( $string, 'CC0' ) == false ) {
-			$result .= "<figure><a rel='license' href='http://creativecommons.org/publicdomain/mark/1.0/'>
+				case 'CC0':
+					$result = "<figure><a rel='license' href='http://creativecommons.org/publicdomain/mark/1.0/'>
         <img alt='Public Domain Mark' style='border-width:0' src='http://i.creativecommons.org/p/mark/1.0/88x31.png' />
         </a><figcaption><small class='muted'>Except where otherwise noted, <a rel='license' href='http://creativecommons.org/publicdomain/mark/1.0/'>
 	this work is free of known copyright restrictions
         </a></small></figcaption></figure>";
+					break;
 
-			return $result;
-		}
-		
-		//default
-		$result .= "<figure><a rel='license' href='http://creativecommons.org/licenses/by-sa/2.5/ca/deed.en_US'>
+				default:
+					$result = "<figure><a rel='license' href='http://creativecommons.org/licenses/by-sa/2.5/ca/deed.en_US'>
         <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-sa/2.5/ca/88x31.png' /></a>
         <figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-sa/2.5/ca/deed.en_US'>
         Creative Commons Attribution-ShareAlike 2.5 Canada License</a>.</small></figcaption></figure>";
+					break;
+			}
+		}
 
 		return $result;
 	}
