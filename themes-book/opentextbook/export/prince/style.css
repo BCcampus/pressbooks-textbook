@@ -10,9 +10,7 @@ Reference @see: http://www.princexml.com/doc/8.1/
 
 
 /* FONTS
-===========	*/
-
-/*__INSERT_PDF_HOUSE_STYLE__*/
+===========    */
 
 
 @font-face {
@@ -207,11 +205,6 @@ h1, h2, h3, h4, h5, h6 {
 
 }
 
-/* Part */
-@page part {
-  
-}
-
 /* Chapter */
 @page chapter {
 	font: 6.5pt "Roboto Condensed", sans-serif;	
@@ -219,7 +212,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 @page chapter:left {
   @top-left {
-	content: counter(page) string(section) "\A0\A0\2022\A0\A0" string(part);
+	content: counter(page) "\A0\A0\2022\A0\A0" string(book-title);
 	counter-increment: part;	
 	vertical-align: left;
   }
@@ -363,6 +356,8 @@ p {
 	margin-bottom: 0;
 	hyphens: auto;
 	prince-hyphenate-lines: 2;
+	orphans: 1;
+	widows:2;
 }
 p + p,
 .indent {
@@ -481,11 +476,11 @@ p.bl_indent {
 
 /* HALFTITLE PAGE
 ==================== */
-body > h1.title:first-of-type {
+#half-title-page h1.title:first-of-type {
     string-set: book-title content();
 	page-break-before: right;
     page-break-after: always;
-    bookmark-level: none;  
+    bookmark-level: none;
     font-size: 12pt;
     font-style: italic;
     margin-top: 3cm;
@@ -658,10 +653,6 @@ body > h1.title:first-of-type {
 	left: 0;
 	top: 0;	
 }
-#toc .chapter .section a::before {
-	content:'';
-	counter-increment: none;
-}
 #toc .chapter.numberless a::before {
 	content:'' ;
 	counter-increment: none;
@@ -686,7 +677,6 @@ body > h1.title:first-of-type {
     text-indent: 0;
 	width: 75%;
 }
-
 #toc span.chapter-author,
 #toc span.chapter-license,
 #toc span.chapter-subtitle {

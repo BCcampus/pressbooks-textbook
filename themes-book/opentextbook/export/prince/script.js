@@ -38,6 +38,8 @@ function idSections() {
 
 function main() {
 	romanizePartNumbers();
+	idSections();
+
 }
 
 
