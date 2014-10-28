@@ -81,6 +81,7 @@ class TextbookAdmin extends \PBT\Textbook {
 	 * @since    1.0.0
 	 */
 	function enqueueAdminStyles() {
+		wp_register_style( 'pbt-import-button', PBT_PLUGIN_URL . 'admin/assets/css/menu.css', '', self::VERSION );
 		wp_enqueue_style( 'pbt-import-button' );
 	}
 	
