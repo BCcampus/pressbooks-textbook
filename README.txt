@@ -4,7 +4,7 @@ Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution
 Tags: pressbooks, textbook
 Requires at least: 3.8.3
 Tested up to: 4.0
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,12 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 1.2.1 (2014/10/29) = 
+* changes placement of export files on homepage
+* fix for license picker in textbook downloads
+* fix for running header in pdf output (thanks Jack!)
+* adding default book options on new book creation
 
 = 1.2.0 (2014/10/15) =
 * adds ability to enable/disable comments
