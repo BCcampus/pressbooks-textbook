@@ -295,6 +295,7 @@ class Textbook {
 	 */
 	function enqueueChildThemes() {
 		wp_register_style( 'open-textbook', PBT_PLUGIN_URL . 'themes-book/opentextbook/style.css', array( 'pressbooks' ), self::VERSION, 'screen' );
+		wp_enqueue_style( 'pressbooks-book' );
 		wp_enqueue_style( 'open-textbook' );
 	}
 
