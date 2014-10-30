@@ -78,7 +78,7 @@ ol.alphalist li::before{
 	text-align: center;
 }
 
-.alt-formats h4{
+.book-info-container .alt-formats h4{
 	text-align: center;
 	color: #1f1f1d;
 	border-bottom-color: #000000;
