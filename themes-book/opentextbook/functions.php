@@ -10,6 +10,13 @@ function fitzgerald_enqueue_styles() {
 
 add_action( 'wp_print_styles', 'fitzgerald_enqueue_styles' );
 
+function pbt_enqueue_child_theme_styles() {
+    wp_enqueue_style( 'pressbooks-book' );
+    wp_enqueue_style( 'open-textbook' );
+}
+
+add_action( 'wp_enqueue_scripts', 'pbt_enqueue_child_theme_styles', 100 );
+
 /**
  * Returns an html blog of meta elements 
  * 
