@@ -359,6 +359,9 @@ class Textbook {
 
 		// EPUB export - reduce image size and quality 
 		update_option( 'pressbooks_theme_options_ebook', $epub_compress_images );
+		
+		// modify the book description
+		update_option( 'blogdescription', __( 'Open Textbook', $this->plugin_slug ) );
 	}
 	
 }
