@@ -492,7 +492,7 @@ class Disable_Comments {
 	 * Added for integration with PressBooks Textbook plugin
 	 */
 	private function pbtModifyDisableComments() {
-		$post_types = array( 'chapter', 'front-matter', 'back-matter' );
+		$post_types = array( 'chapter', 'front-matter', 'back-matter', 'attachment' );
 
 		// if it looks like the first run, we set up a default 
 		// to disable comments on PB custom post types
