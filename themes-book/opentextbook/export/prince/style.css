@@ -1114,3 +1114,7 @@ iframe{
 object{
 	display: none;
 }
+/** support iframe on web vs static image in exports **/
+.web-only {
+display: none;
+}
