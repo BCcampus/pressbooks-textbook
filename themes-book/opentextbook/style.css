@@ -340,3 +340,7 @@ span.small.xhtml {
 		max-width: 95%;
 	}
 }
+/** support iframe on web vs. static image in exports **/
+.not-web {
+display: none;
+}
