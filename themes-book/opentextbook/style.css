@@ -291,6 +291,10 @@ span.small.xhtml {
 
 }
 
+/** support iframe on web vs. static image in exports **/
+.not-web {
+	display: none;
+}
 /*************************
 	Media queries
 **************************/
@@ -339,8 +343,4 @@ span.small.xhtml {
 	.alt-formats{
 		max-width: 95%;
 	}
-}
-/** support iframe on web vs. static image in exports **/
-.not-web {
-display: none;
 }

@@ -348,13 +348,16 @@ class Textbook {
 		$epub_compress_images = array(
 		    'ebook_compress_images' => 1
 		);
-
+		
 		// set the default theme to opentextbooks
 		switch_theme( 'opentextbook' );
 		
 		// safety
 		check_theme_switched();
-			
+				
+		// send validation logs
+		update_option( 'pressbooks_email_validation_logs', 1 );
+		
 		// set display copyright information to on
 		update_option( 'pressbooks_theme_options_global', $display_copyright );
 
