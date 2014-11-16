@@ -85,14 +85,14 @@ h1, h2, h3, h4, h5, h6 {
 @page {
   size:7in 10in;
   margin: 3cm;
-  orphans:1; 
-  widows:2;  
+  orphans:1;
+  widows:2;
 }
 
 @page :left {
   margin-left: 1.5cm;
 }
- 
+
 @page :right {
   margin-right: 1.5cm;
 }
@@ -100,7 +100,7 @@ h1, h2, h3, h4, h5, h6 {
 /* TOC */
 @page toc {
   @bottom {
-  	font: 6.5pt "Roboto Condensed", sans-serif;	
+  	font: 6.5pt "Roboto Condensed", sans-serif;
 	content: counter(page, lower-roman);
 	vertical-align: center;
 	font-family: "Roboto Condensed", sans-serif;
@@ -115,7 +115,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Front-Matter */
 @page front-matter {
-	font: 6.5pt "Roboto Condensed", sans-serif;	
+	font: 6.5pt "Roboto Condensed", sans-serif;
 	text-transform: uppercase;
 }
 @page front-matter:left
@@ -127,7 +127,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 @page front-matter:right {
   @top-right {
-	content: string(section-title, last) "\A0\A0\2022\A0\A0" counter(page, lower-roman);	
+	content: string(section-title, last) "\A0\A0\2022\A0\A0" counter(page, lower-roman);
 	vertical-align: right;
   }
 }
@@ -167,19 +167,19 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Introduction */
 @page introduction {
-	font: 6.5pt "Roboto Condensed", sans-serif;	
+	font: 6.5pt "Roboto Condensed", sans-serif;
 	text-transform: uppercase;
 }
 
 @page introduction:left {
   @top-left {
-	content: counter(page) "\A0\A0\2022\A0\A0" string(book-title);	
-	vertical-align: left;	
+	content: counter(page) "\A0\A0\2022\A0\A0" string(book-title);
+	vertical-align: left;
   }
 }
 @page introduction:right {
   @top-right {
-	content: string(section-title, last) "\A0\A0\2022\A0\A0" counter(page);	
+	content: string(section-title, last) "\A0\A0\2022\A0\A0" counter(page);
 	vertical-align: right;
   }
 }
@@ -195,7 +195,7 @@ h1, h2, h3, h4, h5, h6 {
 	content: counter(page);
 	vertical-align: center;
   }
-  
+
 }
 @page introduction:blank {
 
@@ -207,13 +207,13 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Chapter */
 @page chapter {
-	font: 6.5pt "Roboto Condensed", sans-serif;	
+	font: 6.5pt "Roboto Condensed", sans-serif;
 	text-transform: uppercase;
 }
 @page chapter:left {
   @top-left {
 	content: counter(page) "\A0\A0\2022\A0\A0" string(book-title);
-	counter-increment: part;	
+	counter-increment: part;
 	vertical-align: left;
   }
 }
@@ -221,7 +221,7 @@ h1, h2, h3, h4, h5, h6 {
 {
   @top-right
   {
-	content: string(section-title, last) "\A0\A0\2022\A0\A0" counter(page);	
+	content: string(section-title, last) "\A0\A0\2022\A0\A0" counter(page);
 	vertical-align: right;
   }
 }
@@ -238,7 +238,7 @@ h1, h2, h3, h4, h5, h6 {
 	content: "";
   }
   @bottom {
-	content: counter(page);	
+	content: counter(page);
 	vertical-align: center;
 	font-family: "Roboto Condensed", sans-serif;
   }
@@ -257,13 +257,13 @@ h1, h2, h3, h4, h5, h6 {
 	}
 }
 @page back-matter {
-	font: 6.5pt "Roboto Condensed", sans-serif;	
+	font: 6.5pt "Roboto Condensed", sans-serif;
 	text-transform: uppercase;
 }
 /* Back-matter */
 @page back-matter:left {
   @top-left {
-	content: counter(page) "\A0\A0\2022\A0\A0" string(book-title);	
+	content: counter(page) "\A0\A0\2022\A0\A0" string(book-title);
 	vertical-align: left;
   }
 }
@@ -333,21 +333,21 @@ div.back-matter {
 	prince-page-group: start;
 }
 div.part {
-	margin-top: 1.5cm;	
+	margin-top: 1.5cm;
 	padding-bottom: 0.25em;
-	padding: part;	
+	padding: part;
 }
 
 div.part.invisible {
 	display: none;
 }
- 
+
 body {
 	font: 10.5pt/1.4 "Crimson","Times New Roman", serif;
 	prince-hyphenate-before: 3;
 }
 a {
-	color: blue;
+	color: black; /* Jack Modified */
 	text-decoration: none;
 }
 p {
@@ -408,7 +408,7 @@ ul li li li::before {
 	font-size: 0.5em;
 	margin-right: 5px;
 }
-ol { 
+ol {
     list-style-type: none;
      counter-reset: level1;
 }
@@ -419,7 +419,7 @@ ol li::before {
 ol ol {
 	list-style-type: none;
     counter-reset: level2;
-}   
+}
 ol li li::before {
 	content: counter(level1) "." counter(level2) " ";
 	counter-increment: level2;
@@ -489,7 +489,7 @@ p.bl_indent {
 
 /* TITLE PAGE
 ================ */
-#title-page { 
+#title-page {
 	font-weight: normal;
     page-break-before: right;
     height: 100%;
@@ -503,7 +503,7 @@ p.bl_indent {
 #title-page > .publisher,
 #title-page > .publisher-city {
 	bookmark-level: none;
-}	
+}
 #title-page > .title {
 	border-bottom: 1px solid #000;
 	font-size: 18pt;
@@ -517,7 +517,7 @@ p.bl_indent {
 	font-size: 12pt;
 	font-style: italic;
 	margin-top: 0;
-	padding-top: 5px;	
+	padding-top: 5px;
 }
 #title-page > .author,
 #title-page > .contributing-authors,
@@ -525,7 +525,7 @@ p.bl_indent {
 #title-page > .publisher-city {
 	font-family: "Crimson","Times New Roman", serif;
 	font-weight: normal;
-}	
+}
 #title-page > .author {
 	font-size: 12pt;
 	font-weight: normal;
@@ -582,8 +582,8 @@ p.bl_indent {
 ======================= */
 #toc {
 	page-break-before: right;
-	counter-reset: part; 
-	font-size: 9pt;
+	counter-reset: part;
+	font-size: 11pt; /*Jack Modified*/
 }
 #toc h1 {
 	text-align: left;
@@ -591,7 +591,7 @@ p.bl_indent {
 }
 #toc a {
 	border: none;
-	color: inherit;	
+	color: inherit;
 }
 #toc ul, #toc li {
   list-style: none;
@@ -611,7 +611,7 @@ p.bl_indent {
 }
 #toc a::after {
 	content: leader(' ') target-counter(attr(href), page);
-	font-style: normal; 
+	font-style: normal;
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -632,7 +632,7 @@ p.bl_indent {
 }
 #toc .part a::before {
 	content: counter(part, upper-roman)". ";
-	counter-increment: part; 
+	counter-increment: part;
 	margin-right: 1em;
 }
 #toc .part,
@@ -647,23 +647,23 @@ p.bl_indent {
 }
 #toc .chapter a::before {
 	content: counter(chapter) ". ";
-	counter-increment: chapter; 
+	counter-increment: chapter;
 	margin-right: 7pt;
 	position: absolute;
 	left: 0;
-	top: 0;	
+	top: 0;
 }
 #toc .chapter.numberless a::before {
 	content:'' ;
 	counter-increment: none;
-	margin-right: 0;	
+	margin-right: 0;
 }
 #toc .part a::after {
 	content:'' ;
 }
 #toc span.toc-chapter-title {
 	display: inline-block;
-	width: 80%;	
+	width: 80%;
 }
 #toc .chapter + .back-matter {
 	margin-top: 1.3em;
@@ -682,11 +682,11 @@ p.bl_indent {
 #toc span.chapter-subtitle {
 	margin-bottom: 5px;
 }
-#toc span.chapter-subtitle + 
-span.chapter-author, 
+#toc span.chapter-subtitle +
+span.chapter-author,
 span.chapter-author +
-span.chapter-license, 
-#toc span.chapter-subtitle + 
+span.chapter-license,
+#toc span.chapter-subtitle +
 span.chapter-license{
 	margin-bottom: 5px;
 	position: relative;
@@ -696,13 +696,13 @@ span.chapter-license{
 
 
 
-/*  TITLES for FONT-MATTER, BACK_MATTER, CHAPTER & PART  
+/*  TITLES for FONT-MATTER, BACK_MATTER, CHAPTER & PART
 ========================================================= */
 .part-title-wrap h1 {
 	string-set: part content();
 }
-.front-matter-title-wrap > h1:first-of-type, 
-div.chapter > h2:first-of-type, 
+.front-matter-title-wrap > h1:first-of-type,
+div.chapter > h2:first-of-type,
 div.back-matter > h1:first-of-type {
 	string-set: section-title content();
 	counter-reset: footnote;
@@ -712,12 +712,12 @@ div.back-matter > h1:first-of-type {
 .chapter-title-wrap,
 .part-title-wrap,
 .back-matter-title-wrap {
-	font-weight: normal;	
-	margin-bottom: 1.5cm;		
-	text-align: left;	
+	font-weight: normal;
+	margin-bottom: 1.5cm;
+	text-align: left;
 }
 .introduction .front-matter-title-wrap {
-	
+
 }
 .front-matter-title-wrap h1.front-matter-title,
 #toc h1,
@@ -735,7 +735,7 @@ div.back-matter > h1:first-of-type {
 	border-bottom: 1px solid #000;
 	display: inline-block;
 	font-weight: normal;
-	font-family: "Crimson","Times New Roman", serif;	
+	font-family: "Crimson","Times New Roman", serif;
 	padding: 0 2em 0 1em;
 }
 .part-title-wrap h1.part-title {
@@ -750,26 +750,26 @@ h3.chapter-number {
 div.chapter.numberless h3.chapter-number {
 	display: none;
 }
-h3.front-matter-number, 
-h3.part-number, 
-h3.chapter-number, 
+h3.front-matter-number,
+h3.part-number,
+h3.chapter-number,
 h3.back-matter-number {
 	bookmark-level: none;
 }
-div.part, 
-div.front-matter, 
-div.back-matter, 
+div.part,
+div.front-matter,
+div.back-matter,
 div.chapter {
 	page-break-before: right;
 }
-.display-none, 
-h3.front-matter-number, 
-h3.front-matter-number.dedication, 
+.display-none,
+h3.front-matter-number,
+h3.front-matter-number.dedication,
 h3.back-matter-number {
 	display: none;
 }
 
-div.front-matter .front-matter-title-wrap > h1:first-of-type, 
+div.front-matter .front-matter-title-wrap > h1:first-of-type,
 div.chapter .chapter-title-wrap > h2:first-of-type,
 div.back-matter .back-matter-title-wrap > h1:first-of-type  {
 	string-set: section-title content();
@@ -794,16 +794,16 @@ div.ugc h2.chapter-subtitle {
 	font-weight: normal;
 }
 div.ugc h2.chapter-author {
-	font: italic 9pt "Crimson","Times New Roman", serif;
+	font: italic 10pt "Crimson","Times New Roman", serif; /*Jack Modified*/
 }
 div.ugc h2.chapter-subtitle,
 div.ugc h2.chapter-author {
     margin: -1.3cm 0 3em;
-    padding-top: 0.2em;	    
+    padding-top: 0.2em;
 }
 div.ugc h2.chapter-subtitle {
 	font-weight: lighter;
-}	
+}
 h2.chapter-subtitle + h2.chapter-author {
 	margin-top: -0.65cm;
 }
@@ -815,7 +815,7 @@ h2.chapter-subtitle + h2.chapter-author {
 }
 .aphorism cite {
     display: block;
-   	font-size: 0.875em; 
+   	font-size: 0.875em;
     font-style: normal;
     font-variant: small-caps;
     text-align: right;
@@ -880,7 +880,7 @@ sup.endnote {
 /* FOOTNOTES & ENDNOTES
 ======================== */
 .footnotes {
-	display: block;	
+	display: block;
     font-size: 0.875em;
     margin: 20px 10px 40px 40px;
 }
@@ -891,7 +891,7 @@ sup.endnote {
 }
 .footnotes p + p {
 	text-indent: 0;
-} 
+}
 .footnotes .footnotes-wrap p {
 	text-indent: -1em;
 }
@@ -963,7 +963,7 @@ sup.endnote {
 	border: 1px solid #000;
 	border-width: 1px 0;
 	float: left;
-	hyphens: none;	
+	hyphens: none;
 	margin: 15px 15px 15px 0;
 	padding: 5px 0;
 	text-align: center;
@@ -973,7 +973,7 @@ sup.endnote {
 	border: 1px solid #000;
 	border-width: 1px 0;
 	float: right;
-	hyphens: none;	
+	hyphens: none;
 	margin: 15px 0 15px 15px;
 	padding: 5px 0;
 	text-align: center;
@@ -1014,7 +1014,7 @@ img.aligncenter {
 	float: prince-top-if-necessary;
 	height: auto;
 	max-width: 100%;
-	margin: 1em 0;	
+	margin: 1em 0;
 }
 .wp-caption-text {
 	font-size: 0.875em;
@@ -1031,7 +1031,7 @@ img.aligncenter {
 	text-indent: -14pt;
 }
 
-/* INDEX 
+/* INDEX
 ================== */
 .index .ugc  {
 	column-count: 2;
@@ -1058,13 +1058,13 @@ div.license-attribution > p:first-of-type {
 }
 
 /*************************
-	Textbook styles 
+	Textbook styles
 **************************/
 
 .bcc-box{
 /*	max-width: 100%;*/
 	padding: 1% 3%;
-	margin: 15px 0 15px; 
+	margin: 15px 0 15px;
 }
 
 .bcc-box h3:first-child{
@@ -1072,7 +1072,7 @@ div.license-attribution > p:first-of-type {
 	margin: -1% -3% 15px;
 	color: #ffffff;
 	padding: 15px 0 15px;
-	
+
 }
 
 .bcc-highlight{

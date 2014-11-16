@@ -4,13 +4,13 @@ Description: Textbook specific features for the open textbook project. The scree
 Author: Brad Payne
 Version: 0.1
 Template: pressbooks-book
-Tags: Pressbooks Textbook 
+Tags: Pressbooks Textbook
 */
 
 @import url("../../../pressbooks/themes-book/pressbooks-book/style.css");
 
 /********************
-	@Font-Face 
+	@Font-Face
 *********************/
 /* Google fonts included via functions.php */
 
@@ -49,7 +49,7 @@ h2 + p,
 h3 + p,
 h4 + p,
 h5 + p,
-h6 + p { 
+h6 + p {
 	margin-top: -5px;
 	margin-bottom: 15px;
 }
@@ -143,6 +143,7 @@ ol.alphalist li::before{
 	font-family: "Crimson","Times New Roman", serif;
 	font-style: italic;
 	font-weight: normal;
+	font-size: 1em; /*Jack modified*/
 	margin: -70px 0 100px;
 
 }
@@ -188,13 +189,13 @@ p.cc-block{
 }
 
 /*******************************
-	Textbook specific styles 
+	Textbook specific styles
 ********************************/
 
 .bcc-box{
 	/*	width: 100%;*/
 	padding: 2% 3%;
-	margin-bottom: 15px; 
+	margin-bottom: 15px;
 	border-radius: 4px;
 }
 
