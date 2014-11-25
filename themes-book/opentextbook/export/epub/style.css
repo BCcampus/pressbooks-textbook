@@ -585,7 +585,7 @@ sup.footnote, sup.endnote {
 .bcc-box.bcc-warning h3{
 	background-color: #c09853;
 }
-/** support iframe on web vs static image in exports **/
-.web-only {
+/** support divs to export content for web-only vs not-web; pdf-only vs not-pdf **/
+.web-only, .pdf-only {
 	display: none;
 }
