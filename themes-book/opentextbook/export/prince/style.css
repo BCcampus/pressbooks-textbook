@@ -1114,7 +1114,7 @@ iframe{
 object{
 	display: none;
 }
-/** support iframe on web vs static image in exports **/
-.web-only {
+/** support divs to export content for web-only vs not-web; pdf-only vs not-pdf **/
+.web-only, .not-pdf {
 	display: none;
 }
