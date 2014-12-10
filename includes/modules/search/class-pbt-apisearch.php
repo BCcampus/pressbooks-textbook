@@ -279,9 +279,14 @@ class ApiSearch {
 	 */
 	static function log( $message, array $more_info ) {
 		$subject = '[ PBT Search and Import Log ]';
+		// send to superadmin
+		$admin_email = get_site_option( 'admin_email' );
+		$from = 'From: no-reply@' . get_blog_details()->domain; 
 		$logs_email = array(
-		    'wp-admin@bccampus.ca',
+		    $admin_email,
 		);
+		
+		
 
 		$time = strftime( '%c' );
 		$info = array(
@@ -296,7 +301,7 @@ class ApiSearch {
 
 		// Email logs
 		foreach ( $logs_email as $email ) {
-			error_log( $time . ' - ' . $msg, 1, $email, "From: no-reply@bccampus.ca\n" );
+			error_log( $time . ' - ' . $msg, 1, $email, $from );
 		}
 	}
 

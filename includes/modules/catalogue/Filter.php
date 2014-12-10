@@ -146,6 +146,26 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 		return $result;
 	}
 
+		/**
+	 * Checks for part of a string, removes it and returns to make it something 
+	 * the API can deal with
+	 * 
+	 * @param type $license
+	 * @return type
+	 * @throws \Exception
+	 */
+	protected function v3license( $license ) {
+
+		// check for string match CC-BY-3.0
+		if ( false === strpos( $license, '-3.0' ) ) {
+			return $license;
+		}
+
+		$license = strstr( $license, '-3.0', true ) ;
+
+		return $license;
+	}
+	
 	/**
 	 * Helper function to display whichever license applies
 	 * 
@@ -159,49 +179,50 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 
 		if ( $xml ) {
 			$license = $xml->lom->rights->description[0];
-
+			$license = $this->v3license( $license );
+			
 			switch ( $license ) {
 				case 'CC-BY-NC-SA':
-
-					$result = "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US'>
-        <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png' />
-        </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US'>
-        Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>.
+				
+					$result = "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/4.0/deed.en_US'>
+        <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png' />
+        </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/4.0/deed.en_US'>
+        Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Unported License</a>.
         This license lets others remix, tweak, and build upon your work non-commercially, as long as they credit you and license their new creations under the identical terms.</small></figcaption></figure>";
 					break;
 
 				case 'CC-BY-NC-ND':
-					$result = "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nc-nd/3.0/'>
-        <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png' />
-        </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-nc-nd/3.0/'>
-        Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License</a>.
+					$result = "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nc-nd/4.0/'>
+        <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png' />
+        </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-nc-nd/4.0/'>
+        Creative Commons Attribution-NonCommercial-NoDerivs 4.0 Unported License</a>.
         This license only allows others to download your works 
         and share them with others as long as they credit you, but they can’t change them in any way or use them commercially.</small></figcaption></figure>";
 					break;
 
 				case 'CC-BY-NC':
-					$result = "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nc/3.0/'>
-        <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-nc/3.0/88x31.png' />
-        </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-nc/3.0/'>
-        Creative Commons Attribution-NonCommercial 3.0 Unported License</a>.
+					$result = "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nc/4.0/'>
+        <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-nc/4.0/88x31.png' />
+        </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-nc/4.0/'>
+        Creative Commons Attribution-NonCommercial 4.0 Unported License</a>.
         This license lets others remix, tweak, and build upon your work non-commercially, 
         and although their new works must also acknowledge you and be non-commercial, 
         they don’t have to license their derivative works on the same terms.</small></figcaption></figure>";
 					break;
 
 				case 'CC-BY-ND':
-					$result = "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nd/3.0/deed.en_US'>
-        <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-nd/3.0/88x31.png' />
-        </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-nd/3.0/deed.en_US'>
-        Creative Commons Attribution-NoDerivs 3.0 Unported License</a>.
+					$result = "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nd/4.0/deed.en_US'>
+        <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-nd/4.0/88x31.png' />
+        </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-nd/4.0/deed.en_US'>
+        Creative Commons Attribution-NoDerivs 4.0 Unported License</a>.
         This license allows for redistribution, commercial and non-commercial, as long as it is passed along unchanged and in whole, with credit to you.</small></figcaption></figure>";
 					break;
 
 				case 'CC-BY-SA':
-					$result = "<figure><a rel='license' href='http://creativecommons.org/licenses/by-sa/3.0/deed.en_US'>
-        <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-sa/3.0/88x31.png' />
-        </a><figcaption><small class='muted'>This work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-sa/3.0/deed.en_US'>
-        Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
+					$result = "<figure><a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/deed.en_US'>
+        <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-sa/4.0/88x31.png' />
+        </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/deed.en_US'>
+        Creative Commons Attribution-ShareAlike 4.0 Unported License</a>.
         This license lets others remix, tweak, and build upon your work even for commercial purposes, 
         as long as they credit you and license their new creations under the identical terms. 
         This license is often compared to “copyleft” free and open source software licenses. 
@@ -211,10 +232,10 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 					break;
 
 				case 'CC-BY':
-					$result = "<figure><a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'>
-        <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by/3.0/88x31.png' />
-        </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by/3.0/deed.en_US'>
-        Creative Commons Attribution 3.0 Unported License</a>.
+					$result = "<figure><a rel='license' href='http://creativecommons.org/licenses/by/4.0/deed.en_US'>
+        <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by/4.0/88x31.png' />
+        </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by/4.0/deed.en_US'>
+        Creative Commons Attribution 4.0 Unported License</a>.
         This license lets others distribute, remix, tweak, and build upon your work, even commercially, as long as they credit you for the original creation. 
         This is the most accommodating of licenses offered. 
         Recommended for maximum dissemination and use of licensed materials.</small></figcaption></figure>";
@@ -234,7 +255,7 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
         <figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-sa/2.5/ca/deed.en_US'>
         Creative Commons Attribution-ShareAlike 2.5 Canada License</a>.</small></figcaption></figure>";
 					break;
-			}
+	}
 		}
 
 		return $result;
@@ -274,11 +295,12 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 		// check if it's been reviewed
 		while ( $i < $limit ) {
 			$desc = (strlen( $this->resultsData[$start]['description'] ) > 500) ? substr( $this->resultsData[$start]['description'], 0, 499 ) . "..." : $this->resultsData[$start]['description'];
-			( false === strpos( $this->resultsData[$start]['metadata'], 'REVIEWED149df27a3ba8b2ddeff0d7ed1e6e54e4' )) ? $reviews = '' : $reviews = " <sup><small> BC faculty reviewed</small></sup>";
-
+			( false === strpos( $this->resultsData[$start]['metadata'], 'REVIEWED149df27a3ba8b2ddeff0d7ed1e6e54e4' )) ? $reviews = '' : $reviews = " <sup><small> Faculty reviewed</small></sup>";
+			$authors = EquellaFetch::arrayToCSV( $this->resultsData[$start]['drm']['options']['contentOwners'], 'name' );
+			
 			$html .= "<li>";
 			$html .= "<h4>" . $this->resultsData[$start]['name'] . $reviews . "</h4>";
-			$html .= "<strong>Author(s):</strong> " . EquellaFetch::arrayToCSV( $this->resultsData[$start]['drm']['options']['contentOwners'], 'name' ) . "<br>";
+			$html .= "<strong>Author(s):</strong> " . $authors . "<br>";
 			$html .= "<strong>Last modified:</strong> " . date( 'M j, Y', strtotime( $this->resultsData[$start]['modifiedDate'] ) );
 			$html .= "<p><strong>Description:</strong> " . $desc . "</p>";
 			$html .= "</li><ul>";

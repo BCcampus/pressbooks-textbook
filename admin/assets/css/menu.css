@@ -17,3 +17,8 @@ li.toplevel_page_pressbooks-textbook a.toplevel_page_pressbooks-textbook .wp-men
 	background: none;
 	content: '\f10a' !important;
 }
+
+div.wrap ul li a.btn-small{
+	width:16%;
+	text-decoration: none;
+}

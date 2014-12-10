@@ -155,9 +155,20 @@ class EquellaFetch {
 			$secondSubjectPath = $this->urlEncode( $this->subjectPath2 );
 			$this->url = $this->apiBaseUrl . $searchWhere . $firstSubjectPath . $is . "'" . $this->whereClause . "'" . $or . $secondSubjectPath . $is . "'" . $this->whereClause . "'" . $optionalParam;  //add the base url, put it all together
 		}
-
+		
+		// go and get it
+		$ch = curl_init();
+		curl_setopt( $ch, CURLOPT_URL, $this->url );
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+		curl_setopt( $ch, CURLOPT_TIMEOUT, 10 );
+		$ok = curl_exec( $ch );
+		
+		if ( false == $ok ){
+			throw new \Exception( "Sorry, something went wrong with the API call to SOLR. <p>Visit <b>http://open.bccampus.ca/find-open-textbooks/</b> to discover and download free textbooks.</p>" );
+		}
+		
 		//get the array back from the API call
-		$result = json_decode( file_get_contents( $this->url ), true );
+		$result = json_decode( $ok, true );
 
 		//if the # of results we get back is less than the max we asked for 
 		if ( $result['length'] != 50 ) {
@@ -173,7 +184,7 @@ class EquellaFetch {
 
 			if ( $availableResults > $limit ) {
 				$loop = intval( $availableResults / $limit );
-
+				
 				for ( $i = 0; $i < $loop; $i ++  ) {
 					$start = $start + 50;
 					$searchWhere = "search?" . $anyQuery . "&collections=" . $this->collectionUuid . "&start=" . $start . "&length=" . $limit . "&order=" . $order . "&where=";   //length 50 is the max results allowed by the API
@@ -190,7 +201,15 @@ class EquellaFetch {
 					else {
 						$this->url = $this->apiBaseUrl . $searchWhere . $optionalParam;
 					}
-					$nextResult = json_decode( file_get_contents( $this->url ), true );
+					// modify the url
+					curl_setopt( $ch, CURLOPT_URL, $this->url);
+					$ok2 = curl_exec( $ch );
+
+					if ( false == $ok ){
+						throw new \Exception( "Something went wrong with the API call to SOLR" );
+					}
+
+					$nextResult = json_decode( $ok2, true );
 
 					// push each new result onto the existing array 
 					$partOfNextResult = $nextResult['results'];
@@ -198,9 +217,12 @@ class EquellaFetch {
 						array_push( $result['results'], $val );
 					}
 				}
+				
+				
 			} /* end of if */
 		} /* end of else */
-
+		curl_close( $ch );
+		
 		$this->availableResults = $result['available'];
 		$this->justTheResultsMaam = $result['results'];
 	}
