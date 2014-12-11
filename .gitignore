@@ -1,2 +1,6 @@
 .svn/
 .DS_Store
+tests/
+bin/
+phpunit.xml
+.travis.yml
