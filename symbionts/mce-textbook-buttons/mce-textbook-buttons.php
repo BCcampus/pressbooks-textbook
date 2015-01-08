@@ -65,7 +65,7 @@ class TextbookButtons {
 	 */
 	function registerTBButtons( $buttons ) {
 
-		array_push( $buttons, 'learningObjectives', 'keyTakeaway', 'exercises', 'anchor' );
+		array_push( $buttons, 'learningObjectives', 'keyTakeaway', 'exercises', 'anchor', 'superscript', 'subscript' );
 		return $buttons;
 	}
 
