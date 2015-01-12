@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Modifications on this page include adding options to store values for 
+ * derivative works. 2014, Brad Payne.
+ */
 
 /**
  * Module containing settings related functions.

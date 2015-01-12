@@ -3,8 +3,8 @@ Contributors: bdolor
 Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution-guidelines
 Tags: pressbooks, textbook
 Requires at least: 3.8.3
-Tested up to: 4.0
-Stable tag: 1.2.2
+Tested up to: 4.1
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,10 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 1.2.3 (2015/01/12) =
+* updating ccc documentation
+* adding sub/sup buttons to tinymce
 
 = 1.2.2 (2014/10/30) =
 * hotfix for inconsistent behaviour on default activation of theme

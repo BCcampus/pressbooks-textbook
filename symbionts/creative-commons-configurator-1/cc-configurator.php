@@ -1,30 +1,22 @@
 <?php
 /*
-Plugin Name: Creative Commons Configurator
+Plugin Name: Creative Commons Configurator, Derivative works
 Plugin URI: http://www.g-loaded.eu/2006/01/14/creative-commons-configurator-wordpress-plugin/
-Description: Helps you publish your content under the terms of a Creative Commons license.
-Version: 1.5.2
-Author: George Notaras
-Author URI: http://www.g-loaded.eu/
+Description: A very slightly modified version of the original CCC plugin that allows declaring derivative works. Helps you publish your content under the terms of a Creative Commons license.
+Version: 1.0.0
+Author: Brad Payne
+Original Author: George Notaras
 License: Apache License v2
 Text Domain: cc-configurator
 Domain Path: /languages/
 */
 
+
 /**
- *  Copyright 2008-2012 George Notaras <gnot@g-loaded.eu>, CodeTRAX.org
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
+ *  This plugin is forked from the original Creative Commons Configurator v1.5.2 https://wordpress.org/plugins/creative-commons-configurator-1/ (c) George Notaras
+ * 
+ *  This fork modifies the original only slightly in order to include the option to declare derivative works.
+ *  
  */
 
 

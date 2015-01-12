@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Modifications on this page include adding fields to the admin interface to 
+ * allow for declarations of derivative works. 2014, Brad Payne.
+ */
 
 function bccl_show_info_msg($msg) {
     echo '<div id="message" class="updated fade"><p>' . $msg . '</p></div>';
