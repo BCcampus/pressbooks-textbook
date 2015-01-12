@@ -96,6 +96,9 @@ See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more det
 = 1.2.3 (2015/01/12) =
 * updating ccc documentation
 * adding sub/sup buttons to tinymce
+* css styles to support Jack! 
+* add optional (piwik/google) analytics event tracking code
+* improvements to textbook download page
 
 = 1.2.2 (2014/10/30) =
 * hotfix for inconsistent behaviour on default activation of theme
