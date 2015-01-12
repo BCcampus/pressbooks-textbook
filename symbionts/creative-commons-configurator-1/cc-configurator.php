@@ -1,7 +1,6 @@
 <?php
 /*
 Plugin Name: Creative Commons Configurator, Derivative works
-Plugin URI: http://www.g-loaded.eu/2006/01/14/creative-commons-configurator-wordpress-plugin/
 Description: A very slightly modified version of the original CCC plugin that allows declaring derivative works. Helps you publish your content under the terms of a Creative Commons license.
 Version: 1.0.0
 Author: Brad Payne
@@ -9,6 +8,7 @@ Original Author: George Notaras
 License: Apache License v2
 Text Domain: cc-configurator
 Domain Path: /languages/
+License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 */
 
 
