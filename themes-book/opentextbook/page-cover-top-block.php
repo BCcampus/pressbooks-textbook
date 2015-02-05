@@ -65,7 +65,7 @@
 				<?php
 				$files = \PBT\Utility\latest_exports();
 				$options = get_option( 'pbt_redistribute_settings' );
-				if ( is_array( $files ) && ( true == $options['latest_files_public'] ) ) {
+				if ( ! empty( $files ) && ( true == $options['latest_files_public'] ) ) {
 					echo '<div class="alt-formats">'
 					. '<h4>Download in the following formats:</h4>';
 
