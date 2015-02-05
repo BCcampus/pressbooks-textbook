@@ -8,7 +8,7 @@
 
 	<?php get_template_part('page-cover', 'top-block'); ?>
 	<?php get_template_part('page-cover', 'third-block'); ?>
-	<?php get_template_part('page-cover', 'second-block'); ?>
+	<?php get_template_part('page-cover', 'bottom-block'); ?>
 
 
 		
