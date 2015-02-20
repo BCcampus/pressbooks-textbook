@@ -26,7 +26,8 @@ function latest_exports() {
 	    '.icml',
 	    '.html',
 	    '.xml',
-	    '._vanilla.xml'
+	    '._vanilla.xml',
+	    '._oss.pdf',
 	);
 
 	$dir = \PressBooks\Export\Export::getExportFolder();
@@ -35,7 +36,10 @@ function latest_exports() {
 
 	// group by extension, sort by date newest first 
 	foreach ( \PressBooks\Utility\scandir_by_date( $dir ) as $file ) {
-		$ext = strstr( $file, '.' );
+		// only interested in the part of filename starting with the timestamp
+		preg_match( '/-\d{10,11}(.*)/', $file, $matches );
+		// grab the first captured parenthisized subpattern
+		$ext = $matches[1];
 		$files[$ext][] = $file;
 	}
 
