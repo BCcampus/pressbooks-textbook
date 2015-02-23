@@ -191,6 +191,14 @@ p.cc-block{
 	Textbook specific styles 
 ********************************/
 
+#content table {
+	border-spacing: 0;
+}
+
+#content table tr td, #content table tr th{
+	border: 1px solid #e7e7e7;
+}
+
 .bcc-box{
 	/*	width: 100%;*/
 	padding: 2% 3%;
