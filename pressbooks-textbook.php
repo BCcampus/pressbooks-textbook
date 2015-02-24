@@ -351,10 +351,14 @@ class Textbook {
 		
 		// set the default theme to opentextbooks
 		switch_theme( 'opentextbook' );
+		check_theme_switched();
 		
 		// safety
-		check_theme_switched();
-				
+		if ( ( get_option( 'template' ) != 'pressbooks-book' ) || ( get_option( 'stylesheet' ) != 'opentextbook' ) ) {
+			update_option( 'template', 'pressbooks-book' );
+			update_option( 'stylesheet', 'opentextbook' );
+		};
+
 		// send validation logs
 		update_option( 'pressbooks_email_validation_logs', 1 );
 		
