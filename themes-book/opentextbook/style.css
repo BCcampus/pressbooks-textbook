@@ -67,6 +67,10 @@ ol.alphalist li::before{
 .pullleft{
 	margin-right: 4%;
 }
+
+small{
+	font-size:80%
+}
 /****************************************
 	Cover page
 *****************************************/
