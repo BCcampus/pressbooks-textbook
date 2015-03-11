@@ -3,8 +3,8 @@ Contributors: bdolor
 Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution-guidelines
 Tags: pressbooks, textbook
 Requires at least: 3.8.3
-Tested up to: 4.1
-Stable tag: 1.2.3
+Tested up to: 4.1.1
+Stable tag: 1.2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,13 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 1.2.5 (2015/03/11) = 
+* add table cell border to web and print
+* fix default theme on new book creation
+* add part title to web view
+* fix latest exports returning empty on book titles with periods
+* stability/logic improvements
 
 = 1.2.3 (2015/01/12) =
 * updating ccc documentation
