@@ -178,7 +178,7 @@ class ApiSearch {
 		// build the url, get list of public books
 		$public_books = wp_remote_get( $endpoint . 'books/' );
 		if ( is_wp_error( $public_books ) ) {
-			error_log( '\PBT\Search\getPublicBooks error: ' . $$public_books->get_error_message() );
+			error_log( '\PBT\Search\getPublicBooks error: ' . $public_books->get_error_message() );
 			\PressBooks\Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=api_search_import' );
 		}
 
