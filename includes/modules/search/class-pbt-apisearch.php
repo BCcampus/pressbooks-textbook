@@ -59,13 +59,13 @@ class ApiSearch {
 		$current_import = get_option( 'pbt_current_import' );
 
 		// determine stage of import, revoke if necessary
-		if ( 1 == $_GET['revoke'] && check_admin_referer( 'pbt-revoke-import' ) ) {
+		if ( isset( $_GET['revoke'] ) && 1 == $_GET['revoke'] && check_admin_referer( 'pbt-revoke-import' ) ) {
 			self::revokeCurrentImport();
 			\PressBooks\Redirect\location( $redirect_url );
 		}
 
 		// do import if that's where we're at
-		if ( $_GET['import'] && is_array( $_POST['chapters'] ) && is_array( $current_import ) && check_admin_referer( 'pbt-import' ) ) {
+		if ( $_GET['import'] && isset( $_POST['chapters'] ) && is_array( $_POST['chapters'] ) && is_array( $current_import ) && check_admin_referer( 'pbt-import' ) ) {
 
 			$keys = array_keys( $_POST['chapters'] );
 			$books = array();
@@ -178,7 +178,7 @@ class ApiSearch {
 		// build the url, get list of public books
 		$public_books = wp_remote_get( $endpoint . 'books/' );
 		if ( is_wp_error( $public_books ) ) {
-			error_log( '\PBT\Search\getPublicBooks error: ' . $$public_books->get_error_message() );
+			error_log( '\PBT\Search\getPublicBooks error: ' . $public_books->get_error_message() );
 			\PressBooks\Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=api_search_import' );
 		}
 
