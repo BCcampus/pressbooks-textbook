@@ -203,7 +203,7 @@ class Disable_Comments {
 		if ( is_comment_feed() ) {
 			if ( isset( $_GET['feed'] ) ) {
 				// remove possible XSS
-				$url = esc_url( remove_query_arg( 'feed', 301 ) );
+				$url = esc_url_raw( remove_query_arg( 'feed', 301 ) );
 				wp_redirect( $url );
 				exit;
 			}
