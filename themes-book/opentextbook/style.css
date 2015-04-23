@@ -197,6 +197,7 @@ p.cc-block{
 
 #content table {
 	border-spacing: 0;
+	display: table;
 }
 
 #content table tr td, #content table tr th{
