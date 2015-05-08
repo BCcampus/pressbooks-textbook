@@ -64,7 +64,10 @@
 				echo "<h3>Search, Import</h3>";
 				
 				if ( class_exists( '\PressBooks\Api_v1\Api') ){
-					echo "<p>Remixing starts with finding the right content. <a href='admin.php?page=api_search_import'>Search this instance of PressBooks for relevant content and import it into yours.</p>";
+					echo "<p>Remixing starts with finding the right content. <a href='admin.php?page=api_search_import'>Search this instance of PressBooks for relevant content and import it into your book</a>.</p>";
+					settings_fields( 'pbt_remix_settings' );
+					do_settings_sections( 'pbt_remix_settings' );
+					
 				} else {
 					echo "<p>You will need to <a href='https://github.com/pressbooks/pressbooks/commit/78a68c9cbba1ce3f5783215194921224558e83a2'>upgrade to a more recent version of PressBooks which contains the API</a>. The functionality of Search and Import depends on the API.";
 				}
@@ -104,7 +107,7 @@
 				do_settings_sections( 'pbt_other_settings' );
 				break;
 		}
-		if ( 'remix' != $active_tab && 'revise' != $active_tab ) {
+		if ( 'revise' != $active_tab ) {
 			submit_button();
 		}
 		?>

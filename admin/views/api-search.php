@@ -137,6 +137,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		}
 		?>
 		<p><i>Search this instance of PressBooks for chapters that contain the following:</i></p>
+		<?php 
+			echo $endpoints[0];
+		?>
 		<form method="post" id="search_api_form" action="<?= $pbt_import_url ?>">
 			<p><label for="search_api">Search terms</label>
 				<input type="text" name="search_api" id="search_api" /></p>

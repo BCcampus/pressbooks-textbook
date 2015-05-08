@@ -38,8 +38,12 @@ class ApiSearch {
 	private static $search_terms = '';
 
 	/**
+	 *  Endpoint domain
 	 * 
+	 * @var string
 	 */
+	private $endpoints;
+	
 	public function __construct() {
 		
 	}

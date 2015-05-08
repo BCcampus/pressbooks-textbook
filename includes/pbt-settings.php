@@ -179,3 +179,36 @@ function reuse_absint_sanitize( $input ) {
 
 	return $options;
 }
+
+function remix_section_callback(){
+	echo "<p>If you know of another PressBooks instance, and know that they also have Creative Commons licensed materials, here is where you would add their domain."
+	. "Having a list of domains will enable searching and importing against their collection, the same way that you can search and import against your own collection.</p>";
+	
+} 
+
+function api_endpoint_public_callback(){
+	$options = get_option( 'pbt_remix_settings' );
+	
+	// add default if not set
+	if( !isset( $options['pbt_api_endpoints'] ) ){
+		$options['pbt_api_endpoints'] = array( network_home_url() );
+	}
+	
+	foreach ($options['pbt_api_endpoints'] as $key=>$endpoint ){
+		
+		$html .= '<input class="regular-text highlight" type="url" name="pbt_remix_settings[pbt_api_endpoint-'.$key.']" value="'.$endpoint.'" />'
+			. '<input onclick="addRow(this.form);" type="button" value="Add URL" />';
+	}
+	
+	echo $html;	
+}
+
+function remix_url_sanitize( $input ){
+	echo "<pre>";
+	print_r( $input );
+	echo "</pre>";
+	die();
+	$valid = array();
+	$valid;
+	
+}

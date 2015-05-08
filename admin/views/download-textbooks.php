@@ -1,6 +1,6 @@
 <?php
 /**
- * This admin page allows editors ro access functionality that downloads textbooks. 
+ * This admin page allows editors access to functionality that downloads textbooks. 
  *
  * @package PressBooks_Textbook
  * @author Brad Payne <brad@bradpayne.ca>
