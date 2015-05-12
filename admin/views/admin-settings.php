@@ -34,7 +34,7 @@
 		<a href="?page=pressbooks-textbook-settings&tab=other" class="nav-tab <?php echo $active_tab == 'other' ? 'nav-tab-active' : ''; ?>">Other</a>
 	</h2>
 	<!-- Create the form that will be used to modify display options -->
-	<form method="post" action="options.php">
+	<form method="post" action="options.php" name="pbt_settings">
 		<?php
 		$current_theme = wp_get_theme()->Name;
 		$pbt_theme = \PBT\Textbook::isTextbookTheme();
@@ -114,3 +114,27 @@
 	</form>
 
 </div>
+
+<script>
+
+function getRowNum(){
+	num = jQuery('table.form-table tbody tr').filter(":last").find('td input').attr('id');
+	return num;
+}
+
+function addRow(){
+	rowNum = getRowNum();
+	rowNum++;
+	var row = '<tr class="endpoints-'+rowNum+'"><th>'+rowNum+'</th><td><input id="'+rowNum+'" class="regular-text highlight" type="url" name="pbt_remix_settings[pbt_api_endpoints]['+rowNum+']" value="" />\n\
+	<input type="button" value="Add URL" onclick="addRow();" /><input type="button" value="Remove URL" onclick="removeRow('+rowNum+');" /></td></tr>';
+	
+	jQuery('table.form-table tbody').append(row);
+}
+
+function removeRow(rnum){
+	jQuery('table.form-table tbody tr.endpoints-'+rnum).remove();
+}
+
+</script>
+	
+	

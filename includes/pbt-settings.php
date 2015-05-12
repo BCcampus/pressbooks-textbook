@@ -186,29 +186,46 @@ function remix_section_callback(){
 	
 } 
 
-function api_endpoint_public_callback(){
+function api_endpoint_public_callback() {
 	$options = get_option( 'pbt_remix_settings' );
 	
 	// add default if not set
-	if( !isset( $options['pbt_api_endpoints'] ) ){
-		$options['pbt_api_endpoints'] = array( network_home_url() );
+	if ( ! isset( $options['pbt_api_endpoints'] ) ) {
+		$options['pbt_api_endpoints'][0] = network_home_url();
 	}
-	
-	foreach ($options['pbt_api_endpoints'] as $key=>$endpoint ){
-		
-		$html .= '<input class="regular-text highlight" type="url" name="pbt_remix_settings[pbt_api_endpoint-'.$key.']" value="'.$endpoint.'" />'
-			. '<input onclick="addRow(this.form);" type="button" value="Add URL" />';
+
+	foreach ( $options['pbt_api_endpoints'] as $key => $endpoint ) {
+		if ( 0 === $key ) {
+			$html .= '<input id="' . $key . '" disabled="true" class="regular-text highlight" type="url" name="pbt_remix_settings[pbt_api_endpoints][' . $key . ']" value="' . $endpoint . '" />'
+				. '<input onclick="addRow(this.form);" type="button" value="Add URL" />';
+
+			// hidden value, because disabled inputs don't make it to $_POST
+			$html .= '<input type="hidden" name="pbt_remix_settings[pbt_api_endpoints][0]" value="' . network_home_url() . '"/>';
+		} else {
+			$html .= '<tr class="endpoints-' . $key . '">'
+				. '<th>' . $key . '</th>'
+				. '<td><input id="' . $key . '" class="regular-text highlight" type="url" name="pbt_remix_settings[pbt_api_endpoints][' . $key . ']" value="' . $endpoint . '" />'
+				. '<input type="button" value="Add URL" onclick="addRow();" /><input type="button" value="Remove URL" onclick="removeRow(' . $key . ');" /></td></tr>';
+		}
 	}
-	
-	echo $html;	
+
+	echo $html;
 }
 
-function remix_url_sanitize( $input ){
-	echo "<pre>";
-	print_r( $input );
-	echo "</pre>";
-	die();
+function remix_url_sanitize( $input ) {
+	$protocols = array( 'http', 'https' );
+	$i = 0;
 	$valid = array();
-	$valid;
-	
+
+	// get rid of blank input, sanitize url
+	foreach ( $input['pbt_api_endpoints'] as $url ) {
+		if ( empty( $url ) ) {
+			continue;
+		}
+		// sanitize, reset the key to maintain sequential numbering, to account for blank entries
+		$valid['pbt_api_endpoints'][$i] = esc_url( $url, $protocols );
+		$i ++;
+	}
+
+	return $valid;
 }
