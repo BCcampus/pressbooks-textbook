@@ -15,7 +15,7 @@
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
 	<!-- display settings errors -->
 	<?php
-	settings_errors();
+	get_settings_errors();
 
 	// message about functionality being tied to theme
 	if ( false == \PBT\Textbook::isTextbookTheme() ) {
@@ -56,10 +56,6 @@
 				break;
 
 			case 'remix':
-
-				echo 
-				"<h3>Import documents</h3>"
-				. "<p><b>Good News!</b> The <a href='?page=pb_import'>import feature</a> has been incorporated into PressBooks. Our code contributions to PB core now makes it possible to import from EPUB, DOCX, ODT or XML files.</p>";
 				
 				echo "<h3>Search, Import</h3>";
 				
@@ -71,7 +67,7 @@
 				} else {
 					echo "<p>You will need to <a href='https://github.com/pressbooks/pressbooks/commit/78a68c9cbba1ce3f5783215194921224558e83a2'>upgrade to a more recent version of PressBooks which contains the API</a>. The functionality of Search and Import depends on the API.";
 				}
-					
+				
 				break;
 
 			case 'redistribute':

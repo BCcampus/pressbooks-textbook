@@ -11,7 +11,6 @@
  * @copyright 2014 Brad Payne
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
-
 ?>
 
 <div class="wrap">
@@ -23,6 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	$pbt_revoke_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/options-general.php?page=api_search_import&revoke=1', 'pbt-revoke-import' );
 	$pbt_current_import = get_option( 'pbt_current_import' );
 	$not_found = get_option( 'pbt_terms_not_found' );
+	$remix = get_option( 'pbt_remix_settings' );
 
 // IMPORT show only if there is an import in progress
 	if ( is_array( $pbt_current_import ) ) {
@@ -59,7 +59,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				});
 			});
 			// ]]>
-		</script>			
+		</script>
+		<?php 
+
+		?>
 		<form id='pbt_import_form' action='<?= $pbt_import_url; ?>' method='post'>
 			<table class="wp-list-table widefat">
 				<thead>
@@ -80,7 +83,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					</tr>
 					<?php
 					$i = 1;
-
+					echo "<pre>";
+					print_r($pbt_current_import );
+					echo "</pre>";
 					foreach ( $pbt_current_import as $book_id => $book ) {
 						// set book title, author, license
 						$book_title = $book['title'];
@@ -116,14 +121,15 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			</table>
 
 			<p><?php
-				submit_button( __( 'Start', 'pressbooks-textbook' ), 'primary', 'submit', false );
-				echo " &nbsp; "; // Space
-				submit_button( __( 'Cancel', 'pressbooks-textbook' ), 'delete', 'abort_button', false );
+			submit_button( __( 'Start', 'pressbooks-textbook' ), 'primary', 'submit', false );
+			echo " &nbsp; "; // Space
+			submit_button( __( 'Cancel', 'pressbooks-textbook' ), 'delete', 'abort_button', false );
 				?></p>
 
 		</form>
 
-	<?php } else {
+	<?php
+	} else {
 
 		if ( false != $not_found ) {
 			?>
@@ -136,18 +142,30 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			delete_option( 'pbt_terms_not_found' );
 		}
 		?>
-		<p><i>Search this instance of PressBooks for chapters that contain the following:</i></p>
-		<?php 
-			echo $endpoints[0];
-		?>
+		<p><i>Search for chapters that contain the following:</i></p>
+
 		<form method="post" id="search_api_form" action="<?= $pbt_import_url ?>">
 			<p><label for="search_api">Search terms</label>
 				<input type="text" name="search_api" id="search_api" /></p>
+
+			<div>
+				<p><i>Search against the following domains. You can <a href="options-general.php?page=pressbooks-textbook-settings&tab=remix">manage the list of domains</a> to search against at any time:</i></p>
+				<?php
+				foreach ( $remix['pbt_api_endpoints'] as $key => $endpoint ) {
+					if ( 0 === $key ) {
+						$html .= '<p><input type="radio" checked="true" value="' . $endpoint . '" name="endpoint" />' . $endpoint . '</p>';
+					} else {
+						$html .= '<p><input type="radio" value="' . $endpoint . '" name="endpoint" />' . $endpoint . '</p>';
+					}
+				}
+				echo $html;
+				?>
+			</div>
 
 			<?php submit_button( __( 'Search the collection', 'pressbooks-textbook' ) ); ?>
 
 		</form>	
 
 	<?php } ?>
-	
+
 </div>

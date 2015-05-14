@@ -180,12 +180,18 @@ function reuse_absint_sanitize( $input ) {
 	return $options;
 }
 
+/**
+ * 
+ */
 function remix_section_callback(){
-	echo "<p>If you know of another PressBooks instance, and know that they also have Creative Commons licensed materials, here is where you would add their domain."
-	. "Having a list of domains will enable searching and importing against their collection, the same way that you can search and import against your own collection.</p>";
+	echo "<p>If you know of another PressBooks instance, and you know they also have Creative Commons licensed materials, here is where you add their domain."
+	. "Having a list of domains will enable <a href=''>searching and importing</a> against their collection, the same way that you can search and import against your own collection.</p>";
 	
 } 
 
+/**
+ * 
+ */
 function api_endpoint_public_callback() {
 	$options = get_option( 'pbt_remix_settings' );
 	
@@ -212,20 +218,57 @@ function api_endpoint_public_callback() {
 	echo $html;
 }
 
+/**
+ * 
+ * @param type $input
+ * @return type
+ */
 function remix_url_sanitize( $input ) {
 	$protocols = array( 'http', 'https' );
 	$i = 0;
 	$valid = array();
+	$success_msg = 'Settings saved. <a href="admin.php?page=api_search_import">Ready to search and import?</a>';
 
 	// get rid of blank input, sanitize url
-	foreach ( $input['pbt_api_endpoints'] as $url ) {
+	foreach ( $input['pbt_api_endpoints'] as $key => $url ) {
 		if ( empty( $url ) ) {
 			continue;
 		}
 		// sanitize, reset the key to maintain sequential numbering, to account for blank entries
-		$valid['pbt_api_endpoints'][$i] = esc_url( $url, $protocols );
+		$valid['pbt_api_endpoints'][$i] = trailingslashit(esc_url( $url, $protocols )) ;
+
+		// check if they are API enabled PressBooks instances: 
+		$api_endpoint = $valid['pbt_api_endpoints'][$i] . 'api/v1/books/';
+
+		$check_response = wp_remote_head( $api_endpoint );
+		$code = wp_remote_retrieve_response_code($check_response);
+		
+		if ( 200 != $code ) {
+			$msg = $code . ' returned for ' . $api_endpoint . ' — not a valid PB url.';
+			add_settings_error(
+				'pbt_remix_settings', 
+				'settings_updated', 
+				$msg, 
+				'error'
+			);
+			// jankified, so discard
+			unset( $valid['pbt_api_endpoints'][$i] );
+		}
+		
 		$i ++;
 	}
 
+	// before returning, force this PB instance to be preserved
+	if ( network_home_url() != $valid['pbt_api_endpoints'][0] ){
+		$valid['pbt_api_endpoints'][0] = network_home_url();
+	}
+	
+	add_settings_error(
+		'pbt_remix_settings',
+		'settings_updated',
+		$success_msg,
+		'updated'
+		);
+	
 	return $valid;
 }

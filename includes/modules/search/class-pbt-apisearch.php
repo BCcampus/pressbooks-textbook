@@ -38,12 +38,8 @@ class ApiSearch {
 	private static $search_terms = '';
 
 	/**
-	 *  Endpoint domain
 	 * 
-	 * @var string
 	 */
-	private $endpoints;
-	
 	public function __construct() {
 		
 	}
@@ -77,12 +73,12 @@ class ApiSearch {
 			// Comes in as:
 			/** Array (    
 			  [103] => Array(
-			    [import] => 1
-			    [book] => 6
-			    [license] =>
-			    [author] => bpayne
-			    [type] => chapter
-			    )
+			  [import] => 1
+			  [book] => 6
+			  [license] =>
+			  [author] => bpayne
+			  [type] => chapter
+			  )
 			  )
 			 */
 			foreach ( $keys as $id ) {
@@ -99,12 +95,12 @@ class ApiSearch {
 			// Modified as:
 			/** Array(
 			  [103] => Array (
-			    [6] => Array(
-			      [type] => chapter
-			      [license] => cc-by
-			      [author] => Brad Payne
-			      )
-			    )
+			  [6] => Array(
+			  [type] => chapter
+			  [license] => cc-by
+			  [author] => Brad Payne
+			  )
+			  )
 			  )
 			 */
 			// import
@@ -121,10 +117,16 @@ class ApiSearch {
 				\PressBooks\Redirect\location( $success_url );
 			}
 
-			// redirect to organize if import is succesful	
 		} elseif ( $_GET['import'] && $_POST['search_api'] && check_admin_referer( 'pbt-import' ) ) {
-
-			$endpoint = network_home_url() . 'api/' . self::$version . '/';
+			// deal with POST variables
+			$local = strcmp( $_POST['endpoint'], network_home_url() );
+			if ( 0 === $local ) {
+				// do something
+			} else {
+				// do something
+			}
+			$endpoint = $_POST['endpoint'] . 'api/' . self::$version . '/';
+			$domain = parse_url( $_POST['endpoint'], PHP_URL_HOST );
 
 			// filter post values
 			$search = filter_input( INPUT_POST, 'search_api', FILTER_SANITIZE_STRING );
@@ -136,7 +138,7 @@ class ApiSearch {
 			self::$search_terms = implode( ',', $search );
 
 			// check the cache 
-			$books = get_transient( 'pbt-public-books' );
+			$books = get_transient( 'pbt-public-books-' . $domain );
 
 			// get the response
 			if ( false === $books ) {
@@ -154,30 +156,33 @@ class ApiSearch {
 			} else {
 				update_option( 'pbt_terms_not_found', self::$search_terms );
 			}
+			
 		}
+
 		// redirect back to import page
 		\PressBooks\Redirect\location( $redirect_url );
 	}
 
 	/**
-	 * Uses v1/api to get an array of public books in the same PB instance
+	 * Uses v1/api to get an array of public books from a PB instance
 	 * 
 	 * @param string $endpoint API url
 	 * @return array of books
 	 * [2] => Array(
-	    [title] => Brad can has book
-	    [author] => Brad Payne
-	    [license] => cc-by-sa
+	  [title] => Brad can has book
+	  [author] => Brad Payne
+	  [license] => cc-by-sa
 	  )
 	  [5] => Array(
-	    [title] => Help, I'm a Book!
-	    [author] => Frank Zappa
-	    [license] => cc-by-nc-sa
+	  [title] => Help, I'm a Book!
+	  [author] => Frank Zappa
+	  [license] => cc-by-nc-sa
 	  )
 	 */
 	static function getPublicBooks( $endpoint ) {
 		$books = array();
 		$current_book = get_current_blog_id();
+		$domain = parse_url( $endpoint, PHP_URL_HOST );
 
 		// build the url, get list of public books
 		$public_books = wp_remote_get( $endpoint . 'books/' );
@@ -204,13 +209,13 @@ class ApiSearch {
 			}
 		}
 
-		// don't return results from the book where the search is happening 
-		if ( isset( $books[$current_book] ) ) {
+		// don't return results from the book where the search is happening, only if searching this instance of PB
+		if ( isset( $books[$current_book] ) && $endpoint == network_home_url() ) {
 			unset( $books[$current_book] );
 		}
 
-		// cache public books
-		set_transient( 'pbt-public-books', $books, 86400 );
+		// cache public books for 12 hours
+		set_transient( 'pbt-public-books-' . $domain, $books, 43200 );
 
 		return $books;
 	}
@@ -274,7 +279,7 @@ class ApiSearch {
 		\PressBooks\Book::deleteBookObjectCache();
 		return delete_option( 'pbt_current_import' );
 	}
-	
+
 	/**
 	 * Log for the import functionality, for tracking bugs 
 	 * 
@@ -285,21 +290,21 @@ class ApiSearch {
 		$subject = '[ PBT Search and Import Log ]';
 		// send to superadmin
 		$admin_email = get_site_option( 'admin_email' );
-		$from = 'From: no-reply@' . get_blog_details()->domain; 
+		$from = 'From: no-reply@' . get_blog_details()->domain;
 		$logs_email = array(
 		    $admin_email,
 		);
-		
-		
+
+
 
 		$time = strftime( '%c' );
 		$info = array(
 		    'time' => $time,
 		    'site_url' => site_url(),
 		);
-		
+
 		$msg = print_r( array_merge( $info, $more_info ), true ) . $message;
-		
+
 		// Write to error log
 		error_log( $subject . "\n" . $msg );
 
