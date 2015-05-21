@@ -69,7 +69,10 @@ class Textbook {
 
 		if ( ! defined( 'PBT_PLUGIN_URL' ) )
 				define( 'PBT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-
+		
+		if ( ! defined( 'PB_PLUGIN_DIR' ) )	
+				define ( 'PB_PLUGIN_DIR', WP_PLUGIN_DIR . '/pressbooks/' ); // Must have trailing slash!
+		
 		// Load translations
 		add_action( 'init', array( $this, 'loadPluginTextDomain' ) );
 

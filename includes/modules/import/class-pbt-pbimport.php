@@ -56,10 +56,7 @@ class PBImport {
 	 * @return type
 	 */
 	function import( array $chapters ) {
-		echo "<pre>";
-		print_r( $chapters );
-		echo "</pre>";
-		die();
+
 		$this->chapters = $chapters;
 
 		$chapters_to_import = $this->getChapters();
@@ -111,42 +108,6 @@ class PBImport {
 		}
 
 		return \PBT\Search\ApiSearch::revokeCurrentImport();
-	}
-	
-	/**
-	 * It gets something like this: 
-	 * Array
-(
-    [6] => Array
-        (
-            [21] => Array
-                (
-                    [type] => front-matter
-                    [license] => 
-                    [author] => Walter Ott & Alex Dunn
-                )
-
-        )
-
-)
-	 * 
-	 * must return something like this
-	 * Array
-(
-    [file] => http://opentextbc.ca/modernphilosophy/chapter/background-to-modern-philosophy/
-    [file_type] => text/html
-    [type_of] => html
-    [chapters] => Array
-        (
-            [1] => Background to Modern Philosophy | Modern Philosophy
-        )
-
-)
-	 */
-	function getRemoteChapters( $chapters ){
-		$current_import = array();
-		
-		return $current_import;
 	}
 
 	/**

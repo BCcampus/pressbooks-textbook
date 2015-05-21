@@ -15,6 +15,7 @@ namespace PBT\Search;
 use PBT\Import;
 
 require PBT_PLUGIN_DIR . '/includes/modules/import/class-pbt-pbimport.php';
+require PBT_PLUGIN_DIR . '/includes/modules/import/class-pbt-remoteimport.php';
 
 /**
  * Description of class-pb-apisearch
@@ -88,6 +89,7 @@ class ApiSearch {
 				$chapter[$id]['type'] = $_POST['chapters'][$id]['type'];
 				$chapter[$id]['license'] = $_POST['chapters'][$id]['license'];
 				$chapter[$id]['author'] = $_POST['chapters'][$id]['author'];
+				$chapter[$id]['link'] = $_POST['chapters'][$id]['link'];
 
 				// add it to the blog_id to which it belongs
 				$books[$_POST['chapters'][$id]['book']][$id] = $chapter[$id];
@@ -99,14 +101,66 @@ class ApiSearch {
 			  [type] => chapter
 			  [license] => cc-by
 			  [author] => Brad Payne
+			  [link] => http://opentextbc.ca/modernphilosophy/chapter/background-to-modern-philosophy/
 			  )
 			  )
 			  )
 			 */
-			// import
-			$importer = new Import\PBImport();
-			$ok = $importer->import( $books );
+			
+			// Decide which import local/remote, evaluate the domain 
+			$local = strcmp( $_POST['domain'], network_home_url() );
+			
+			// local import
+			if ( 0 === $local ) {
+				$importer = new Import\PBImport();
+				$ok = $importer->import( $books );
+			} else { // do something remote
+				/**
+				 * take $books array, convert it into something that xhtml import can use
+				 * must return something like this:
+				 *
+				 Array
+				  (
+				  [file] => http://opentextbc.ca/modernphilosophy/chapter/background-to-modern-philosophy/
+				  [file_type] => text/html
+				  [type_of] => html
+				  [chapters] => Array
+					(
+						[1] => Background to Modern Philosophy | Modern Philosophy
+					 )
+				  )
+				 */
+				foreach ( $books as $book => $chapters ) {
+					// more than 1 chapter in a book? 
+					if ( count( $chapters ) > 1 ) {
+						foreach ( $chapters as $key => $chapter ) {
+							$id = $key;
 
+							$remote_import['file'] = $chapter['link'];
+							$remote_import['file_type'] = 'text/html';
+							$remote_import['type_of'] = 'html';
+							$remote_import['chapters'] = array(
+							    $key => 'title_placeholder',
+							);
+							$all_chapters[] = $remote_import;
+						}
+					} else {
+						$id = array_keys( $chapters );
+
+						$remote_import['file'] = $chapters[$id[0]]['link'];
+						$remote_import['file_type'] = 'text/html';
+						$remote_import['type_of'] = 'html';
+						$remote_import['chapters'] = array(
+						    $id[0] => 'title_placeholder',
+						);
+						$all_chapters[] = $remote_import;
+					}
+				}
+
+				$importer = new Import\RemoteImport();
+				$ok = $importer->import( $all_chapters );	
+			}
+			
 			$msg = "Tried to import a post from this PressBooks instance and ";
 			$msg .= ( $ok ) ? 'succeeded :)' : 'failed :(';
 
@@ -119,12 +173,6 @@ class ApiSearch {
 
 		} elseif ( $_GET['import'] && $_POST['search_api'] && check_admin_referer( 'pbt-import' ) ) {
 			// deal with POST variables
-			$local = strcmp( $_POST['endpoint'], network_home_url() );
-			if ( 0 === $local ) {
-				// do something
-			} else {
-				// do something
-			}
 			$endpoint = $_POST['endpoint'] . 'api/' . self::$version . '/';
 			$domain = parse_url( $_POST['endpoint'], PHP_URL_HOST );
 
@@ -204,7 +252,8 @@ class ApiSearch {
 				$books[$id] = array(
 				    'title' => $public_books_array['data'][$id]['book_meta']['pb_title'],
 				    'author' => $public_books_array['data'][$id]['book_meta']['pb_author'],
-				    'license' => $public_books_array['data'][$id]['book_meta']['pb_book_license']
+				    'license' => $public_books_array['data'][$id]['book_meta']['pb_book_license'],
+				    'domain' => $domain,
 				);
 			}
 		}
@@ -216,7 +265,7 @@ class ApiSearch {
 
 		// cache public books for 12 hours
 		set_transient( 'pbt-public-books-' . $domain, $books, 43200 );
-
+		
 		return $books;
 	}
 

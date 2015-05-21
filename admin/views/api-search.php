@@ -83,15 +83,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					</tr>
 					<?php
 					$i = 1;
-					echo "<pre>";
-					print_r($pbt_current_import );
-					echo "</pre>";
 					foreach ( $pbt_current_import as $book_id => $book ) {
 						// set book title, author, license
 						$book_title = $book['title'];
 						$book_license = $book['license'];
 						$book_author = $book['author'];
-
+						$book_domain = $book['domain'];
+						
 						foreach ( $book['chapters'] as $key => $chapter ) {
 
 							// book author/license sets chapter author/license if not set 
@@ -103,7 +101,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 								<td><input type='checkbox' id='selective_import_<?= $i; ?>' name='chapters[<?= $key; ?>][import]' value='1'></td>
 						<input type='hidden' name='chapters[<?= $key; ?>][book]' value='<?= $book_id; ?>'>
-						<td><label for="selective_import_<?php echo $i; ?>"><a href='<?= $chapter['post_link'] ?>' target='_blank'><?= $chapter['post_title']; ?></a></label></td>
+						<input type='hidden' name='domain' value='<?= $book_domain; ?>'>
+						<input type='hidden' name='chapters[<?= $key; ?>][link]' value='<?= $chapter['post_link']; ?>'>
+						<td><label for="selective_import_<?php echo $i; ?>"><a href='<?= $chapter['post_link']; ?>' target='_blank'><?= $chapter['post_title']; ?></a></label></td>
 						<td><label><?= $book_title; ?></label></td>
 						<td><label><?= $license; ?></label></td>
 						<input type='hidden' name='chapters[<?= $key; ?>][license]' value='<?= $license; ?>'>
