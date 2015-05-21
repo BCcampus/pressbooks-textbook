@@ -185,7 +185,7 @@ function reuse_absint_sanitize( $input ) {
  */
 function remix_section_callback(){
 	echo "<p>If you know of another PressBooks instance, and you know they also have Creative Commons licensed materials, here is where you add their domain."
-	. "Having a list of domains will enable <a href=''>searching and importing</a> against their collection, the same way that you can search and import against your own collection.</p>";
+	. " Having a list of domains will enable <a href='admin.php?page=api_search_import'>searching and importing</a> against their collection, the same way that you can search and import against your own collection.</p>";
 	
 } 
 
