@@ -243,8 +243,8 @@ function remix_url_sanitize( $input ) {
 		$check_response = wp_remote_head( $api_endpoint );
 		$code = wp_remote_retrieve_response_code($check_response);
 		
-		if ( 200 != $code ) {
-			$msg = $code . ' returned for ' . $api_endpoint . ' — not a valid PB url.';
+		if ( $code > 400 ) {
+			$msg = $code . ' returned for ' . $api_endpoint . ' — the domain you tried to add did not return a response code we can not work with.';
 			add_settings_error(
 				'pbt_remix_settings', 
 				'settings_updated', 
