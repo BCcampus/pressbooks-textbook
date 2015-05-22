@@ -30,6 +30,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<!-- Import in progress -->
 
 		<p> Import in Progress...</p>
+		<p><i>Reminder: You are responsible for adhering to all licensing and copyright restrictions.<br>For information on how to properly attribute material offered under a <a href="https://creativecommons.org/licenses/">Creative Commons</a> license, please refer to the information on the 
+				<a href="https://wiki.creativecommons.org/FAQ#How_do_I_properly_attribute_a_Creative_Commons_licensed_work.3F">Creative Commons website</a>.</i></p>
 
 		<script type="text/javascript">
 			// <![CDATA[
@@ -60,8 +62,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			});
 			// ]]>
 		</script>
-		<?php 
-
+		<?php
 		?>
 		<form id='pbt_import_form' action='<?= $pbt_import_url; ?>' method='post'>
 			<table class="wp-list-table widefat">
@@ -83,6 +84,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					</tr>
 					<?php
 					$i = 1;
+
 					foreach ( $pbt_current_import as $book_id => $book ) {
 						// set book title, author, license
 						$book_title = $book['title'];
@@ -90,30 +92,49 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 						$book_author = $book['author'];
 						$book_domain = $book['domain'];
 						
-						foreach ( $book['chapters'] as $key => $chapter ) {
+						// do chapters
+						if ( isset( $book['chapters'] ) ) {
+							foreach ( $book['chapters'] as $key => $chapter ) {
 
-							// book author/license sets chapter author/license if not set 
-							$license = ( empty( $chapter['post_license'] ) ) ? $book_license : $chapter['post_license'];
-							$author = ( empty( $chapter['post_authors'] ) ) ? $book_author : $chapter['post_authors'];
-							?>
+								// book author/license sets chapter author/license if not set 
+								$license = ( empty( $chapter['post_license'] ) ) ? $book_license : $chapter['post_license'];
+								$author = ( empty( $chapter['post_authors'] ) ) ? $book_author : $chapter['post_authors'];
+								?>
 
-							<tr <?php if ( $i % 2 ) echo 'class="alt"'; ?> >
+								<tr <?php if ( $i % 2 ) echo 'class="alt"'; ?> >
 
-								<td><input type='checkbox' id='selective_import_<?= $i; ?>' name='chapters[<?= $key; ?>][import]' value='1'></td>
-						<input type='hidden' name='chapters[<?= $key; ?>][book]' value='<?= $book_id; ?>'>
-						<input type='hidden' name='domain' value='<?= $book_domain; ?>'>
-						<input type='hidden' name='chapters[<?= $key; ?>][link]' value='<?= $chapter['post_link']; ?>'>
-						<td><label for="selective_import_<?php echo $i; ?>"><a href='<?= $chapter['post_link']; ?>' target='_blank'><?= $chapter['post_title']; ?></a></label></td>
-						<td><label><?= $book_title; ?></label></td>
-						<td><label><?= $license; ?></label></td>
-						<input type='hidden' name='chapters[<?= $key; ?>][license]' value='<?= $license; ?>'>
-						<input type='hidden' name='chapters[<?= $key; ?>][author]' value='<?= $author; ?>'>
-						<td><input type='radio' name='chapters[<?= $key; ?>][type]' value='front-matter'></td>
-						<td><input type='radio' name='chapters[<?= $key; ?>][type]' value='chapter' checked='checked'></td>
-						<td><input type='radio' name='chapters[<?= $key; ?>][type]' value='back-matter'></td>
+									<td><input type='checkbox' id='selective_import_<?= $i; ?>' name='chapters[<?= $key; ?>][import]' value='1'></td>
+							<input type='hidden' name='chapters[<?= $key; ?>][book]' value='<?= $book_id; ?>'>
+							<input type='hidden' name='domain' value='<?= $book_domain; ?>'>
+							<input type='hidden' name='chapters[<?= $key; ?>][link]' value='<?= $chapter['post_link']; ?>'>
+							<td><label for="selective_import_<?php echo $i; ?>"><a href='<?= $chapter['post_link']; ?>' target='_blank'><?= $chapter['post_title']; ?></a></label></td>
+							<td><label><?= $book_title; ?></label></td>
+							<td><label><?= $license; ?></label></td>
+							<input type='hidden' name='chapters[<?= $key; ?>][license]' value='<?= $license; ?>'>
+							<input type='hidden' name='chapters[<?= $key; ?>][author]' value='<?= $author; ?>'>
+							<td><input type='radio' name='chapters[<?= $key; ?>][type]' value='front-matter'></td>
+							<td><input type='radio' name='chapters[<?= $key; ?>][type]' value='chapter' checked='checked'></td>
+							<td><input type='radio' name='chapters[<?= $key; ?>][type]' value='back-matter'></td>
+							</tr>
+							<?php
+							++ $i;
+						}
+					// do books	
+					} else { ?>
+						<tr <?php if ( $i % 2 ) echo 'class="alt"'; ?> >
+						
+							<td><input type="radio" id="selective_import_<?= $i; ?>" name="book" value="<?= $book_id ;?>" /></td>
+							<input type='hidden' name='domain' value='<?= $book_domain; ?>'>
+							<td><label>-----</label></td>
+							<td><label for="selective_import_<?= $i ;?>"><?= $book_title . ", by " . $book_author ;?></label>
+							<td><label><?= $book_license;?></label></td>
+							<td><label>-----</label></td>
+							<td><label>-----</label></td>
+							<td><label>-----</label></td>
 						</tr>
-						<?php
-						++ $i;
+						
+					<?php
+					$i++;
 					}
 				}
 				?>
@@ -128,7 +149,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 		</form>
 
-	<?php
+		<?php
 	} else {
 
 		if ( false != $not_found ) {
@@ -142,14 +163,15 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			delete_option( 'pbt_terms_not_found' );
 		}
 		?>
-		<p><i>Search for chapters that contain the following:</i></p>
+		<p><i>Search for the following terms:</i></p>
 
 		<form method="post" id="search_api_form" action="<?= $pbt_import_url ?>">
 			<p><label for="search_api">Search terms</label>
 				<input type="text" name="search_api" id="search_api" /></p>
 
+			<hr>
 			<div>
-				<p><i>Search against the following domains. You can <a href="options-general.php?page=pressbooks-textbook-settings&tab=remix">manage the list of domains</a> to search against at any time:</i></p>
+				<p><i>Search against the following domains. <br>(You can <a href="options-general.php?page=pressbooks-textbook-settings&tab=remix">manage the list of domains</a> to search against at any time:</i>)</p>
 				<?php
 				foreach ( $remix['pbt_api_endpoints'] as $key => $endpoint ) {
 					if ( 0 === $key ) {
@@ -160,6 +182,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 				}
 				echo $html;
 				?>
+			</div>
+			<hr>
+			<div>
+				<p><i>Search chapter titles, or book titles</i></p>
+				<p><input type="radio" checked="checked" value="chapters" name="collection" /> Chapters </p>
+				<p><input type="radio" value="books" name="collection" /> Books </p>
 			</div>
 
 			<?php submit_button( __( 'Search the collection', 'pressbooks-textbook' ) ); ?>

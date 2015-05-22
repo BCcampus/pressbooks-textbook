@@ -65,7 +65,7 @@ class ApiSearch {
 			\PressBooks\Redirect\location( $redirect_url );
 		}
 
-		// do import if that's where we're at
+		// do chapter import if that's where we're at
 		if ( $_GET['import'] && isset( $_POST['chapters'] ) && is_array( $_POST['chapters'] ) && is_array( $current_import ) && check_admin_referer( 'pbt-import' ) ) {
 
 			$keys = array_keys( $_POST['chapters'] );
@@ -73,14 +73,14 @@ class ApiSearch {
 
 			// Comes in as:
 			/** Array (    
-			  [103] => Array(
-			  [import] => 1
-			  [book] => 6
-			  [license] =>
-			  [author] => bpayne
-			  [type] => chapter
-			  )
-			  )
+			 *    [103] => Array(
+			 * 	[import] => 1
+			 * 	[book] => 6
+			 * 	[license] =>
+			 * 	[author] => bpayne
+			 * 	[type] => chapter
+			 *    )
+			 *  )
 			 */
 			foreach ( $keys as $id ) {
 				if ( ! Import\PBImport::flaggedForImport( $id ) ) continue;
@@ -96,20 +96,19 @@ class ApiSearch {
 			}
 			// Modified as:
 			/** Array(
-			  [103] => Array (
-			  [6] => Array(
-			  [type] => chapter
-			  [license] => cc-by
-			  [author] => Brad Payne
-			  [link] => http://opentextbc.ca/modernphilosophy/chapter/background-to-modern-philosophy/
-			  )
-			  )
-			  )
+			 *   [103] => Array (
+			 * 	[6] => Array(
+			 * 	[type] => chapter
+			 * 	[license] => cc-by
+			 * 	[author] => Brad Payne
+			 * 	[link] => http://opentextbc.ca/modernphilosophy/chapter/background-to-modern-philosophy/
+			 * 	)
+			 *    )
+			 *  )
 			 */
-			
 			// Decide which import local/remote, evaluate the domain 
 			$local = strcmp( $_POST['domain'], network_home_url() );
-			
+
 			// local import
 			if ( 0 === $local ) {
 				$importer = new Import\PBImport();
@@ -119,16 +118,16 @@ class ApiSearch {
 				 * take $books array, convert it into something that xhtml import can use
 				 * must return something like this:
 				 *
-				 Array
-				  (
-				  [file] => http://opentextbc.ca/modernphilosophy/chapter/background-to-modern-philosophy/
-				  [file_type] => text/html
-				  [type_of] => html
-				  [chapters] => Array
-					(
-						[1] => Background to Modern Philosophy | Modern Philosophy
-					 )
-				  )
+				 * Array
+				 *  (
+				 *  [file] => http://opentextbc.ca/modernphilosophy/chapter/background-to-modern-philosophy/
+				 *  [file_type] => text/html
+				 *  [type_of] => html
+				 *  [chapters] => Array
+				 * 	(
+				 * 		[1] => Background to Modern Philosophy | Modern Philosophy
+				 * 	 )
+				 *  )
 				 */
 				foreach ( $books as $book => $chapters ) {
 					// more than 1 chapter in a book? 
@@ -158,9 +157,9 @@ class ApiSearch {
 				}
 
 				$importer = new Import\RemoteImport();
-				$ok = $importer->import( $all_chapters );	
+				$ok = $importer->import( $all_chapters );
 			}
-			
+
 			$msg = "Tried to import a post from this PressBooks instance and ";
 			$msg .= ( $ok ) ? 'succeeded :)' : 'failed :(';
 
@@ -170,9 +169,104 @@ class ApiSearch {
 				self::log( $msg, $books );
 				\PressBooks\Redirect\location( $success_url );
 			}
+			// do book import	
+		} elseif ( $_GET['import'] && isset( $_POST['book'] ) && is_array( $current_import ) && check_admin_referer( 'pbt-import' ) ) {
 
+			// get the one book that we are importing
+			$book = $current_import[$_POST['book']];
+			$book_id = $_POST['book'];
+			$protocol = 'http://';
+			$endpoint = $protocol . $book['domain'] . '/api/' . self::$version . '/books/' . $book_id . '/';
+
+			// remote call to the API using book id
+			$response = wp_remote_get( $endpoint );
+
+			// response gets all chapters, types
+			if ( is_wp_error( $response ) ) {
+				try {
+					// try different protocol
+					$protocol = 'https://';
+					$endpoint = $protocol . $book['domain'] . '/api/' . self::$version . '/books/' . $book_id . '/';
+					// remote call to the API using book id
+					$response = wp_remote_get( $endpoint );
+
+					if ( is_wp_error( $response ) ) {
+						throw new \Exception( $response->get_error_message() );
+					}
+				} catch ( \Exception $exc ) {
+					error_log( '\PBT\Search\formSubmit error: ' . $exc );
+					\PressBooks\Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=api_search_import' );
+				}
+			}
+
+			$import_chapters = json_decode( $response['body'], true );
+
+			// something goes wrong at the API level/response
+			if ( 0 == $import_chapters['success'] ) {
+				return;
+			}
+			$fm = $import_chapters['data'][$book_id]['book_toc']['front-matter'];
+			$chap = $import_chapters['data'][$book_id]['book_toc']['part'];
+			$bm = $import_chapters['data'][$book_id]['book_toc']['back-matter'];
+			$parts_count = count( $chap );
+
+			// front-matter
+			foreach ( $fm as $chapters ) {
+
+				$remote_import['file'] = $chapters['post_link'];
+				$remote_import['file_type'] = 'text/html';
+				$remote_import['type_of'] = 'html';
+				$remote_import['type'] = 'front-matter';
+				$remote_import['chapters'] = array(
+				    $chapters['post_id'] => 'title_placeholder',
+				);
+				$all_chapters[] = $remote_import;
+			}
+
+			// chapters
+			for ( $i = 0; $i < $parts_count; $i ++ ) {
+				foreach ( $chap[$i]['chapters'] as $chapters ) {
+
+					$remote_import['file'] = $chapters['post_link'];
+					$remote_import['file_type'] = 'text/html';
+					$remote_import['type_of'] = 'html';
+					$remote_import['type'] = 'chapter';
+					$remote_import['chapters'] = array(
+					    $chapters['post_id'] => 'title_placeholder',
+					);
+					$all_chapters[] = $remote_import;
+				}
+			}
+			// back-matter
+			foreach ( $bm as $chapters ) {
+
+				$remote_import['file'] = $chapters['post_link'];
+				$remote_import['file_type'] = 'text/html';
+				$remote_import['type_of'] = 'html';
+				$remote_import['type'] = 'back-matter';
+				$remote_import['chapters'] = array(
+				    $chapters['post_id'] => 'title_placeholder',
+				);
+				$all_chapters[] = $remote_import;
+			}
+
+			$importer = new Import\RemoteImport();
+			$ok = $importer->import( $all_chapters );
+
+			$msg = "Tried to import a post from this PressBooks instance and ";
+			$msg .= ( $ok ) ? 'succeeded :)' : 'failed :(';
+
+			if ( $ok ) {
+				// Success! Redirect to organize page
+				$success_url = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pressbooks';
+				self::log( $msg, $import_chapters['data'][$book_id]['book_toc'] );
+				\PressBooks\Redirect\location( $success_url );
+			}
+
+			// return results from user's search	
 		} elseif ( $_GET['import'] && $_POST['search_api'] && check_admin_referer( 'pbt-import' ) ) {
-			// deal with POST variables
+
+			// find out what domain we are handling
 			$endpoint = $_POST['endpoint'] . 'api/' . self::$version . '/';
 			$domain = parse_url( $_POST['endpoint'], PHP_URL_HOST );
 
@@ -185,26 +279,41 @@ class ApiSearch {
 			// convert to csv
 			self::$search_terms = implode( ',', $search );
 
-			// check the cache 
-			$books = get_transient( 'pbt-public-books-' . $domain );
+			// discover if we are searching for books, or chapters
+			// do books
+			if ( 0 == strcmp( 'books', $_POST['collection'] ) ) {
+				// no cache, assumes search term will be unique
+				$books = self::getPublicBooks( $endpoint, self::$search_terms );
 
-			// get the response
-			if ( false === $books ) {
-				$books = self::getPublicBooks( $endpoint );
-			}
+				if ( ! empty( $books ) && is_array( $books ) ) {
 
-			if ( is_array( $books ) ) {
-				$chapters = self::getPublicChapters( $books, $endpoint, self::$search_terms );
-			}
-
-			// set chapters in options table, only if there are results
-			if ( ! empty( $chapters ) ) {
-				update_option( 'pbt_current_import', $chapters );
-				delete_option( 'pbt_terms_not_found' );
+					update_option( 'pbt_current_import', $books );
+					delete_option( 'pbt_terms_not_found' );
+				} else {
+					update_option( 'pbt_terms_not_found', self::$search_terms );
+				}
+				// do chapters	
 			} else {
-				update_option( 'pbt_terms_not_found', self::$search_terms );
+				// check the cache 
+				$books = get_transient( 'pbt-public-books-' . $domain );
+
+				// get the response
+				if ( false === $books ) {
+					$books = self::getPublicBooks( $endpoint );
+				}
+
+				if ( is_array( $books ) ) {
+					$chapters = self::getPublicChapters( $books, $endpoint, self::$search_terms );
+				}
+
+				// set chapters in options table, only if there are results
+				if ( ! empty( $chapters ) ) {
+					update_option( 'pbt_current_import', $chapters );
+					delete_option( 'pbt_terms_not_found' );
+				} else {
+					update_option( 'pbt_terms_not_found', self::$search_terms );
+				}
 			}
-			
 		}
 
 		// redirect back to import page
@@ -217,23 +326,25 @@ class ApiSearch {
 	 * @param string $endpoint API url
 	 * @return array of books
 	 * [2] => Array(
-	  [title] => Brad can has book
-	  [author] => Brad Payne
-	  [license] => cc-by-sa
-	  )
-	  [5] => Array(
-	  [title] => Help, I'm a Book!
-	  [author] => Frank Zappa
-	  [license] => cc-by-nc-sa
-	  )
+	 * 	[title] => Brad can has book
+	 * 	[author] => Brad Payne
+	 * 	[license] => cc-by-sa
+	 *  )
+	 *  [5] => Array(
+	 * 	[title] => Help, I'm a Book!
+	 * 	[author] => Frank Zappa
+	 * 	[license] => cc-by-nc-sa
+	 *  )
 	 */
-	static function getPublicBooks( $endpoint ) {
+	static function getPublicBooks( $endpoint, $search = '' ) {
 		$books = array();
 		$current_book = get_current_blog_id();
 		$domain = parse_url( $endpoint, PHP_URL_HOST );
+		$titles = ( ! empty( $search ) ) ? '?titles=' . $search : '';
 
 		// build the url, get list of public books
-		$public_books = wp_remote_get( $endpoint . 'books/' );
+		$public_books = wp_remote_get( $endpoint . 'books' . '/' . $titles );
+
 		if ( is_wp_error( $public_books ) ) {
 			error_log( '\PBT\Search\getPublicBooks error: ' . $public_books->get_error_message() );
 			\PressBooks\Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=api_search_import' );
@@ -265,7 +376,7 @@ class ApiSearch {
 
 		// cache public books for 12 hours
 		set_transient( 'pbt-public-books-' . $domain, $books, 43200 );
-		
+
 		return $books;
 	}
 
@@ -278,13 +389,14 @@ class ApiSearch {
 	 * @param type $search
 	 * @return array $chapters from the search results
 	 */
-	static function getPublicChapters( $books, $endpoint, $search ) {
+	static function getPublicChapters( $books, $endpoint, $search = '' ) {
 		$chapters = array();
 		$blog_ids = array_keys( $books );
+		$titles = ( ! empty( $search ) ) ? '?titles=' . $search : '';
 
 		// iterate through books, search for string match in chapter titles
 		foreach ( $blog_ids as $id ) {
-			$request = $endpoint . 'books/' . $id . '/?titles=' . $search;
+			$request = $endpoint . 'books/' . $id . '/' . $titles;
 			$response = wp_remote_get( $request );
 			$body = json_decode( $response['body'], true );
 			if ( ! empty( $body ) && 1 == $body['success'] ) {
