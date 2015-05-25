@@ -17,6 +17,7 @@ namespace PBT\Import;
 
 use PBT\Search;
 use PressBooks\Import\Html;
+use PressBooks\Book;
 
 require WP_PLUGIN_DIR . '/pressbooks/includes/modules/import/class-pb-import.php';
 require WP_PLUGIN_DIR . '/pressbooks/includes/modules/import/html/class-pb-xhtml.php';
@@ -28,10 +29,19 @@ class RemoteImport extends Html\Xhtml {
 	 * @param array $current_import
 	 */
 	function import( array $current_import ) {
+		$parent = 0;
 		foreach ( $current_import as $import ) {
-
+			
 			// fetch the remote content
 			$html = wp_remote_get( $import['file'] );
+			
+			if( is_wp_error( $html ) ){
+				$err = $html->get_error_message();
+				error_log( '\PBT\Import\RemoteImport\import() error with wp_remote_get(): ' . $err );
+				unset( $html );
+				$html['body'] = $err;
+			}
+			
 			$url = parse_url( $import['file'] );
 			// get parent directory (with forward slash e.g. /parent)
 			$path = dirname( $url['path'] );
@@ -41,16 +51,103 @@ class RemoteImport extends Html\Xhtml {
 			// get id (there will be only one)
 			$id = array_keys( $import['chapters'] );
 
-			// front-matter, chapter, or back-matter
+			// front-matter, part, chapter, or back-matter
 			$post_type = ( isset( $import['type'] ) ) ? $import['type'] : $this->determinePostType( $id[0] );
-			$chapter_parent = $this->getChapterParent();
+			
+			// chapter is the exception, needs a post_parent other than 0
+			// front-matter, back-matter, parts all have post parent = 0;
+			if ( 'chapter' == $post_type ){
+				$chapter_parent = $parent;
+			} else {
+				$chapter_parent = $this->getChapterParent();
+			}
 
-			$body = $this->kneadandInsert( $html['body'], $post_type, $chapter_parent, $domain );
+			$pid = $this->kneadandInsert( $html['body'], $post_type, $chapter_parent, $domain );
+			
+			// set static variable with Post ID of the last Part
+			if ( 'part' == $post_type ){
+				$parent = $pid;
+			}
+			
 		}
 		// Done
 		return Search\ApiSearch::revokeCurrentImport();
 	}
 
+	/**
+	 * Pummel then insert HTML into our database, separating it from parent class 
+	 * to deal with Parts, as well as chapters.
+	 *
+	 * @param string $href
+	 * @param string $post_type
+	 * @param int $chapter_parent
+	 * @param string $domain domain name of the webpage
+	 */
+	function kneadandInsert( $html, $post_type, $chapter_parent, $domain ) {
+		$matches = array();
+		$meta = $this->getLicenseAttribution( $html );
+		$author = ( isset( $meta['authors'] )) ? $meta['authors'] : $this->getAuthors( $html );
+		$license = ( isset( $meta['license'] )) ? $this->extractCCLicense( $meta['license'] ) : '';
+
+		// get the title, preference to title set by PB
+		preg_match( '/<h2 class="entry-title">(.*)<\/h2>/', $html, $matches );
+		if ( ! empty( $matches[1] ) ) {
+			$title = wp_strip_all_tags( $matches[1] );
+		} else {
+			preg_match( '/<title>(.+)<\/title>/', $html, $matches );
+			$title = ( ! empty( $matches[1] ) ? wp_strip_all_tags( $matches[1] ) : '__UNKNOWN__' );
+		}
+
+		// just get the body
+		preg_match( '/(?:<body[^>]*>)(.*)<\/body>/isU', $html, $matches );
+
+		// get rid of stuff we don't need
+		$body = $this->regexSearchReplace( $matches[1] );
+
+		// clean it up
+		$xhtml = $this->tidy( $body );
+
+		$body = $this->kneadHtml( $xhtml, $post_type, $domain );
+
+		$new_post = array(
+		    'post_title' => $title,
+		    'post_type' => $post_type,
+		    'post_status' => ( 'part' == $post_type ) ? 'publish' : 'draft',
+		);
+		
+		// parts are exceptional, content upload needs to be handled by update_post_meta
+		if ( 'part' != $post_type ) {
+			$new_post['post_content'] = $body;
+		}
+		// chapters are exceptional, need a chapter_parent
+		if ( 'chapter' == $post_type ) {
+			$new_post['post_parent'] = $chapter_parent;
+		}
+
+		$pid = wp_insert_post( add_magic_quotes( $new_post ) );
+		
+		// give parts content if it has some
+		if ( 'part' == $post_type && !empty( $body ) ) {
+			update_post_meta( $pid, 'pb_part_content', $body );
+		}
+		
+		if( ! empty( $author )){
+			update_post_meta( $pid, 'pb_section_author', $author );
+		}
+		
+		if( ! empty( $license ) ){
+			update_post_meta( $pid, 'pb_section_license', $license );
+		}
+		
+		update_post_meta( $pid, 'pb_show_title', 'on' );
+		update_post_meta( $pid, 'pb_export', 'on' );
+
+		Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder
+		
+		return $pid;
+		
+	}
+	
 	/**
 	 * Cherry pick likely content areas, then cull known, unwanted content areas
 	 * 

@@ -205,50 +205,9 @@ class ApiSearch {
 			if ( 0 == $import_chapters['success'] ) {
 				return;
 			}
-			$fm = $import_chapters['data'][$book_id]['book_toc']['front-matter'];
-			$chap = $import_chapters['data'][$book_id]['book_toc']['part'];
-			$bm = $import_chapters['data'][$book_id]['book_toc']['back-matter'];
-			$parts_count = count( $chap );
 
-			// front-matter
-			foreach ( $fm as $chapters ) {
-
-				$remote_import['file'] = $chapters['post_link'];
-				$remote_import['file_type'] = 'text/html';
-				$remote_import['type_of'] = 'html';
-				$remote_import['type'] = 'front-matter';
-				$remote_import['chapters'] = array(
-				    $chapters['post_id'] => 'title_placeholder',
-				);
-				$all_chapters[] = $remote_import;
-			}
-
-			// chapters
-			for ( $i = 0; $i < $parts_count; $i ++ ) {
-				foreach ( $chap[$i]['chapters'] as $chapters ) {
-
-					$remote_import['file'] = $chapters['post_link'];
-					$remote_import['file_type'] = 'text/html';
-					$remote_import['type_of'] = 'html';
-					$remote_import['type'] = 'chapter';
-					$remote_import['chapters'] = array(
-					    $chapters['post_id'] => 'title_placeholder',
-					);
-					$all_chapters[] = $remote_import;
-				}
-			}
-			// back-matter
-			foreach ( $bm as $chapters ) {
-
-				$remote_import['file'] = $chapters['post_link'];
-				$remote_import['file_type'] = 'text/html';
-				$remote_import['type_of'] = 'html';
-				$remote_import['type'] = 'back-matter';
-				$remote_import['chapters'] = array(
-				    $chapters['post_id'] => 'title_placeholder',
-				);
-				$all_chapters[] = $remote_import;
-			}
+			// format the chapters arrat
+			$all_chapters = self::getAllChapters( $import_chapters, $book_id );
 
 			$importer = new Import\RemoteImport();
 			$ok = $importer->import( $all_chapters );
@@ -318,6 +277,80 @@ class ApiSearch {
 
 		// redirect back to import page
 		\PressBooks\Redirect\location( $redirect_url );
+	}
+	
+	/**
+	 * Given a response from the API, it returns an array that can be handed off 
+	 * @see \PBT\Import\RemoteImport($current_import)
+	 * 
+	 * @param array $import_chapters
+	 * @return array $all_chapters
+	 */
+	static function getAllChapters( $import_chapters, $book_id ) {
+
+		$all_chapters = array();
+		$fm = $import_chapters['data'][$book_id]['book_toc']['front-matter'];
+		$chap = $import_chapters['data'][$book_id]['book_toc']['part'];
+		$bm = $import_chapters['data'][$book_id]['book_toc']['back-matter'];
+		$parts_count = count( $chap );
+
+		// front-matter
+		foreach ( $fm as $chapters ) {
+
+			$remote_import['file'] = $chapters['post_link'];
+			$remote_import['file_type'] = 'text/html';
+			$remote_import['type_of'] = 'html';
+			$remote_import['type'] = 'front-matter';
+			$remote_import['chapters'] = array(
+			    $chapters['post_id'] => 'title_placeholder',
+			);
+			$all_chapters[] = $remote_import;
+		}
+
+
+		// parts, chapters
+		for ( $i = 0; $i < $parts_count; $i ++ ) {
+			// parts
+
+			$part_import['file'] = $chap[$i]['post_link'];
+			$part_import['file_type'] = 'text/html';
+			$part_import['type_of'] = 'html';
+			$part_import['type'] = 'part';
+			$part_import['chapters'] = array(
+			    $chap[$i]['post_id'] => 'title_placeholder',
+			);
+			$all_chapters[] = $part_import;
+		
+			
+			// chapters
+			foreach ( $chap[$i]['chapters'] as $chapters ) {
+
+				$remote_import['file'] = $chapters['post_link'];
+				$remote_import['file_type'] = 'text/html';
+				$remote_import['type_of'] = 'html';
+				$remote_import['type'] = 'chapter';
+				$remote_import['chapters'] = array(
+				    $chapters['post_id'] => 'title_placeholder',
+				);
+				$all_chapters[] = $remote_import;
+			}
+
+		}
+
+		// back-matter
+		foreach ( $bm as $chapters ) {
+
+			$remote_import['file'] = $chapters['post_link'];
+			$remote_import['file_type'] = 'text/html';
+			$remote_import['type_of'] = 'html';
+			$remote_import['type'] = 'back-matter';
+			$remote_import['chapters'] = array(
+			    $chapters['post_id'] => 'title_placeholder',
+			);
+			$all_chapters[] = $remote_import;
+		}
+
+		return $all_chapters;
 	}
 
 	/**
