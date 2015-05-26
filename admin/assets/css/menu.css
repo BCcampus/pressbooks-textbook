@@ -22,3 +22,16 @@ div.wrap ul li a.btn-small{
 	width:16%;
 	text-decoration: none;
 }
+
+input.higlight:invalid {
+  background-color: #ffdddd;
+}
+
+input.highlight:valid {
+  background-color: #ddffdd;
+}
+  
+input.hightlight:required {
+  border-color: #800000;
+  border-width: 3px;
+}
