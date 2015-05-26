@@ -64,7 +64,7 @@ class RemoteImport extends Html\Xhtml {
 
 			$pid = $this->kneadandInsert( $html['body'], $post_type, $chapter_parent, $domain );
 			
-			// set static variable with Post ID of the last Part
+			// set variable with Post ID of the last Part
 			if ( 'part' == $post_type ){
 				$parent = $pid;
 			}
