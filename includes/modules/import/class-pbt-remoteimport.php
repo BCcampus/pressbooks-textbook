@@ -19,8 +19,9 @@ use PBT\Search;
 use PressBooks\Import\Html;
 use PressBooks\Book;
 
-require WP_PLUGIN_DIR . '/pressbooks/includes/modules/import/class-pb-import.php';
-require WP_PLUGIN_DIR . '/pressbooks/includes/modules/import/html/class-pb-xhtml.php';
+if ( ! isset( $GLOBALS['pressbooks'] ) ) {
+	require_once \WP_PLUGIN_DIR . '/pressbooks/pressbooks.php';
+}
 
 class RemoteImport extends Html\Xhtml {
 
