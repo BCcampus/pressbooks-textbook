@@ -163,8 +163,9 @@ function pbt_terminology_modify_context( $translated, $original, $context, $doma
 	return $translated;
 }
 
-add_filter( 'gettext', 'pbt_terminology_modify', 11, 3 );
-add_filter( 'gettext_with_context', 'pbt_terminology_modify_context', 11, 4 );
+/**** Removing these filters Jume 2015 to remain consistent with the PB documentation *****/
+//add_filter( 'gettext', 'pbt_terminology_modify', 11, 3 );
+//add_filter( 'gettext_with_context', 'pbt_terminology_modify_context', 11, 4 );
 
 // removes incorrect notice on epub/pdf export that the book was created on pressbooks.com
 $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES_EPUB'] = 'not_created_on_pb_com';

@@ -1216,3 +1216,24 @@ object{
 .web-only, .not-pdf {
 	display: none;
 }
+
+/** tight and loose tracking **/
+.tight {
+	letter-spacing: -0.25px;
+	word-spacing: -0.075em;
+}
+
+.very-tight {
+	letter-spacing: -0.5px;
+	word-spacing: -0.09em;
+}
+
+.loose{
+	letter-spacing: 0.25px;
+	word-spacing: 0.075em;
+}
+
+.very-loose {
+	letter-spacing: 0.5px;
+	word-spacing: 0.09em;
+}
