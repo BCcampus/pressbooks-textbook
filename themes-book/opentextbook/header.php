@@ -77,7 +77,7 @@ if ( is_front_page() ) {
 			    
 					    <div class="sub-nav-left">
 							<!-- Logo -->
-							<h2 class="pressbooks-logo"><a href="#"><?php echo get_site_option('site_name'); ?></a></h2>
+							<h2 class="pressbooks-logo"><a href="<?php echo network_home_url( '/' ); ?>"><?php echo get_site_option('site_name'); ?></a></h2>
 					    </div> <!-- end .sub-nav-left -->
 			    
 			    <div class="sub-nav-right">
