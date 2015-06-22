@@ -18,11 +18,16 @@
 										echo $custom_copyright;?>
 									</p>
 							<?php endif; ?>
-							  <div id="share">
-								  <div id="twitter" data-url="<?php the_permalink(); ?>" data-text="Check out this great book on PressBooks." data-title="Tweet"></div>
-								  <div id="facebook" data-url="<?php the_permalink(); ?>" data-text="Check out this great book on PressBooks." data-title="Like"></div>
-								  <div id="googleplus" data-url="<?php the_permalink(); ?>" data-text="Check out this great book on PressBooks." data-title="+1"></div>
-							  </div>	
+									<div id="share">
+										<?php
+										$social_buttons = get_option( 'pressbooks_theme_options_web' );
+										if ( 1 === $social_buttons['social_media'] || ! isset( $social_buttons['social_media'] ) ) {
+											?>
+											<div id="twitter" data-url="<?php the_permalink(); ?>" data-text="Check out this great book on PressBooks." data-title="Tweet"></div>
+											<div id="facebook" data-url="<?php the_permalink(); ?>" data-text="Check out this great book on PressBooks." data-title="Like"></div>
+											<div id="googleplus" data-url="<?php the_permalink(); ?>" data-text="Check out this great book on PressBooks." data-title="+1"></div>
+										<?php } ?>	
+									</div>	
 						</div>
 							
 								<?php	$args = $args = array(

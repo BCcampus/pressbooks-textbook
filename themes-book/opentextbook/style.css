@@ -31,7 +31,7 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
 	font-size: 1.3em;
 }
-h1, h2 {
+h1, h2, h3 {
 	text-align: left;
 }
 h2 {
@@ -71,6 +71,28 @@ ol.alphalist li::before{
 small{
 	font-size:80%
 }
+
+/** tight and loose tracking **/
+.tight {
+	letter-spacing: -0.25px;
+	word-spacing: -0.075em;
+}
+
+.very-tight {
+	letter-spacing: -0.5px;
+	word-spacing: -0.09em;
+}
+
+.loose{
+	letter-spacing: 0.25px;
+	word-spacing: 0.075em;
+}
+
+.very-loose {
+	letter-spacing: 0.5px;
+	word-spacing: 0.09em;
+}
+
 /****************************************
 	Cover page
 *****************************************/
