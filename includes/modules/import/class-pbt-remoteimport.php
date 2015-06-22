@@ -54,13 +54,13 @@ class RemoteImport extends Html\Xhtml {
 
 			// front-matter, part, chapter, or back-matter
 			$post_type = ( isset( $import['type'] ) ) ? $import['type'] : $this->determinePostType( $id[0] );
-			
+
 			// chapter is the exception, needs a post_parent other than 0
 			// front-matter, back-matter, parts all have post parent = 0;
 			if ( 'chapter' == $post_type ){
-				$chapter_parent = $parent;
-			} else {
 				$chapter_parent = $this->getChapterParent();
+			} else {
+				$chapter_parent = $parent;
 			}
 
 			$pid = $this->kneadandInsert( $html['body'], $post_type, $chapter_parent, $domain );
@@ -126,7 +126,7 @@ class RemoteImport extends Html\Xhtml {
 		}
 
 		$pid = wp_insert_post( add_magic_quotes( $new_post ) );
-		
+
 		// give parts content if it has some
 		if ( 'part' == $post_type && !empty( $body ) ) {
 			update_post_meta( $pid, 'pb_part_content', $body );

@@ -107,8 +107,9 @@ class ApiSearch {
 			 *  )
 			 */
 			// Decide which import local/remote, evaluate the domain 
-			$local = strcmp( $_POST['domain'], network_home_url() );
-
+			$host = parse_url( network_site_url(), PHP_URL_HOST );
+			$local = strcmp( $_POST['domain'], $host );
+	
 			// local import
 			if ( 0 === $local ) {
 				$importer = new Import\PBImport();
@@ -206,7 +207,7 @@ class ApiSearch {
 				return;
 			}
 
-			// format the chapters arrat
+			// format the chapters array
 			$all_chapters = self::getAllChapters( $import_chapters, $book_id );
 
 			$importer = new Import\RemoteImport();
