@@ -119,7 +119,6 @@ class Textbook {
 	 */
 	function includes() {
 		$pbt_plugin = array(
-		    'mce-table-buttons/mce_table_buttons.php' => 1,
 		    'mce-textbook-buttons/mce-textbook-buttons.php' => 1,
 		    'creative-commons-configurator-1/cc-configurator.php' => 1,
 		    'hypothesis/hypothesis.php' => 1,
@@ -153,7 +152,6 @@ class Textbook {
 			unset( $pbt_plugin['mce-textbook-buttons/mce-textbook-buttons.php'] );
 			unset( $pbt_plugin['hypothesis/hypothesis.php'] );
 			unset( $pbt_plugin['creative-commons-configurator-1/cc-configurator.php'] );
-			unset( $pbt_plugin['mce-table-buttons/mce_table_buttons.php'] );
 			unset( $pbt_plugin['tinymce-spellcheck/tinymce-spellcheck.php'] );
 			unset( $pbt_plugin['disable-comments/disable-comments.php'] );	
 		}
