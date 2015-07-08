@@ -147,7 +147,13 @@ class Textbook {
 	private function filterPlugins( $pbt_plugin ) {
 		$already_active = get_option('active_plugins');
 		$network_already_active = get_site_option('active_sitewide_plugins');
-
+		
+		if ( defined( 'PB_PLUGIN_VERSION' ) ) {
+			if ( version_compare( PB_PLUGIN_VERSION, '2.5.1' ) >= 0 ) {
+				unset( $pbt_plugin['mce-table-buttons/mce_table_buttons.php'] );
+			}
+		}
+		
 		// activate only if one of our themes is being used
 		if ( false == self::isTextbookTheme() ) {
 			unset( $pbt_plugin['mce-textbook-buttons/mce-textbook-buttons.php'] );
