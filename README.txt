@@ -14,6 +14,7 @@ PressBooks Textbook adds functionality to the PressBooks plugin to make it easie
 **PressBooks Textbook** adds functionality to PressBooks to make it easier to author textbooks as well. The features it currently offers are: 
 
 * Textbook Theme
+* TinyMCE table buttons
 * TinyMCE textbook buttons 
 * TinyMCE spell check
 * TinyMCE anchor button
