@@ -301,7 +301,7 @@ span.small.mobi {
 
 }
 
-span.small.pdf {
+span.small.pdf, span.small.mpdf {
 	background: url(../../../pressbooks/assets/images/pdf-36.png) -0 0 no-repeat;
 
 }

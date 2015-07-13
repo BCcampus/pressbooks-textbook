@@ -72,17 +72,26 @@
 					$dir = \PressBooks\Export\Export::getExportFolder();
 					foreach ( $files as $ext => $filename ) {
 						$file_extension = substr( strrchr( $ext, '.' ), 1 );
-						$pre_suffix = (false == strstr( $ext, '._3.epub' )) ? strstr( $ext, '._vanilla.xml' ) : strstr( $ext, '._3.epub' );
+						
+						// check if the file has a special suffix
+						$special = array( '._3.epub', '._vanilla.xml', '._oss.pdf' );
+						foreach( $special as $string ) {
+							// will return 0 if they are equal
+							$pre_suffix = strcmp( $ext, $string );
+						}
 
 						switch ( $file_extension ) {
 							case 'html':
 								$file_class = 'xhtml';
 								break;
 							case 'xml':
-								$file_class = ( false == $pre_suffix) ? 'wxr' : 'vanillawxr';
+								$file_class = ( 0 === $pre_suffix) ? 'vanillawxr' : 'wxr';
 								break;
 							case 'epub':
-								$file_class = ( false == $pre_suffix ) ? 'epub' : 'epub3';
+								$file_class = ( 0 === $pre_suffix ) ? 'epub3' : 'epub';
+								break;
+							case 'pdf':
+								$file_class = ( 0 === $pre_suffix ) ? 'mpdf' : 'pdf';
 								break;
 							default:
 								$file_class = $file_extension;

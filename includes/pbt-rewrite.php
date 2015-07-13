@@ -56,6 +56,9 @@ function do_open() {
 				case 'vanillawxr':
 					$ext = '_vanilla.xml';
 					break;
+				case 'mpdf':
+					$ext = '_oss.pdf';
+					break;
 				default:
 					$ext = $_GET['type'];
 					break;
