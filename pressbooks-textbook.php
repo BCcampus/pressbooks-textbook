@@ -155,7 +155,6 @@ class Textbook {
 				unset( $pbt_plugin['mce-table-buttons/mce_table_buttons.php'] );
 			}
 			if ( version_compare( PB_PLUGIN_VERSION, '2.5.2' ) >= 0 ) {
-				unset( $pbt_plugin['mce-anchor-button/mce-anchor-button.php'] );
 				unset( $pbt_plugin['mce-superscript-subscript-buttons/mce-superscript-subscript-buttons.php'] );
 			}
 		}
