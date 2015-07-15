@@ -54,7 +54,6 @@ class TextbookButtons {
 	function addTextbookButtons( $plugin_array ) {
 
 		$plugin_array['textbookbuttons'] = PBT_PLUGIN_URL . 'symbionts/mce-textbook-buttons/assets/js/textbook-buttons.js';
-		$plugin_array['anchor'] = PBT_PLUGIN_URL . 'symbionts/mce-textbook-buttons/assets/js/anchor.js';
 		return $plugin_array;
 	}
 
@@ -65,7 +64,7 @@ class TextbookButtons {
 	 */
 	function registerTBButtons( $buttons ) {
 
-		array_push( $buttons, 'learningObjectives', 'keyTakeaway', 'exercises', 'anchor', 'superscript', 'subscript' );
+		array_push( $buttons, 'learningObjectives', 'keyTakeaway', 'exercises' );
 		return $buttons;
 	}
 
