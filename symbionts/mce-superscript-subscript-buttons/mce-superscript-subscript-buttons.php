@@ -1,22 +1,23 @@
 <?php
 
 /**
- * Superscript & Subscript Buttons
+ * MCE Superscript & Subscript Buttons for Pressbooks
  *
- * @package   PressBooks_Textbook
- * @author    Brad Payne <brad@bradpayne.ca>
- * @license   GPL-2.0+
- * @copyright 2014 Brad Payne
+ * @package			Pressbooks
+ * @author			Pressbooks <code@pressbooks.com>
+ * @contributors	Brad Payne <brad@bradpayne.ca>
+ * @license			GPLv2
+ * @copyright		2015 BookOven Inc.
  *
  * @wordpress-plugin
- * Plugin Name:       MCE Superscript & Subscript Buttons for PressBooks
- * Description:       Adds buttons to TinyMCE for superscript and subscript elements in PressBooks
- * Version:           1.0.0
- * Author:            Brad Payne
- * Text Domain:       mce-superscript-subscript-buttons
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
-
+ * Plugin Name:		MCE Superscript & Subscript Buttons for Pressbooks
+ * Description:		Adds buttons to TinyMCE for superscript and subscript elements in Pressbooks
+ * Version:			1.0.0
+ * Author:			BookOven Inc.
+ * Author URI:		http://www.pressbooks.com
+ * Text Domain:		pressbooks-mce-superscript-subscript-buttons
+ * License:			GPLv2
+ * License URI:		http://www.gnu.org/licenses/gpl-2.0.html
  */
 
 namespace PBT\Plugins;

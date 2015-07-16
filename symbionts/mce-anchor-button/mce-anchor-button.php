@@ -1,22 +1,23 @@
 <?php
 
 /**
- * Anchor Button
+ * MCE Anchor Button for Pressbooks
  *
- * @package   PressBooks_Textbook
- * @author    Brad Payne <brad@bradpayne.ca>
- * @license   GPL-2.0+
- * @copyright 2014 Brad Payne
+ * @package			Pressbooks
+ * @author			Pressbooks <code@pressbooks.com>
+ * @contributors	Brad Payne <brad@bradpayne.ca>
+ * @license			GPLv2
+ * @copyright		2015 BookOven Inc.
  *
  * @wordpress-plugin
- * Plugin Name:       MCE Anchor Button for PressBooks
- * Description:       Adds a button to TinyMCE for an anchor element in PressBooks
- * Version:           1.0.0
- * Author:            Brad Payne
- * Text Domain:       mce-anchor-button
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
-
+ * Plugin Name:		MCE Anchor Button for Pressbooks
+ * Description:		Adds a button to TinyMCE for an anchor element in Pressbooks
+ * Version:			1.0.0
+ * Author:			BookOven Inc.
+ * Author URI:		http://www.pressbooks.com
+ * Text Domain:		pressbooks-mce-anchor-button
+ * License:			GPLv2
+ * License URI:		http://www.gnu.org/licenses/gpl-2.0.html
  */
 
 namespace PBT\Plugins;
