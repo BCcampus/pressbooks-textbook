@@ -1,22 +1,23 @@
 <?php
 
 /**
- * Textbook Buttons
+ * MCE Textbook Buttons for Pressbooks
  *
- * @package   PressBooks_Textbook
- * @author    Brad Payne <brad@bradpayne.ca>
- * @license   GPL-2.0+
- * @copyright 2014 Brad Payne
+ * @package			Pressbooks
+ * @author			Pressbooks <code@pressbooks.com>
+ * @contributors	Brad Payne <brad@bradpayne.ca>
+ * @license			GPLv2
+ * @copyright		2015 BookOven Inc.
  *
  * @wordpress-plugin
- * Plugin Name:       MCE Textbook Buttons for PressBooks
- * Description:       Adds buttons to TinyMCE for textbook specific sytles in PressBooks
- * Version:           1.0.0
- * Author:            Brad Payne
- * Text Domain:       mce-textbook-buttons
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
-
+ * Plugin Name:		MCE Anchor Button for Pressbooks
+ * Description:		Adds buttons to TinyMCE for textbook-specific styles in PressBooks
+ * Version:			1.0.0
+ * Author:			BookOven Inc.
+ * Author URI:		http://www.pressbooks.com
+ * Text Domain:		pressbooks-mce-textbook-buttons
+ * License:			GPLv2
+ * License URI:		http://www.gnu.org/licenses/gpl-2.0.html
  */
 
 namespace PBT\Plugins;
@@ -54,7 +55,6 @@ class TextbookButtons {
 	function addTextbookButtons( $plugin_array ) {
 
 		$plugin_array['textbookbuttons'] = PBT_PLUGIN_URL . 'symbionts/mce-textbook-buttons/assets/js/textbook-buttons.js';
-		$plugin_array['anchor'] = PBT_PLUGIN_URL . 'symbionts/mce-textbook-buttons/assets/js/anchor.js';
 		return $plugin_array;
 	}
 
@@ -65,7 +65,7 @@ class TextbookButtons {
 	 */
 	function registerTBButtons( $buttons ) {
 
-		array_push( $buttons, 'learningObjectives', 'keyTakeaway', 'exercises', 'anchor', 'superscript', 'subscript' );
+		array_push( $buttons, 'learningObjectives', 'keyTakeaway', 'exercises' );
 		return $buttons;
 	}
 

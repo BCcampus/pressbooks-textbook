@@ -11,7 +11,7 @@
  * @wordpress-plugin
  * Plugin Name:       PressBooks Textbook
  * Description:       A plugin that extends PressBooks for textbook authoring
- * Version:           1.2.12
+ * Version:           1.2.13
  * Author:            Brad Payne
  * Author URI:        http://bradpayne.ca		
  * Text Domain:       pressbooks-textbook
@@ -38,7 +38,7 @@ class Textbook {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	const VERSION = '1.2.12';
+	const VERSION = '1.2.13';
 
 	/**
 	 * Unique identifier for plugin.
@@ -121,6 +121,8 @@ class Textbook {
 		$pbt_plugin = array(
 		    'mce-table-buttons/mce_table_buttons.php' => 1,
 		    'mce-textbook-buttons/mce-textbook-buttons.php' => 1,
+		    'mce-anchor-button/mce-anchor-button.php' => 1,
+		    'mce-superscript-subscript-buttons/mce-superscript-subscript-buttons.php' => 1,
 		    'creative-commons-configurator-1/cc-configurator.php' => 1,
 		    'hypothesis/hypothesis.php' => 1,
 		    'tinymce-spellcheck/tinymce-spellcheck.php' => 1,
@@ -152,11 +154,17 @@ class Textbook {
 			if ( version_compare( PB_PLUGIN_VERSION, '2.5.1' ) >= 0 ) {
 				unset( $pbt_plugin['mce-table-buttons/mce_table_buttons.php'] );
 			}
+			if ( version_compare( PB_PLUGIN_VERSION, '2.5.2' ) >= 0 ) {
+				unset( $pbt_plugin['mce-superscript-subscript-buttons/mce-superscript-subscript-buttons.php'] );
+			}
 		}
 		
 		// activate only if one of our themes is being used
 		if ( false == self::isTextbookTheme() ) {
+			unset( $pbt_plugin['mce-table-buttons/mce_table_buttons.php'] );
 			unset( $pbt_plugin['mce-textbook-buttons/mce-textbook-buttons.php'] );
+			unset( $pbt_plugin['mce-anchor-button/mce-anchor-button.php'] );
+			unset( $pbt_plugin['mce-superscript-subscript-buttons/mce-superscript-subscript-buttons.php'] );
 			unset( $pbt_plugin['hypothesis/hypothesis.php'] );
 			unset( $pbt_plugin['creative-commons-configurator-1/cc-configurator.php'] );
 			unset( $pbt_plugin['mce-table-buttons/mce_table_buttons.php'] );
