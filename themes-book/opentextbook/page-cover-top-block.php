@@ -72,17 +72,22 @@
 					$dir = \PressBooks\Export\Export::getExportFolder();
 					foreach ( $files as $ext => $filename ) {
 						$file_extension = substr( strrchr( $ext, '.' ), 1 );
-						$pre_suffix = (false == strstr( $ext, '._3.epub' )) ? strstr( $ext, '._vanilla.xml' ) : strstr( $ext, '._3.epub' );
 
 						switch ( $file_extension ) {
 							case 'html':
 								$file_class = 'xhtml';
 								break;
 							case 'xml':
-								$file_class = ( false == $pre_suffix) ? 'wxr' : 'vanillawxr';
+								$pre_suffix = strcmp( $ext, '._vanilla.xml' );
+								$file_class = ( 0 === $pre_suffix) ? 'vanillawxr' : 'wxr';
 								break;
 							case 'epub':
-								$file_class = ( false == $pre_suffix ) ? 'epub' : 'epub3';
+								$pre_suffix = strcmp( $ext, '._3.epub' );
+								$file_class = ( 0 === $pre_suffix ) ? 'epub3' : 'epub';
+								break;
+							case 'pdf':
+								$pre_suffix = strcmp( $ext, '._oss.pdf' );
+								$file_class = ( 0 === $pre_suffix ) ? 'mpdf' : 'pdf';
 								break;
 							default:
 								$file_class = $file_extension;
@@ -94,11 +99,11 @@
 						// rewrite rule
 						$url = "open/download?filename={$filename}&type={$file_class}";
 						// for Google Analytics (classic), change to: 
-						// $tracking = "_gaq.push(['_trackEvent','exportFiles','Downloads','$file_class']);";
+						// $tracking = "_gaq.push(['_trackEvent','exportFiles','Downloads','{$file_class}']);";
 						// for Google Analytics (universal), change to:
-						// $tracking = "ga(['send','event','exportFiles','Downloads','$file_class']);";
+						// $tracking = "ga('send','event','exportFiles','Downloads','{$file_class}');";
 						// Piwik Analytics event tracking _paq.push('trackEvent', category, action, name)
-						$tracking = "_paq.push(['trackEvent','exportFiles','Downloads','$file_class']);";
+						$tracking = "_paq.push(['trackEvent','exportFiles','Downloads','{$file_class}']);";
 						
 						echo '<link itemprop="bookFormat" href="http://schema.org/EBook">'
 						. '<a rel="nofollow" onclick="' . $tracking . '" itemprop="offers" itemscope itemtype="http://schema.org/Offer" href="' . $url . '">'

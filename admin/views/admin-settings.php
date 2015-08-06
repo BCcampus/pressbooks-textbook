@@ -15,7 +15,7 @@
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
 	<!-- display settings errors -->
 	<?php
-	settings_errors();
+	get_settings_errors();
 
 	// message about functionality being tied to theme
 	if ( false == \PBT\Textbook::isTextbookTheme() ) {
@@ -34,7 +34,7 @@
 		<a href="?page=pressbooks-textbook-settings&tab=other" class="nav-tab <?php echo $active_tab == 'other' ? 'nav-tab-active' : ''; ?>">Other</a>
 	</h2>
 	<!-- Create the form that will be used to modify display options -->
-	<form method="post" action="options.php">
+	<form method="post" action="options.php" name="pbt_settings">
 		<?php
 		$current_theme = wp_get_theme()->Name;
 		$pbt_theme = \PBT\Textbook::isTextbookTheme();
@@ -56,19 +56,18 @@
 				break;
 
 			case 'remix':
-
-				echo 
-				"<h3>Import documents</h3>"
-				. "<p><b>Good News!</b> The <a href='?page=pb_import'>import feature</a> has been incorporated into PressBooks. Our code contributions to PB core now makes it possible to import from EPUB, DOCX, ODT or XML files.</p>";
 				
 				echo "<h3>Search, Import</h3>";
 				
 				if ( class_exists( '\PressBooks\Api_v1\Api') ){
-					echo "<p>Remixing starts with finding the right content. <a href='admin.php?page=api_search_import'>Search this instance of PressBooks for relevant content and import it into yours.</p>";
+					echo "<p>Remixing starts with finding the right content. <a href='admin.php?page=api_search_import'>Search this instance of PressBooks for relevant content and import it into your book</a>.</p>";
+					settings_fields( 'pbt_remix_settings' );
+					do_settings_sections( 'pbt_remix_settings' );
+					
 				} else {
 					echo "<p>You will need to <a href='https://github.com/pressbooks/pressbooks/commit/78a68c9cbba1ce3f5783215194921224558e83a2'>upgrade to a more recent version of PressBooks which contains the API</a>. The functionality of Search and Import depends on the API.";
 				}
-					
+				
 				break;
 
 			case 'redistribute':
@@ -104,10 +103,34 @@
 				do_settings_sections( 'pbt_other_settings' );
 				break;
 		}
-		if ( 'remix' != $active_tab && 'revise' != $active_tab ) {
+		if ( 'revise' != $active_tab ) {
 			submit_button();
 		}
 		?>
 	</form>
 
 </div>
+
+<script>
+
+function getRowNum(){
+	num = jQuery('table.form-table tbody tr').filter(":last").find('td input').attr('id');
+	return num;
+}
+
+function addRow(){
+	rowNum = getRowNum();
+	rowNum++;
+	var row = '<tr class="endpoints-'+rowNum+'"><th>'+rowNum+'</th><td><input id="'+rowNum+'" class="regular-text highlight" type="url" name="pbt_remix_settings[pbt_api_endpoints]['+rowNum+']" value="" />\n\
+	<input type="button" value="Add URL" onclick="addRow();" /><input type="button" value="Remove URL" onclick="removeRow('+rowNum+');" /></td></tr>';
+	
+	jQuery('table.form-table tbody').append(row);
+}
+
+function removeRow(rnum){
+	jQuery('table.form-table tbody tr.endpoints-'+rnum).remove();
+}
+
+</script>
+	
+	

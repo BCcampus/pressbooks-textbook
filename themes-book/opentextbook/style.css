@@ -31,7 +31,7 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
 	font-size: 1.3em;
 }
-h1, h2 {
+h1, h2, h3 {
 	text-align: left;
 }
 h2 {
@@ -71,6 +71,28 @@ ol.alphalist li::before{
 small{
 	font-size:80%
 }
+
+/** tight and loose tracking **/
+.tight {
+	letter-spacing: -0.25px;
+	word-spacing: -0.075em;
+}
+
+.very-tight {
+	letter-spacing: -0.5px;
+	word-spacing: -0.09em;
+}
+
+.loose{
+	letter-spacing: 0.25px;
+	word-spacing: 0.075em;
+}
+
+.very-loose {
+	letter-spacing: 0.5px;
+	word-spacing: 0.09em;
+}
+
 /****************************************
 	Cover page
 *****************************************/
@@ -197,6 +219,7 @@ p.cc-block{
 
 #content table {
 	border-spacing: 0;
+	display: table;
 }
 
 #content table tr td, #content table tr th{
@@ -268,11 +291,6 @@ span.small.epub3 {
 
 }
 
-span.small.hpub {
-	background: url(../../../pressbooks/assets/images/hpub-36.png) -0 0 no-repeat;
-
-}
-
 span.small.icml {
 	background: url(../../../pressbooks/assets/images/icml-36.png) -0 0 no-repeat;
 
@@ -283,7 +301,7 @@ span.small.mobi {
 
 }
 
-span.small.pdf {
+span.small.pdf, span.small.mpdf {
 	background: url(../../../pressbooks/assets/images/pdf-36.png) -0 0 no-repeat;
 
 }
