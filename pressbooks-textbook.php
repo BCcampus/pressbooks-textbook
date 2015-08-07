@@ -157,6 +157,9 @@ class Textbook {
 			if ( version_compare( PB_PLUGIN_VERSION, '2.5.2' ) >= 0 ) {
 				unset( $pbt_plugin['mce-superscript-subscript-buttons/mce-superscript-subscript-buttons.php'] );
 			}
+			if ( version_compare( PB_PLUGIN_VERSION, '2.5.4' ) >= 0 ) {
+				unset( $pbt_plugin['disable-comments/disable-comments.php'] );	
+			}
 		}
 		
 		// activate only if one of our themes is being used
