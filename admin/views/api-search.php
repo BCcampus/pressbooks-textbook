@@ -98,6 +98,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 								// book author/license sets chapter author/license if not set 
 								$license = ( empty( $chapter['post_license'] ) ) ? $book_license : $chapter['post_license'];
+								// don't allow importing of chapters marked as all-rights-reserved
+								if ( 0 === strcmp( $license, 'all-rights-reserved' ) ) continue;
 								$author = ( empty( $chapter['post_authors'] ) ) ? $book_author : $chapter['post_authors'];
 								?>
 
@@ -122,7 +124,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					// do books	
 					} else { ?>
 						<tr <?php if ( $i % 2 ) echo 'class="alt"'; ?> >
-						
+							
 							<td><input type="radio" id="selective_import_<?= $i; ?>" name="book" value="<?= $book_id ;?>" /></td>
 							<input type='hidden' name='domain' value='<?= $book_domain; ?>'>
 							<td><label>-----</label></td>

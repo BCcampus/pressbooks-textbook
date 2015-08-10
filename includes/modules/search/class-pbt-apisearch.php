@@ -400,6 +400,9 @@ class ApiSearch {
 				    'license' => $public_books_array['data'][$id]['book_meta']['pb_book_license'],
 				    'domain' => $domain,
 				);
+				if ( 0 === strcmp( 'all-rights-reserved', $books[$id]['license'] ) ) {
+					unset( $books[$id] );
+				}
 			}
 		}
 
@@ -407,9 +410,11 @@ class ApiSearch {
 		if ( isset( $books[$current_book] ) && $endpoint == network_home_url() ) {
 			unset( $books[$current_book] );
 		}
-
+		
+		if( ! empty( $books ) ){
 		// cache public books for 12 hours
-		set_transient( 'pbt-public-books-' . $domain, $books, 43200 );
+			set_transient( 'pbt-public-books-' . $domain, $books, 43200 );
+		}
 
 		return $books;
 	}

@@ -99,11 +99,11 @@
 						// rewrite rule
 						$url = "open/download?filename={$filename}&type={$file_class}";
 						// for Google Analytics (classic), change to: 
-						// $tracking = "_gaq.push(['_trackEvent','exportFiles','Downloads','$file_class']);";
+						// $tracking = "_gaq.push(['_trackEvent','exportFiles','Downloads','{$file_class}']);";
 						// for Google Analytics (universal), change to:
-						// $tracking = "ga(['send','event','exportFiles','Downloads','$file_class']);";
+						// $tracking = "ga('send','event','exportFiles','Downloads','{$file_class}');";
 						// Piwik Analytics event tracking _paq.push('trackEvent', category, action, name)
-						$tracking = "_paq.push(['trackEvent','exportFiles','Downloads','$file_class']);";
+						$tracking = "_paq.push(['trackEvent','exportFiles','Downloads','{$file_class}']);";
 						
 						echo '<link itemprop="bookFormat" href="http://schema.org/EBook">'
 						. '<a rel="nofollow" onclick="' . $tracking . '" itemprop="offers" itemscope itemtype="http://schema.org/Offer" href="' . $url . '">'
