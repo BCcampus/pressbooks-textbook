@@ -2,9 +2,9 @@
 Contributors: bdolor
 Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution-guidelines
 Tags: pressbooks, textbook
-Requires at least: 4.1.4
-Tested up to: 4.2.2
-Stable tag: 1.2.14
+Requires at least: 4.2.4
+Tested up to: 4.3
+Stable tag: 1.2.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,10 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 1.2.15 (2015/08/25) =
+* minimum req WP version bump
+* fix for periods in titles truncating export filenames
 
 = 1.2.14 (2015/08/10) =
 * minor tweaks
