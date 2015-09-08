@@ -4,20 +4,6 @@
     Author     : bpayne
 */
 
-li.toplevel_page_pb_import a.toplevel_page_pb_import .wp-menu-image::before{
-	font-family: FontAwesome !important;
-	-webkit-font-smoothing: antialiased;
-	background: none;
-	content: '\f112' !important;
-}
-
-li.toplevel_page_pressbooks-textbook a.toplevel_page_pressbooks-textbook .wp-menu-image::before{
-	font-family: FontAwesome !important;
-	-webkit-font-smoothing: antialiased;
-	background: none;
-	content: '\f10a' !important;
-}
-
 div.wrap ul li a.btn-small{
 	width:16%;
 	text-decoration: none;

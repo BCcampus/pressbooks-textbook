@@ -4,7 +4,7 @@
  * Filter provides different views of the data. It takes arrays and turns them into html 
  * October 2012
  * 
- * @package   PressBooks_Textbook
+ * @package   Pressbooks_Textbook
  * @author    Brad Payne <brad@bradpayne.ca>
  * @license   GPL-2.0+
  */

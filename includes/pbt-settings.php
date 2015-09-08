@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Options/Settings for PressBooks Textbook plugin
+ * Options/Settings for Pressbooks Textbook plugin
  * 
- * @package PressBooks_Textbook
+ * @package Pressbooks_Textbook
  * @author Brad Payne <brad@bradpayne.ca>
  * @license   GPL-2.0+
  * 
@@ -39,7 +39,7 @@ function latest_files_public_callback( $args ) {
 	$html = '<input type="radio" id="files-public" name="pbt_redistribute_settings[latest_files_public]" value="1"' . checked( 1, $options['latest_files_public'], false ) . '/> ';
 	$html .= '<label for="files-public"> ' . __( 'Yes. I would like the latest export files to be available on the homepage for free, to everyone.', 'pressbooks-textbook' ) . '</label><br />';
 	$html .= '<input type="radio" id="files-admin" name="pbt_redistribute_settings[latest_files_public]" value="0" ' . checked( 0, $options['latest_files_public'], false ) . '/> ';
-	$html .= '<label for="files-admin"> ' . __( 'No. I would like the latest export files to only be available to administrators. (PressBooks default)', 'pressbooks-textbook' ) . '</label>';
+	$html .= '<label for="files-admin"> ' . __( 'No. I would like the latest export files to only be available to administrators. (Pressbooks default)', 'pressbooks-textbook' ) . '</label>';
 	echo $html;
 }
 
@@ -126,7 +126,7 @@ function pbt_reuse_section_callback() {
 		<li>XML - as part of post_metadata</li>"
 	. "</ul></li>"
 	. "<li>The license information is searchable; it contains machine readable metadata.</li>"
-	. "<li>The module is made specifically for PressBooks!</li>"
+	. "<li>The module is made specifically for Pressbooks!</li>"
 	. "<li>You can specify page license (if it is different than your book license). A page license can override the book license, in a similar fashion to a page author overriding the book author.</li>"
 	. "<li>It uses the <a target='_blank' href='https://api.creativecommons.org/docs/readme_15.html'>webservice API</a> that Creative Commons supplies.</li>"
 	. "<li>It comes with some language capabilities (depending on what Language you've defined in 'Book Info' and what the API supports.</li>"
@@ -184,7 +184,7 @@ function reuse_absint_sanitize( $input ) {
  * 
  */
 function remix_section_callback(){
-	echo "<p>If you know of another PressBooks instance, and you know they also have Creative Commons licensed materials, here is where you add their domain."
+	echo "<p>If you know of another Pressbooks instance, and you know they also have Creative Commons licensed materials, here is where you add their domain."
 	. " Having a list of domains will enable <a href='admin.php?page=api_search_import'>searching and importing</a> against their collection, the same way that you can search and import against your own collection.</p>";
 	
 } 
@@ -237,7 +237,7 @@ function remix_url_sanitize( $input ) {
 		// sanitize, reset the key to maintain sequential numbering, to account for blank entries
 		$valid['pbt_api_endpoints'][$i] = trailingslashit(esc_url( $url, $protocols )) ;
 
-		// check if they are API enabled PressBooks instances: 
+		// check if they are API enabled Pressbooks instances: 
 		$api_endpoint = $valid['pbt_api_endpoints'][$i] . 'api/v1/books/';
 
 		$check_response = wp_remote_head( $api_endpoint );

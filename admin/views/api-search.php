@@ -4,7 +4,7 @@
  * the PB API. The user has the option of importing any relevant chapters 
  * returned by the search.
  *
- * @package PressBooks_Textbook
+ * @package Pressbooks_Textbook
  * @author Brad Payne <brad@bradpayne.ca>
  * @license   GPL-2.0+
  * 
