@@ -400,8 +400,8 @@ class ApiSearch {
 				    'license' => $public_books_array['data'][$id]['book_meta']['pb_book_license'],
 				    'domain' => $domain,
 				);
-				if ( 0 === strcmp( 'all-rights-reserved', $books[$id]['license'])){
-					unset ($books[$id]);
+				if ( 0 === strcmp( 'all-rights-reserved', $books[$id]['license'] ) ) {
+					unset( $books[$id] );
 				}
 			}
 		}

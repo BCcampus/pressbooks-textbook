@@ -94,8 +94,7 @@
 								break;
 						}
 
-						$filename = strstr( $filename, '.', true );
-
+						$filename = preg_replace( '/(-\d{10})(.*)/ui', "$1", $filename );
 						// rewrite rule
 						$url = "open/download?filename={$filename}&type={$file_class}";
 						// for Google Analytics (classic), change to: 
