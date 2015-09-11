@@ -1,4 +1,4 @@
-=== PressBooks Textbook ===
+=== Pressbooks Textbook ===
 Contributors: bdolor
 Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution-guidelines
 Tags: pressbooks, textbook
@@ -8,10 +8,10 @@ Stable tag: 1.2.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-PressBooks Textbook adds functionality to the PressBooks plugin to make it easier to author textbooks.
+Pressbooks Textbook adds functionality to the Pressbooks plugin to make it easier to author textbooks.
 
 == Description ==
-**PressBooks Textbook** adds functionality to PressBooks to make it easier to author textbooks as well. The features it currently offers are: 
+**Pressbooks Textbook** adds functionality to Pressbooks to make it easier to author textbooks as well. The features it currently offers are: 
 
 * Textbook Theme
 * TinyMCE table buttons
@@ -24,7 +24,7 @@ PressBooks Textbook adds functionality to the PressBooks plugin to make it easie
 * Annotation functionality
 * Optionally redistributing free, digital versions of your book.
 * Download links to openly licensed textbooks, ready to remix.
-* A remix 'eco-system' — Search and Import chapters from both local and remote instances of PressBooks
+* A remix 'eco-system' — Search and Import chapters from both local and remote instances of Pressbooks
 * Disable/enable comments
 
 Textbooks have functional and styling considerations above and beyond regular books. Open textbooks are those that are licensed with a [creative commons license](http://creativecommons.org).
@@ -34,8 +34,8 @@ This plugin was built primarily to support the creation, remixing and distributi
 
 IMPORTANT! 
 
-You must first install [PressBooks](https://github.com/pressbooks/pressbooks). This plugin won't work without it.
-The PressBooks github repository is updated frequently. [Stay up to date](https://github.com/pressbooks/pressbooks/tree/master).
+You must first install [Pressbooks](https://github.com/pressbooks/pressbooks). This plugin won't work without it.
+The Pressbooks github repository is updated frequently. [Stay up to date](https://github.com/pressbooks/pressbooks/tree/master).
 
 Most of the functionality of this plugin, like search, textbook buttons and annotation are tied directly to the `Open Textbooks` theme. Network Activate the `Open Textbooks` 
 theme, then activate at the book level. You'll have access to those features and more. 
@@ -51,7 +51,7 @@ theme, then activate at the book level. You'll have access to those features and
 = OR, go to the WordPress Dashboard =
 
 1. Navigate to the Network Admin -> Plugins
-2. Search for 'PressBooks Textbook'
+2. Search for 'Pressbooks Textbook'
 3. Click 'Network Activate'
 4. Activate the `Open Textbooks` theme at the network level
 5. Activate the `Open Textbooks` theme at the book level.

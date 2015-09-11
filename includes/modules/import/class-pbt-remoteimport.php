@@ -2,11 +2,11 @@
 
 /**
  * Uses the v1/API to search titles on a remote system based on a user defined search term
- * Extends the existing Xthml import class used in PressBooks, the only differences being that we 
+ * Extends the existing Xthml import class used in Pressbooks, the only differences being that we 
  * are sending that class more than one url/page to scrape at a time and we need to revoke 
  * the PBT import rather than the PB import.
  * 
- * @package PressBooks_Textbook
+ * @package Pressbooks_Textbook
  * @author Brad Payne <brad@bradpayne.ca>
  * @license GPL-2.0+
  * 

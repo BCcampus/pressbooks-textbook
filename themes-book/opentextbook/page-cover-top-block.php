@@ -69,7 +69,7 @@
 					echo '<div class="alt-formats">'
 					. '<h4>Download in the following formats:</h4>';
 
-					$dir = \PressBooks\Export\Export::getExportFolder();
+					$dir = \Pressbooks\Export\Export::getExportFolder();
 					foreach ( $files as $ext => $filename ) {
 						$file_extension = substr( strrchr( $ext, '.' ), 1 );
 

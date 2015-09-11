@@ -5,7 +5,7 @@
  * Equella comes with an overview of the REST API http://solr.bccampus.ca:8001/bcc/apidocs.do
  * October 2012
  * 
- * @package   PressBooks_Textbook
+ * @package   Pressbooks_Textbook
  * @author    Brad Payne <brad@bradpayne.ca>
  * @license   GPL-2.0+
  */

@@ -3,7 +3,7 @@
 /**
  * Administrative functionality, settings/options
  *
- * @package   PressBooks_Textbook
+ * @package   Pressbooks_Textbook
  * @author    Brad Payne <brad@bradpayne.ca>
  * @license   GPL-2.0+
  * @copyright 2014 Brad Payne
@@ -49,16 +49,20 @@ class TextbookAdmin extends \PBT\Textbook {
 	 */
 	function adminMenuAdjuster() {
 		if ( \Pressbooks\Book::isBook() ) {
-			add_menu_page( __( 'Import', $this->plugin_slug ), __( 'Import', $this->plugin_slug ), 'edit_posts', 'pb_import', '\PressBooks\Admin\Laf\display_import', '', 15 );
-			add_options_page( __( 'PressBooks Textbook Settings', $this->plugin_slug ), __( 'PB Textbook', $this->plugin_slug ), 'manage_options', $this->plugin_slug . '-settings', array( $this, 'displayPluginAdminPage' ) );
-			add_menu_page( __( 'PressBooks Textbook', $this->plugin_slug ), __( 'PB Textbook', $this->plugin_slug ), 'edit_posts', $this->plugin_slug , array( $this, 'displayPBTPage' ), '', 64 );
+			add_menu_page( __( 'Import', $this->plugin_slug ), __( 'Import', $this->plugin_slug ), 'edit_posts', 'pb_import', '\PressBooks\Admin\Laf\display_import', 'dashicons-upload', 15 );
+			add_options_page( __( 'Pressbooks Textbook Settings', $this->plugin_slug ), __( 'PB Textbook', $this->plugin_slug ), 'manage_options', $this->plugin_slug . '-settings', array( $this, 'displayPluginAdminPage' ) );
+			add_menu_page( __( 'Pressbooks Textbook', $this->plugin_slug ), __( 'PB Textbook', $this->plugin_slug ), 'edit_posts', $this->plugin_slug , array( $this, 'displayPBTPage' ), 'dashicons-tablet', 64 );
 			// check if the functionality we need is available
 			if ( class_exists('\PressBooks\Api_v1\Api') ){
 				add_submenu_page( $this->plugin_slug, __('Search and Import', $this->plugin_slug), __('Search and Import', $this->plugin_slug), 'edit_posts', 'api_search_import',array( $this, 'displayApiSearchPage' ), '', 65 );
 			}
-			add_submenu_page( $this->plugin_slug, __('Download Textbooks', $this->plugin_slug), __('Download Textbooks', $this->plugin_slug), 'edit_posts', 'download_textbooks',array( $this, 'displayDownloadTextbooks' ), '', 66 );
+			add_submenu_page( $this->plugin_slug, __('Download Textbooks', $this->plugin_slug), __('Download Textbooks', $this->plugin_slug), 'edit_posts', 'download_textbooks', array( $this, 'displayDownloadTextbooks' ), '', 66 );
 			add_menu_page( 'Plugins', 'Plugins', 'manage_network_plugins', 'plugins.php', '', 'dashicons-admin-plugins', 67 );
-			remove_menu_page( 'pb_sell' );
+			if ( version_compare( PB_PLUGIN_VERSION, '2.7' ) >= 0 ) {
+				remove_menu_page( 'pb_publish' );
+			} else {
+				remove_menu_page( 'pb_sell' );
+			}
 		}
 	}
 	
@@ -197,7 +201,7 @@ class TextbookAdmin extends \PBT\Textbook {
 		// $id, $title, $callback, $page(menu slug)
 		add_settings_section(
 			$section, 
-			'Manage Federated Network of PressBooks sites', 
+			'Manage Federated Network of Pressbooks sites', 
 			'\PBT\Settings\remix_section_callback', 
 			$page
 		);

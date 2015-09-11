@@ -3,7 +3,7 @@
 /**
  * Searches the API for resources, returns results to an import interface
  *
- * @package PressBooks_Textbook
+ * @package Pressbooks_Textbook
  * @author Brad Payne <brad@bradpayne.ca>
  * @license   GPL-2.0+
  * 
@@ -161,7 +161,7 @@ class ApiSearch {
 				$ok = $importer->import( $all_chapters );
 			}
 
-			$msg = "Tried to import a post from this PressBooks instance and ";
+			$msg = "Tried to import a post from this Pressbooks instance and ";
 			$msg .= ( $ok ) ? 'succeeded :)' : 'failed :(';
 
 			if ( $ok ) {
@@ -213,7 +213,7 @@ class ApiSearch {
 			$importer = new Import\RemoteImport();
 			$ok = $importer->import( $all_chapters );
 
-			$msg = "Tried to import a post from this PressBooks instance and ";
+			$msg = "Tried to import a post from this Pressbooks instance and ";
 			$msg .= ( $ok ) ? 'succeeded :)' : 'failed :(';
 
 			if ( $ok ) {

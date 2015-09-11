@@ -1,16 +1,16 @@
 <?php
 
 /**
- * PressBooks Textbook
+ * Pressbooks Textbook
  *
- * @package   PressBooks_Textbook
+ * @package   Pressbooks_Textbook
  * @author    Brad Payne <brad@bradpayne.ca>
  * @license   GPL-2.0+
  * @copyright 2014 Brad Payne
  *
  * @wordpress-plugin
- * Plugin Name:       PressBooks Textbook
- * Description:       A plugin that extends PressBooks for textbook authoring
+ * Plugin Name:       Pressbooks Textbook
+ * Description:       A plugin that extends Pressbooks for textbook authoring
  * Version:           1.2.15
  * Author:            Brad Payne
  * Author URI:        http://bradpayne.ca		

@@ -60,7 +60,7 @@
 			if ( 'opentextbc.ca' == $_SERVER['SERVER_NAME'] ) {
 				_e( '<a href="http://open.bccampus.ca/find-open-textbooks/">This textbook is available for free at open.bccampus.ca</a>', 'pressbooks' );
 			} else {
-				_e('PressBooks.com: Simple Book Production', 'pressbooks');
+				_e('Pressbooks.com: Simple Book Production', 'pressbooks');
 			}
 			?>
 		</p>
