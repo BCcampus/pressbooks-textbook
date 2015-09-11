@@ -3,9 +3,9 @@
 /**
  * Uses the v1/API to search titles based on a user defined search term
  *
- * Provides an interface to turn an instance of PressBooks into a remix 'ecosystem' 
+ * Provides an interface to turn an instance of Pressbooks into a remix 'ecosystem' 
  *
- * @package PressBooks_Textbook
+ * @package Pressbooks_Textbook
  * @author Brad Payne <brad@bradpayne.ca>
  * @license   GPL-2.0+
  * 

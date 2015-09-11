@@ -31,7 +31,7 @@ function pbt_get_seo_meta_elements() {
 	    'publisher' => 'pb_publisher'
 	);
 
-	$html = "<meta name='application-name' content='PressBooks'>\n";
+	$html = "<meta name='application-name' content='Pressbooks'>\n";
 	$metadata = \PressBooks\Book::getBookInformation();
 
 	// create meta elements
