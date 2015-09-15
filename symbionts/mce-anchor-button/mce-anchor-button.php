@@ -53,7 +53,7 @@ class AnchorButton {
 	 */
 	function addAnchorButton( $plugin_array ) {
 
-		$plugin_array['anchor'] = PBT_PLUGIN_URL . 'symbionts/mce-textbook-buttons/assets/js/anchor.js';
+		$plugin_array['anchor'] = PBT_PLUGIN_URL . 'symbionts/mce-anchor-button/assets/js/anchor.js';
 		return $plugin_array;
 	}
 
