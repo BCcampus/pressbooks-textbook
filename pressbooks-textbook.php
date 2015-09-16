@@ -160,6 +160,9 @@ class Textbook {
 			if ( version_compare( PB_PLUGIN_VERSION, '2.5.4' ) >= 0 ) {
 				unset( $pbt_plugin['disable-comments/disable-comments.php'] );	
 			}
+			if ( version_compare( PB_PLUGIN_VERSION, '2.7.2' ) >= 0 ) {
+				unset( $pbt_plugin['mce-anchor-button/mce-anchor-button.php'] );	
+			}
 		}
 		
 		// activate only if one of our themes is being used
