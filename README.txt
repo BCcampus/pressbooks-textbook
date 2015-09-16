@@ -2,9 +2,9 @@
 Contributors: bdolor
 Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution-guidelines
 Tags: pressbooks, textbook
-Requires at least: 4.2.4
-Tested up to: 4.3
-Stable tag: 1.2.15
+Requires at least: 4.3.1
+Tested up to: 4.3.1
+Stable tag: 1.2.16
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,11 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 1.2.16 (2015/09/16) =
+* minimum req WP version bump
+* remove font awesome dependency (tks @greatislander)
+* migrate MCE Anchor button to PB (tks @greatislander)
 
 = 1.2.15 (2015/08/25) =
 * minimum req WP version bump
