@@ -16,7 +16,7 @@
 namespace PBT\Import;
 
 use PBT\Search;
-use PressBooks\Import\Html;
+use PressBooks\Modules\Import\Html;
 use PressBooks\Book;
 
 if ( ! isset( $GLOBALS['pressbooks'] ) ) {
