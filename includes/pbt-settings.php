@@ -200,6 +200,8 @@ function api_endpoint_public_callback() {
 		$options['pbt_api_endpoints'][0] = network_home_url();
 	}
 
+	$html = '';
+
 	foreach ( $options['pbt_api_endpoints'] as $key => $endpoint ) {
 		if ( 0 === $key ) {
 			$html .= '<input id="' . $key . '" disabled="true" class="regular-text highlight" type="url" name="pbt_remix_settings[pbt_api_endpoints][' . $key . ']" value="' . $endpoint . '" />'

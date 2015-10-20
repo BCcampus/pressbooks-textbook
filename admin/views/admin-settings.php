@@ -59,7 +59,7 @@
 				
 				echo "<h3>Search, Import</h3>";
 				
-				if ( class_exists( '\PressBooks\Api_v1\Api') ){
+				if ( class_exists( '\PressBooks\Modules\Api_v1\Api') ){
 					echo "<p>Remixing starts with finding the right content. <a href='admin.php?page=api_search_import'>Search this instance of Pressbooks for relevant content and import it into your book</a>.</p>";
 					settings_fields( 'pbt_remix_settings' );
 					do_settings_sections( 'pbt_remix_settings' );

@@ -175,6 +175,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			<div>
 				<p><i>Search against the following domains. <br>(You can <a href="options-general.php?page=pressbooks-textbook-settings&tab=remix">manage the list of domains</a> to search against at any time:</i>)</p>
 				<?php
+				$html = '';
 				foreach ( $remix['pbt_api_endpoints'] as $key => $endpoint ) {
 					if ( 0 === $key ) {
 						$html .= '<p><input type="radio" checked="true" value="' . $endpoint . '" name="endpoint" />' . $endpoint . '</p>';

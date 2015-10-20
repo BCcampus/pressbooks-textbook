@@ -53,7 +53,7 @@ class TextbookAdmin extends \PBT\Textbook {
 			add_options_page( __( 'Pressbooks Textbook Settings', $this->plugin_slug ), __( 'PB Textbook', $this->plugin_slug ), 'manage_options', $this->plugin_slug . '-settings', array( $this, 'displayPluginAdminPage' ) );
 			add_menu_page( __( 'Pressbooks Textbook', $this->plugin_slug ), __( 'PB Textbook', $this->plugin_slug ), 'edit_posts', $this->plugin_slug , array( $this, 'displayPBTPage' ), 'dashicons-tablet', 64 );
 			// check if the functionality we need is available
-			if ( class_exists('\PressBooks\Api_v1\Api') ){
+			if ( class_exists('\PressBooks\Modules\Api_v1\Api') ){
 				add_submenu_page( $this->plugin_slug, __('Search and Import', $this->plugin_slug), __('Search and Import', $this->plugin_slug), 'edit_posts', 'api_search_import',array( $this, 'displayApiSearchPage' ), '', 65 );
 			}
 			add_submenu_page( $this->plugin_slug, __('Download Textbooks', $this->plugin_slug), __('Download Textbooks', $this->plugin_slug), 'edit_posts', 'download_textbooks', array( $this, 'displayDownloadTextbooks' ), '', 66 );

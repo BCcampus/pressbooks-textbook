@@ -30,7 +30,7 @@ function latest_exports() {
 	    '._oss.pdf',
 	);
 
-	$dir = \PressBooks\Export\Export::getExportFolder();
+	$dir = \PressBooks\Modules\Export\Export::getExportFolder();
 
 	$files = array();
 
