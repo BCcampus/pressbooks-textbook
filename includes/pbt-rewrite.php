@@ -74,7 +74,7 @@ function do_open() {
 
 function download_open_export_file( $filename ) {
 
-	$filepath = \PressBooks\Export\Export::getExportFolder() . $filename;
+	$filepath = \PressBooks\Modules\Export\Export::getExportFolder() . $filename;
 	if ( ! is_readable( $filepath ) ) {
 		// Cannot read file
 		wp_die( __( 'File not found', 'pressbooks-textbook' ) . ": $filename", '', array( 'response' => 404 ) );
@@ -83,7 +83,7 @@ function download_open_export_file( $filename ) {
 	// Force download
 	set_time_limit( 0 );
 	header( 'Content-Description: File Transfer' );
-	header( 'Content-Type: ' . \Pressbooks\Export\Export::mimeType( $filepath ) );
+	header( 'Content-Type: ' . \PressBooks\Modules\Export\Export::mimeType( $filepath ) );
 	header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
 	header( 'Content-Transfer-Encoding: binary' );
 	header( 'Expires: 0' );
