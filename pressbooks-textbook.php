@@ -332,7 +332,7 @@ class Textbook {
 	function filterChildThemes( $themes ) {
 		$pbt_themes = array();
 
-		if ( \Pressbooks\Book::isBook() ) {
+		if ( \PressBooks\Book::isBook() ) {
 			$registered_themes = search_theme_directories();
 
 			foreach ( $registered_themes as $key => $val ) {
