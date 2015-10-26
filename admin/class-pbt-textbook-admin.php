@@ -48,7 +48,7 @@ class TextbookAdmin extends \PBT\Textbook {
 	 * @since 1.0.1
 	 */
 	function adminMenuAdjuster() {
-		if ( \Pressbooks\Book::isBook() ) {
+		if ( \PressBooks\Book::isBook() ) {
 			add_menu_page( __( 'Import', $this->plugin_slug ), __( 'Import', $this->plugin_slug ), 'edit_posts', 'pb_import', '\PressBooks\Admin\Laf\display_import', 'dashicons-upload', 15 );
 			add_options_page( __( 'Pressbooks Textbook Settings', $this->plugin_slug ), __( 'PB Textbook', $this->plugin_slug ), 'manage_options', $this->plugin_slug . '-settings', array( $this, 'displayPluginAdminPage' ) );
 			add_menu_page( __( 'Pressbooks Textbook', $this->plugin_slug ), __( 'PB Textbook', $this->plugin_slug ), 'edit_posts', $this->plugin_slug , array( $this, 'displayPBTPage' ), 'dashicons-tablet', 64 );
