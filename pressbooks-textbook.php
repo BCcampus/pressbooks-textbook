@@ -400,7 +400,29 @@ class Textbook {
 	
 }
 
-// Prohibit installation if PB is not installed
+// ------------------------------------
+// Check minimum requirements
+// ------------------------------------
+// Must meet miniumum requirements before either PB or PBT objects are instantiated. 
+
+if ( ! @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
+    add_action( 'admin_notices', function () {
+        echo '<div id="message" class="error fade"><p>' . __( 'PBT cannot find a Pressbooks install.', 'pressbooks-textbook' ) . '</p></div>';
+    } );
+    return;
+}
+
+// This PB function checks for both multisite, PHP and WP minimum versions. 
+
+elseif ( ! pb_meets_minimum_requirements() ) {
+	add_action( 'admin_notices', function () {
+        echo '<div id="message" class="error fade"><p>' . __( 'Your PHP version may no be supported by PressBooks.'
+		. ' If you suspect this is the case, it can be overridden, so long as it is remains above PHP 5.4.0. Add a line to wp-config.php as follows: $pb_minimum_php = 5.4.0; ', 'pressbooks-textbook' ) . '</p></div>';
+    } );
+    return;
+	
+}
+
 if ( get_site_option( 'pressbooks-activated' ) ) {
 	if ( is_admin() ) {		
 		require (dirname( __FILE__ ) . '/admin/class-pbt-textbook-admin.php');
