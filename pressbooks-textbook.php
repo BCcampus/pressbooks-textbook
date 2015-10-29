@@ -11,7 +11,7 @@
  * @wordpress-plugin
  * Plugin Name:       Pressbooks Textbook
  * Description:       A plugin that extends Pressbooks for textbook authoring
- * Version:           1.2.16
+ * Version:           2.0
  * Author:            Brad Payne
  * Author URI:        http://bradpayne.ca		
  * Text Domain:       pressbooks-textbook
@@ -38,7 +38,7 @@ class Textbook {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	const VERSION = '1.2.16';
+	const VERSION = '2.0';
 
 	/**
 	 * Unique identifier for plugin.
