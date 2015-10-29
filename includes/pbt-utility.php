@@ -28,6 +28,7 @@ function latest_exports() {
 	    '.xml',
 	    '._vanilla.xml',
 	    '._oss.pdf',
+	    '.odt',
 	);
 
 	$dir = \PressBooks\Modules\Export\Export::getExportFolder();
