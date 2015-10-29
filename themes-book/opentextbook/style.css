@@ -321,6 +321,11 @@ span.small.xhtml {
 
 }
 
+span.small.odt {
+	background: url(../../../pressbooks/assets/images/odt-36.png) -0 0 no-repeat;
+
+}
+
 /** support divs to export content for web-only vs not-web; pdf-only vs not-pdf **/
 .not-web, .pdf-only {
 	display: none;
