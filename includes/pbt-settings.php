@@ -115,7 +115,7 @@ function other_absint_sanitize( $input ) {
 function pbt_reuse_section_callback() {
 	echo "<p>Give people the right to share, or build upon your work by using a <a target='_blank' href='https://creativecommons.org/about'>Creative Commons license</a>.</p>"
 	. "<h3>Two easy steps, using built-in functionality (<i>recommended</i>)</h3>"
-	. "<ol><li>Select your 'Copyright license' from the dropdown menu in the Copyright section on the <a href='wp-admin/post-new.php?post_type=metadata'>Book Info</a> page.</li>"
+	. "<ol><li>Select your 'Copyright license' from the dropdown menu in the Copyright section on the <b>Book Info</b> page. (menu on the left)</li>"
 	. "<li>Check the box labelled 'Display the copyright license' in Appearance -> <a href='wp-admin/themes.php?page=pressbooks_theme_options'>Theme Options</a></li></ol>"
 	. "<h4>We recommend using the built-in Creative Commons License Module because it's fast, flexible and thorough.</h4><h5>Details:</h5><ul>"
 	. "<li>Information about the license you select makes it through all the export routines:"
