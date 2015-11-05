@@ -77,8 +77,10 @@ function pbt_get_microdata_meta_elements() {
 	}
 
 	// add elements that aren't captured, and don't need user input
+	$edu_align = ( isset( $metadata['pb_bisac_subject'] ) ) ? $metadata['pb_bisac_subject'] : '';
+	
 	$lrmi_meta = array(
-	    'educationalAlignment' => $metadata['pb_bisac_subject'],
+	    'educationalAlignment' => $edu_align,
 	    'educationalUse' => 'Open textbook study',
 	    'audience' => 'student',
 	    'interactivityType' => 'mixed',
