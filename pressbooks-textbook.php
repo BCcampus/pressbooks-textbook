@@ -329,14 +329,15 @@ class Textbook {
 	 * @param array $themes
 	 * @return array
 	 */
-	function filterChildThemes( $themes ) {
+	function filterChildThemes($themes)
+	{
 		$pbt_themes = array();
 
-		if ( \Pressbooks\Book::isBook() ) {
+		if (\Pressbooks\Book::isBook()) {
 			$registered_themes = search_theme_directories();
 
-			foreach ( $registered_themes as $key => $val ) {
-				if ( $val['theme_root'] == PBT_PLUGIN_DIR . 'themes-book' ) {
+			foreach ($registered_themes as $key => $val) {
+				if ($val['theme_root'] == PBT_PLUGIN_DIR . 'themes-book') {
 					$pbt_themes[$key] = 1;
 				}
 			}
