@@ -11,7 +11,7 @@
  * @wordpress-plugin
  * Plugin Name:       Pressbooks Textbook
  * Description:       A plugin that extends Pressbooks for textbook authoring
- * Version:           2.1
+ * Version:           2.1.1
  * Author:            Brad Payne
  * Author URI:        http://bradpayne.ca		
  * Text Domain:       pressbooks-textbook
@@ -38,7 +38,7 @@ class Textbook {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	const VERSION = '2.1';
+	const VERSION = '2.1.1';
 
 	/**
 	 * Unique identifier for plugin.
@@ -414,7 +414,7 @@ if ( ! @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
     
 } elseif ( ! pb_meets_minimum_requirements() ) { // This PB function checks for both multisite, PHP and WP minimum versions.
 	add_action( 'admin_notices', function () {
-        echo '<div id="message" class="error fade"><p>' . __( 'Your PHP version may no be supported by PressBooks.'
+        echo '<div id="message" class="error fade"><p>' . __( 'Your PHP version may not be supported by PressBooks.'
 		. ' If you suspect this is the case, it can be overridden, so long as it is remains above PHP 5.4.0. Add a line to wp-config.php as follows: $pb_minimum_php = "5.4.0"; ', 'pressbooks-textbook' ) . '</p></div>';
     } );
     return;
