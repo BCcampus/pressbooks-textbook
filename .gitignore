@@ -4,3 +4,5 @@ tests/
 bin/
 phpunit.xml
 .travis.yml
+.map
+.sass-cache

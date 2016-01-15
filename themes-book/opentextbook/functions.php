@@ -5,17 +5,10 @@
  * ------------------------------------------------------------------------ */
 
 function fitzgerald_enqueue_styles() {
-	wp_enqueue_style( 'fitzgerald-fonts', 'http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700|Roboto+Condensed:400,300,300italic,400italic' );
+	wp_enqueue_style( 'fitzgerald-fonts', 'https://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700|Roboto+Condensed:400,300,300italic,400italic' );
 }
 
 add_action( 'wp_print_styles', 'fitzgerald_enqueue_styles' );
-
-function pbt_enqueue_child_theme_styles() {
-    wp_enqueue_style( 'pressbooks-book' );
-    wp_enqueue_style( 'open-textbook' );
-}
-
-add_action( 'wp_enqueue_scripts', 'pbt_enqueue_child_theme_styles', 100 );
 
 /**
  * Returns an html blog of meta elements 
