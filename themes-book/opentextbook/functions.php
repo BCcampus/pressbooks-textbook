@@ -165,3 +165,30 @@ function pbt_terminology_modify_context( $translated, $original, $context, $doma
 // removes incorrect notice on epub/pdf export that the book was created on pressbooks.com
 $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES_EPUB'] = 'not_created_on_pb_com';
 $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES_PDF'] = 'not_created_on_pb_com';
+
+
+/**
+ * 
+ * @staticvar array $searches
+ * @param type $content
+ * @return type
+ */
+function pbt_fix_img_relative( $content ) {
+	static $searches = array(
+	    '#<(?:img|iframe) .*?src=[\'"]\Khttp://[^\'"]+#i', // fix image and iframe elements
+	);
+	$content = preg_replace_callback( $searches, 'pbt_fix_img_relative_callback', $content );
+
+	return $content;
+}
+
+/**
+ * 
+ * @param type $matches
+ * @return type
+ */
+function pbt_fix_img_relative_callback( $matches ) {
+	return '' . substr( $matches[0], 5 );
+}
+
+add_filter( 'the_content', 'pbt_fix_img_relative', 9999 );
