@@ -11,7 +11,7 @@
  * @wordpress-plugin
  * Plugin Name:       Pressbooks Textbook
  * Description:       A plugin that extends Pressbooks for textbook authoring
- * Version:           2.1.2
+ * Version:           2.2.0
  * Author:            Brad Payne
  * Author URI:        http://bradpayne.ca		
  * Text Domain:       pressbooks-textbook
@@ -38,7 +38,7 @@ class Textbook {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	const VERSION = '2.1.2';
+	const VERSION = '2.2.0';
 
 	/**
 	 * Unique identifier for plugin.
@@ -84,7 +84,7 @@ class Textbook {
 		add_action( 'plugins_loaded', array( &$this, 'includes' ) );
 		add_action( 'init', array( &$this, 'pbtInit' ) );
 		add_action( 'template_redirect', '\PBT\Rewrite\do_open', 0 );
-		add_action( 'wp_enqueue_scripts', array( &$this, 'enqueueChildThemes' ) );
+		add_action( 'wp_enqueue_style', array( &$this, 'enqueueChildThemes' ) );
 		add_filter( 'allowed_themes', array( &$this, 'filterChildThemes' ), 11 );
 		add_action( 'pressbooks_new_blog', array( $this, 'newBook' ) );
 
@@ -119,14 +119,10 @@ class Textbook {
 	 */
 	function includes() {
 		$pbt_plugin = array(
-		    'mce-table-buttons/mce_table_buttons.php' => 1,
 		    'mce-textbook-buttons/mce-textbook-buttons.php' => 1,
-		    'mce-anchor-button/mce-anchor-button.php' => 1,
-		    'mce-superscript-subscript-buttons/mce-superscript-subscript-buttons.php' => 1,
 		    'creative-commons-configurator-1/cc-configurator.php' => 1,
 		    'hypothesis/hypothesis.php' => 1,
 		    'tinymce-spellcheck/tinymce-spellcheck.php' => 1,
-		    'disable-comments/disable-comments.php' => 1,
 		);
 
 		$pbt_plugin = $this->filterPlugins( $pbt_plugin );
@@ -150,32 +146,20 @@ class Textbook {
 		$already_active = get_option('active_plugins');
 		$network_already_active = get_site_option('active_sitewide_plugins');
 		
-		if ( defined( 'PB_PLUGIN_VERSION' ) ) {
-			if ( version_compare( PB_PLUGIN_VERSION, '2.5.1' ) >= 0 ) {
-				unset( $pbt_plugin['mce-table-buttons/mce_table_buttons.php'] );
-			}
-			if ( version_compare( PB_PLUGIN_VERSION, '2.5.2' ) >= 0 ) {
-				unset( $pbt_plugin['mce-superscript-subscript-buttons/mce-superscript-subscript-buttons.php'] );
-			}
-			if ( version_compare( PB_PLUGIN_VERSION, '2.5.4' ) >= 0 ) {
-				unset( $pbt_plugin['disable-comments/disable-comments.php'] );	
-			}
-			if ( version_compare( PB_PLUGIN_VERSION, '2.7.2' ) >= 0 ) {
-				unset( $pbt_plugin['mce-anchor-button/mce-anchor-button.php'] );	
-			}
+		if ( defined( 'PB_PLUGIN_VERSION' ) && version_compare( PB_PLUGIN_VERSION, '2.7.2' ) >= 0 ) {
+			// these are in PB core, code removed from PBT
+			// unset( $pbt_plugin['disable-comments/disable-comments.php'] );
+			// unset( $pbt_plugin['mce-table-buttons/mce_table_buttons.php'] );
+			// unset( $pbt_plugin['mce-superscript-subscript-buttons/mce-superscript-subscript-buttons.php'] );
+			// unset( $pbt_plugin['mce-anchor-button/mce-anchor-button.php'] );
 		}
 		
 		// activate only if one of our themes is being used
 		if ( false == self::isTextbookTheme() ) {
-			unset( $pbt_plugin['mce-table-buttons/mce_table_buttons.php'] );
 			unset( $pbt_plugin['mce-textbook-buttons/mce-textbook-buttons.php'] );
-			unset( $pbt_plugin['mce-anchor-button/mce-anchor-button.php'] );
-			unset( $pbt_plugin['mce-superscript-subscript-buttons/mce-superscript-subscript-buttons.php'] );
 			unset( $pbt_plugin['hypothesis/hypothesis.php'] );
 			unset( $pbt_plugin['creative-commons-configurator-1/cc-configurator.php'] );
-			unset( $pbt_plugin['mce-table-buttons/mce_table_buttons.php'] );
 			unset( $pbt_plugin['tinymce-spellcheck/tinymce-spellcheck.php'] );
-			unset( $pbt_plugin['disable-comments/disable-comments.php'] );	
 		}
 		
 		// don't include plugins already active at the site level, network level

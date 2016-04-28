@@ -57,8 +57,9 @@
 		<?php endif; ?>
 		<p class="cie-name">
 			<?php
+
 			if ( 'opentextbc.ca' == $_SERVER['SERVER_NAME'] ) {
-				_e( '<a href="http://open.bccampus.ca/find-open-textbooks/">This textbook is available for free at open.bccampus.ca</a>', 'pressbooks' );
+				_e( '<a href="http://open.bccampus.ca/find-open-textbooks/">This textbook is available for free at open.bccampus.ca</a>', 'pressbooks-textbook' );
 			} else {
 				_e('Pressbooks.com: Simple Book Production', 'pressbooks');
 			}

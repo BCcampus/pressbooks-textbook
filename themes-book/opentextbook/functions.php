@@ -175,7 +175,7 @@ $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES_PDF'] = 'not_created_on_pb
  */
 function pbt_fix_img_relative( $content ) {
 	static $searches = array(
-	    '#<(?:img|iframe) .*?src=[\'"]\Khttp://[^\'"]+#i', // fix image and iframe elements
+	    '#<(?:img) .*?src=[\'"]\Khttp://[^\'"]+#i', // fix image and iframe elements
 	);
 	$content = preg_replace_callback( $searches, 'pbt_fix_img_relative_callback', $content );
 
@@ -187,8 +187,48 @@ function pbt_fix_img_relative( $content ) {
  * @param type $matches
  * @return type
  */
-function pbt_fix_img_relative_callback( $matches ) {
-	return '' . substr( $matches[0], 5 );
+function pbt_fix_img_relative_callback($matches){
+	$avoid = 'http://s.wordpress.com';
+	$protocol = '';
+
+	if ( 0 === strcmp( $avoid, substr( $matches[0],0,22 ) ) ) {
+		$protocol = $matches[0];
+	} else {
+		$protocol = '' . substr( $matches[0], 5 );
+	}
+	return $protocol;
 }
 
-add_filter( 'the_content', 'pbt_fix_img_relative', 9999 );
+if ( ! empty( $_SERVER['HTTPS'] ) ) {
+	add_filter( 'the_content', 'pbt_fix_img_relative', 9999 );
+}
+
+/**
+ * adds metadata to head element
+ */
+function pbt_add_metadata()
+{
+	if (is_front_page()) {
+		echo pbt_get_seo_meta_elements();
+		echo pbt_get_microdata_meta_elements();
+	} else {
+		echo pbt_get_microdata_meta_elements();
+	}
+}
+
+add_action( 'wp_head', 'pbt_add_metadata' );
+
+/**
+ * adds content to the footer
+ */
+function pbt_add_openstax() {
+	// tmp fix, rush job
+	$openstax = get_bloginfo( 'url' );
+	if ( 'https://opentextbc.ca/anatomyandphysiology' == $openstax ) {
+	echo "<small class='aligncenter'>";
+	__( 'Download for free at http://cnx.org/contents/14fb4ad7-39a1-4eee-ab6e-3ef2482e3e22@8.24', 'pressbooks-textbook' );
+	echo "</small>";
+	}
+}
+
+add_action( 'wp_footer', 'pbt_add_openstax' );

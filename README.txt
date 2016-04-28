@@ -2,9 +2,9 @@
 Contributors: bdolor
 Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution-guidelines
 Tags: pressbooks, textbook
-Requires at least: 4.4.1
-Tested up to: 4.4.1
-Stable tag: 2.1.2
+Requires at least: 4.5.1
+Tested up to: 4.5.1
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,11 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 2.2.0 (2016/04/28) =
+* remove symbiont plugins that have been ported over to PB
+* theme clean up
+
 
 = 2.1.2 (2016/01/14) =
 * remove redundant calls in OTB theme
