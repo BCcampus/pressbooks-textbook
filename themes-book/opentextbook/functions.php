@@ -225,9 +225,9 @@ function pbt_add_openstax() {
 	// tmp fix, rush job
 	$openstax = get_bloginfo( 'url' );
 	if ( 'https://opentextbc.ca/anatomyandphysiology' == $openstax ) {
-	echo "<small class='aligncenter'>";
-	__( 'Download for free at http://cnx.org/contents/14fb4ad7-39a1-4eee-ab6e-3ef2482e3e22@8.24', 'pressbooks-textbook' );
-	echo "</small>";
+		echo "<small class='aligncenter'>";
+		__( 'Download for free at http://cnx.org/contents/14fb4ad7-39a1-4eee-ab6e-3ef2482e3e22@8.24', 'pressbooks-textbook' );
+		echo "</small>";
 	}
 }
 

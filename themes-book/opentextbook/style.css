@@ -228,6 +228,10 @@ p.cc-block {
     border: 1px solid #e7e7e7;
 }
 
+.entry-content{
+     overflow-wrap:break-word;
+}
+
 .bcc-box {
     /*	width: 100%;*/
     padding: 2% 3%;
@@ -326,6 +330,42 @@ span.small.odt {
 .aligncenter {
     text-align: center;
 }
+
+.entry-content ul {
+    margin-left: 30px; }
+
+.entry-content ol{
+    margin-left:15px;
+}
+
+.entry-content ul {
+    list-style: outside disc; }
+
+ol {
+    list-style: none outside;
+    counter-reset: level1; }
+
+ol li::before {
+    content: counter(level1) ". ";
+    counter-increment: level1; }
+
+ol ol {
+    list-style: none outside;
+    counter-reset: level2; }
+
+ol li li::before {
+    list-style-position: outside;
+    content: counter(level2, lower-alpha) ". ";
+    counter-increment: level2; }
+
+ol ol ol {
+    list-style: none outside;
+    counter-reset: level3; }
+
+ol li li li::before {
+    list-style-position: outside;
+    content: counter(level3, lower-roman) ". ";
+    counter-increment: level3; }
 
 /*************************
 	Media queries
