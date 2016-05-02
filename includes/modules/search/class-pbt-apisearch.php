@@ -62,7 +62,7 @@ class ApiSearch {
 		// determine stage of import, revoke if necessary
 		if ( isset( $_GET['revoke'] ) && 1 == $_GET['revoke'] && check_admin_referer( 'pbt-revoke-import' ) ) {
 			self::revokeCurrentImport();
-			\PressBooks\Redirect\location( $redirect_url );
+			\Pressbooks\Redirect\location( $redirect_url );
 		}
 
 		// do chapter import if that's where we're at
@@ -168,7 +168,7 @@ class ApiSearch {
 				// Success! Redirect to organize page
 				$success_url = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pressbooks';
 				self::log( $msg, $books );
-				\PressBooks\Redirect\location( $success_url );
+				\Pressbooks\Redirect\location( $success_url );
 			}
 			// do book import	
 		} elseif ( $_GET['import'] && isset( $_POST['book'] ) && is_array( $current_import ) && check_admin_referer( 'pbt-import' ) ) {
@@ -196,7 +196,7 @@ class ApiSearch {
 					}
 				} catch ( \Exception $exc ) {
 					error_log( '\PBT\Search\formSubmit error: ' . $exc );
-					\PressBooks\Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=api_search_import' );
+					\Pressbooks\Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=api_search_import' );
 				}
 			}
 
@@ -220,7 +220,7 @@ class ApiSearch {
 				// Success! Redirect to organize page
 				$success_url = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pressbooks';
 				self::log( $msg, $import_chapters['data'][$book_id]['book_toc'] );
-				\PressBooks\Redirect\location( $success_url );
+				\Pressbooks\Redirect\location( $success_url );
 			}
 
 			// return results from user's search	
@@ -277,7 +277,7 @@ class ApiSearch {
 		}
 
 		// redirect back to import page
-		\PressBooks\Redirect\location( $redirect_url );
+		\Pressbooks\Redirect\location( $redirect_url );
 	}
 	
 	/**
@@ -381,7 +381,7 @@ class ApiSearch {
 
 		if ( is_wp_error( $public_books ) ) {
 			error_log( '\PBT\Search\getPublicBooks error: ' . $public_books->get_error_message() );
-			\PressBooks\Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=api_search_import' );
+			\Pressbooks\Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=api_search_import' );
 		}
 
 		$public_books_array = json_decode( $public_books['body'], true );
@@ -476,7 +476,7 @@ class ApiSearch {
 	 */
 	static function revokeCurrentImport() {
 
-		\PressBooks\Book::deleteBookObjectCache();
+		\Pressbooks\Book::deleteBookObjectCache();
 		return delete_option( 'pbt_current_import' );
 	}
 

@@ -16,8 +16,8 @@
 namespace PBT\Import;
 
 use PBT\Search;
-use PressBooks\Modules\Import\Html;
-use PressBooks\Book;
+use Pressbooks\Modules\Import\Html;
+use Pressbooks\Book;
 
 if ( ! isset( $GLOBALS['pressbooks'] ) ) {
 	require_once \WP_PLUGIN_DIR . '/pressbooks/pressbooks.php';
@@ -214,7 +214,7 @@ class RemoteImport extends Html\Xhtml {
 		    'safe' => 1,
 		    'valid_xhtml' => 1,
 		    'no_deprecated_attr' => 2,
-		    'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
+		    'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 		);
 
 		return htmLawed( $html, $config );

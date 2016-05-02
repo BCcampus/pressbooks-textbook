@@ -98,13 +98,13 @@ class PBImport {
 			if ( is_wp_error( $pid ) ) {
 				error_log( '\PBT\Import\PBImport()->import error at `wp_insert_post()`: ' . $pid->get_error_message() );
 				\PBT\Search\ApiSearch::revokeCurrentImport();
-				\PressBooks\Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=api_search_import' );
+				\Pressbooks\Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=api_search_import' );
 			}
 
 			// set post metadata
 			$this->setPostMeta( $pid, $new_post );
 
-			\PressBooks\Book::consolidatePost( $pid, get_post( $pid ) );
+			\Pressbooks\Book::consolidatePost( $pid, get_post( $pid ) );
 		}
 
 		return \PBT\Search\ApiSearch::revokeCurrentImport();
@@ -210,12 +210,12 @@ class PBImport {
 			return '';
 		}
 
-		if ( ! \PressBooks\Image\is_valid_image( $tmp_name, $filename ) ) {
+		if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
 
 			try { // changing the file name so that extension matches the mime type
 				$filename = $this->properImageExtension( $tmp_name, $filename );
 
-				if ( ! \PressBooks\Image\is_valid_image( $tmp_name, $filename ) ) {
+				if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
 					throw new \Exception( 'Image is corrupt, and file extension matches the mime type' );
 				}
 			} catch ( \Exception $exc ) {

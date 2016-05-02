@@ -25,7 +25,7 @@ function pbt_get_seo_meta_elements() {
 	);
 
 	$html = "<meta name='application-name' content='Pressbooks'>\n";
-	$metadata = \PressBooks\Book::getBookInformation();
+	$metadata = \Pressbooks\Book::getBookInformation();
 
 	// create meta elements
 	foreach ( $meta_mapping as $name => $content ) {
@@ -55,7 +55,7 @@ function pbt_get_microdata_meta_elements() {
 	    'keywords' => 'pb_keywords_tags',
 	    'publisher' => 'pb_publisher',
 	);
-	$metadata = \PressBooks\Book::getBookInformation();
+	$metadata = \Pressbooks\Book::getBookInformation();
 
 	// create microdata elements
 	foreach ( $micro_mapping as $itemprop => $content ) {
