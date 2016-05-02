@@ -57,7 +57,6 @@ class TextbookAdmin extends \PBT\Textbook {
 				add_submenu_page( $this->plugin_slug, __('Search and Import', $this->plugin_slug), __('Search and Import', $this->plugin_slug), 'edit_posts', 'api_search_import',array( $this, 'displayApiSearchPage' ), '', 65 );
 			}
 			add_submenu_page( $this->plugin_slug, __('Download Textbooks', $this->plugin_slug), __('Download Textbooks', $this->plugin_slug), 'edit_posts', 'download_textbooks', array( $this, 'displayDownloadTextbooks' ), '', 66 );
-			add_menu_page( 'Plugins', 'Plugins', 'manage_network_plugins', 'plugins.php', '', 'dashicons-admin-plugins', 67 );
 			if ( version_compare( PB_PLUGIN_VERSION, '2.7' ) >= 0 ) {
 				remove_menu_page( 'pb_publish' );
 			} else {
