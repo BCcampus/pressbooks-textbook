@@ -287,23 +287,23 @@ span.export-file-icon {
 }
 
 span.small.epub {
-    background: url(../../../pressbooks/assets/images/epub-36.png) 0 0 no-repeat;
+    background: url(../../../pressbooks/assets/dist/images/epub-36.png) 0 0 no-repeat;
 }
 
 span.small.epub3 {
-    background: url(../../../pressbooks/assets/images/epub3-36.png) 0 0 no-repeat;
+    background: url(../../../pressbooks/assets/dist/images/epub3-36.png) 0 0 no-repeat;
 }
 
 span.small.icml {
-    background: url(../../../pressbooks/assets/images/icml-36.png) 0 0 no-repeat;
+    background: url(../../../pressbooks/assets/dist/images/icml-36.png) 0 0 no-repeat;
 }
 
 span.small.mobi {
-    background: url(../../../pressbooks/assets/images/mobi-36.png) 0 0 no-repeat;
+    background: url(../../../pressbooks/assets/dist/images/mobi-36.png) 0 0 no-repeat;
 }
 
 span.small.pdf, span.small.mpdf {
-    background: url(../../../pressbooks/assets/images/pdf-36.png) 0 0 no-repeat;
+    background: url(../../../pressbooks/assets/dist/images/pdf-36.png) 0 0 no-repeat;
 }
 
 span.small.wxr {
@@ -311,15 +311,15 @@ span.small.wxr {
 }
 
 span.small.vanillawxr {
-    background: url(../../../pressbooks/assets/images/wxr-36.png) 0 0 no-repeat;
+    background: url(../../../pressbooks/assets/dist/images/wxr-36.png) 0 0 no-repeat;
 }
 
 span.small.xhtml {
-    background: url(../../../pressbooks/assets/images/xhtml-36.png) 0 0 no-repeat;
+    background: url(../../../pressbooks/assets/dist/images/xhtml-36.png) 0 0 no-repeat;
 }
 
 span.small.odt {
-    background: url(../../../pressbooks/assets/images/odt-36.png) 0 0 no-repeat;
+    background: url(../../../pressbooks/assets/dist/images/odt-36.png) 0 0 no-repeat;
 }
 
 /** support divs to export content for web-only vs not-web; pdf-only vs not-pdf **/
