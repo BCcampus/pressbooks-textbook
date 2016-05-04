@@ -444,22 +444,23 @@ ol li::before {
 	content: counter(level1) ". ";
 	counter-increment: level1;
 }
+ol li ul li::before{
+	content: '';
+}
 ol ol {
 	list-style-type: none;
 	counter-reset: level2;
-}   
-ol li li::before {
-	content: counter(level1) "." counter(level2) " ";
-	counter-increment: level2;
 }
+ol li li::before {
+	content: counter(level2, lower-alpha) ". ";
+	counter-increment: level2; }
 ol ol ol {
 	list-style-type: none;
 	counter-reset: level3;
 }
 ol li li li::before {
-	content: counter(level1) ". " counter(level2) ". " counter(level3) " ";
-	counter-increment: level3;
-}
+	content: counter(level3, lower-roman) ". ";
+	counter-increment: level3; }
 
 cite {
 	font-weight: normal;
