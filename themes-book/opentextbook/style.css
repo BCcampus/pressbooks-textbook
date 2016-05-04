@@ -349,6 +349,10 @@ ol li::before {
     content: counter(level1) ". ";
     counter-increment: level1; }
 
+ol li ul li::before{
+    content: '';
+}
+
 ol ol {
     list-style: none outside;
     counter-reset: level2; }
