@@ -93,10 +93,13 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
 
-= 2.2.0 (2016/04/28) =
+= 2.2.0 (2016/05/05) =
 * remove symbiont plugins that have been ported over to PB
 * theme clean up
-
+* nested ordered lists
+* large table support
+* better display of long urls
+* non-camel case namespace for PB functions
 
 = 2.1.2 (2016/01/14) =
 * remove redundant calls in OTB theme
