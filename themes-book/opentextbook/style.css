@@ -222,6 +222,7 @@ p.cc-block {
     margin: 0 -1px 24px 0;
     text-align: left;
     width: 100%;
+    display: table;
 }
 
 #content table tr td, #content table tr th {
