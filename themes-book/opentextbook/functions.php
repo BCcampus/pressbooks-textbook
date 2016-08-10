@@ -18,10 +18,14 @@ add_action( 'wp_print_styles', 'fitzgerald_enqueue_styles' );
 function pbt_get_seo_meta_elements() {
 	// map items that are already captured
 	$meta_mapping = array(
-	    'author' => 'pb_author',
-	    'description' => 'pb_about_50',
-	    'keywords' => 'pb_keywords_tags',
-	    'publisher' => 'pb_publisher'
+
+		'citation_title' => 'pb_title',
+		'citation_author' => 'pb_authors_file_as',
+		'citation_language' => 'pb_language',
+		'citation_keywords' => 'pb_keywords_tags',
+		'citation_pdf_url' => pbt_get_citation_pdf_url(),
+		'citation_publication_date' => 'pb_publication_date',
+
 	);
 
 	$html = "<meta name='application-name' content='Pressbooks'>\n";
@@ -32,42 +36,40 @@ function pbt_get_seo_meta_elements() {
 		if ( array_key_exists( $content, $metadata ) ) {
 			$html .= "<meta name='" . $name . "' content='" . $metadata[$content] . "'>\n";
 		}
+		elseif( 'citation_pdf_url' == $name ){
+			$html .= "<meta name='" . $name . "' content='" . $content . "'>\n";
+		}
 	}
 
 	return $html;
 }
 
+function pbt_get_citation_pdf_url() {
+	$url = '';
+	$domain = site_url();
+	$files   = \PBT\Utility\latest_exports();
+
+	$options = get_option( 'pbt_redistribute_settings' );
+	if ( ! empty( $files ) && ( true == $options['latest_files_public'] ) ) {
+
+		foreach ( $files as $ext => $filename ) {
+			$file_extension = substr( strrchr( $ext, '.' ), 1 );
+
+			if ( 'pdf' == $file_extension ) {
+				$pre_suffix = strcmp( $ext, '._oss.pdf' );
+				$file_class = ( 0 === $pre_suffix ) ? 'mpdf' : 'pdf';
+				$filename = preg_replace( '/(-\d{10})(.*)/ui', "$1", $filename );
+				// rewrite rule
+				$url = $domain . "/open/download?filename={$filename}&type={$file_class}";
+			}
+		}
+	}
+	return $url;
+}
+
 function pbt_get_microdata_meta_elements() {
 	// map items that are already captured
 	$html = '';
-	$micro_mapping = array(
-	    'about' => 'pb_bisac_subject',
-	    'alternativeHeadline' => 'pb_subtitle',
-	    'author' => 'pb_author',
-	    'contributor' => 'pb_contributing_authors',
-	    'copyrightHolder' => 'pb_copyright_holder',
-	    'copyrightYear' => 'pb_copyright_year',
-	    'datePublished' => 'pb_publication_date',
-	    'description' => 'pb_about_50',
-	    'editor' => 'pb_editor',
-	    'image' => 'pb_cover_image',
-	    'inLanguage' => 'pb_language',
-	    'keywords' => 'pb_keywords_tags',
-	    'publisher' => 'pb_publisher',
-	);
-	$metadata = \Pressbooks\Book::getBookInformation();
-
-	// create microdata elements
-	foreach ( $micro_mapping as $itemprop => $content ) {
-		if ( array_key_exists( $content, $metadata ) ) {
-			if ( 'pb_publication_date' == $content ) {
-				$content = date( 'Y-m-d', $metadata[$content] );
-			} else {
-				$content = $metadata[$content];
-			}
-			$html .= "<meta itemprop='" . $itemprop . "' content='" . $content . "' id='" . $itemprop . "'>\n";
-		}
-	}
 
 	// add elements that aren't captured, and don't need user input
 	$edu_align = ( isset( $metadata['pb_bisac_subject'] ) ) ? $metadata['pb_bisac_subject'] : '';
