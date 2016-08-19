@@ -34,7 +34,11 @@
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 
 <?php wp_head(); ?>
-
+	<script>
+		jQuery( function($) {
+			$( "#tabs" ).tabs();
+		} );
+	</script>
 </head>
 <body <?php body_class(); if(wp_title('', false) != '') { print ' id="' . str_replace(' ', '', strtolower(wp_title('', false))) . '"'; } ?>>
 <!-- Faccebook share js sdk -->
@@ -108,7 +112,8 @@ if ( isset ( $fb_script['social_media'] ) && 1 === $fb_script['social_media'] ||
 		</div> <!-- end .nav-container -->
 
 	<div class="wrapper"><!-- for sitting footer at the bottom of the page -->	    
-			<div id="wrap">	    
+			<div id="wrap">
+				<?php get_template_part( 'tabs', 'start'); ?>
 				<div id="content">
 
 	 <?php endif; ?>	

@@ -9,68 +9,71 @@ Reference @see: http://www.princexml.com/doc/8.1/
 
 /* FONTS
 ===========	*/
-
 @font-face {
-	font-family: "Crimson";
-	font-weight: bold;
-	font-style: normal;
-	src: url(../../fonts/Crimson-Bold.otf) format("opentype");
-}
+	font-family: "Crimson Text";
+	src: local("../../assets/fonts/crimson-bold-webfont.ttf", "truetype");
+	font-weight: "bold";
+	font-style: "normal"; }
 @font-face {
-	font-family: "Crimson";
-	font-weight: bold;
-	font-style: italic;
-	src: url(../../fonts/Crimson-BoldItalic.otf) format("opentype");
-}
+	font-family: "Crimson Text";
+	src: local("../../assets/fonts/crimson-bolditalic-webfont.ttf", "truetype");
+	font-weight: "bold";
+	font-style: "italic"; }
 @font-face {
-	font-family: "Crimson";
-	font-weight: normal;
-	font-style: italic;
-	src: url(../../fonts/Crimson-Italic.otf) format("opentype");
-}
+	font-family: "Crimson Text";
+	src: local("../../assets/fonts/crimson-italic-webfont.ttf", "truetype");
+	font-weight: "normal";
+	font-style: "italic"; }
 @font-face {
-	font-family: "Crimson";
-	font-weight: normal;
-	font-style: normal;
-	src: url(../../fonts/Crimson-Roman.otf) format("opentype");
-}
+	font-family: "Crimson Text";
+	src: local("../../assets/fonts/crimson-roman-webfont.ttf", "truetype");
+	font-weight: "normal";
+	font-style: "normal"; }
 @font-face {
-	font-family: "Crimson";
-	font-weight: 600;
-	font-style: normal;
-	src: url(../../fonts/Crimson-Semibold.otf) format("opentype");
-}
+	font-family: "Crimson Text";
+	src: local("../../assets/fonts/crimson-semibold-webfont.ttf", "truetype");
+	font-weight: "600";
+	font-style: "normal"; }
 @font-face {
-	font-family: "Crimson";
-	font-weight: 600;
-	font-style: italic;
-	src: url(../../fonts/Crimson-SemiboldItalic.otf) format("opentype");
-}
-
+	font-family: "Crimson Text";
+	src: local("../../assets/fonts/crimson-semibolditalic-webfont.ttf", "truetype");
+	font-weight: "600";
+	font-style: "italic"; }
+@font-face {
+	font-family: "Roboto";
+	src: local("../../assets/fonts/Roboto-Regular.ttf", "truetype");
+	font-weight: "400";
+	font-style: "normal"; }
 @font-face {
 	font-family: "Roboto Condensed";
-	font-weight: normal;
-	font-style: normal;
-	src: url(../../fonts/RobotoCondensed-Regular.ttf) format("truetype");
-}
+	src: local("../../assets/fonts/RobotoCondensed-Regular.ttf", "truetype");
+	font-weight: "normal";
+	font-style: "normal"; }
 @font-face {
 	font-family: "Roboto Condensed";
-	font-weight: normal;
-	font-style: italic;
-	src: url(../../fonts/RobotoCondensed-Italic.ttf) format("truetype");
-}
+	src: local("../../assets/fonts/RobotoCondensed-Bold.ttf", "truetype");
+	font-weight: "bold";
+	font-style: "normal"; }
 @font-face {
 	font-family: "Roboto Condensed";
-	font-weight: 300;
-	font-style: normal;
-	src: url(../../fonts/RobotoCondensed-Light.ttf) format("truetype");
-}
+	src: local("../../assets/fonts/RobotoCondensed-BoldItalic.ttf", "truetype");
+	font-weight: "bold";
+	font-style: "italic"; }
 @font-face {
 	font-family: "Roboto Condensed";
-	font-weight: 300;
-	font-style: italic;
-	src: url(../../fonts/RobotoCondensed-LightItalic.ttf) format("truetype");
-}
+	src: local("../../assets/fonts/RobotoCondensed-Italic.ttf", "truetype");
+	font-weight: "normal";
+	font-style: "italic"; }
+@font-face {
+	font-family: "Roboto Condensed";
+	src: local("../../assets/fonts/RobotoCondensed-Light.ttf", "truetype");
+	font-weight: "300";
+	font-style: "normal"; }
+@font-face {
+	font-family: "Roboto Condensed";
+	src: local("../../assets/fonts/RobotoCondensed-LightItalic.ttf", "truetype");
+	font-weight: "300";
+	font-style: "italic"; }
 
 /* Override hierarchy. See: http://www.princexml.com/doc/8.1/pdf-bookmarks */
 h1, h2, h3, h4, h5, h6 {
@@ -528,7 +531,7 @@ cite {
 #title-page > .contributing-authors,
 #title-page > .publisher,
 #title-page > .publisher-city {
-	font-family: "Crimson","Times New Roman", serif;
+	font-family: "Crimson Text","Times New Roman", serif;
 	font-weight: normal;
 }	
 #title-page .title + div.logo {
@@ -812,17 +815,17 @@ li.section::before {
 }
 
 .part-title-wrap {
-	font-family: "Crimson","Times New Roman", serif;
+	font-family: "Crimson Text","Times New Roman", serif;
 }
 .part-title-wrap h3.part-number {
 	border-bottom: 1px solid #000;
 	display: inline-block;
 	font-weight: normal;
-	font-family: "Crimson","Times New Roman", serif;	
+	font-family: "Crimson Text","Times New Roman", serif;
 	padding: 0 2em 0 1em;
 }
 .part-title-wrap h1.part-title {
-	font: italic bold 14pt "Crimson","Times New Roman", serif;
+	font: italic bold 14pt "Crimson Text","Times New Roman", serif;
 }
 h3.chapter-number {
 	border-bottom: 0.5px solid #000;
@@ -877,7 +880,7 @@ div.ugc h2.chapter-subtitle {
 	font-weight: normal;
 }
 div.ugc h2.chapter-author {
-	font: italic 9pt "Crimson","Times New Roman", serif;
+	font: italic 9pt "Crimson Text","Times New Roman", serif;
 }
 div.ugc h2.chapter-subtitle,
 div.ugc h2.chapter-author {

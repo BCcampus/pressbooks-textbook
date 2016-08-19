@@ -1,0 +1,43 @@
+$serif-web: serif !default;
+$sans-serif-web: sans-serif !default;
+
+$crim: 'Crimson Text', 'Times New Roman', $serif-web;
+$helv: Helvetica, Arial, $sans-serif-web;
+$roboto: 'Roboto', $sans-serif-web;
+$roboto_cond: 'Roboto Condensed', $sans-serif-web;
+
+
+@mixin font-face($name, $font-files, $weight: false, $style: false) {
+  @font-face {
+    font-family: quote($name);
+    src: $font-files;
+    @if $weight {
+      font-weight: $weight;
+    }
+    @if $style {
+      font-style: $style;
+    }
+  }
+}
+
+// Crimson
+
+@include font-face( 'Crimson Text', local('assets/fonts/crimson-bold-webfont.ttf', 'truetype'), 'bold', 'normal');
+@include font-face( 'Crimson Text', local('assets/fonts/crimson-bolditalic-webfont.ttf', 'truetype'), 'bold', 'italic');
+@include font-face( 'Crimson Text', local('assets/fonts/crimson-italic-webfont.ttf', 'truetype'), 'normal', 'italic');
+@include font-face( 'Crimson Text', local('assets/fonts/crimson-roman-webfont.ttf', 'truetype'), 'normal', 'normal');
+@include font-face( 'Crimson Text', local('assets/fonts/crimson-semibold-webfont.ttf', 'truetype'), '600', 'normal');
+@include font-face( 'Crimson Text', local('assets/fonts/crimson-semibolditalic-webfont.ttf', 'truetype'), '600', 'italic');
+
+// Roboto
+
+@include font-face( 'Roboto', local('assets/fonts/Roboto-Regular.ttf', 'truetype'), '400', 'normal');
+
+// RobotoCondensed
+
+@include font-face( 'Roboto Condensed', local('assets/fonts/RobotoCondensed-Regular.ttf', 'truetype'), 'normal', 'normal');
+@include font-face( 'Roboto Condensed', local('assets/fonts/RobotoCondensed-Bold.ttf', 'truetype'), 'bold', 'normal');
+@include font-face( 'Roboto Condensed', local('assets/fonts/RobotoCondensed-BoldItalic.ttf', 'truetype'), 'bold', 'italic');
+@include font-face( 'Roboto Condensed', local('assets/fonts/RobotoCondensed-Italic.ttf', 'truetype'), 'normal', 'italic');
+@include font-face( 'Roboto Condensed', local('assets/fonts/RobotoCondensed-Light.ttf', 'truetype'), '300', 'normal');
+@include font-face( 'Roboto Condensed', local('assets/fonts/RobotoCondensed-LightItalic.ttf', 'truetype'), '300', 'italic');

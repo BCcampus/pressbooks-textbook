@@ -40,8 +40,10 @@ function latest_exports() {
 		// only interested in the part of filename starting with the timestamp
 		preg_match( '/-\d{10,11}(.*)/', $file, $matches );
 		// grab the first captured parenthisized subpattern
-		$ext = $matches[1];
-		$files[$ext][] = $file;
+		if ( false !== $matches && isset( $matches[1] ) ) {
+			$ext             = $matches[1];
+			$files[ $ext ][] = $file;
+		}
 	}
 
 	// get only one of the latest of each type

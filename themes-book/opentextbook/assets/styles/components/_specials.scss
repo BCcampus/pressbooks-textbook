@@ -1,0 +1,136 @@
+/*
+|--------------------------------------------------------------------------
+| Tight and loose tracking
+|--------------------------------------------------------------------------
+|
+|
+|
+|
+*/
+.tight {
+  letter-spacing: -0.25px;
+  word-spacing: -0.075em;
+}
+
+.very-tight {
+  letter-spacing: -0.5px;
+  word-spacing: -0.09em;
+}
+
+.loose {
+  letter-spacing: 0.25px;
+  word-spacing: 0.075em;
+}
+
+.very-loose {
+  letter-spacing: 0.5px;
+  word-spacing: 0.09em;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Misc
+|--------------------------------------------------------------------------
+|
+|
+|
+|
+*/
+
+.pullleft {
+  margin-right: 4%;
+}
+
+#content table.bcc-shrink tr th, #content table.bcc-shrink thead th {
+  padding-right: 4px;
+  padding-left: 4px;
+}
+
+#content table.bcc-shrink tr td {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+/****************************************
+	support divs to export content for
+	web-only vs not-web; pdf-only
+	vs not-pdf
+*****************************************/
+.not-web, .pdf-only {
+  display: none;
+}
+
+.aligncenter {
+  text-align: center;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Textbook specific styles
+|--------------------------------------------------------------------------
+|
+|
+|
+|
+*/
+#content table {
+  border: 1px solid $light-grey-3;
+  margin: 0 -1px 24px 0;
+  text-align: left;
+  width: 100%;
+  display: table;
+}
+
+#content table tr td, #content table tr th {
+  border: 1px solid $light-grey-3;
+}
+
+.entry-content {
+  overflow-wrap: break-word;
+}
+
+.bcc-box {
+  /*	width: 100%;*/
+  padding: 2% 3%;
+  margin-bottom: 15px;
+  border-radius: 4px;
+}
+
+.bcc-box h3:first-child {
+  text-align: center;
+  margin: -2% -3% 15px;
+  color: $white;
+  padding: 15px 0 15px;
+}
+
+.bcc-highlight {
+  background-color: $light-grey-1;
+}
+
+.bcc-box.bcc-highlight h3 {
+  background-color: $black-1;
+}
+
+.bcc-success {
+  background-color: $light-grey-2;
+}
+
+.bcc-box.bcc-success h3 {
+  background-color: $green;
+}
+
+.bcc-info {
+  background-color: $light-grey-2;
+}
+
+.bcc-box.bcc-info h3 {
+  background-color: $blue;
+}
+
+.bcc-warning {
+  background-color: $light-grey-1;
+}
+
+.bcc-box.bcc-warning h3 {
+  background-color: $yellow;
+}

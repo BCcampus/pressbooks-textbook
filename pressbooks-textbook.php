@@ -84,7 +84,8 @@ class Textbook {
 		add_action( 'plugins_loaded', array( &$this, 'includes' ) );
 		add_action( 'init', array( &$this, 'pbtInit' ) );
 		add_action( 'template_redirect', '\PBT\Rewrite\do_open', 0 );
-		add_action( 'wp_enqueue_style', array( &$this, 'enqueueChildThemes' ) );
+		add_action( 'wp_enqueue_style', array( &$this, 'registerChildThemes' ) );
+		add_action( 'wp_enqueue_scripts', array( &$this, 'enqueueScriptsnStyles' ) );
 		add_filter( 'allowed_themes', array( &$this, 'filterChildThemes' ), 11 );
 		add_action( 'pressbooks_new_blog', array( $this, 'newBook' ) );
 
@@ -300,7 +301,7 @@ class Textbook {
 	 * 
 	 * @since 1.0.0
 	 */
-	function enqueueChildThemes() {
+	function registerChildThemes() {
 		wp_register_style( 'open-textbook', PBT_PLUGIN_URL . 'themes-book/opentextbook/style.css', array( 'pressbooks' ), self::VERSION, 'screen' );
 	}
 
@@ -330,6 +331,11 @@ class Textbook {
 		} else {
 			return $themes;
 		}
+	}
+
+	function enqueueScriptsnStyles() {
+		wp_enqueue_style( 'jquery-ui', '//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css', '', self::VERSION, 'screen, print' );
+		wp_enqueue_script( 'jquery-ui-tabs', '/wp-includes/js/jquery/ui/jquery.ui.tabs.min.js' );
 	}
 	
 	/**

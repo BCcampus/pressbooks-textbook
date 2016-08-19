@@ -1,14 +1,11 @@
 <?php
 
-/* ------------------------------------------------------------------------ *
- * Google Webfonts
- * ------------------------------------------------------------------------ */
-
-function fitzgerald_enqueue_styles() {
-	wp_enqueue_style( 'fitzgerald-fonts', 'https://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700|Roboto+Condensed:400,300,300italic,400italic' );
+function pbt_theme_theme_setup() {
+	// Add theme support for special features here.
+	add_theme_support( 'pressbooks_global_typography', 'en');
 }
 
-add_action( 'wp_print_styles', 'fitzgerald_enqueue_styles' );
+add_action( 'after_setup_theme', 'pbt_theme_theme_setup' );
 
 /**
  * Returns an html blog of meta elements 
