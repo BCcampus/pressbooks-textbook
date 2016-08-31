@@ -64,15 +64,18 @@ class Textbook {
 	 */
 	private function __construct() {
 		// Define plugin constants
-		if ( ! defined( 'PBT_PLUGIN_DIR' ) )
-				define( 'PBT_PLUGIN_DIR', __DIR__ . '/' );
+		if ( ! defined( 'PBT_PLUGIN_DIR' ) ) {
+			define( 'PBT_PLUGIN_DIR', __DIR__ . '/' );
+		}
 
-		if ( ! defined( 'PBT_PLUGIN_URL' ) )
-				define( 'PBT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-		
-		if ( ! defined( 'PB_PLUGIN_DIR' ) )	
-				define ( 'PB_PLUGIN_DIR', WP_PLUGIN_DIR . '/pressbooks/' ); // Must have trailing slash!
-		
+		if ( ! defined( 'PBT_PLUGIN_URL' ) ) {
+			define( 'PBT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+		}
+
+		if ( ! defined( 'PB_PLUGIN_DIR' ) ) {
+			define( 'PB_PLUGIN_DIR', WP_PLUGIN_DIR . '/pressbooks/' );
+		} // Must have trailing slash!
+
 		// Load translations
 		add_action( 'init', array( $this, 'loadPluginTextDomain' ) );
 
@@ -95,7 +98,7 @@ class Textbook {
 
 		wp_cache_add_global_groups( array( 'pbt' ) );
 	}
-	
+
 	/**
 	 * Return an instance of this class.
 	 *
@@ -112,18 +115,18 @@ class Textbook {
 
 		return self::$instance;
 	}
-	
+
 	/**
 	 * Include our plugins
-	 * 
+	 *
 	 * @since 1.0.8
 	 */
 	function includes() {
 		$pbt_plugin = array(
-		    'mce-textbook-buttons/mce-textbook-buttons.php' => 1,
-		    'creative-commons-configurator-1/cc-configurator.php' => 1,
-		    'hypothesis/hypothesis.php' => 1,
-		    'tinymce-spellcheck/tinymce-spellcheck.php' => 1,
+			'mce-textbook-buttons/mce-textbook-buttons.php'       => 1,
+			'creative-commons-configurator-1/cc-configurator.php' => 1,
+			'hypothesis/hypothesis.php'                           => 1,
+			'tinymce-spellcheck/tinymce-spellcheck.php'           => 1,
 		);
 
 		$pbt_plugin = $this->filterPlugins( $pbt_plugin );
@@ -131,22 +134,24 @@ class Textbook {
 		// include plugins
 		if ( ! empty( $pbt_plugin ) ) {
 			foreach ( $pbt_plugin as $key => $val ) {
-				require_once( PBT_PLUGIN_DIR . 'symbionts/' . $key);
+				require_once( PBT_PLUGIN_DIR . 'symbionts/' . $key );
 			}
 		}
 	}
 
 	/**
 	 * Filters out active plugins, to avoid collisions with plugins already installed
-	 * 
+	 *
 	 * @since 1.0.8
+	 *
 	 * @param array $pbt_plugin
+	 *
 	 * @return array
 	 */
 	private function filterPlugins( $pbt_plugin ) {
-		$already_active = get_option('active_plugins');
-		$network_already_active = get_site_option('active_sitewide_plugins');
-		
+		$already_active         = get_option( 'active_plugins' );
+		$network_already_active = get_site_option( 'active_sitewide_plugins' );
+
 		if ( defined( 'PB_PLUGIN_VERSION' ) && version_compare( PB_PLUGIN_VERSION, '2.7.2' ) >= 0 ) {
 			// these are in PB core, code removed from PBT
 			// unset( $pbt_plugin['disable-comments/disable-comments.php'] );
@@ -154,7 +159,7 @@ class Textbook {
 			// unset( $pbt_plugin['mce-superscript-subscript-buttons/mce-superscript-subscript-buttons.php'] );
 			// unset( $pbt_plugin['mce-anchor-button/mce-anchor-button.php'] );
 		}
-		
+
 		// activate only if one of our themes is being used
 		if ( false == self::isTextbookTheme() ) {
 			unset( $pbt_plugin['mce-textbook-buttons/mce-textbook-buttons.php'] );
@@ -162,64 +167,64 @@ class Textbook {
 			unset( $pbt_plugin['creative-commons-configurator-1/cc-configurator.php'] );
 			unset( $pbt_plugin['tinymce-spellcheck/tinymce-spellcheck.php'] );
 		}
-		
+
 		// don't include plugins already active at the site level, network level
 		if ( ! empty( $pbt_plugin ) ) {
 			foreach ( $pbt_plugin as $key => $val ) {
-				if ( in_array( $key, $already_active ) || array_key_exists( $key, $network_already_active )) {
-					unset( $pbt_plugin[$key] );
+				if ( in_array( $key, $already_active ) || array_key_exists( $key, $network_already_active ) ) {
+					unset( $pbt_plugin[ $key ] );
 				}
-				
+
 			}
 		}
 
 		// don't include plugins if the user doesn't want them
 		if ( ! empty( $pbt_plugin ) ) {
-			
+
 			// get user options
 			$user_options = $this->getUserOptions();
-			
+
 			if ( is_array( $user_options ) ) {
 				foreach ( $pbt_plugin as $key => $val ) {
 
-					$name = strstr( $key, '/', true );
+					$name       = strstr( $key, '/', true );
 					$pbt_option = "pbt_" . $name . "_active";
 
 					// either it doesn't exist, or the client doesn't want it
 					if ( array_key_exists( $pbt_option, $user_options ) ) {
 						// check the value
-						if ( false == $user_options[$pbt_option] ) {
-							unset( $pbt_plugin[$key] );
+						if ( false == $user_options[ $pbt_option ] ) {
+							unset( $pbt_plugin[ $key ] );
 						}
 					}
 				}
 			}
 		}
-		
+
 		return $pbt_plugin;
 	}
-	
+
 	/**
 	 * Returns merged array of all PBT user options
-	 * 
+	 *
 	 * @since 1.0.2
 	 * @return array
 	 */
 	private function getUserOptions() {
 		$result = array();
-		
+
 		( array ) $other = get_option( 'pbt_other_settings' );
 		( array ) $reuse = get_option( 'pbt_reuse_settings' );
 		( array ) $redistribute = get_option( 'pbt_redistribute_settings' );
 
 		$result = @array_merge( $other, $reuse, $redistribute );
-		
+
 		return $result;
 	}
 
 	/**
 	 * Checks to see if one of our child themes is active
-	 * 
+	 *
 	 * @return boolean
 	 */
 	static function isTextbookTheme() {
@@ -227,12 +232,13 @@ class Textbook {
 		if ( is_array( $t ) && in_array( 'Pressbooks Textbook', $t ) ) {
 			return true;
 		}
+
 		return false;
 	}
 
 	/**
 	 * Register all scripts and styles
-	 * 
+	 *
 	 * @since 1.0.1
 	 */
 	function pbtInit() {
@@ -293,12 +299,12 @@ class Textbook {
 		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
 
 		load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
-		load_plugin_textdomain( $domain, FALSE, basename( plugin_dir_path( dirname( __FILE__ ) ) ) . '/languages/' );
+		load_plugin_textdomain( $domain, false, basename( plugin_dir_path( dirname( __FILE__ ) ) ) . '/languages/' );
 	}
 
 	/**
 	 * Queue child theme
-	 * 
+	 *
 	 * @since 1.0.0
 	 */
 	function registerChildThemes() {
@@ -307,21 +313,22 @@ class Textbook {
 
 	/**
 	 * Pressbooks filters allowed themes, this adds our themes to the list
-	 * 
+	 *
 	 * @since 1.0.7
+	 *
 	 * @param array $themes
+	 *
 	 * @return array
 	 */
-	function filterChildThemes($themes)
-	{
+	function filterChildThemes( $themes ) {
 		$pbt_themes = array();
 
-		if (\Pressbooks\Book::isBook()) {
+		if ( \Pressbooks\Book::isBook() ) {
 			$registered_themes = search_theme_directories();
 
-			foreach ($registered_themes as $key => $val) {
-				if ($val['theme_root'] == PBT_PLUGIN_DIR . 'themes-book') {
-					$pbt_themes[$key] = 1;
+			foreach ( $registered_themes as $key => $val ) {
+				if ( $val['theme_root'] == PBT_PLUGIN_DIR . 'themes-book' ) {
+					$pbt_themes[ $key ] = 1;
 				}
 			}
 			// add our theme
@@ -337,43 +344,46 @@ class Textbook {
 		wp_enqueue_style( 'jquery-ui', '//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css', '', self::VERSION, 'screen, print' );
 		wp_enqueue_script( 'jquery-ui-tabs', '/wp-includes/js/jquery/ui/jquery.ui.tabs.min.js' );
 	}
-	
+
 	/**
 	 * This function is added to the PB hook 'pressbooks_new_blog' to add some time
 	 * saving customizations
-	 * 
+	 *
 	 * @since 1.2.1
 	 * @see pressbooks/includes/class-pb-activation.php
-	 * 
+	 *
 	 */
 	function newBook() {
 
 		$display_copyright = array(
-		    'copyright_license' => 1,
+			'copyright_license' => 1,
 		);
 
 		$pdf_options = array(
-		    'pdf_page_size' => 3,
-		    'pdf_blankpages' => 2,
+			'pdf_page_size'  => 3,
+			'pdf_blankpages' => 2,
 		);
 
 		$epub_compress_images = array(
-		    'ebook_compress_images' => 1
+			'ebook_compress_images' => 1
 		);
-		
-//		// set the default theme to opentextbooks
-//		switch_theme( 'opentextbook' );
-//		check_theme_switched();
-//		
-//		// safety
-//		if ( ( get_option( 'template' ) != 'pressbooks-book' ) || ( get_option( 'stylesheet' ) != 'opentextbook' ) ) {
-//			update_option( 'template', 'pressbooks-book' );
-//			update_option( 'stylesheet', 'opentextbook' );
-//		};
+
+		$redistribute_files = array(
+			'latest_files_public' => 1,
+		);
+
+		// set the default theme to opentextbooks
+		switch_theme( 'opentextbook' );
+
+		// safety
+		update_option( 'template_root', '/plugins/pressbooks/themes-book' );
+		update_option( 'stylesheet_root', '/plugins/pressbooks-textbook/themes-book' );
+		update_option( 'template', 'pressbooks-book' );
+		update_option( 'stylesheet', 'opentextbook' );
 
 		// send validation logs
 		update_option( 'pressbooks_email_validation_logs', 1 );
-		
+
 		// set display copyright information to on
 		update_option( 'pressbooks_theme_options_global', $display_copyright );
 
@@ -382,11 +392,14 @@ class Textbook {
 
 		// EPUB export - reduce image size and quality 
 		update_option( 'pressbooks_theme_options_ebook', $epub_compress_images );
-		
+
 		// modify the book description
 		update_option( 'blogdescription', __( 'Open Textbook', $this->plugin_slug ) );
+
+		// distribute latest exports
+		update_option( 'pbt_redistribute_settings', $redistribute_files );
 	}
-	
+
 }
 
 // ------------------------------------
@@ -395,24 +408,26 @@ class Textbook {
 // Must meet miniumum requirements before either PB or PBT objects are instantiated. 
 
 if ( ! @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
-    add_action( 'admin_notices', function () {
-        echo '<div id="message" class="error fade"><p>' . __( 'PBT cannot find a Pressbooks install.', 'pressbooks-textbook' ) . '</p></div>';
-    } );
-    return;
-    
+	add_action( 'admin_notices', function () {
+		echo '<div id="message" class="error fade"><p>' . __( 'PBT cannot find a Pressbooks install.', 'pressbooks-textbook' ) . '</p></div>';
+	} );
+
+	return;
+
 } elseif ( ! pb_meets_minimum_requirements() ) { // This PB function checks for both multisite, PHP and WP minimum versions.
 	add_action( 'admin_notices', function () {
-        echo '<div id="message" class="error fade"><p>' . __( 'Your PHP version may not be supported by PressBooks.'
-		. ' If you suspect this is the case, it can be overridden, so long as it is remains above PHP 5.4.0. Add a line to wp-config.php as follows: $pb_minimum_php = "5.4.0"; ', 'pressbooks-textbook' ) . '</p></div>';
-    } );
-    return;
-	
+		echo '<div id="message" class="error fade"><p>' . __( 'Your PHP version may not be supported by PressBooks.'
+		                                                      . ' If you suspect this is the case, it can be overridden, so long as it is remains above PHP 5.4.0. Add a line to wp-config.php as follows: $pb_minimum_php = "5.4.0"; ', 'pressbooks-textbook' ) . '</p></div>';
+	} );
+
+	return;
+
 }
 
 if ( get_site_option( 'pressbooks-activated' ) ) {
-	if ( is_admin() ) {		
-		require (dirname( __FILE__ ) . '/admin/class-pbt-textbook-admin.php');
-		$pbt = new Admin\TextbookAdmin;		
+	if ( is_admin() ) {
+		require( dirname( __FILE__ ) . '/admin/class-pbt-textbook-admin.php' );
+		$pbt = new Admin\TextbookAdmin;
 	} else {
 		$pbt = \PBT\Textbook::get_instance();
 	}
