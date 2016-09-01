@@ -102,7 +102,8 @@
 						// $tracking = "ga('send','event','exportFiles','Downloads','{$file_class}');";
 						// Piwik Analytics event tracking _paq.push('trackEvent', category, action, name)
 						$tracking = "_paq.push(['trackEvent','exportFiles','Downloads','{$file_class}']);";
-						
+						//$tracking = apply_filters( 'pressbooks_download_tracking_code', "ga('send','event','exportFiles','Downloads','{$file_class}');", $file_class );
+
 						echo '<link itemprop="bookFormat" href="http://schema.org/EBook">'
 						. '<a rel="nofollow" onclick="' . $tracking . '" itemprop="offers" itemscope itemtype="http://schema.org/Offer" href="' . $url . '">'
 						. '<span class="export-file-icon small ' . $file_class . '" title="' . esc_attr( $filename ) . '"></span>'

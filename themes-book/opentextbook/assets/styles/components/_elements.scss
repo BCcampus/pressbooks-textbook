@@ -9,7 +9,7 @@
 |
 */
 body {
-  font-family: $crim;
+  font-family: $times;
   line-height: $body-line-height;
 }
 
@@ -32,9 +32,10 @@ small {
 */
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: $roboto_cond;
+  font-family: $roboto;
   font-variant: normal;
-  font-weight: normal;
+  font-style: normal;
+  font-weight: bold;
 }
 
 h1 {
@@ -92,7 +93,7 @@ ol.alphalist li::before {
 }
 
 .entry-content ol {
-  margin-left: 15px;
+  margin-left: 30px;
 }
 
 .entry-content ul {
@@ -172,23 +173,23 @@ span.export-file-icon {
 }
 
 span.small.epub {
-  background: url(assets/dist/images/epub-36.png) 0 0 no-repeat;
+  background: url(assets/images/epub-36.png) 0 0 no-repeat;
 }
 
 span.small.epub3 {
-  background: url(assets/dist/images/epub3-36.png) 0 0 no-repeat;
+  background: url(assets/images/epub3-36.png) 0 0 no-repeat;
 }
 
 span.small.icml {
-  background: url(assets/dist/images/icml-36.png) 0 0 no-repeat;
+  background: url(assets/images/icml-36.png) 0 0 no-repeat;
 }
 
 span.small.mobi {
-  background: url(assets/dist/images/mobi-36.png) 0 0 no-repeat;
+  background: url(assets/images/mobi-36.png) 0 0 no-repeat;
 }
 
 span.small.pdf, span.small.mpdf {
-  background: url(assets/dist/images/pdf-36.png) 0 0 no-repeat;
+  background: url(assets/images/pdf-36.png) 0 0 no-repeat;
 }
 
 span.small.wxr {
@@ -196,15 +197,15 @@ span.small.wxr {
 }
 
 span.small.vanillawxr {
-  background: url(assets/dist/images/wxr-36.png) 0 0 no-repeat;
+  background: url(assets/images/wxr-36.png) 0 0 no-repeat;
 }
 
 span.small.xhtml {
-  background: url(assets/dist/images/xhtml-36.png) 0 0 no-repeat;
+  background: url(assets/images/xhtml-36.png) 0 0 no-repeat;
 }
 
 span.small.odt {
-  background: url(assets/dist/images/odt-36.png) 0 0 no-repeat;
+  background: url(assets/images/odt-36.png) 0 0 no-repeat;
 }
 
 /*

@@ -1,1 +1,1 @@
-</div>
+</div><!-- end tabs -->

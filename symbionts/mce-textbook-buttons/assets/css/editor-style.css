@@ -33,6 +33,7 @@
     padding-right: 3%;
     padding-top: 2%;
     width: 100%;
+    border-radius: 4px;
 }
 
 .bcc-box h3:first-child {

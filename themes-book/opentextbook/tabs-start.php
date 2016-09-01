@@ -10,12 +10,12 @@
 		                                                                                                  id="ui-id-1">Read</a>
 		</li>
 		<li role="tab" tabindex="-1" class="ui-tabs-tab ui-corner-top ui-state-default ui-tab" aria-controls="tabs-2"
-		    aria-labelledby="ui-id-2" aria-selected="false" aria-expanded="false"><a href="#tabs-2" role="presentation"
+		    aria-labelledby="ui-id-2" aria-selected="false" aria-expanded="false"><a href="_history#tabs-2" role="presentation"
 		                                                                             tabindex="-1"
 		                                                                             class="ui-tabs-anchor"
 		                                                                             id="ui-id-2">History</a></li>
 		<li role="tab" tabindex="-1" class="ui-tabs-tab ui-corner-top ui-state-default ui-tab" aria-controls="tabs-3"
-		    aria-labelledby="ui-id-3" aria-selected="false" aria-expanded="false"><a href="#tabs-3" role="presentation"
+		    aria-labelledby="ui-id-3" aria-selected="false" aria-expanded="false"><a href="_versions#tabs-3" role="presentation"
 		                                                                             tabindex="-1"
 		                                                                             class="ui-tabs-anchor"
 		                                                                             id="ui-id-3">Versions</a></li>

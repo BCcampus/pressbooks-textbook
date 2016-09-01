@@ -231,3 +231,7 @@ function pbt_add_openstax() {
 }
 
 add_action( 'wp_footer', 'pbt_add_openstax' );
+
+add_filter( 'pressbooks_download_tracking_code', function ( $tracking, $filetype ) {
+	return "_paq.push(['trackEvent','exportFiles','Downloads','{$filetype}']);";
+}, 10, 2 );

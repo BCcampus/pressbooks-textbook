@@ -113,7 +113,7 @@ if ( isset ( $fb_script['social_media'] ) && 1 === $fb_script['social_media'] ||
 
 	<div class="wrapper"><!-- for sitting footer at the bottom of the page -->	    
 			<div id="wrap">
-				<?php get_template_part( 'tabs', 'start'); ?>
+				<?php //get_template_part( 'tabs', 'start'); ?>
 				<div id="content">
 
 	 <?php endif; ?>	

@@ -6,7 +6,7 @@
 <?php if( !is_front_page() ){?>
 
 	<?php get_sidebar(); ?>
-<?php get_template_part( 'tabs', 'end' );?>
+<?php //get_template_part( 'tabs', 'end' );?>
 	</div><!-- #wrap -->
 	<div class="push"></div>
 	
