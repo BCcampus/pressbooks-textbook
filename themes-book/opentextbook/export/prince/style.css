@@ -6,208 +6,236 @@ Reference @see: http://www.princexml.com/doc/8.1/
 
 /*__INSERT_PDF_HOUSE_STYLE__*/
 
-
 /* FONTS
 ===========	*/
 @font-face {
-	font-family: "Crimson Text";
-	src: url("../../assets/fonts/crimson-bold-webfont.ttf") format("truetype");
-	font-weight: "bold";
-	font-style: "normal"; }
+    font-family: "Crimson Text";
+    src: url("../../assets/fonts/crimson-bold-webfont.ttf") format("truetype");
+    font-weight: "bold";
+    font-style: "normal";
+}
+
 @font-face {
-	font-family: "Crimson Text";
-	src: url("../../assets/fonts/crimson-bolditalic-webfont.ttf") format("truetype");
-	font-weight: "bold";
-	font-style: "italic"; }
+    font-family: "Crimson Text";
+    src: url("../../assets/fonts/crimson-bolditalic-webfont.ttf") format("truetype");
+    font-weight: "bold";
+    font-style: "italic";
+}
+
 @font-face {
-	font-family: "Crimson Text";
-	src: url("../../assets/fonts/crimson-italic-webfont.ttf") format("truetype");
-	font-weight: "normal";
-	font-style: "italic"; }
+    font-family: "Crimson Text";
+    src: url("../../assets/fonts/crimson-italic-webfont.ttf") format("truetype");
+    font-weight: "normal";
+    font-style: "italic";
+}
+
 @font-face {
-	font-family: "Crimson Text";
-	src: url("../../assets/fonts/crimson-roman-webfont.ttf") format("truetype");
-	font-weight: "normal";
-	font-style: "normal"; }
+    font-family: "Crimson Text";
+    src: url("../../assets/fonts/crimson-roman-webfont.ttf") format("truetype");
+    font-weight: "normal";
+    font-style: "normal";
+}
+
 @font-face {
-	font-family: "Crimson Text";
-	src: url("../../assets/fonts/crimson-semibold-webfont.ttf") format("truetype");
-	font-weight: "600";
-	font-style: "normal"; }
+    font-family: "Crimson Text";
+    src: url("../../assets/fonts/crimson-semibold-webfont.ttf") format("truetype");
+    font-weight: "600";
+    font-style: "normal";
+}
+
 @font-face {
-	font-family: "Crimson Text";
-	src: url("../../assets/fonts/crimson-semibolditalic-webfont.ttf") format("truetype");
-	font-weight: "600";
-	font-style: "italic"; }
+    font-family: "Crimson Text";
+    src: url("../../assets/fonts/crimson-semibolditalic-webfont.ttf") format("truetype");
+    font-weight: "600";
+    font-style: "italic";
+}
+
 @font-face {
-	font-family: "Roboto";
-	src: url("../../assets/fonts/Roboto-Regular.ttf") format("truetype");
-	font-weight: "400";
-	font-style: "normal"; }
+    font-family: "Roboto";
+    src: url("../../assets/fonts/Roboto-Regular.ttf") format("truetype");
+    font-weight: "400";
+    font-style: "normal";
+}
+
 @font-face {
-	font-family: "Roboto Condensed";
-	src: url("../../assets/fonts/RobotoCondensed-Regular.ttf") format("truetype");
-	font-weight: "normal";
-	font-style: "normal"; }
+    font-family: "Roboto Condensed";
+    src: url("../../assets/fonts/RobotoCondensed-Regular.ttf") format("truetype");
+    font-weight: "normal";
+    font-style: "normal";
+}
+
 @font-face {
-	font-family: "Roboto Condensed";
-	src: url("../../assets/fonts/RobotoCondensed-Bold.ttf") format("truetype");
-	font-weight: "bold";
-	font-style: "normal"; }
+    font-family: "Roboto Condensed";
+    src: url("../../assets/fonts/RobotoCondensed-Bold.ttf") format("truetype");
+    font-weight: "bold";
+    font-style: "normal";
+}
+
 @font-face {
-	font-family: "Roboto Condensed";
-	src: url("../../assets/fonts/RobotoCondensed-BoldItalic.ttf") format("truetype");
-	font-weight: "bold";
-	font-style: "italic"; }
+    font-family: "Roboto Condensed";
+    src: url("../../assets/fonts/RobotoCondensed-BoldItalic.ttf") format("truetype");
+    font-weight: "bold";
+    font-style: "italic";
+}
+
 @font-face {
-	font-family: "Roboto Condensed";
-	src: url("../../assets/fonts/RobotoCondensed-Italic.ttf") format("truetype");
-	font-weight: "normal";
-	font-style: "italic"; }
+    font-family: "Roboto Condensed";
+    src: url("../../assets/fonts/RobotoCondensed-Italic.ttf") format("truetype");
+    font-weight: "normal";
+    font-style: "italic";
+}
+
 @font-face {
-	font-family: "Roboto Condensed";
-	src: url("../../assets/fonts/RobotoCondensed-Light.ttf") format("truetype");
-	font-weight: "300";
-	font-style: "normal"; }
+    font-family: "Roboto Condensed";
+    src: url("../../assets/fonts/RobotoCondensed-Light.ttf") format("truetype");
+    font-weight: "300";
+    font-style: "normal";
+}
+
 @font-face {
-	font-family: "Roboto Condensed";
-	src: url("../../assets/fonts/RobotoCondensed-LightItalic.ttf") format("truetype");
-	font-weight: "300";
-	font-style: "italic"; }
+    font-family: "Roboto Condensed";
+    src: url("../../assets/fonts/RobotoCondensed-LightItalic.ttf") format("truetype");
+    font-weight: "300";
+    font-style: "italic";
+}
 
 /* Override hierarchy. See: http://www.princexml.com/doc/8.1/pdf-bookmarks */
 h1, h2, h3, h4, h5, h6 {
-	prince-bookmark-level: 1;
-	text-align: left;
-	font-family: "Roboto", sans-serif;
+    prince-bookmark-level: 1;
+    text-align: left;
+    font-family: "Roboto", sans-serif;
 }
 
 /* Page */
 @page {
-	size:7in 10in;
-	margin: 3cm;
-	font-size: 0.9em;
-	orphans:1; 
-	widows:2;  
+    size: 7in 10in;
+    margin: 3cm;
+    font-size: 0.9em;
+    orphans: 1;
+    widows: 2;
 }
 
 @page :left {
-	margin-left: 1.5cm;
+    margin-left: 1.5cm;
 }
 
 @page :right {
-	margin-right: 1.5cm;
+    margin-right: 1.5cm;
 }
 
 /* TOC */
 @page toc {
-	@bottom {
-		content: counter(page, lower-roman);
-		vertical-align: center;
-		font-family: "Roboto Condensed", sans-serif;
-		font-size: 0.7em;
-	}
+    @bottom {
+        content: counter(page, lower-roman);
+        vertical-align: center;
+        font-family: "Roboto Condensed", sans-serif;
+        font-size: 0.7em;
+    }
 }
+
 @page toc:blank {
-	@bottom {
-		content: "";
-	}
+    @bottom {
+        content: "";
+    }
 }
 
 /* Front-Matter */
-@page front-matter{
-	text-transform: uppercase;
-	font-size: 0.7em;
+@page front-matter {
+    text-transform: uppercase;
+    font-size: 0.7em;
 }
-@page front-matter:left
-{
-	@top-left
-	{
-		font-family: "Roboto Condensed", sans-serif;
-		content: counter(page, lower-roman) "\A0\A0\2022\A0\A0" string(book-title);
-		vertical-align: left;
-	}
+
+@page front-matter:left {
+    @top-left {
+        font-family: "Roboto Condensed", sans-serif;
+        content: counter(page, lower-roman) "\A0\A0\2022\A0\A0" string(book-title);
+        vertical-align: left;
+    }
 }
+
 @page front-matter:right {
-	@top-right {
-		font-family: "Roboto Condensed", sans-serif;
-		content: string(section-title, last) "\A0\A0\2022\A0\A0" counter(page, lower-roman);
-		vertical-align: right;
-	}
+    @top-right {
+        font-family: "Roboto Condensed", sans-serif;
+        content: string(section-title, last) "\A0\A0\2022\A0\A0" counter(page, lower-roman);
+        vertical-align: right;
+    }
 }
+
 @page front-matter:first {
-	@top-right {
-		content: "";
-	}
-	@bottom {
-		content: counter(page, lower-roman);
-		font-family: "Roboto Condensed", sans-serif;
-		vertical-align: center;
-	}
+    @top-right {
+        content: "";
+    }
+    @bottom {
+        content: counter(page, lower-roman);
+        font-family: "Roboto Condensed", sans-serif;
+        vertical-align: center;
+    }
 }
+
 @page front-matter:blank {
-	@top-left {
-		content: "";
-	}
-	@bottom {
-		content: "";
-	}
+    @top-left {
+        content: "";
+    }
+    @bottom {
+        content: "";
+    }
 }
 
 /* Dedication, Epigraph & Before Title */
-@page dedication,
-epigraph,
-before-title {
-	@bottom {
-		content:"";
-	}
+@page dedication, epigraph, before-title {
+    @bottom {
+        content: "";
+    }
 }
+
 @page dedication:blank {
-	@bottom {
-		content:"";
-	}
+    @bottom {
+        content: "";
+    }
 }
 
 /* Introduction */
 @page introduction {
-	text-transform: uppercase;
-	font-size: 0.7em;
+    text-transform: uppercase;
+    font-size: 0.7em;
 }
 
 @page introduction:left {
-	@top-left {
-		font-family: "Roboto Condensed", sans-serif;
-		content: counter(page) "\A0\A0\2022\A0\A0" string(book-title);
-		vertical-align: left;	
-	}
+    @top-left {
+        font-family: "Roboto Condensed", sans-serif;
+        content: counter(page) "\A0\A0\2022\A0\A0" string(book-title);
+        vertical-align: left;
+    }
 }
+
 @page introduction:right {
-	@top-right {
-		font-family: "Roboto Condensed", sans-serif;
-		content: string(section-title, last) "\A0\A0\2022\A0\A0" counter(page);
-		vertical-align: right;
-	}
+    @top-right {
+        font-family: "Roboto Condensed", sans-serif;
+        content: string(section-title, last) "\A0\A0\2022\A0\A0" counter(page);
+        vertical-align: right;
+    }
 }
 
 @page introduction:first {
-	@top-left {
-		content: "";
-	}
-	@top-right {
-		content: "";
-	}
-	@bottom {
-		content: counter(page);
-		font-family: "Roboto Condensed", sans-serif;
-		vertical-align: center;
-	}
+    @top-left {
+        content: "";
+    }
+    @top-right {
+        content: "";
+    }
+    @bottom {
+        content: counter(page);
+        font-family: "Roboto Condensed", sans-serif;
+        vertical-align: center;
+    }
 
 }
+
 @page introduction:blank {
 
-	@top-left {
-		content: "";
-	}
+    @top-left {
+        content: "";
+    }
 
 }
 
@@ -217,759 +245,864 @@ before-title {
 
 /* Chapter */
 @page chapter {
-	text-transform: uppercase;
-	font-size: 0.7em;
+    text-transform: uppercase;
+    font-size: 0.7em;
 }
+
 @page chapter:left {
-	@top-left {
-		content: counter(page) "\A0\A0\2022\A0\A0" string(book-title);
-		font-family: "Roboto Condensed", sans-serif;
-		counter-increment: part;	
-		vertical-align: left;
-	}
+    @top-left {
+        content: counter(page) "\A0\A0\2022\A0\A0" string(book-title);
+        font-family: "Roboto Condensed", sans-serif;
+        counter-increment: part;
+        vertical-align: left;
+    }
 }
-@page chapter:right
-{
-	@top-right
-	{
-		font-family: "Roboto Condensed", sans-serif;
-		content: string(section-title, last) "\A0\A0\2022\A0\A0" counter(page);	
-		vertical-align: right;
-	}
+
+@page chapter:right {
+    @top-right {
+        font-family: "Roboto Condensed", sans-serif;
+        content: string(section-title, last) "\A0\A0\2022\A0\A0" counter(page);
+        vertical-align: right;
+    }
 }
-@page chapter:right:after{
-	@top-right {
-		content: counter(page);
-	}
+
+@page chapter:right:after {
+    @top-right {
+        content: counter(page);
+    }
 }
+
 @page chapter:first {
-	@top-left {
-		content: "";
-	}
-	@top-right {
-		content: "";
-	}
-	@bottom {
-		content: counter(page);	
-		vertical-align: center;
-		font-family: "Roboto Condensed", sans-serif;
-	}
+    @top-left {
+        content: "";
+    }
+    @top-right {
+        content: "";
+    }
+    @bottom {
+        content: counter(page);
+        vertical-align: center;
+        font-family: "Roboto Condensed", sans-serif;
+    }
 }
+
 @page chapter:blank {
 
-	@top-left {
-		content: "";
-	}
+    @top-left {
+        content: "";
+    }
 }
 
 /* Footnotes */
 @page {
-	@footnotes {
-		padding-top: 1em;
-	}
+    @footnotes {
+        padding-top: 1em;
+    }
 }
+
 @page back-matter {
-	text-transform: uppercase;
-	font-size: 0.7em;
+    text-transform: uppercase;
+    font-size: 0.7em;
 }
+
 /* Back-matter */
 @page back-matter:left {
-	@top-left {
-		font-family: "Roboto Condensed", sans-serif;
-		content: counter(page) "\A0\A0\2022\A0\A0" string(book-title);	
-		vertical-align: left;
-	}
+    @top-left {
+        font-family: "Roboto Condensed", sans-serif;
+        content: counter(page) "\A0\A0\2022\A0\A0" string(book-title);
+        vertical-align: left;
+    }
 }
+
 @page back-matter:right {
-	@top-right
-	{
-		font-family: "Roboto Condensed", sans-serif;
-		content: string(section-title, last) "\A0\A0\2022\A0\A0" counter(page);
-		vertical-align: right;
-	}
+    @top-right {
+        font-family: "Roboto Condensed", sans-serif;
+        content: string(section-title, last) "\A0\A0\2022\A0\A0" counter(page);
+        vertical-align: right;
+    }
 }
+
 @page back-matter:first {
-	@top-left {
-		content: "";
-	}
-	@top-right {
-		content: "";
-	}
-	@bottom
-	{
-		content: counter(page);
-		vertical-align: center;
-		font-family: "Roboto Condensed", sans-serif;
-	}
+    @top-left {
+        content: "";
+    }
+    @top-right {
+        content: "";
+    }
+    @bottom {
+        content: counter(page);
+        vertical-align: center;
+        font-family: "Roboto Condensed", sans-serif;
+    }
 }
+
 @page back-matter:blank {
-	@top-left {
-		content: "";
-	}
+    @top-left {
+        content: "";
+    }
 }
+
 #toc {
-	page: toc;
-	prince-page-group: start;
+    page: toc;
+    prince-page-group: start;
 }
+
 div#title-page {
-	page: title-page;
-	prince-page-group: start;
+    page: title-page;
+    prince-page-group: start;
 }
+
 div.front-matter {
-	page: front-matter;
-	prince-page-group: start;
+    page: front-matter;
+    prince-page-group: start;
 }
+
 div.front-matter.dedication {
-	page: dedication;
-	prince-page-group: start;
+    page: dedication;
+    prince-page-group: start;
 }
+
 div.front-matter.epigraph {
-	page: epigraph;
-	prince-page-group: start;
+    page: epigraph;
+    prince-page-group: start;
 }
+
 div.front-matter.before-title {
-	page: before-title;
-	prince-page-group: start;
+    page: before-title;
+    prince-page-group: start;
 }
+
 div.front-matter.introduction {
-	page: introduction;
-	prince-page-group: start;
+    page: introduction;
+    prince-page-group: start;
 }
+
 div.introduction {
-	counter-reset: page 1;
+    counter-reset: page 1;
 }
+
 div.chapter {
-	page: chapter;
-	prince-page-group: start;
+    page: chapter;
+    prince-page-group: start;
 }
+
 div.back-matter {
-	page: back-matter;
-	prince-page-group: start;
+    page: back-matter;
+    prince-page-group: start;
 }
+
 div.part {
-	background-repeat: no-repeat;
-	background-position: bottom center;
-	margin-top: 2.5cm;	
-	padding-bottom: 0.25em;
-	padding: part;	
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    margin-top: 2.5cm;
+    padding-bottom: 0.25em;
+    padding: part;
 }
 
 div.part.invisible {
-	display: none;
+    display: none;
 }
 
 body {
-	font: 10.5pt/1.4 "Times New Roman", serif;
-	prince-hyphenate-before: 3;
+    font: 10.5pt/1.4 "Times New Roman", serif;
+    prince-hyphenate-before: 3;
 }
+
 a {
-	border: none;
-	color: blue;
-	text-decoration: none;
+    border: none;
+    color: blue;
+    text-decoration: none;
 }
+
 p {
-	line-height: 1.2em;
-	text-align: justify;
-	margin-bottom: 0;
+    line-height: 1.2em;
+    text-align: justify;
+    margin-bottom: 0;
 }
+
 p + p,
 .indent {
-	text-indent: 2em;
-	margin-top: 0;
+    text-indent: 2em;
+    margin-top: 0;
 }
+
 .nonindent,
 .no-indent {
-	text-indent: 0;
+    text-indent: 0;
 }
 
 p + ul {
-	margin-top: 10px;
+    margin-top: 10px;
 }
 
 hr {
-	margin: 10px auto;
-	text-align: center;
-	width: 20%;
+    margin: 10px auto;
+    text-align: center;
+    width: 20%;
 }
+
 hr.break-symbols {
-	border: none;
-	font-size: 1.1em;
-	margin-bottom: 20px;
+    border: none;
+    font-size: 1.1em;
+    margin-bottom: 20px;
 }
+
 hr.break-symbols::after {
-	display: block;
-	content: "\066D";
-	font-size: 1.8em;
-	text-align: center;
+    display: block;
+    content: "\066D";
+    font-size: 1.8em;
+    text-align: center;
 }
+
 /*
 |--------------------------------------------------------------------------
 | Tables
 |--------------------------------------------------------------------------
 |
-|
+| Here because the @import tables declaration in PDF_HOUSE_STYLE doesn't render
 |
 |
 */
 table {
-	max-width: 100%;
-	margin-top: 1.5em;
-	margin-bottom: 1.5em;
-	border-collapse: collapse;
-	text-align: left;
-	font-size: 0.9em;
+    max-width: 100%;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.9em;
 }
 
 table caption {
-	font-weight: bold;
-	margin-bottom: 0.5em;
-	line-height: 1.1;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    line-height: 1.1;
 }
 
 table td,
 table th {
-	padding: 5px 5px;
-	line-height: 1.1;
-	text-align: left;
-	vertical-align: middle;
+    padding: 5px 5px;
+    line-height: 1.1;
+    text-align: left;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+}
+
+table th {
+    font-weight: bold;
+    background-color: #e9e9e9;
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd;
 }
 
 table p {
-	text-align: left;
+    text-align: left;
 }
 
 table.lines tr {
-	border-top: 1px solid #000;
-	border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
 }
 
 table.no-lines tr,
 table.no-lines td {
-	border-top: 0;
-	border-bottom: 0;
+    border-top: 0;
+    border-bottom: 0;
 }
 
 table.shaded,
 th.shaded,
 tr.shaded,
 td.shaded {
-	background-color: #eee;
+    background-color: #eee;
 }
 
 th.border,
 tr.border,
 td.border {
-	border: 1px solid #000;
+    border: 1px solid #000;
 }
 
+/****************************************
+	Lists
+*****************************************/
 dt {
-	float: left;
-	font-weight: bold;
-	margin-right: 5px;
-	margin-bottom: 0;
+    float: left;
+    font-weight: bold;
+    margin-right: 5px;
+    margin-bottom: 0;
 }
+
 dd {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
+
 dd:after {
-	content: "\A";
-	white-space: pre;
+    content: "\A";
+    white-space: pre;
 }
+
 ul ul,
 ul ul ul {
-	list-style-type: none;
+    list-style-type: none;
 }
+
 ul li li {
-	list-style-image: url('images/em-dash.png');
+    list-style-image: url('images/em-dash.png');
 
 }
+
 ul li li li {
-	list-style-image: none;
+    list-style-image: none;
 }
+
 ul li li li::before {
-	content: "\002A";
-	font-size: 0.5em;
-	margin-right: 5px;
+    content: "\002A";
+    font-size: 0.5em;
+    margin-right: 5px;
 }
-ol { 
-	list-style-type: none;
-	counter-reset: level1;
+
+ol {
+    list-style-type: none;
+    counter-reset: level1;
 }
+
 ol li::before {
-	content: counter(level1) ". ";
-	counter-increment: level1;
+    content: counter(level1) ". ";
+    counter-increment: level1;
 }
-ol li ul li::before{
-	content: '';
+
+ol li ul li::before {
+    content: '';
 }
+
 ol ol {
-	list-style-type: none;
-	counter-reset: level2;
+    list-style-type: none;
+    counter-reset: level2;
 }
+
 ol li li::before {
-	content: counter(level2, lower-alpha) ". ";
-	counter-increment: level2; }
-ol ol ol {
-	list-style-type: none;
-	counter-reset: level3;
+    content: counter(level2, lower-alpha) ". ";
+    counter-increment: level2;
 }
+
+ol ol ol {
+    list-style-type: none;
+    counter-reset: level3;
+}
+
 ol li li li::before {
-	content: counter(level3, lower-roman) ". ";
-	counter-increment: level3; }
+    content: counter(level3, lower-roman) ". ";
+    counter-increment: level3;
+}
 
 cite {
-	font-weight: normal;
+    font-weight: normal;
 }
+
 .hanging-indent {
-	padding-left: 1em;
-	text-indent: -1em;
+    padding-left: 1em;
+    text-indent: -1em;
 }
 
 /* HALFTITLE PAGE
 ==================== */
 #half-title-page h1.title:first-of-type {
-	font-family: "Roboto Condensed", sans-serif;
-	string-set: book-title content();
-	page-break-before: right;
-	page-break-after: always;
-	bookmark-level: none;
-	font-size: 1.5em;
-	font-style: italic;
-	margin-top: 3cm;
-	text-align: left;
+    font-family: "Roboto", sans-serif;
+    string-set: book-title content();
+    page-break-before: right;
+    page-break-after: always;
+    bookmark-level: none;
+    font-size: 1.75em;
+    font-style: normal;
+    margin-top: 3cm;
+    text-align: center;
 }
 
 /* TITLE PAGE
 ================ */
-#title-page { 
-	font-weight: normal;
-	page-break-before: right;
-	height: 100%;
-	font-family: "Roboto", sans-serif;
+#title-page {
+    font-weight: normal;
+    page-break-before: right;
+    height: 100%;
+    font-family: "Roboto", sans-serif;
 }
-#title-page h1, #title-page h2, #title-page h3, #title-page h4, #title-page h5,#title-page h6 {
-	text-align:center;
+
+#title-page h1, #title-page h2, #title-page h3, #title-page h4, #title-page h5, #title-page h6 {
+    text-align: center;
 }
+
 #title-page > .subtitle,
 #title-page > div.logo,
 #title-page > .author,
 #title-page > .contributing-authors,
 #title-page > .publisher,
 #title-page > .publisher-city {
-	bookmark-level: none;
-}	
+    bookmark-level: none;
+}
+
 #title-page > .title {
-	border-bottom: 1px solid #000;
-	font-size: 2.5em;
-	margin-top: 3cm;
-	margin-bottom: 0;
-	padding-bottom: 5px;
+    font-size: 1.75em;
+    margin-top: 3cm;
+    margin-bottom: 0;
+    padding-bottom: 5px;
 }
 
 #title-page > .subtitle {
-	font-size: 2em;
-	font-style: italic;
-	margin-top: 0;
-	padding-top: 5px;	
+    font-size: 1.5em;
+    font-style: italic;
+    margin-top: 0;
+    padding-top: 5px;
 }
 
 #title-page > div.logo {
-	margin-top: 2cm;
-	height: 26px;
-	background-repeat: no-repeat;
-	background-position: bottom center;
+    margin-top: 2cm;
+    height: 26px;
+    background-repeat: no-repeat;
+    background-position: bottom center;
 }
+
 #title-page > .author,
 #title-page > .contributing-authors,
 #title-page > .publisher,
 #title-page > .publisher-city {
-	font-family: "Times New Roman", serif;
-	font-weight: normal;
-}	
-#title-page .title + div.logo {
-	margin-top: 4cm;
-}
-#title-page > .author {
-	font-size: 1.5em;
-	margin-top: 3cm;
+    font-family: "Roboto", sans-serif;
+    font-weight: normal;
 }
 
-#title-page > .contributing-authors{
-	font-weight: normal;
-	margin-top: 1cm;
+#title-page .title + div.logo {
+    margin-top: 4cm;
+}
+
+#title-page > .author {
+    font-size: 1.2em;
+    margin-top: 3cm;
+    text-align: center;
+}
+
+#title-page > .contributing-authors {
+    font-weight: normal;
+    margin-top: 1cm;
+    font-size: 0.875em;
 }
 
 #title-page > .publisher {
-	font-size: 1.25em;
-	float: bottom;
-	font-style: italic;
-	margin-bottom: 0;
-	padding-bottom: 80px;
+    font-size: 1.25em;
+    float: bottom;
+    font-style: italic;
+    margin-bottom: 0;
+    padding-bottom: 80px;
 }
 
 #title-page > .publisher-city {
-	font-size: 1em;
-	float: bottom;
-	font-style: italic;
-	margin-top: 0;
-	position: relative;
-	top: -80px;
+    font-size: 1em;
+    float: bottom;
+    font-style: italic;
+    margin-top: 0;
+    position: relative;
+    top: -80px;
 }
 
 /*
 	COPYRIGHT PAGE
 ====================== */
 #copyright-page {
-	page-break-before: always;
+    page-break-before: always;
 }
-
 
 #copyright-page p {
-	font-size: 0.9em;
-	text-indent: 0;
-	margin-bottom: 0.5em;
+    font-size: 0.9em;
+    text-indent: 0;
+    margin-bottom: 0.5em;
 }
+
 #copyright-page > .ugc {
-	float: bottom;
-	margin-top: 6cm;
+    float: bottom;
+    margin-top: 6cm;
 }
 
 /* DEDICATION
 ================ */
 .dedication p {
-	font-style: italic;
-	text-align: center;
+    font-style: italic;
+    text-align: center;
 }
-/*   TITLES 
+
+/*   TITLES
 ===================	*/
 h3.front-matter-number, h3.part-number, h3.chapter-number, h3.back-matter-number {
-	bookmark-level: none;
+    bookmark-level: none;
 }
 
 div.ugc h1, div.ugc h2, div.ugc h3, div.ugc h4, div.ugc h5, div.ugc h6 {
-	bookmark-level: none;
-	margin-bottom: 5px;
-	page-break-after:avoid;
+    bookmark-level: none;
+    margin-bottom: 5px;
+    page-break-after: avoid;
 }
+
 div.ugc h1,
 div.ugc h2,
 div.ugc h3 {
-	font-weight: normal;
+    font-weight: normal;
 }
+
 div.ugc h1 {
-	font-size: 1.1em;
+    font-size: 1.3em;
 }
+
 div.ugc h2,
 div.ugc h3 {
-	font-style: italic;
-	font-size: 1em;
+    font-style: normal;
+    font-size: 1.2em;
 }
+
 div.ugc h3,
 div.ugc h4,
 div.ugc h5 {
-	text-align: left;
+    text-align: left;
 }
+
 div.ugc h4 {
-	font-size: 0.875em;
-	font-style: italic;
-	font-weight: normal;
+    font-size: 1em;
+    font-style: normal;
+    font-weight: bold;
 }
+
 div.ugc h5 {
-	font-size: 0.75em;
+    font-size: 0.875em;
 }
+
 div.ugc h1 + p,
 div.ugc h2 + p,
 div.ugc h3 + p,
 div.ugc h4 + p,
 div.ugc h5 + p {
-	margin-top: 0;
+    margin-top: 0;
 }
+
 div.front-matter > div.ugc h6.short-title:first-of-type,
 div.chapter > div.ugc h6.short-title:first-of-type,
 div.back-matter > div.ugc h6.short-title:first-of-type {
-	string-set: section-title content() !important; /* override running header */
-	visibility: hidden; /* display:none breaks string-set: */
-	font-size: 0;
-	height: 0;
+    string-set: section-title content() !important; /* override running header */
+    visibility: hidden; /* display:none breaks string-set: */
+    font-size: 0;
+    height: 0;
 }
-div.front-matter .front-matter-title-wrap > h1:first-of-type, 
+
+div.front-matter .front-matter-title-wrap > h1:first-of-type,
 div.chapter .chapter-title-wrap > h2:first-of-type,
-div.back-matter .back-matter-title-wrap > h1:first-of-type  {
-	font-size: 1.5em;
-	string-set: section-title content();
-	counter-reset: footnote;
-	margin-bottom: 20pt;
+div.back-matter .back-matter-title-wrap > h1:first-of-type {
+    font-size: 1.5em;
+    string-set: section-title content();
+    counter-reset: footnote;
+    margin-bottom: 20pt;
 }
+
 div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 #toc > h1:first-of-type {
-	font-size: 1.5em;
-	margin-top: 2cm;
-	margin-bottom: 2.5cm;	
+    font-size: 1.5em;
+    margin-top: 2cm;
+    margin-bottom: 2.5cm;
 }
 
-
-/* TABLE OF CONTENTS
-======================= */
+/****************************************
+	Table of Contents
+*****************************************/
 
 #toc h1 {
-	text-align: left;
-	font-weight: bold;
-	font-family: "Roboto", sans-serif;
+    text-align: left;
+    font-weight: bold;
+    font-family: "Roboto", sans-serif;
 }
+
 #toc a {
-	border: none;
-	color: inherit;	
+    border: none;
+    color: inherit;
 }
+
 #toc ul, #toc li {
-	list-style: none;
-	margin: 0;
-	padding: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
+
 #toc li {
-	position: relative;
+    position: relative;
 }
+
 #toc .front-matter,
 #toc .back-matter {
-	margin-bottom: 3px;
+    margin-bottom: 3px;
 }
+
 #toc a::after {
-	content: leader(' ') target-counter(attr(href), page);
-	font-style: normal; 
-	position: absolute;
-	top: 0;
-	right: 0;
-	text-decoration: none;
+    content: leader(' ') target-counter(attr(href), page);
+    font-style: normal;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-decoration: none;
 }
+
 #toc .front-matter a::after {
-	content: leader(' ') target-counter(attr(href), page, lower-roman);
+    content: leader(' ') target-counter(attr(href), page, lower-roman);
 }
+
 #toc .introduction a::after {
-	content: leader(' ') target-counter(attr(href), page);
+    content: leader(' ') target-counter(attr(href), page);
 }
+
 #toc .part {
-	margin: .5cm 0 0;
-	font-weight: 600;
-	page-break-after: avoid;
+    margin: .5cm 0 0;
+    font-weight: 600;
+    page-break-after: avoid;
 }
+
 #toc .part.invisible {
-	display: none;
+    display: none;
 }
+
 #toc {
-	page-break-before: right;
-	counter-reset: part; 
-	font-size: 1em;
+    page-break-before: right;
+    counter-reset: part;
+    font-size: 1em;
 }
+
 #toc ul {
-	counter-reset: chapter;
-	line-height: 1.2em;
+    counter-reset: chapter;
+    line-height: 1.2em;
 }
+
 #toc .part a::before {
-	content: counter(part, upper-roman)". ";
-	counter-increment: part; 
-	margin-right: 1em;
+    content: counter(part, upper-roman) ". ";
+    counter-increment: part;
+    margin-right: 1em;
 }
+
 #toc .chapter a,
 #toc .front-matter a,
 #toc .back-matter a {
-	padding-left: 25px;
+    padding-left: 25px;
 }
+
 #toc .chapter a::before {
-	content: counter(chapter) ". ";
-	counter-increment: chapter; 
-	margin-right: 0.7em;	
-	position: absolute;
-	left: 0;
-	top: 0;	
+    content: counter(chapter) ". ";
+    counter-increment: chapter;
+    margin-right: 0.7em;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
+
 #toc .chapter .section a::before,
 #toc .front-matter .section a::before,
 #toc .back-matter .section a::before {
-	content:'';
-	counter-increment: none;
+    content: '';
+    counter-increment: none;
 }
 
 #toc .chapter.numberless a::before {
-	content:'' ;
-	counter-increment: none;
-	margin-right: 0;	
+    content: '';
+    counter-increment: none;
+    margin-right: 0;
 }
+
 #toc .part a::after {
-	content:'' ;
+    content: '';
 }
+
 #toc .chapter + .back-matter {
-	margin-top: 1.3em;
+    margin-top: 1.3em;
 }
+
 #toc span.chapter-author,
 #toc span.chapter-license,
 #toc span.chapter-subtitle {
-	display: inline-block;
-	font-style: italic;
-	margin-left: 2em;
-	width: 80%;
+    display: inline-block;
+    font-style: italic;
+    margin-left: 2em;
+    width: 80%;
 }
+
 #toc span.toc-chapter-title {
-	display: inline-block;
-	width: 80%;	
+    display: inline-block;
+    width: 80%;
 }
+
 #toc span.chapter-author,
 #toc span.chapter-license,
 #toc span.chapter-subtitle {
-	margin-bottom: 5px;
+    margin-bottom: 5px;
 }
-#toc span.chapter-subtitle + 
-span.chapter-author, 
+
+#toc span.chapter-subtitle +
+span.chapter-author,
 span.chapter-author +
-span.chapter-license, 
-#toc span.chapter-subtitle + 
+span.chapter-license,
+#toc span.chapter-subtitle +
 span.chapter-license {
-	margin-bottom: 5px;
-	position: relative;
-	top: -5px;
+    margin-bottom: 5px;
+    position: relative;
+    top: -5px;
 }
 
 #toc ul.sections {
-	position: static !important;
-	width: 80%;
-	margin-bottom: 0.75em;
+    position: static !important;
+    width: 80%;
+    margin-bottom: 0.75em;
 }
 
-
-/*  TITLES for FONT-MATTER, BACK_MATTER, CHAPTER & PART  
+/*  TITLES for FONT-MATTER, BACK_MATTER, CHAPTER & PART
 ========================================================= */
 .part-title-wrap h1 {
-	string-set: part content();
+    string-set: part content();
 }
-.front-matter-title-wrap > h1:first-of-type, 
-div.chapter > h2:first-of-type, 
+
+.front-matter-title-wrap > h1:first-of-type,
+div.chapter > h2:first-of-type,
 div.back-matter > h1:first-of-type {
-	string-set: section-title content();
-	counter-reset: footnote;
+    string-set: section-title content();
+    counter-reset: footnote;
 }
+
 .introduction .front-matter-title-wrap,
 .preface .front-matter-title-wrap,
 .chapter-title-wrap,
 .part-title-wrap,
 .back-matter-title-wrap {
-	font-weight: normal;	
-	margin-bottom: 1.5cm;		
-	text-align: left;	
+    font-weight: normal;
+    margin-bottom: 1.5cm;
+    text-align: left;
 }
 
 li.section::before {
-	content: "";
+    content: "";
 }
+
 .front-matter-title-wrap h1.front-matter-title,
 #toc h1,
 .chapter-title-wrap h2.chapter-title,
 .back-matter-title-wrap h1.back-matter-title {
-	font-size: 13pt;
-	font-weight: normal;
-	margin-top: 0.5cm;
+    font-size: 13pt;
+    font-weight: normal;
+    margin-top: 0.5cm;
 }
 
 .part-title-wrap {
-	font-family: "Crimson Text","Times New Roman", serif;
-}
-.part-title-wrap h3.part-number {
-	border-bottom: 1px solid #000;
-	display: inline-block;
-	font-weight: normal;
-	font-family: "Crimson Text","Times New Roman", serif;
-	padding: 0 2em 0 1em;
-}
-.part-title-wrap h1.part-title {
-	font: italic bold 14pt "Crimson Text","Times New Roman", serif;
-}
-h3.chapter-number {
-	border-bottom: 0.5px solid #000;
-	font-weight: lighter;
-	display: inline-block;
-	padding: 0 2em 0 2em;
-}
-div.chapter.numberless h3.chapter-number {
-	display: none;
-}
-h3.front-matter-number, 
-h3.part-number, 
-h3.chapter-number, 
-h3.back-matter-number {
-	bookmark-level: none;
-}
-div.part, 
-div.front-matter, 
-div.back-matter, 
-div.chapter {
-	page-break-before: right;
-}
-.display-none, 
-h3.front-matter-number, 
-h3.front-matter-number.dedication, 
-h3.back-matter-number {
-	display: none;
+    font-family: "Crimson Text", "Times New Roman", serif;
 }
 
-div.front-matter .front-matter-title-wrap > h1:first-of-type, 
-div.chapter .chapter-title-wrap > h2:first-of-type,
-div.back-matter .back-matter-title-wrap > h1:first-of-type  {
-	string-set: section-title content();
-	counter-reset: footnote;
-	margin-bottom: 20pt;
+.part-title-wrap h3.part-number {
+    border-bottom: 1px solid #000;
+    display: inline-block;
+    font-weight: normal;
+    font-family: "Crimson Text", "Times New Roman", serif;
+    padding: 0 2em 0 1em;
 }
+
+.part-title-wrap h1.part-title {
+    font: italic bold 14pt "Crimson Text", "Times New Roman", serif;
+}
+
+h3.chapter-number {
+    border-bottom: 0.5px solid #000;
+    font-weight: lighter;
+    display: inline-block;
+    padding: 0 2em 0 2em;
+}
+
+div.chapter.numberless h3.chapter-number {
+    display: none;
+}
+
+h3.front-matter-number,
+h3.part-number,
+h3.chapter-number,
+h3.back-matter-number {
+    bookmark-level: none;
+}
+
+div.part,
+div.front-matter,
+div.back-matter,
+div.chapter {
+    page-break-before: right;
+}
+
+.display-none,
+h3.front-matter-number,
+h3.front-matter-number.dedication,
+h3.back-matter-number {
+    display: none;
+}
+
+div.front-matter .front-matter-title-wrap > h1:first-of-type,
+div.chapter .chapter-title-wrap > h2:first-of-type,
+div.back-matter .back-matter-title-wrap > h1:first-of-type {
+    string-set: section-title content();
+    counter-reset: footnote;
+    margin-bottom: 20pt;
+}
+
 div.front-matter > div.ugc h6.short-title:first-of-type,
 div.chapter > div.ugc h6.short-title:first-of-type,
 div.back-matter > div.ugc h6.short-title:first-of-type {
-	string-set: section-title content() !important; /* override running header */
-	visibility: hidden; /* display:none breaks string-set: */
-	font-size: 0;
-	height: 0;
+    string-set: section-title content() !important; /* override running header */
+    visibility: hidden; /* display:none breaks string-set: */
+    font-size: 0;
+    height: 0;
 }
 
-
-/* SUBTITLES, CHAPTER AUTHOR & APHORIMS
+/* SUBTITLES, CHAPTER AUTHOR & APHORISM
 ======================================== */
 div.ugc h2.chapter-subtitle {
-	font-size: 10pt;
-	font-style: italic;
-	font-weight: normal;
-}
-div.ugc h2.chapter-author {
-	font: italic 9pt "Crimson Text","Times New Roman", serif;
-}
-div.ugc h2.chapter-subtitle,
-div.ugc h2.chapter-author {
-	margin: -1.3cm 0 3em;
-	padding-top: 0.2em;	    
-}
-div.ugc h2.chapter-subtitle {
-	font-weight: lighter;
-}	
-h2.chapter-subtitle + h2.chapter-author {
-	margin-top: -0.65cm;
-}
-.aphorism {
-	font-size: 1em;
-	font-style: italic;
-	margin: -0.65cm auto 4em;
-	width: 70%;
-}
-.aphorism cite {
-	display: block;
-	font-size: 0.875em; 
-	font-style: normal;
-	font-variant: small-caps;
-	text-align: right;
-}
-.aphorism cite::before {
-	content: "–";
+    font-size: 10pt;
+    font-style: italic;
+    font-weight: normal;
 }
 
+div.ugc h2.chapter-author {
+    font: italic 9pt "Crimson Text", "Times New Roman", serif;
+}
+
+div.ugc h2.chapter-subtitle,
+div.ugc h2.chapter-author {
+    margin: -1.3cm 0 3em;
+    padding-top: 0.2em;
+}
+
+div.ugc h2.chapter-subtitle {
+    font-weight: lighter;
+}
+
+h2.chapter-subtitle + h2.chapter-author {
+    margin-top: -0.65cm;
+}
+
+.aphorism {
+    font-size: 1em;
+    font-style: italic;
+    margin: -0.65cm auto 4em;
+    width: 70%;
+}
+
+.aphorism cite {
+    display: block;
+    font-size: 0.875em;
+    font-style: normal;
+    font-variant: small-caps;
+    text-align: right;
+}
+
+.aphorism cite::before {
+    content: "–";
+}
 
 /*   BODY TITLES
 ==================== */
 div.ugc h1, div.ugc h2, div.ugc h3, div.ugc h4, div.ugc h5, div.ugc h6 {
-	bookmark-level: none;
-	margin-bottom: 15px;
-	page-break-after: avoid;
+    bookmark-level: none;
+    margin-bottom: 15px;
+    page-break-after: avoid;
 }
 
 div.ugc h1 + p,
@@ -977,7 +1110,7 @@ div.ugc h2 + p,
 div.ugc h3 + p,
 div.ugc h4 + p,
 div.ugc h5 + p {
-	margin-top: 0;
+    margin-top: 0;
 }
 
 /* FOOTNOTES
@@ -985,321 +1118,387 @@ div.ugc h5 + p {
 ================== */
 
 .footnote {
-	font-size: 0.75em;
-	display: none;
-	display: footnote;
-	display: prince-footnote;
-	position: footnote;
-	counter-increment: footnote;
-	footnote-style-position: inside;
-	margin-left: 0;
-	line-height: 1.4;
-	text-indent: 1em;
-	text-align: left;
+    font-size: 0.75em;
+    display: none;
+    display: footnote;
+    display: prince-footnote;
+    position: footnote;
+    counter-increment: footnote;
+    footnote-style-position: inside;
+    margin-left: 0;
+    line-height: 1.4;
+    text-indent: 1em;
+    text-align: left;
 }
+
 sup.endnote {
-	line-height: 1em;
-	vertical-align: top;
+    line-height: 1em;
+    vertical-align: top;
 }
 
 /* FOOTNOTES & ENDNOTES
 ======================== */
 .footnotes {
-	display: block;	
-	font-size: 0.875em;
-	margin: 20px 10px 40px 40px;
+    display: block;
+    font-size: 0.875em;
+    margin: 20px 10px 40px 40px;
 }
-.footnotes-wrap {
-	list-style: none;
-	display: block;
-	margin: 10px 10px 10px 40px;
-}
-.footnotes p + p {
-	text-indent: 0;
-} 
-.footnotes .footnotes-wrap p {
-	text-indent: -1em;
-}
-.footnotes p a {
-	display: block;
-	text-decoration: none;
-}
-.endnotes hr {
-	border: none;
-	margin-top: 1cm;
-}
-.endnotes h3 {
-	margin-bottom: 0;
-}
-.endnotes ol {
-	font-size: 0.8em;
 
-	margin-top: 5px;
-	margin-left: 0;
+.footnotes-wrap {
+    list-style: none;
+    display: block;
+    margin: 10px 10px 10px 40px;
 }
+
+.footnotes p + p {
+    text-indent: 0;
+}
+
+.footnotes .footnotes-wrap p {
+    text-indent: -1em;
+}
+
+.footnotes p a {
+    display: block;
+    text-decoration: none;
+}
+
+.endnotes hr {
+    border: none;
+    margin-top: 1cm;
+}
+
+.endnotes h3 {
+    margin-bottom: 0;
+}
+
+.endnotes ol {
+    font-size: 0.8em;
+
+    margin-top: 5px;
+    margin-left: 0;
+}
+
 .endnotes li {
-	text-indent: 22pt;
+    text-indent: 22pt;
 }
 
 .endnotes p + p {
-	text-indent: 0;
+    text-indent: 0;
 }
 
 /* ASIDES, PULLQUOTES & TEXTBOXES
 ================================== */
 .aside {
-	font-style: italic;
-	border-top: 1px solid #000;
-	border-bottom: 1px solid #000;
-	margin: 2em 10%;
-	padding: 10px 0;
-	text-indent: 0;
+    font-style: italic;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    margin: 2em 10%;
+    padding: 10px 0;
+    text-indent: 0;
 }
+
 .textbox {
-	border: 1px solid #000;
-	margin: 10px 0;
-	padding: 10px;
-	float: prince-top-if-necessary;
+    margin: 10px 0;
+    padding: 10px;
+    float: prince-top-if-necessary;
+    border-radius: 4px;
 }
+
 .textbox.shaded {
-	background-color: #eee;
+    background-color: #eee;
+    border: 1px solid #000;
 }
+
 .textbox p {
-	margin-top: 0;
+    margin-top: 0;
 }
+
 .textbox-caption {
-	display: block;
-	font-size: 0.9em;
-	font-weight: bold;
-	margin: 0;
+    display: block;
+    font-size: 0.9em;
+    font-weight: bold;
+    margin: 0;
 }
 
 h2.chapter-subtitle {
-	font-weight: normal;
-	font-style: italic;
+    font-weight: normal;
+    font-style: italic;
 }
+
 div.ugc h2.chapter-subtitle,
 div.ugc h2.chapter-author {
-	font-size: 1.4em;
-	font-variant: normal;
-	margin: -1.4em 0 3em;
+    font-size: 1.4em;
+    font-variant: normal;
+    margin: -1.4em 0 3em;
 }
+
 div.ugc h2.chapter-subtitle {
-	margin-bottom: 2.8em;
-	padding-top: 0.5em;	
+    margin-bottom: 2.8em;
+    padding-top: 0.5em;
 }
+
 div.ugc h2.chapter-author {
-	font-size: 0.9em;
-	font-style: normal;
-	font-weight: 600;
+    font-size: 0.9em;
+    font-style: normal;
+    font-weight: 600;
 }
+
 .pullquote {
-	border: 1px solid #000;
-	border-width: 1px 0;
-	margin: 20px auto;
-	padding: 5px 0;
-	text-align: center;
-	width: 65%;
+    border: 1px solid #000;
+    border-width: 1px 0;
+    margin: 20px auto;
+    padding: 5px 0;
+    text-align: center;
+    width: 65%;
 }
+
 .pullquote-left {
-	border: 1px solid #000;
-	border-width: 1px 0;
-	float: left;
-	margin: 15px 15px 15px 0;
-	padding: 5px 0;
-	text-align: center;
-	width: 45%;
+    border: 1px solid #000;
+    border-width: 1px 0;
+    float: left;
+    margin: 15px 15px 15px 0;
+    padding: 5px 0;
+    text-align: center;
+    width: 45%;
 }
+
 .pullquote-right {
-	border: 1px solid #000;
-	border-width: 1px 0;
-	float: right;
-	margin: 15px 0 15px 15px;
-	padding: 5px 0;
-	text-align: center;
-	width: 45%;
+    border: 1px solid #000;
+    border-width: 1px 0;
+    float: right;
+    margin: 15px 0 15px 15px;
+    padding: 5px 0;
+    text-align: center;
+    width: 45%;
 }
 
 /* IMAGES
 ================== */
 img {
-	height: auto;
-	max-width: 100%;
+    height: auto;
+    max-width: 100%;
 }
+
 .alignleft {
-	float: left;
-	margin: 1em 1em 1em 0;
+    float: left;
+    margin: 1em 1em 1em 0;
 }
+
 .alignright {
-	float: right;
-	margin: 1em 0 1em 1em;
+    float: right;
+    margin: 1em 0 1em 1em;
 }
+
 .aligncenter {
-	display: block;
-	margin: 1em auto;
-	text-align: center;
+    display: block;
+    margin: 1em auto;
+    text-align: center;
 }
+
 div.aligncenter {
-	display: block;
-	margin: 1em auto;
-	text-align: center;
+    display: block;
+    margin: 1em auto;
+    text-align: center;
 }
+
 img.aligncenter {
-	display: block;
-	margin: 1em auto;
-	text-align: center;
+    display: block;
+    margin: 1em auto;
+    text-align: center;
 }
+
 .wp-caption {
-	float: prince-top-if-necessary;
-	height: auto;
-	max-width: 100%;
-	margin: 1em 0;	
+    float: prince-top-if-necessary;
+    height: auto;
+    max-width: 100%;
+    margin: 1em 0;
 }
+
 .wp-caption-text {
-	font-size: 0.875em;
-	font-style: italic;
-	margin-top: 5px;
+    font-size: 0.875em;
+    font-style: italic;
+    margin-top: 5px;
 }
 
 /* BLOCKQUOTES
  =============== */
-div.blockquote {
-	border-width: 0 4px;
-	padding: 0 15%;
-	margin-bottom: 2em;
-}
-p.bl_nonindent {
-	margin: 2em 10% 0;
-	text-indent: 0;
-}
-p.bl_indent {
-	margin: 0 10%;
-	text-indent: 1em;
+div.blockquote, blockquote {
+    border-width: 0 4px;
+    padding: 1% 5% 1% 10%;
+    margin-bottom: 2em;
+    background-image: url('images/blockquote-open.png');
+    background-repeat: no-repeat;
+    background-color: #f4f4f3;
+    background-position: 10px 10px;
+    border-radius: 4px;
 }
 
+p.bl_nonindent {
+    margin: 2em 10% 0;
+    text-indent: 0;
+}
+
+p.bl_indent {
+    margin: 0 10%;
+    text-indent: 1em;
+}
 
 /* BIBLIOGRAPHY
  =============== */
 
-.bibliography p  {
-	padding-left: 14pt;
-	text-indent: -14pt;
+.bibliography p {
+    padding-left: 14pt;
+    text-indent: -14pt;
 }
 
 /* INDEX 
 ================== */
-.index .ugc  {
-	column-count: 2;
-	column-gap: 2.5em;
-	text-align: left;
+.index .ugc {
+    column-count: 2;
+    column-gap: 2.5em;
+    text-align: left;
 
 }
-.index .ugc  div {
-	margin-bottom: 4em;
+
+.index .ugc div {
+    margin-bottom: 4em;
 }
-.index .ugc  p {
-	font-size: 0.9em;
-	padding-left: 14pt;
-	text-indent: -14pt;
-	text-align: left;
+
+.index .ugc p {
+    font-size: 0.9em;
+    padding-left: 14pt;
+    text-indent: -14pt;
+    text-align: left;
 }
-.index .ugc  p.sub-entry {
-	padding-left:30px;
+
+.index .ugc p.sub-entry {
+    padding-left: 30px;
 }
 
 div.license-attribution > p:first-of-type {
-	text-align:center;
-	font-size: 0.75em;
+    text-align: center;
+    font-size: 0.75em;
 }
 
 /*************************
 	Textbook styles 
 **************************/
 
-.bcc-box, .textbox.learning-objectives, .textbox.key-takeaways, .textbox.exercises, .textbox.examples {
-	/*	max-width: 100%;*/
-	padding: 1% 3%;
-	margin: 15px 0 15px;
-	border-radius: 4px;
+.bcc-box, .textbox {
+    /*	max-width: 100%;*/
+    padding: 2% 3%;
+    border-radius: 4px;
+    border: 1px solid #000;
+    margin-inside: auto;
+    margin-outside: auto;
+    margin-bottom: 15px;
+    float: none;
 }
 
-.bcc-box h3:first-child{
-	text-align: center;
-	margin: -1% -3% 15px;
-	color: #ffffff;
-	padding: 15px 0 15px;
+.bcc-box h3:first-child, .textbox h3:first-child {
+    text-align: center;
+    margin: -2% -3% 15px;
+    color: #ffffff;
+    padding: 15px 0;
 
 }
 
-.bcc-highlight{
-	background-color: #f7f7f9;
+/****************************************
+	Learning Objectives
+*****************************************/
+.bcc-highlight, .learning-objectives {
+    background-color: #f7f7f9;
 }
 
-.bcc-box.bcc-highlight h3{
-	background-color: #111111;
-	border-top-left-radius: 4px;
-	border-top-right-radius: 4px;
+.bcc-box.bcc-highlight h3, .textbox.learning-objectives h3 {
+    background-color: #111111;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 }
 
-.bcc-success{
-	background-color: #eaf5ea;
+/****************************************
+	Key Takeaways
+*****************************************/
+.bcc-success, .key-takeaways {
+    background-color: #eaf5ea;
 }
 
-.bcc-box.bcc-success h3{
-	background-color: #3a7a33;
-	border-top-left-radius: 4px;
-	border-top-right-radius: 4px;
+.bcc-box.bcc-success h3, .textbox.key-takeaways h3 {
+    background-color: #3a7a33;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 }
 
-.bcc-info{
-	background-color: #e3eff6;
+/****************************************
+	Exercises
+*****************************************/
+.bcc-info, .exercises {
+    background-color: #e3eff6;
 }
 
-.bcc-box.bcc-info h3{
-	background-color: #0b6396;
-	border-top-left-radius: 4px;
-	border-top-right-radius: 4px;
+.bcc-box.bcc-info h3, .textbox.exercises h3 {
+    background-color: #0b6396;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 }
 
+/****************************************
+	I don't know what this is for
+*****************************************/
 .bcc-warning {
-	background-color: #fcf8e3;
+    background-color: #fcf8e3;
 }
 
-.bcc-box.bcc-warning h3{
-	background-color: #c09853;
-	border-top-left-radius: 4px;
-	border-top-right-radius: 4px;
+.bcc-box.bcc-warning h3 {
+    background-color: #c09853;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 }
 
-iframe{
-	display: none;
+/****************************************
+	Examples
+*****************************************/
+.examples {
+    background-color: #F3E1E3;
 }
 
-object{
-	display: none;
+.textbox.examples h3 {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background-color: #7A333A;
 }
+
+iframe {
+    display: none;
+}
+
+object {
+    display: none;
+}
+
 /** support divs to export content for web-only vs not-web; pdf-only vs not-pdf **/
 .web-only, .not-pdf {
-	display: none;
+    display: none;
 }
 
 /** tight and loose tracking **/
 .tight {
-	letter-spacing: -0.25px;
-	word-spacing: -0.075em;
+    letter-spacing: -0.25px;
+    word-spacing: -0.075em;
 }
 
 .very-tight {
-	letter-spacing: -0.5px;
-	word-spacing: -0.09em;
+    letter-spacing: -0.5px;
+    word-spacing: -0.09em;
 }
 
-.loose{
-	letter-spacing: 0.25px;
-	word-spacing: 0.075em;
+.loose {
+    letter-spacing: 0.25px;
+    word-spacing: 0.075em;
 }
 
 .very-loose {
-	letter-spacing: 0.5px;
-	word-spacing: 0.09em;
+    letter-spacing: 0.5px;
+    word-spacing: 0.09em;
 }
