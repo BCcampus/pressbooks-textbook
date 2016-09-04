@@ -5,7 +5,7 @@
  * @package Pressbooks_Textbook
  * @author Brad Payne <brad@bradpayne.ca>
  * @license   GPL-2.0+
- * 
+ *
  * @copyright 2014 Brad Payne
  */
 ?>
@@ -29,7 +29,6 @@
 		<a href="?page=pressbooks-textbook-settings&tab=reuse" class="nav-tab <?php echo $active_tab == 'reuse' ? 'nav-tab-active' : ''; ?>">Reuse</a>
 		<a href="?page=pressbooks-textbook-settings&tab=revise" class="nav-tab <?php echo $active_tab == 'revise' ? 'nav-tab-active' : ''; ?>">Revise</a>
 		<a href="?page=pressbooks-textbook-settings&tab=remix" class="nav-tab <?php echo $active_tab == 'remix' ? 'nav-tab-active' : ''; ?>">Remix</a>
-		<a href="?page=pressbooks-textbook-settings&tab=redistribute" class="nav-tab <?php echo $active_tab == 'redistribute' ? 'nav-tab-active' : ''; ?>">Redistribute</a>
 		<a href="?page=pressbooks-textbook-settings&tab=retain" class="nav-tab <?php echo $active_tab == 'retain' ? 'nav-tab-active' : ''; ?>">Retain</a>
 		<a href="?page=pressbooks-textbook-settings&tab=other" class="nav-tab <?php echo $active_tab == 'other' ? 'nav-tab-active' : ''; ?>">Other</a>
 	</h2>
@@ -41,7 +40,7 @@
 
 		switch ( $active_tab ) {
 
-			case 'reuse':				
+			case 'reuse':
 				settings_fields( 'pbt_reuse_settings' );
 				do_settings_sections( 'pbt_reuse_settings' );
 				break;
@@ -56,29 +55,24 @@
 				break;
 
 			case 'remix':
-				
+
 				echo "<h3>Search, Import</h3>";
-				
+
 				if ( class_exists( '\Pressbooks\Modules\Api_v1\Api') ){
 					echo "<p>Remixing starts with finding the right content. <a href='admin.php?page=api_search_import'>Search this instance of Pressbooks for relevant content and import it into your book</a>.</p>";
 					settings_fields( 'pbt_remix_settings' );
 					do_settings_sections( 'pbt_remix_settings' );
-					
+
 				} else {
 					echo "<p>You will need to <a href='https://github.com/pressbooks/pressbooks/commit/78a68c9cbba1ce3f5783215194921224558e83a2'>upgrade to a more recent version of Pressbooks which contains the API</a>. The functionality of Search and Import depends on the API.";
 				}
-				
-				break;
 
-			case 'redistribute':
-				settings_fields( 'pbt_redistribute_settings' );
-				do_settings_sections( 'pbt_redistribute_settings' );
 				break;
 			
 			case 'retain':
 				require( PBT_PLUGIN_DIR . 'includes/modules/catalogue/EquellaFetch.php');
 				require( PBT_PLUGIN_DIR . 'includes/modules/catalogue/Filter.php');
-				
+
 				echo "<h3>Download openly licensed textbooks</h3>";
 
 				// check if it's in the cache
@@ -91,7 +85,7 @@
 					$equellaFetch = new \PBT\Catalogue\EquellaFetch();
 					$filter = new \PBT\Catalogue\Filter( $equellaFetch );
 					$textbooks = $filter->displayBySubject();
-					
+
 					wp_cache_set( 'open-textbooks', $textbooks, 'pbt', 10800 );
 
 					echo $textbooks;
@@ -123,7 +117,7 @@ function addRow(){
 	rowNum++;
 	var row = '<tr class="endpoints-'+rowNum+'"><th>'+rowNum+'</th><td><input id="'+rowNum+'" class="regular-text highlight" type="url" name="pbt_remix_settings[pbt_api_endpoints]['+rowNum+']" value="" />\n\
 	<input type="button" value="Add URL" onclick="addRow();" /><input type="button" value="Remove URL" onclick="removeRow('+rowNum+');" /></td></tr>';
-	
+
 	jQuery('table.form-table tbody').append(row);
 }
 
@@ -132,5 +126,3 @@ function removeRow(rnum){
 }
 
 </script>
-	
-	

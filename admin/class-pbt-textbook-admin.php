@@ -7,7 +7,7 @@
  * @author    Brad Payne <brad@bradpayne.ca>
  * @license   GPL-2.0+
  * @copyright 2014 Brad Payne
- * 
+ *
  */
 
 namespace PBT\Admin;
@@ -41,10 +41,10 @@ class TextbookAdmin extends \PBT\Textbook {
 		require( PBT_PLUGIN_DIR . 'includes/pbt-settings.php' );
 		require( PBT_PLUGIN_DIR . 'includes/modules/search/class-pbt-apisearch.php' );
 	}
-	
+
 	/**
 	 * Adds and Removes some admin buttons
-	 * 
+	 *
 	 * @since 1.0.1
 	 */
 	function adminMenuAdjuster() {
@@ -64,21 +64,20 @@ class TextbookAdmin extends \PBT\Textbook {
 			}
 		}
 	}
-	
+
 	/**
 	 * Initializes PBT Settings page options
-	 * 
+	 *
 	 * @since	1.0.1
 	 */
 	function adminSettings() {
 
-		$this->redistributeSettings();
 		$this->remixSettings();
 		$this->otherSettings();
 		$this->reuseSettings();
 		$this->allowedPostTags();
 	}
-	
+
 	/**
 	 * Register and enqueue public-facing style sheet.
 	 *
@@ -88,11 +87,11 @@ class TextbookAdmin extends \PBT\Textbook {
 		wp_register_style( 'pbt-import-button', PBT_PLUGIN_URL . 'admin/assets/css/menu.css', '', self::VERSION );
 		wp_enqueue_style( 'pbt-import-button' );
 	}
-	
+
 	/**
 	 * TinyMCE will brilliantly strip out attributes like itemprop, itemscope, etc
 	 * This reverses that brilliance
-	 * 
+	 *
 	 * @TODO - make this better.
 	 * @since 1.1.5
 	 * @param array $init
@@ -106,10 +105,10 @@ class TextbookAdmin extends \PBT\Textbook {
 
 		return $init;
 	}
-	
+
 	/**
 	 * Add blog feed from open.bccampus.ca
-	 * 
+	 *
 	 * @since 1.1.0
 	 */
 	function addOtbNewsFeed() {
@@ -118,10 +117,10 @@ class TextbookAdmin extends \PBT\Textbook {
 		// add our own
 		add_meta_box( 'pbt_news_feed', __( 'Open Textbook News', $this->plugin_slug ), array( $this, 'displayOtbFeed' ), 'dashboard', 'side', 'high' );
 	}
-	
+
 	/**
 	 * Callback function that adds our feed
-	 * 
+	 *
 	 * @since 1.1.0
 	 */
 	function displayOtbFeed() {
@@ -136,57 +135,12 @@ class TextbookAdmin extends \PBT\Textbook {
 	}
 
 	/**
-	 * Options for functionality that support redistribution
-	 * 
-	 * @since 1.0.2
-	 */
-	private function redistributeSettings(){
-		$page = $option = 'pbt_redistribute_settings';
-		$section = 'redistribute_section';
-		
-		// Redistribute
-		$defaults = array(
-		    'latest_files_public' => 0
-		);
-
-		if ( false == get_option( 'pbt_redistribute_settings' ) ) {
-			add_option( 'pbt_redistribute_settings', $defaults );
-		}
-		
-		// group of settings
-		// $id, $title, $callback, $page(menu slug)
-		add_settings_section(
-			$section, 
-			'Redistribute your latest export files', 
-			'\PBT\Settings\redistribute_section_callback', 
-			$page
-		);
-		
-		// register a settings field to a settings page and section
-		// $id, $title, $callback, $page, $section
-		add_settings_field(
-			'latest_files_public', 
-			__( 'Share Latest Export Files', $this->plugin_slug ), 
-			'\PBT\Settings\latest_files_public_callback', 
-			$page, 
-			$section
-		);
-		
-		// $option_group(group name), $option_name, $sanitize_callback
-		register_setting(
-			$option, 
-			$option, 
-			'\PBT\Settings\redistribute_absint_sanitize'
-		);
-	}
-	
-	/**
 	 * Options for functionality that support remix
 	 */
 	private function remixSettings(){
 		$page = $option = 'pbt_remix_settings';
 		$section = 'pbt_remix_section';
-		
+
 		// Remix
 		$defaults = array(
 		    'pbt_api_endpoints' => array( network_home_url() ),
@@ -195,46 +149,46 @@ class TextbookAdmin extends \PBT\Textbook {
 		if ( false == get_option( 'pbt_remix_settings' ) ) {
 			add_option( 'pbt_remix_settings', $defaults );
 		}
-		
+
 		// group of settings
 		// $id, $title, $callback, $page(menu slug)
 		add_settings_section(
-			$section, 
-			'Manage Federated Network of Pressbooks sites', 
-			'\PBT\Settings\remix_section_callback', 
+			$section,
+			'Manage Federated Network of Pressbooks sites',
+			'\PBT\Settings\remix_section_callback',
 			$page
 		);
-		
+
 		// register a settings field to a settings page and section
 		// $id, $title, $callback, $page, $section
 		add_settings_field(
-			'add_api_endpoint', 
-			__( 'Add an endpoint to your network', $this->plugin_slug ), 
-			'\PBT\Settings\api_endpoint_public_callback', 
-			$page, 
+			'add_api_endpoint',
+			__( 'Add an endpoint to your network', $this->plugin_slug ),
+			'\PBT\Settings\api_endpoint_public_callback',
+			$page,
 			$section
 		);
-		
+
 		// $option_group(group name), $option_name, $sanitize_callback
 		register_setting(
-			$option, 
-			$option, 
+			$option,
+			$option,
 			'\PBT\Settings\remix_url_sanitize'
 		);
-		
+
 		}
-		
-	
+
+
 	/**
 	 * Options for plugins that support 'other' textbook functionality
-	 * 
+	 *
 	 * @since 1.0.2
 	 */
 	private function otherSettings(){
 		$page = $option = 'pbt_other_settings';
 		$section = 'other_section';
-		
-		// Redistribute
+
+		// Hypothesis
 		$defaults = array(
 		    'pbt_hypothesis_active' => 0
 		);
@@ -242,14 +196,14 @@ class TextbookAdmin extends \PBT\Textbook {
 		if ( false == get_option( 'pbt_other_settings' ) ) {
 			add_option( 'pbt_other_settings', $defaults );
 		}
-		
+
 		add_settings_section(
 			$section,
 			'Hypothesis',
 			'\PBT\Settings\pbt_other_section_callback',
 			$page
 		);
-		
+
 		add_settings_field(
 			'pbt_hypothesis_active',
 			__( 'Hypothesis', $this->plugin_slug ),
@@ -257,23 +211,23 @@ class TextbookAdmin extends \PBT\Textbook {
 			$page,
 			$section
 		);
-		
+
 		register_setting(
-			$option, 
-			$option, 
+			$option,
+			$option,
 			'\PBT\Settings\other_absint_sanitize'
 		);
 	}
-	
+
 	/**
 	 * Options for plugins that support reuse
-	 * 
+	 *
 	 * @since 1.0.2
 	 */
 	private function reuseSettings(){
 		$page = $option = 'pbt_reuse_settings';
 		$section = 'reuse_section';
-		
+
 		// Reuse
 		$defaults = array(
 		    'pbt_creative-commons-configurator-1_active' => 0
@@ -281,16 +235,16 @@ class TextbookAdmin extends \PBT\Textbook {
 
 		if ( false == get_option( 'pbt_reuse_settings' ) ) {
 			add_option( 'pbt_reuse_settings', $defaults );
-		}	
+		}
 
-		// Creative Commons 
+		// Creative Commons
 		add_settings_section(
 			$section,
 			'Add a Creative Commons license',
 			'\PBT\Settings\pbt_reuse_section_callback',
 			$page
 		);
-		
+
 		add_settings_field(
 			'pbt_creative-commons-configurator-1_active',
 			__( 'Creative Commons Configurator (optional)', $this->plugin_slug ),
@@ -298,17 +252,17 @@ class TextbookAdmin extends \PBT\Textbook {
 			$page,
 			$section
 		);
-		
+
 		register_setting(
-			$option, 
-			$option, 
+			$option,
+			$option,
 			'\PBT\Settings\reuse_absint_sanitize'
 		);
 	}
-	
+
 	/**
 	 * Modifies a global variable to prevent wp_kses from stripping it out
-	 * 
+	 *
 	 * @since 1.1.5
 	 * @global type $allowedposttags
 	 */
@@ -337,7 +291,7 @@ class TextbookAdmin extends \PBT\Textbook {
 		$allowedposttags['meta'] = array( 'content' => true ) + $microdata_atts;
 		$allowedposttags['time'] = array( 'datetime' => true ) + $microdata_atts;
 	}
-	
+
 	/**
 	 * Render the settings page for this plugin.
 	 *
@@ -347,31 +301,31 @@ class TextbookAdmin extends \PBT\Textbook {
 
 		include_once( 'views/admin-settings.php' );
 	}
-	
+
 	function displayPBTPage(){
-		
+
 		include_once( 'views/pbt-home.php');
 	}
 	/**
 	 * Render the downloand textbooks page for editors
-	 * 
+	 *
 	 * @since 1.1.8
 	 */
 	function displayDownloadTextbooks(){
-		
+
 		include_once( 'views/download-textbooks.php');
 	}
-	
+
 	/**
 	 * Render the API search page
-	 * 
+	 *
 	 * @since 1.1.6
 	 */
 	function displayApiSearchPage() {
-		
+
 		include_once( 'views/api-search.php');
 	}
-	
+
 	/**
 	 * Add settings action link to the plugins page.
 	 *

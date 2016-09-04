@@ -8,8 +8,8 @@ function pbt_theme_theme_setup() {
 add_action( 'after_setup_theme', 'pbt_theme_theme_setup' );
 
 /**
- * Returns an html blog of meta elements 
- * 
+ * Returns an html blog of meta elements
+ *
  * @return string $html metadata
  */
 function pbt_get_seo_meta_elements() {
@@ -44,20 +44,16 @@ function pbt_get_seo_meta_elements() {
 function pbt_get_citation_pdf_url() {
 	$url = '';
 	$domain = site_url();
-	$files   = \PBT\Utility\latest_exports();
+	$files = \Pressbooks\Utility\latest_exports();
 
-	$options = get_option( 'pbt_redistribute_settings' );
-	if ( ! empty( $files ) && ( true == $options['latest_files_public'] ) ) {
+	$options = get_option( 'pressbooks_export_options' );
+	if ( ! empty( $files ) && ( true == $options['share_latest_export_files'] ) ) {
 
-		foreach ( $files as $ext => $filename ) {
-			$file_extension = substr( strrchr( $ext, '.' ), 1 );
-
-			if ( 'pdf' == $file_extension ) {
-				$pre_suffix = strcmp( $ext, '._oss.pdf' );
-				$file_class = ( 0 === $pre_suffix ) ? 'mpdf' : 'pdf';
+		foreach ( $files as $filetype => $filename ) {
+			if ( 'pdf' == $filetype || 'mpdf' == $filetype ) {
 				$filename = preg_replace( '/(-\d{10})(.*)/ui', "$1", $filename );
 				// rewrite rule
-				$url = $domain . "/open/download?filename={$filename}&type={$file_class}";
+				$url = $domain . "/open/download?filename={$filename}&type={$filetype}";
 			}
 		}
 	}
@@ -70,7 +66,7 @@ function pbt_get_microdata_meta_elements() {
 
 	// add elements that aren't captured, and don't need user input
 	$edu_align = ( isset( $metadata['pb_bisac_subject'] ) ) ? $metadata['pb_bisac_subject'] : '';
-	
+
 	$lrmi_meta = array(
 	    'educationalAlignment' => $edu_align,
 	    'educationalUse' => 'Open textbook study',
@@ -88,11 +84,11 @@ function pbt_get_microdata_meta_elements() {
 }
 
 /**
- * Modifies 'chapters' to 'page' for text processed in __() to avoid confusion. 
+ * Modifies 'chapters' to 'page' for text processed in __() to avoid confusion.
  * Lightly modified function, original author Lumen Learning
  * https://github.com/lumenlearning/candela
- * 
- * 
+ *
+ *
  * @param type $translated
  * @param type $original
  * @param type $domain
@@ -143,7 +139,7 @@ function pbt_terminology_modify( $translated, $original, $domain ) {
  * Modifies 'chapter' to 'page' for text processed in _x()
  * Lightly modified function, original author Lumen Learning
  * https://github.com/lumenlearning/candela
- * 
+ *
  * @param type $translated
  * @param type $original
  * @param type $context
@@ -167,7 +163,7 @@ $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES_PDF'] = 'not_created_on_pb
 
 
 /**
- * 
+ *
  * @staticvar array $searches
  * @param type $content
  * @return type
@@ -182,7 +178,7 @@ function pbt_fix_img_relative( $content ) {
 }
 
 /**
- * 
+ *
  * @param type $matches
  * @return type
  */
