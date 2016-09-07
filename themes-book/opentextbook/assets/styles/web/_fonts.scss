@@ -23,22 +23,22 @@ $roboto_cond: 'Roboto Condensed', $sans-serif-web;
 
 // Crimson
 
-@include font-face( 'Crimson Text', url('assets/fonts/crimson-bold-webfont.ttf'), 'truetype', 'bold', 'normal');
-@include font-face( 'Crimson Text', url('assets/fonts/crimson-bolditalic-webfont.ttf'), 'truetype', 'bold', 'italic');
-@include font-face( 'Crimson Text', url('assets/fonts/crimson-italic-webfont.ttf'), 'truetype', 'normal', 'italic');
-@include font-face( 'Crimson Text', url('assets/fonts/crimson-roman-webfont.ttf'), 'truetype','normal', 'normal');
-@include font-face( 'Crimson Text', url('assets/fonts/crimson-semibold-webfont.ttf'), 'truetype', '600', 'normal');
-@include font-face( 'Crimson Text', url('assets/fonts/crimson-semibolditalic-webfont.ttf'), 'truetype', '600', 'italic');
+@include font-face( 'Crimson Text', url('assets/fonts/crimson-bold-webfont.ttf'), 'truetype', bold, normal);
+@include font-face( 'Crimson Text', url('assets/fonts/crimson-bolditalic-webfont.ttf'), 'truetype', bold, italic);
+@include font-face( 'Crimson Text', url('assets/fonts/crimson-italic-webfont.ttf'), 'truetype', normal, italic);
+@include font-face( 'Crimson Text', url('assets/fonts/crimson-roman-webfont.ttf'), 'truetype',normal, normal);
+@include font-face( 'Crimson Text', url('assets/fonts/crimson-semibold-webfont.ttf'), 'truetype', 600, normal);
+@include font-face( 'Crimson Text', url('assets/fonts/crimson-semibolditalic-webfont.ttf'), 'truetype', 600, italic);
 
 // Roboto
 
-@include font-face( 'Roboto', url('assets/fonts/Roboto-Regular.ttf'), 'truetype', '400', 'normal');
+@include font-face( 'Roboto', url('assets/fonts/Roboto-Regular.ttf'), 'truetype', '400', normal);
 
 // RobotoCondensed
 
-@include font-face( 'Roboto Condensed', url('assets/fonts/RobotoCondensed-Regular.ttf'), 'truetype', 'normal', 'normal');
-@include font-face( 'Roboto Condensed', url('assets/fonts/RobotoCondensed-Bold.ttf'), 'truetype', 'bold', 'normal');
-@include font-face( 'Roboto Condensed', url('assets/fonts/RobotoCondensed-BoldItalic.ttf'), 'truetype', 'bold', 'italic');
-@include font-face( 'Roboto Condensed', url('assets/fonts/RobotoCondensed-Italic.ttf'), 'truetype', 'normal', 'italic');
-@include font-face( 'Roboto Condensed', url('assets/fonts/RobotoCondensed-Light.ttf'), 'truetype', '300', 'normal');
-@include font-face( 'Roboto Condensed', url('assets/fonts/RobotoCondensed-LightItalic.ttf'), 'truetype', '300', 'italic');
+@include font-face( 'Roboto Condensed', url('assets/fonts/RobotoCondensed-Regular.ttf'), 'truetype', normal, normal);
+@include font-face( 'Roboto Condensed', url('assets/fonts/RobotoCondensed-Bold.ttf'), 'truetype', bold, normal);
+@include font-face( 'Roboto Condensed', url('assets/fonts/RobotoCondensed-BoldItalic.ttf'), 'truetype', bold, italic);
+@include font-face( 'Roboto Condensed', url('assets/fonts/RobotoCondensed-Italic.ttf'), 'truetype', normal, italic);
+@include font-face( 'Roboto Condensed', url('assets/fonts/RobotoCondensed-Light.ttf'), 'truetype', 300, normal);
+@include font-face( 'Roboto Condensed', url('assets/fonts/RobotoCondensed-LightItalic.ttf'), 'truetype', 300, italic);

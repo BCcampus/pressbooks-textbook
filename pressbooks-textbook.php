@@ -76,6 +76,9 @@ class Textbook {
 			define( 'PB_PLUGIN_DIR', WP_PLUGIN_DIR . '/pressbooks/' );
 		} // Must have trailing slash!
 
+		define( 'WP_DEFAULT_THEME', 'opentextbook' );
+		define( 'PB_HIDE_COVER_PROMO', true );
+
 		// Load translations
 		add_action( 'init', array( $this, 'loadPluginTextDomain' ) );
 
