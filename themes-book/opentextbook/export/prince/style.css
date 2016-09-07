@@ -951,6 +951,23 @@ span.chapter-license {
     margin-bottom: 0.75em;
 }
 
+#toc li.section {
+    position: static !important;
+    display: block;
+    text-indent: 0;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+li.section::before {
+    content: "";
+}
+
+li.section a::after {
+    content: "" !important;
+    display: none;
+}
+
 /*  TITLES for FONT-MATTER, BACK_MATTER, CHAPTER & PART
 ========================================================= */
 .part-title-wrap h1 {
@@ -972,10 +989,6 @@ div.back-matter > h1:first-of-type {
     font-weight: normal;
     margin-bottom: 1.5cm;
     text-align: left;
-}
-
-li.section::before {
-    content: "";
 }
 
 .front-matter-title-wrap h1.front-matter-title,
