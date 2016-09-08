@@ -103,7 +103,7 @@ Reference @see: http://www.princexml.com/doc/8.1/
 h1, h2, h3, h4, h5, h6 {
     prince-bookmark-level: 1;
     text-align: left;
-    font-family: "Roboto", sans-serif;
+    font-family: "Roboto Condensed", sans-serif;
 }
 
 /* Page */
@@ -607,7 +607,7 @@ cite {
 /* HALFTITLE PAGE
 ==================== */
 #half-title-page h1.title:first-of-type {
-    font-family: "Roboto", sans-serif;
+    font-family: "Roboto Condensed", sans-serif;
     string-set: book-title content();
     page-break-before: right;
     page-break-after: always;
@@ -624,7 +624,7 @@ cite {
     font-weight: normal;
     page-break-before: right;
     height: 100%;
-    font-family: "Roboto", sans-serif;
+    font-family: "Roboto Condensed", sans-serif;
 }
 
 #title-page h1, #title-page h2, #title-page h3, #title-page h4, #title-page h5, #title-page h6 {
@@ -665,7 +665,7 @@ cite {
 #title-page > .contributing-authors,
 #title-page > .publisher,
 #title-page > .publisher-city {
-    font-family: "Roboto", sans-serif;
+    font-family: "Roboto Condensed", sans-serif;
     font-weight: normal;
 }
 
@@ -811,7 +811,7 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 #toc h1 {
     text-align: left;
     font-weight: bold;
-    font-family: "Roboto", sans-serif;
+    font-family: "Roboto Condensed", sans-serif;
 }
 
 #toc a {
@@ -1001,7 +1001,7 @@ div.back-matter > h1:first-of-type {
 }
 
 .part-title-wrap {
-    font-family: "Crimson Text", "Times New Roman", serif;
+    font-family: "Roboto", sans-serif;
 }
 
 .part-title-wrap h3.part-number {
@@ -1013,7 +1013,7 @@ div.back-matter > h1:first-of-type {
 }
 
 .part-title-wrap h1.part-title {
-    font: italic bold 14pt "Crimson Text", "Times New Roman", serif;
+    font: italic bold 16pt "Roboto Condensed", sans-serif;
 }
 
 h3.chapter-number {
