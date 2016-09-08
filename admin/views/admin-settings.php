@@ -29,6 +29,7 @@
 		<a href="?page=pressbooks-textbook-settings&tab=reuse" class="nav-tab <?php echo $active_tab == 'reuse' ? 'nav-tab-active' : ''; ?>">Reuse</a>
 		<a href="?page=pressbooks-textbook-settings&tab=revise" class="nav-tab <?php echo $active_tab == 'revise' ? 'nav-tab-active' : ''; ?>">Revise</a>
 		<a href="?page=pressbooks-textbook-settings&tab=remix" class="nav-tab <?php echo $active_tab == 'remix' ? 'nav-tab-active' : ''; ?>">Remix</a>
+		<a href="?page=pressbooks-textbook-settings&tab=redistribute" class="nav-tab <?php echo $active_tab == 'redistribute' ? 'nav-tab-active' : ''; ?>">Redistribute</a>
 		<a href="?page=pressbooks-textbook-settings&tab=retain" class="nav-tab <?php echo $active_tab == 'retain' ? 'nav-tab-active' : ''; ?>">Retain</a>
 		<a href="?page=pressbooks-textbook-settings&tab=other" class="nav-tab <?php echo $active_tab == 'other' ? 'nav-tab-active' : ''; ?>">Other</a>
 	</h2>
@@ -68,7 +69,14 @@
 				}
 
 				break;
-			
+
+			case 'redistribute':
+				echo "<p>If they exist, one of each of the latest export files (epub, pdf, xhtml, hpub, mobi, wxr, icml) will be available for download on the homepage.</p>" .
+				'<figure><img src="' . PBT_PLUGIN_URL . 'admin/assets/img/latest-export-files.png" /><figcaption>The dowload links as they would appear on the homepage.</figcaption></figure>' .
+				"<p><strong>This feature is now part of Pressbooks Core and can be found under <a href=" . admin_url( 'options-general.php?page=pressbooks_export_options' ). ">Settings &rarr; Export</a>.</strong></p>";
+
+				break;
+
 			case 'retain':
 				require( PBT_PLUGIN_DIR . 'includes/modules/catalogue/EquellaFetch.php');
 				require( PBT_PLUGIN_DIR . 'includes/modules/catalogue/Filter.php');
@@ -97,10 +105,9 @@
 				do_settings_sections( 'pbt_other_settings' );
 				break;
 		}
-		if ( 'revise' != $active_tab ) {
+		if ( ! in_array( $active_tab, array( 'revise', 'redistribute' ) ) ) {
 			submit_button();
-		}
-		?>
+		} ?>
 	</form>
 
 </div>
