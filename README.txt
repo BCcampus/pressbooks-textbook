@@ -2,9 +2,9 @@
 Contributors: bdolor
 Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution-guidelines
 Tags: pressbooks, textbook
-Requires at least: 4.5.2
-Tested up to: 4.5.2
-Stable tag: 2.2.0
+Requires at least: 4.6.1
+Tested up to: 4.6.1
+Stable tag: 2.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,9 +93,14 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
 
-= 2.2.0 (2016/05/10) =
+= 2.7.1 (2016/09/08) =
 * adding google scholar metadata
 * updating min WP requirement
+* table formatting
+* initial migration to sassifying theme
+* default theme
+* adding textbox styles to exports
+* better parity between html and pdf versions
 
 = 2.2.0 (2016/05/05) =
 * remove symbiont plugins that have been ported over to PB

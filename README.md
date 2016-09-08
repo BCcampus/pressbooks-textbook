@@ -26,13 +26,13 @@ This plugin was built primarily to support the creation, remixing and distributi
 FAQ
 ------------
 
-= What is an Open Textbook? =
+**What is an Open Textbook?**
 
 Open Textbooks are open educational resources (OER); they are instructional resources created and shared in ways so that more people have access to them. 
 That’s a different model than traditionally-copyrighted materials. 
 OER are defined as “teaching, learning, and research resources that reside in the public domain or have been released under an intellectual property license that permits their free use and re-purposing by others” (Hewlett Foundation).
 
-= How do you make a Textbook 'Open'? = 
+**How do you make a Textbook 'Open'?**
 
 When creating Open Textbooks and other OERs, we feel it is best to adhere to the five Rs of open education as defined by David Wiley, which are:
 
