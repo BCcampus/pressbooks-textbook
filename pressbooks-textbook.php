@@ -67,16 +67,21 @@ class Textbook {
 		if ( ! defined( 'PBT_PLUGIN_DIR' ) ) {
 			define( 'PBT_PLUGIN_DIR', __DIR__ . '/' );
 		}
-
 		if ( ! defined( 'PBT_PLUGIN_URL' ) ) {
 			define( 'PBT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 		}
 
+		// Must have trailing slash!
 		if ( ! defined( 'PB_PLUGIN_DIR' ) ) {
 			define( 'PB_PLUGIN_DIR', WP_PLUGIN_DIR . '/pressbooks/' );
-		} // Must have trailing slash!
+		}
 
-		define( 'WP_DEFAULT_THEME', 'opentextbook' );
+		// Allow override in wp-config.php
+		if( ! defined( 'WP_DEFAULT_THEME') ){
+			define( 'WP_DEFAULT_THEME', 'opentextbook' );
+		};
+
+		// Hide PB cover promotion
 		define( 'PB_HIDE_COVER_PROMO', true );
 
 		// Load translations
@@ -375,14 +380,18 @@ class Textbook {
 			'latest_files_public' => 1,
 		);
 
-		// set the default theme to opentextbooks
-		switch_theme( 'opentextbook' );
+		// Allow for override in wp-config.php
+		if ( 0 === strcmp( 'opentextbook', WP_DEFAULT_THEME ) || ! defined( 'WP_DEFAULT_THEME' ) ) {
 
-		// safety
-		update_option( 'template_root', '/plugins/pressbooks/themes-book' );
-		update_option( 'stylesheet_root', '/plugins/pressbooks-textbook/themes-book' );
-		update_option( 'template', 'pressbooks-book' );
-		update_option( 'stylesheet', 'opentextbook' );
+			// set the default theme to opentextbooks
+			switch_theme( 'opentextbook' );
+
+			// safety
+			update_option( 'template_root', '/plugins/pressbooks/themes-book' );
+			update_option( 'stylesheet_root', '/plugins/pressbooks-textbook/themes-book' );
+			update_option( 'template', 'pressbooks-book' );
+			update_option( 'stylesheet', 'opentextbook' );
+		}
 
 		// send validation logs
 		update_option( 'pressbooks_email_validation_logs', 1 );
