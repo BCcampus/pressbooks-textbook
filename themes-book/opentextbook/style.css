@@ -345,7 +345,7 @@ table {
   border-collapse: collapse;
   text-align: left;
   font-size: 0.9em;
-  display: table; }
+  display: block; }
 
 table caption {
   font-weight: bold;
