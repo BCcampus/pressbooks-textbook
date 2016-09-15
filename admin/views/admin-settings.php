@@ -73,7 +73,7 @@
 			case 'redistribute':
 				echo "<p>If they exist, one of each of the latest export files (epub, pdf, xhtml, hpub, mobi, wxr, icml) will be available for download on the homepage.</p>" .
 				'<figure><img src="' . PBT_PLUGIN_URL . 'admin/assets/img/latest-export-files.png" /><figcaption>The dowload links as they would appear on the homepage.</figcaption></figure>' .
-				"<p><strong>This feature is now part of Pressbooks Core and can be found under <a href=" . admin_url( 'options-general.php?page=pressbooks_export_options' ). ">Settings &rarr; Export</a>.</strong></p>";
+				"<p><strong>This feature is now part of Pressbooks Core and can be found under <a href=" . admin_url( 'options-general.php?page=pressbooks_sharingandprivacy_options' ). ">Settings &rarr; Sharing &amp; Privacy</a>.</strong></p>";
 
 				break;
 
