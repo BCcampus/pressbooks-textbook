@@ -44,20 +44,16 @@ function pbt_get_seo_meta_elements() {
 function pbt_get_citation_pdf_url() {
 	$url = '';
 	$domain = site_url();
-	$files   = \PBT\Utility\latest_exports();
+	$files = \Pressbooks\Utility\latest_exports();
 
-	$options = get_option( 'pbt_redistribute_settings' );
-	if ( ! empty( $files ) && ( true == $options['latest_files_public'] ) ) {
+	$options = get_option( 'pressbooks_export_options' );
+	if ( ! empty( $files ) && ( true == $options['share_latest_export_files'] ) ) {
 
-		foreach ( $files as $ext => $filename ) {
-			$file_extension = substr( strrchr( $ext, '.' ), 1 );
-
-			if ( 'pdf' == $file_extension ) {
-				$pre_suffix = strcmp( $ext, '._oss.pdf' );
-				$file_class = ( 0 === $pre_suffix ) ? 'mpdf' : 'pdf';
+		foreach ( $files as $filetype => $filename ) {
+			if ( 'pdf' == $filetype || 'mpdf' == $filetype ) {
 				$filename = preg_replace( '/(-\d{10})(.*)/ui', "$1", $filename );
 				// rewrite rule
-				$url = $domain . "/open/download?filename={$filename}&type={$file_class}";
+				$url = $domain . "/open/download?filename={$filename}&type={$filetype}";
 			}
 		}
 	}
@@ -232,6 +228,6 @@ function pbt_add_openstax() {
 
 add_action( 'wp_footer', 'pbt_add_openstax' );
 
-//add_filter( 'pressbooks_download_tracking_code', function ( $tracking, $filetype ) {
-//	return "_paq.push(['trackEvent','exportFiles','Downloads','{$filetype}']);";
-//}, 10, 2 );
+add_filter( 'pressbooks_download_tracking_code', function ( $tracking, $filetype ) {
+	return "_paq.push(['trackEvent','exportFiles','Downloads','{$filetype}']);";
+}, 10, 2 );

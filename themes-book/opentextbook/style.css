@@ -194,55 +194,6 @@ ol li li li::before {
 |
 |
 */
-.alt-formats {
-  float: right;
-  max-width: 350px;
-  width: 36.5%;
-  margin-top: 20px;
-  text-align: center; }
-
-.book-info-container .alt-formats h4 {
-  text-align: center;
-  color: #1f1f1d;
-  border-bottom-color: #000000;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  padding-bottom: 10px;
-  width: 100%; }
-
-span.export-file-icon {
-  width: 36px;
-  height: 36px;
-  background-size: 36px 36px;
-  display: inline-block;
-  margin: 0 5px 0 0; }
-
-span.small.epub {
-  background: url(assets/images/epub-36.png) 0 0 no-repeat; }
-
-span.small.epub3 {
-  background: url(assets/images/epub3-36.png) 0 0 no-repeat; }
-
-span.small.icml {
-  background: url(assets/images/icml-36.png) 0 0 no-repeat; }
-
-span.small.mobi {
-  background: url(assets/images/mobi-36.png) 0 0 no-repeat; }
-
-span.small.pdf, span.small.mpdf {
-  background: url(assets/images/pdf-36.png) 0 0 no-repeat; }
-
-span.small.wxr {
-  background: url(assets/images/wxr-36-red.png) 0 0 no-repeat; }
-
-span.small.vanillawxr {
-  background: url(assets/images/wxr-36.png) 0 0 no-repeat; }
-
-span.small.xhtml {
-  background: url(assets/images/xhtml-36.png) 0 0 no-repeat; }
-
-span.small.odt {
-  background: url(assets/images/odt-36.png) 0 0 no-repeat; }
 
 /*
 |--------------------------------------------------------------------------
@@ -576,7 +527,7 @@ html .ui-button.ui-state-disabled:active {
 | Media Queries
 |--------------------------------------------------------------------------
 |
-| 
+|
 |
 |
 */
@@ -590,27 +541,5 @@ html .ui-button.ui-state-disabled:active {
 
   #sidebar {
     margin-right: -24px; } }
-@media screen and (max-width: 990px) {
-  .alt-formats {
-    float: none;
-    margin-bottom: 4em;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 2em;
-    max-width: 80%;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    width: auto; } }
-@media screen and (max-width: 780px) {
-  .alt-formats {
-    margin-bottom: 0;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    max-width: 75%;
-    width: auto; } }
-@media screen and (max-width: 620px) {
-  .alt-formats {
-    max-width: 95%; } }
 
 /*# sourceMappingURL=style.css.map */

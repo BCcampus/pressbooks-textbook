@@ -13,7 +13,7 @@
  * Description:       A plugin that extends Pressbooks for textbook authoring
  * Version:           2.7.1
  * Author:            Brad Payne
- * Author URI:        http://bradpayne.ca		
+ * Author URI:        http://bradpayne.ca
  * Text Domain:       pressbooks-textbook
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
@@ -94,15 +94,12 @@ class Textbook {
 		// Hook in our pieces
 		add_action( 'plugins_loaded', array( &$this, 'includes' ) );
 		add_action( 'init', array( &$this, 'pbtInit' ) );
-		add_action( 'template_redirect', '\PBT\Rewrite\do_open', 0 );
 		add_action( 'wp_enqueue_style', array( &$this, 'registerChildThemes' ) );
 		add_action( 'wp_enqueue_scripts', array( &$this, 'enqueueScriptsnStyles' ) );
 		add_filter( 'allowed_themes', array( &$this, 'filterChildThemes' ), 11 );
 		add_action( 'pressbooks_new_blog', array( $this, 'newBook' ) );
 
-		// include other functions
-		require( PBT_PLUGIN_DIR . 'includes/pbt-utility.php' );
-		require( PBT_PLUGIN_DIR . 'includes/pbt-rewrite.php' );
+		update_site_option( 'pressbooks_export_options', array( 'allow_redistribution' => 1 ) );
 
 		wp_cache_add_global_groups( array( 'pbt' ) );
 	}
@@ -252,10 +249,6 @@ class Textbook {
 	function pbtInit() {
 		// Register theme directory
 		register_theme_directory( PBT_PLUGIN_DIR . 'themes-book' );
-		// Add a rewrite rule for the keyword "open"
-		add_rewrite_endpoint( 'open', EP_ROOT );
-		// Flush, if we haven't already 
-		\PBT\Rewrite\flusher();
 	}
 
 	/**
@@ -376,8 +369,9 @@ class Textbook {
 			'ebook_compress_images' => 1
 		);
 
-		$redistribute_files = array(
-			'latest_files_public' => 1,
+		$pressbooks_export_options = array(
+			'email_validation_logs' => 0,
+			'share_latest_export_files' => 1,
 		);
 
 		// Allow for override in wp-config.php
@@ -402,14 +396,14 @@ class Textbook {
 		// choose 'US Letter size' for PDF exports
 		update_option( 'pressbooks_theme_options_pdf', $pdf_options );
 
-		// EPUB export - reduce image size and quality 
+		// EPUB export - reduce image size and quality
 		update_option( 'pressbooks_theme_options_ebook', $epub_compress_images );
 
 		// modify the book description
 		update_option( 'blogdescription', __( 'Open Textbook', $this->plugin_slug ) );
 
 		// distribute latest exports
-		update_option( 'pbt_redistribute_settings', $redistribute_files );
+		update_option( 'pressbooks_export_options', $pressbooks_export_options );
 	}
 
 }
@@ -417,7 +411,7 @@ class Textbook {
 // ------------------------------------
 // Check minimum requirements
 // ------------------------------------
-// Must meet miniumum requirements before either PB or PBT objects are instantiated. 
+// Must meet miniumum requirements before either PB or PBT objects are instantiated.
 
 if ( ! @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
 	add_action( 'admin_notices', function () {
@@ -444,4 +438,3 @@ if ( get_site_option( 'pressbooks-activated' ) ) {
 		$pbt = \PBT\Textbook::get_instance();
 	}
 }
-
