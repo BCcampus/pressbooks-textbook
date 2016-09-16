@@ -22,34 +22,4 @@
   }
 }
 
-@media screen and (max-width: 990px) {
-  .alt-formats {
-    float: none;
-    margin-bottom: 4em;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 2em;
-    max-width: 80%;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    width: auto;
-  }
-}
-
-@media screen and (max-width: 780px) {
-  .alt-formats {
-    margin-bottom: 0;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    max-width: 75%;
-    width: auto;
-  }
-}
-
-@media screen and (max-width: 620px) {
-  .alt-formats {
-    max-width: 95%;
-  }
-}
 
