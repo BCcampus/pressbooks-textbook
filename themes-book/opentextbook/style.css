@@ -40,7 +40,7 @@ Tags: Pressbooks Textbook
 @font-face {
   font-family: "Roboto";
   src: url("assets/fonts/Roboto-Regular.ttf") format("truetype");
-  font-weight: "400";
+  font-weight: 400;
   font-style: normal; }
 @font-face {
   font-family: "Roboto Condensed";
@@ -184,16 +184,6 @@ ol li li li::before {
   list-style-position: outside;
   content: counter(level3,lower-roman) ". ";
   counter-increment: level3; }
-
-/*
-|--------------------------------------------------------------------------
-| Home/Cover page
-|--------------------------------------------------------------------------
-|
-|
-|
-|
-*/
 
 /*
 |--------------------------------------------------------------------------
@@ -527,7 +517,7 @@ html .ui-button.ui-state-disabled:active {
 | Media Queries
 |--------------------------------------------------------------------------
 |
-|
+| 
 |
 |
 */
@@ -541,5 +531,27 @@ html .ui-button.ui-state-disabled:active {
 
   #sidebar {
     margin-right: -24px; } }
+@media screen and (max-width: 990px) {
+  .alt-formats {
+    float: none;
+    margin-bottom: 4em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+    max-width: 80%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    width: auto; } }
+@media screen and (max-width: 780px) {
+  .alt-formats {
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    max-width: 75%;
+    width: auto; } }
+@media screen and (max-width: 620px) {
+  .alt-formats {
+    max-width: 95%; } }
 
 /*# sourceMappingURL=style.css.map */
