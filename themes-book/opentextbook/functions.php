@@ -46,8 +46,8 @@ function pbt_get_citation_pdf_url() {
 	$domain = site_url();
 	$files = \Pressbooks\Utility\latest_exports();
 
-	$options = get_option( 'pressbooks_export_options' );
-	if ( ! empty( $files ) && ( true == $options['share_latest_export_files'] ) ) {
+	$options = get_option( 'pbt_redistribute_settings' );
+	if ( ! empty( $files ) && ( true == $options['latest_files_public'] ) ) {
 
 		foreach ( $files as $filetype => $filename ) {
 			if ( 'pdf' == $filetype || 'mpdf' == $filetype ) {

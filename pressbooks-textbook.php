@@ -99,7 +99,9 @@ class Textbook {
 		add_filter( 'allowed_themes', array( &$this, 'filterChildThemes' ), 11 );
 		add_action( 'pressbooks_new_blog', array( $this, 'newBook' ) );
 
-		update_site_option( 'pressbooks_export_options', array( 'allow_redistribution' => 1 ) );
+		// This updates a network option, every time the class is loaded.
+        // effectively this renders obsolete any desires of network admins to turn it off
+        update_site_option( 'pressbooks_sharingandprivacy_options', array( 'allow_redistribution' => 1 ) );
 
 		wp_cache_add_global_groups( array( 'pbt' ) );
 	}
@@ -109,7 +111,7 @@ class Textbook {
 	 *
 	 * @since     1.0.0
 	 *
-	 * @return    object    A single instance of this class.
+	 * @return    object    A single instance of this class.                                 pressbook
 	 */
 	public static function get_instance() {
 
@@ -369,10 +371,9 @@ class Textbook {
 			'ebook_compress_images' => 1
 		);
 
-		$pressbooks_export_options = array(
-			'email_validation_logs' => 0,
-			'share_latest_export_files' => 1,
-		);
+        $redistribute_files = array(
+            'latest_files_public' => 1,
+        );
 
 		// Allow for override in wp-config.php
 		if ( 0 === strcmp( 'opentextbook', WP_DEFAULT_THEME ) || ! defined( 'WP_DEFAULT_THEME' ) ) {
@@ -402,8 +403,8 @@ class Textbook {
 		// modify the book description
 		update_option( 'blogdescription', __( 'Open Textbook', $this->plugin_slug ) );
 
-		// distribute latest exports
-		update_option( 'pressbooks_export_options', $pressbooks_export_options );
+		// redistribute latest exports
+		update_option( 'pbt_redistribute_settings', $redistribute_files );
 	}
 
 }
