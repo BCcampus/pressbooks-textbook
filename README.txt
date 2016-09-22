@@ -4,7 +4,7 @@ Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution
 Tags: pressbooks, textbook
 Requires at least: 4.6.1
 Tested up to: 4.6.1
-Stable tag: 2.7.1
+Stable tag: 2.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,11 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 2.8.0 (2016/09/22) =
+* works with PB v.3.8.0 (update Pressbooks first)
+* migrating redistribute functionality to Pressbooks (tks @greatislander)
+* minor styling improvements
 
 = 2.7.1 (2016/09/08) =
 * adding google scholar metadata

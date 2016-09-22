@@ -44,16 +44,19 @@ function pbt_get_seo_meta_elements() {
 function pbt_get_citation_pdf_url() {
 	$url = '';
 	$domain = site_url();
-	$files = \Pressbooks\Utility\latest_exports();
 
-	$options = get_option( 'pbt_redistribute_settings' );
-	if ( ! empty( $files ) && ( true == $options['latest_files_public'] ) ) {
+	if ( function_exists( \Pressbooks\Utility\latest_exports() ) ) {
+		$files = \Pressbooks\Utility\latest_exports();
 
-		foreach ( $files as $filetype => $filename ) {
-			if ( 'pdf' == $filetype || 'mpdf' == $filetype ) {
-				$filename = preg_replace( '/(-\d{10})(.*)/ui', "$1", $filename );
-				// rewrite rule
-				$url = $domain . "/open/download?filename={$filename}&type={$filetype}";
+		$options = get_option( 'pbt_redistribute_settings' );
+		if ( ! empty( $files ) && ( true == $options['latest_files_public'] ) ) {
+
+			foreach ( $files as $filetype => $filename ) {
+				if ( 'pdf' == $filetype || 'mpdf' == $filetype ) {
+					$filename = preg_replace( '/(-\d{10})(.*)/ui', "$1", $filename );
+					// rewrite rule
+					$url = $domain . "/open/download?filename={$filename}&type={$filetype}";
+				}
 			}
 		}
 	}

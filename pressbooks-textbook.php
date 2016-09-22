@@ -11,7 +11,7 @@
  * @wordpress-plugin
  * Plugin Name:       Pressbooks Textbook
  * Description:       A plugin that extends Pressbooks for textbook authoring
- * Version:           2.7.1
+ * Version:           2.8.0
  * Author:            Brad Payne
  * Author URI:        http://bradpayne.ca
  * Text Domain:       pressbooks-textbook
@@ -38,7 +38,7 @@ class Textbook {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	const VERSION = '2.7.1';
+	const VERSION = '2.8.0';
 
 	/**
 	 * Unique identifier for plugin.
@@ -77,7 +77,7 @@ class Textbook {
 		}
 
 		// Allow override in wp-config.php
-		if( ! defined( 'WP_DEFAULT_THEME') ){
+		if ( ! defined( 'WP_DEFAULT_THEME' ) ) {
 			define( 'WP_DEFAULT_THEME', 'opentextbook' );
 		};
 
@@ -99,11 +99,17 @@ class Textbook {
 		add_filter( 'allowed_themes', array( &$this, 'filterChildThemes' ), 11 );
 		add_action( 'pressbooks_new_blog', array( $this, 'newBook' ) );
 
-		// This updates a network option, every time the class is loaded.
-        // effectively this renders obsolete any desires of network admins to turn it off
-        update_site_option( 'pressbooks_sharingandprivacy_options', array( 'allow_redistribution' => 1 ) );
+		// Set once, check and update network settings
+		$version = get_site_option( 'pbt_version', 0, false );
+
+		if ( version_compare( $version, self::VERSION ) < 0 ) {
+			update_site_option( 'pressbooks_sharingandprivacy_options', array( 'allow_redistribution' => 1 ) );
+			// set the version so don't trigger the above condition
+			update_site_option( 'pbt_version', self::VERSION );
+		}
 
 		wp_cache_add_global_groups( array( 'pbt' ) );
+
 	}
 
 	/**
@@ -371,9 +377,9 @@ class Textbook {
 			'ebook_compress_images' => 1
 		);
 
-        $redistribute_files = array(
-            'latest_files_public' => 1,
-        );
+		$redistribute_files = array(
+			'latest_files_public' => 1,
+		);
 
 		// Allow for override in wp-config.php
 		if ( 0 === strcmp( 'opentextbook', WP_DEFAULT_THEME ) || ! defined( 'WP_DEFAULT_THEME' ) ) {
