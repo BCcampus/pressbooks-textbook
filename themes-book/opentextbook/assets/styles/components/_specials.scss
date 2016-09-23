@@ -103,14 +103,18 @@ table th {
 }
 #content table td,
 #content table th{
-  border: 1px solid #ddd;
+  border: 1px solid $color-gray-alto;
+}
+
+#content tr th, #content thead th{
+  color: $color-black; /* increase contrast for accessibility */
 }
 
 table th {
   font-weight: bold;
-  background-color: #e9e9e9;
+  background-color: $color-gray-mercury;
   vertical-align: bottom;
-  border-bottom: 2px solid #ddd;
+  border-bottom: 2px solid $color-gray-alto;
 }
 
 table p {
@@ -118,8 +122,8 @@ table p {
 }
 
 table.lines tr {
-  border-top: 1px solid #000;
-  border-bottom: 1px solid #000;
+  border-top: 1px solid $color-black;
+  border-bottom: 1px solid $color-black;
 }
 
 table.no-lines tr,
@@ -132,13 +136,13 @@ table.shaded,
 th.shaded,
 tr.shaded,
 td.shaded {
-  background-color: #eee;
+  background-color: $color-gray-gallery;
 }
 
 th.border,
 tr.border,
 td.border {
-  border: 1px solid #000;
+  border: 1px solid $color-black;
 }
 
 .entry-content {
@@ -149,7 +153,7 @@ td.border {
   /*	width: 100%;*/
   padding: 2% 3%;
   border-radius: 4px;
-  border: 1px solid #000;
+  border: 1px solid $color-black;
   margin-bottom: 15px;
   float: none;
 }
@@ -157,18 +161,18 @@ td.border {
 .bcc-box h3:first-child {
   text-align: center;
   margin: -2% -3% 15px;
-  color: $white;
+  color: $color-white;
   padding: 15px 0 15px;
 }
 /****************************************
 	Learning Objectives
 *****************************************/
 .bcc-highlight {
-  background-color: $light-grey-1;
+  background-color: $color-gray-athensgray;
 }
 
 .bcc-box.bcc-highlight h3 {
-  background-color: $black-1;
+  background-color: $color-black-codgray;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 }
@@ -177,11 +181,11 @@ td.border {
 	Key Takeaways
 *****************************************/
 .bcc-success {
-  background-color: $light-grey-2;
+  background-color: $color-gray-harp;
 }
 
 .bcc-box.bcc-success h3 {
-  background-color: $green;
+  background-color: $color-green-goblin;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 }
@@ -190,11 +194,11 @@ td.border {
 	Exercises
 *****************************************/
 .bcc-info {
-  background-color: $light-blue;
+  background-color: $color-blue-linkwater;
 }
 
 .bcc-box.bcc-info h3 {
-  background-color: $blue;
+  background-color: $color-blue-venice;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 }
@@ -203,11 +207,11 @@ td.border {
 	I don't know what this is for
 *****************************************/
 .bcc-warning {
-  background-color: $light-grey-1;
+  background-color: $color-gray-athensgray;
 }
 
 .bcc-box.bcc-warning h3 {
-  background-color: $yellow;
+  background-color: $color-yellow-twine;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 }

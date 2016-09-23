@@ -36,21 +36,21 @@ html .ui-button.ui-state-disabled:hover,
 html .ui-button.ui-state-disabled:active {
   border: none;
   font-weight: lighter;
-  color: $black-3;
+  color: $color-black-mineshaft;
 }
 
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover{
-  background-color: $white;
-  color: $black-3;
-  border-top: solid 2px $red;
+  background-color: $color-white;
+  color: $color-black-mineshaft;
+  border-top: solid 2px $color-red-monza;
 }
 
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited{
-  color: $black-3;
+  color: $color-black-mineshaft;
 }
 
 .ui-widget-header{
-  background: $white;
+  background: $color-white;
   border: none;
 }
 
@@ -62,7 +62,7 @@ html .ui-button.ui-state-disabled:active {
   margin: 0 47px;
 }
 .ui-widget-content a{
-  color:$dark-red;
+  color: $color-red-tamarillo;
 }
 
 

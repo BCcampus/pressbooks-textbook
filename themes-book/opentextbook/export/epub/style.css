@@ -504,8 +504,8 @@ img.aligncenter {
 }
 
 .wp-caption-text {
-    font-size: 0.875em;
-    font-style: italic;
+    font-size: 0.75em;
+    font-style: normal;
     margin-top: 5px;
     text-align: left;
 }
