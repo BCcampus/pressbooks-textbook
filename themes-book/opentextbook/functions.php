@@ -45,7 +45,7 @@ function pbt_get_citation_pdf_url() {
 	$url = '';
 	$domain = site_url();
 
-	if ( function_exists( \Pressbooks\Utility\latest_exports() ) ) {
+	if ( method_exists( '\Pressbooks\Utility', 'latest_exports' ) ) {
 		$files = \Pressbooks\Utility\latest_exports();
 
 		$options = get_option( 'pbt_redistribute_settings' );
