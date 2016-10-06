@@ -93,7 +93,7 @@ class Textbook {
 
 		// Hook in our pieces
 		add_action( 'plugins_loaded', array( &$this, 'includes' ) );
-		add_action( 'init', array( &$this, 'pbtInit' ) );
+		add_action( 'pressbooks_register_theme_directory', array( $this, 'pbtInit') );
 		add_action( 'wp_enqueue_style', array( &$this, 'registerChildThemes' ) );
 		add_action( 'wp_enqueue_scripts', array( &$this, 'enqueueScriptsnStyles' ) );
 		add_filter( 'allowed_themes', array( &$this, 'filterChildThemes' ), 11 );
