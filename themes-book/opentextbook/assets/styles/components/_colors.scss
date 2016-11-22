@@ -1,5 +1,11 @@
 // Colors
 
+// Override variables above this line, using the !default flag to allow further overrides.
+@import 'variables/colors';
+
+// Add custom SCSS below these imports and includes.
+@import 'components/colors';
+
 $color-white: #ffffff;
 $color-white-alabaster: #f9f9f9;
 $color-gray-athensgray: #f7f7f9;

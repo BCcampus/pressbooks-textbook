@@ -1,44 +1,26 @@
+@import 'font-stack-web'; // Dynamically generated
+
 $serif-web: serif !default;
 $sans-serif-web: sans-serif !default;
 
-$times: 'Times New Roman', Times, Georgia, serif;
-$crim: 'Crimson Text', 'Times New Roman', $serif-web;
-$helv: Helvetica, Arial, $sans-serif-web;
-$roboto: 'Roboto', $sans-serif-web;
-$roboto_cond: 'Roboto Condensed', $sans-serif-web;
+$times: 'Times New Roman', Times, Georgia;
+$crim: 'Crimson Text', 'Times New Roman';
+$helv: Helvetica, Arial;
+$roboto: 'Roboto';
+$roboto_cond: 'Roboto Condensed';
 
+// Insert custom fonts for your theme into the font stacks below. Always end the
+// stack with $serif-web or $sans-serif-web, as appropriate—this allows custom
+// language support to be added dynamically.
 
-@mixin font-face($name, $font-files, $format, $weight: false, $style: false) {
-  @font-face {
-    font-family: quote($name);
-    src: $font-files format($format);
-    @if $weight {
-      font-weight: $weight;
-    }
-    @if $style {
-      font-style: $style;
-    }
-  }
-}
+$font-1: $times, $serif-web; // paragraph, boyd, main font
+$font-2: $crim, $serif-web; // section title, author title,
+$font-3: $roboto_cond, $sans-serif-web; // headers
 
-// Crimson
+// Add import rules for any referenced fonts you below. You must use Google
+// Fonts or an equivalent over https. For example, to import Alegreya Sans, use:
+// @import 'https://fonts.googleapis.com/css?family=Alegreya+Sans';
 
-@include font-face( 'Crimson Text', url('assets/fonts/crimson-bold-webfont.ttf'), 'truetype', bold, normal);
-@include font-face( 'Crimson Text', url('assets/fonts/crimson-bolditalic-webfont.ttf'), 'truetype', bold, italic);
-@include font-face( 'Crimson Text', url('assets/fonts/crimson-italic-webfont.ttf'), 'truetype', normal, italic);
-@include font-face( 'Crimson Text', url('assets/fonts/crimson-roman-webfont.ttf'), 'truetype',normal, normal);
-@include font-face( 'Crimson Text', url('assets/fonts/crimson-semibold-webfont.ttf'), 'truetype', 600, normal);
-@include font-face( 'Crimson Text', url('assets/fonts/crimson-semibolditalic-webfont.ttf'), 'truetype', 600, italic);
-
-// Roboto
-
-@include font-face( 'Roboto', url('assets/fonts/Roboto-Regular.ttf'), 'truetype', 400, normal);
-
-// RobotoCondensed
-
-@include font-face( 'Roboto Condensed', url('assets/fonts/RobotoCondensed-Regular.ttf'), 'truetype', normal, normal);
-@include font-face( 'Roboto Condensed', url('assets/fonts/RobotoCondensed-Bold.ttf'), 'truetype', bold, normal);
-@include font-face( 'Roboto Condensed', url('assets/fonts/RobotoCondensed-BoldItalic.ttf'), 'truetype', bold, italic);
-@include font-face( 'Roboto Condensed', url('assets/fonts/RobotoCondensed-Italic.ttf'), 'truetype', normal, italic);
-@include font-face( 'Roboto Condensed', url('assets/fonts/RobotoCondensed-Light.ttf'), 'truetype', 300, normal);
-@include font-face( 'Roboto Condensed', url('assets/fonts/RobotoCondensed-LightItalic.ttf'), 'truetype', 300, italic);
+@import 'RobotoFont';
+@import 'RobotoFont Condensed';
+@import 'CrimsonFont';

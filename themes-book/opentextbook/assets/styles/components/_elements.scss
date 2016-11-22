@@ -1,4 +1,27 @@
 // Elements
+
+@if $type == 'epub' {
+  $blockquote-align: left !default;
+} @else if $type == 'prince' {
+  $blockquote-align: justify !default;
+}  @else if $type == 'web' {
+  $blockquote-align: left !default;
+}
+
+// Override variables above this line, using the !default flag to allow further overrides.
+@import 'variables/elements';
+
+// Add custom SCSS below these imports and includes.
+@import 'components/elements/links';
+@import 'components/elements/blockquotes';
+@import 'components/elements/body';
+@import 'components/elements/headings';
+@import 'components/elements/lists';
+@import 'components/elements/miscellaneous';
+@import 'components/elements/paragraphs';
+@import 'components/elements/tables';
+
+
 /*
 |--------------------------------------------------------------------------
 | Body

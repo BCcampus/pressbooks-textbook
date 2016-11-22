@@ -2,7 +2,7 @@
 
 function pbt_theme_theme_setup() {
 	// Add theme support for special features here.
-	add_theme_support( 'pressbooks_global_typography', 'en');
+	add_theme_support( 'pressbooks_global_typography', 'grc');
 }
 
 add_action( 'after_setup_theme', 'pbt_theme_theme_setup' );

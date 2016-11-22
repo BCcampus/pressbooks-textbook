@@ -16,6 +16,4 @@
  * Provide Pressbooks with some information about this theme.
  * ------------------------------------------------------------------------ */
 
-$supported_languages = array(
-	'en',
-);
+$supported_languages = array();
