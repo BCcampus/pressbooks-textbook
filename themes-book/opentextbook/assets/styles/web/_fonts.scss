@@ -3,24 +3,26 @@
 $serif-web: serif !default;
 $sans-serif-web: sans-serif !default;
 
-$times: 'Times New Roman', Times, Georgia;
-$crim: 'Crimson Text', 'Times New Roman';
-$helv: Helvetica, Arial;
-$roboto: 'Roboto';
-$roboto_cond: 'Roboto Condensed';
-
 // Insert custom fonts for your theme into the font stacks below. Always end the
 // stack with $serif-web or $sans-serif-web, as appropriate—this allows custom
 // language support to be added dynamically.
 
+$times: 'Times New Roman', Georgia;
+$crim: 'Crimson Text';
+$helv: Helvetica, Arial;
+$roboto: 'Roboto';
+$roboto_cond: 'Roboto Condensed';
+
 $font-1: $times, $serif-web; // paragraph, boyd, main font
 $font-2: $crim, $serif-web; // section title, author title,
 $font-3: $roboto_cond, $sans-serif-web; // headers
+
 
 // Add import rules for any referenced fonts you below. You must use Google
 // Fonts or an equivalent over https. For example, to import Alegreya Sans, use:
 // @import 'https://fonts.googleapis.com/css?family=Alegreya+Sans';
 
 @import 'RobotoFont';
-@import 'RobotoFont Condensed';
-@import 'CrimsonFont';
+@import 'RobotoCondensedFont';
+@import 'CrimsonTextFont';
+

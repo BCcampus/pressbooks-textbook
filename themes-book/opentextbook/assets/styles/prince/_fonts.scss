@@ -1,4 +1,4 @@
-// placeholder
+// OpenTextbooks (FONTS)
 
 @import 'font-stack-prince'; // Dynamically generated
 
@@ -8,11 +8,21 @@ $sans-serif-prince: sans-serif !default;
 // Insert custom fonts for your theme into the font stacks below. Always end the
 // stack with $serif-prince or $sans-serif-prince, as appropriate—this allows
 // custom language support to be added dynamically.
-$font-1: $serif-prince;
-$font-2: $sans-serif-prince;
-$font-3: $font-2;
+
+$times: 'Times New Roman', Georgia;
+$crim: 'Crimson Text';
+$helv: Helvetica, Arial;
+$roboto: 'Roboto';
+$roboto_cond: 'Roboto Condensed';
+
+$font-1: $times, $serif-prince; // paragraph, boyd, main font
+$font-2: $crim, $serif-prince; // section title, author title,
+$font-3: $roboto_cond, $sans-serif-prince; // headers
 
 // Add import rules for any fonts you referenced below. Available font partials
 // are found in /pressbooks/assets/scss/fonts and follow the naming pattern:
 // _FontNameInCamelCaseFont.scss. For example, to import Alegreya Sans, use:
 // @import 'AlegreyaSansFont';
+
+@import 'RobotoCondensedFont';
+@import 'CrimsonTextFont';

@@ -8,6 +8,13 @@
   $blockquote-align: left !default;
 }
 
+// body override
+$body-line-height: 1.5em !default;
+
+// headings override
+$h1-font-size: 1.3em !default;
+$h2-font-size: 1.2em !default;
+
 // Override variables above this line, using the !default flag to allow further overrides.
 @import 'variables/elements';
 
@@ -21,6 +28,13 @@
 @import 'components/elements/paragraphs';
 @import 'components/elements/tables';
 
+// text custom
+$text-transform-upper: uppercase;
+$text-transform-norm: none;
+
+// lists custom
+$list-style-type: lower-alpha;
+$list-style-type-2: lower-roman;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,7 +80,7 @@ h1 {
 }
 
 h2, h3, h4 {
-  text-transform: $text-transform-norm;
+  text-transform: none;
 }
 
 h1, h2, h3 {
