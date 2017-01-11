@@ -16,4 +16,7 @@
  * Provide Pressbooks with some information about this theme.
  * ------------------------------------------------------------------------ */
 
+// The fonts used, Roboto/Condensed and Tinos support Greek characters
+// Though, if 'grc' is declared here, PB adds 2 extra fonts I don't want/need.
+// Leaving blank for now
 $supported_languages = array();

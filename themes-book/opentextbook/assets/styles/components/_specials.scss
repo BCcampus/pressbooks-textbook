@@ -1,3 +1,168 @@
+// Specials
+// Columns, Dropcaps, Footnotes, Endnotes, Asides, Pullquotes, Sidebars, Separators, Textboxes, Educational Textboxes
+
+//// Columns
+//$column-margin-top: 1em !default;
+//$column-margin-bottom: 1em !default;
+//$column-line-height: 1.2em !default;
+//$column-twocolumn-column-gap: 1.5em !default;
+//$column-twocolumn-font-size: 1em !default;
+//$column-threecolumn-column-gap: 1em !default;
+//$column-threecolumn-font-size: .9em !default;
+//
+//// Dropcaps
+//$first-character-font-family: $font-2 !default;
+//$first-character-font-size: 3em !default;
+//$first-character-font-style: normal !default;
+//$first-character-font-weight: bold !default;
+//$first-character-line-height: .7em !default;
+//
+//// Footnotes
+//$footnote-padding-top: 1em !default;
+//$footnote-padding-left: 0 !default;
+//@if $type == 'prince' {
+//  $footnote-font-size: .8em !default;
+//} @else if $type == 'epub' {
+//  $footnote-font-size: .9em !default;
+//}
+//$footnote-font-style: normal !default;
+//$footnote-font-weight: normal !default;
+//$footnote-line-height: 1.15em !default;
+//$footnote-indent: 0 !default;
+//$footnote-blockquote-margin-top: .5em !default;
+//$footnote-blockquote-margin-bottom: .5em !default;
+//$footnote-blockquote-margin-left: 1.5em !default;
+//$footnote-blockquote-font-size: .95em !default;
+//$footnote-number-marker-font-size: $sup-sub-font-size !default;
+//$footnote-number-marker-line-height: $sup-sub-line-height !default;
+//
+//// Endnotes
+//$endnote-margin-left: 1.5em !default;
+//$endnote-line-height: 1.1em !default;
+//$endnote-header-padding-bottom: 1em !default;
+//$endnote-header-margin-bottom: 1em !default;
+//$endnote-header-margin-left: -1.5em !default;
+//$endnote-hr-margin-top: 2em !default;
+//$endnote-hr-border: 0 !default;
+//$endnote-ol-margin-top: .4em !default;
+//$endnote-ol-margin-left: 0 !default;
+//$endnote-ol-font-size: .85em !default;
+//$endnote-li-padding-left: 0 !default;
+//$endnote-li-margin-top: .4em !default;
+//$endnote-li-indent: 0 !default;
+//
+//// Asides
+//$aside-padding-top: .9em !default;
+//$aside-padding-right: 0 !default;
+//$aside-padding-bottom: .9em !default;
+//$aside-padding-left: 0 !default;
+//$aside-margin-top: 2em !default;
+//$aside-margin-right: 10% !default;
+//$aside-margin-bottom: 2em !default;
+//$aside-margin-left: 10% !default;
+//$aside-line-height: 1.2em !default;
+//$aside-border-top: 1px solid !default; // TODO
+//$aside-border-right: 0 !default;
+//$aside-border-bottom: 1px solid !default; // TODO
+//$aside-border-left: 0 !default;
+//
+//// Pullquotes
+//$pullquote-font-family: $font-3 !default;
+//$pullquote-font-size: 1.25em !default;
+//$pullquote-font-style: normal !default;
+//$pullquote-font-weight: bold !default;
+//$pullquote-line-height: 1.2em !default;
+//$pullquote-text-transform: none !default;
+//$pullquote-align: center !default;
+//$pullquote-margin-top: 1em !default;
+//$pullquote-margin-bottom: 1em !default;
+//$pullquote-left-width: 45% !default;
+//$pullquote-left-margin-right: 1em !default;
+//$pullquote-left-margin-left: 1em !default;
+//$pullquote-right-width: 45% !default;
+//$pullquote-right-margin-right: 1em !default;
+//$pullquote-right-margin-left: 1em !default;
+//
+//// Sidebars
+//$sidebar-width: 35% !default;
+//$sidebar-padding-top: 1em !default;
+//$sidebar-padding-right: 1em !default;
+//$sidebar-padding-bottom: 1em !default;
+//$sidebar-padding-left: 1em !default;
+//$sidebar-margin-top: .5em !default;
+//$sidebar-margin-right: 0 !default;
+//$sidebar-margin-left: 1em !default;
+//$sidebar-font-size: .9em !default;
+//$sidebar-font-style: italic !default;
+//$sidebar-font-weight: normal !default;
+//$sidebar-align: left !default;
+//
+//// Separators
+//$hr-width: 20% !default;
+//$hr-margin-top: .9em !default;
+//$hr-margin-bottom: .9em !default;
+//$hr-break-symbols-margin-bottom: 1.66em !default;
+//$hr-break-symbols-font-size: 1.1em !default;
+//$hr-break-symbols-content: '\066D' !default;
+//$section-break-margin-top: 1em !default;
+//$section-break-margin-bottom: 1em !default;
+//$section-break-space-margin-top: 1em !default;
+//$section-break-space-margin-bottom: 0 !default;
+//$section-break-space-line-height: 1em !default;
+//$section-break-page-margin-top: 1em !default;
+//$section-break-page-margin-bottom: 1em !default;
+//$section-break-page-invisible-margin-top: 1em !default;
+//$section-break-page-invisible-margin-bottom: 1em !default;
+//
+//// Textboxes
+//$textbox-font-size: .9em !default;
+//$textbox-font-style: normal !default;
+//$textbox-font-weight: normal !default;
+//$textbox-line-height: 1.2em;
+//$textbox-padding-top: .9em !default;
+//$textbox-padding-right: .9em !default;
+//$textbox-padding-bottom: .9em !default;
+//$textbox-padding-left: .9em !default;
+//$textbox-margin-top: .9em !default;
+//$textbox-margin-right: 0 !default;
+//$textbox-margin-bottom: .9em !default;
+//$textbox-margin-left: 0 !default;
+//$textbox-border-style: solid !default;
+//$textbox-border-color: #000 !default;
+//$textbox-border-width: .05em !default; // TODO
+//$textbox-border-radius: 0 !default;
+//$textbox-shaded-background-color: #eee !default;
+//$textbox-para-margin-top: 0 !default;
+//$textbox-para-margin-bottom: .5em !default;
+//$textbox-caption-font-family: $font-2 !default;
+//$textbox-caption-font-size: .875em !default;
+//$textbox-caption-font-style: normal !default;
+//$textbox-caption-font-weight: bold !default;
+//
+//// Educational Textboxes
+//$edu-textbox-border-radius: .35em !default;
+//$edu-textbox-padding-top: 1em !default;
+//$edu-textbox-padding-right: 1em !default;
+//$edu-textbox-padding-bottom: 1em !default;
+//$edu-textbox-padding-left: 1em !default;
+//$edu-textbox-margin-bottom: 1.35em !default;
+//$edu-header-padding-top: 1.35em !default;
+//$edu-header-padding-right: 0 !default;
+//$edu-header-padding-bottom: 1.35em !default;
+//$edu-header-padding-left: 0 !default;
+//$edu-header-margin-top: -1.2em !default;
+//$edu-header-margin-right: -1.2em !default;
+//$edu-header-margin-bottom: 1.35em !default;
+//$edu-header-margin-left: -1.2em !default;
+//$edu-header-text-color: #fff !default;
+//$learning-objectives-background: #f7f7f9 !default;
+//$learning-objectives-header-background: #111 !default;
+//$key-takeaways-background: #eaf5ea !default;
+//$key-takeaways-header-background: #3a7a33 !default;
+//$exercises-background: #e3eff6 !default;
+//$exercises-header-background: #0b6396 !default;
+//$examples-background: #f3e1e3 !default;
+//$examples-header-background: #7a333a !default;
 
 // Override variables above this line, using the !default flag to allow further overrides.
 @import 'variables/specials';
@@ -11,35 +176,6 @@
 @import 'components/specials/pullquotes';
 @import 'components/specials/separators';
 @import 'components/specials/textboxes';
-
-/*
-|--------------------------------------------------------------------------
-| Tight and loose tracking
-|--------------------------------------------------------------------------
-|
-|
-|
-|
-*/
-.tight {
-  letter-spacing: -0.25px;
-  word-spacing: -0.075em;
-}
-
-.very-tight {
-  letter-spacing: -0.5px;
-  word-spacing: -0.09em;
-}
-
-.loose {
-  letter-spacing: 0.25px;
-  word-spacing: 0.075em;
-}
-
-.very-loose {
-  letter-spacing: 0.5px;
-  word-spacing: 0.09em;
-}
 
 /*
 |--------------------------------------------------------------------------
@@ -91,73 +227,6 @@ div.part.invisible {
 |
 |
 */
-
-table {
-  max-width: 100%;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  border-collapse: collapse;
-  text-align: left;
-  font-size: 0.9em;
-  display: table; /* display:table is better for screen readers than display:block */
-}
-
-table caption {
-  font-weight: bold;
-  margin-bottom: 0.5em;
-  line-height: 1.1;
-}
-
-table td,
-table th {
-  padding: 5px 5px;
-  line-height: 1.1;
-  text-align: left;
-  vertical-align: middle;
-}
-#content table td,
-#content table th{
-  border: 1px solid $color-gray-alto;
-}
-
-#content tr th, #content thead th{
-  color: $color-black; /* increase contrast for accessibility */
-}
-
-table th {
-  font-weight: bold;
-  background-color: $color-gray-mercury;
-  vertical-align: bottom;
-  border-bottom: 2px solid $color-gray-alto;
-}
-
-table p {
-  text-align: left;
-}
-
-table.lines tr {
-  border-top: 1px solid $color-black;
-  border-bottom: 1px solid $color-black;
-}
-
-table.no-lines tr,
-table.no-lines td {
-  border-top: 0;
-  border-bottom: 0;
-}
-
-table.shaded,
-th.shaded,
-tr.shaded,
-td.shaded {
-  background-color: $color-gray-gallery;
-}
-
-th.border,
-tr.border,
-td.border {
-  border: 1px solid $color-black;
-}
 
 .entry-content {
   overflow-wrap: break-word;
@@ -228,4 +297,34 @@ td.border {
   background-color: $color-yellow-twine;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Footer, Footnotes & Endnotes
+|--------------------------------------------------------------------------
+|
+|
+|
+|
+*/
+
+.endnotes h3 {
+  text-align: left;
+  text-indent: 0;
+  text-transform: none;
+}
+
+p.cc-block {
+  background-color: $color-white-alabaster !important;
+  border: 1px solid $color-gray-alto !important;
+  font-size: small;
+  line-height: 17px;
+  width: 100% !important;
+  margin: 30px auto 8px !important;
+  border-radius: 4px;
+}
+
+.screen-reader-text {
+  display: none;
 }

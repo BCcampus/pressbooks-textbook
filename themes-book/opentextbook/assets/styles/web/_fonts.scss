@@ -4,25 +4,21 @@ $serif-web: serif !default;
 $sans-serif-web: sans-serif !default;
 
 // Insert custom fonts for your theme into the font stacks below. Always end the
-// stack with $serif-web or $sans-serif-web, as appropriate—this allows custom
-// language support to be added dynamically.
+// stack with $serif-web or $sans-serif-web, as appropriate—this allows
+// custom language support to be added dynamically.
 
-$times: 'Times New Roman', Georgia;
-$crim: 'Crimson Text';
-$helv: Helvetica, Arial;
-$roboto: 'Roboto';
-$roboto_cond: 'Roboto Condensed';
+$roboto-sans: 'Roboto';
+$roboto-cond: 'Roboto Condensed';
 
-$font-1: $times, $serif-web; // paragraph, boyd, main font
-$font-2: $crim, $serif-web; // section title, author title,
-$font-3: $roboto_cond, $sans-serif-web; // headers
+$font-1: 'Tinos', Georgia, $serif-web; // paragraph, boyd, main font
+$font-2: $roboto-sans, Helvetica, Arial, $sans-serif-web; // section title, author title,
+$font-3: $roboto-cond, $font-2; // headers
 
+// Add import rules for any fonts you referenced below. Available font partials
+// are found in /pressbooks/assets/scss/fonts and follow the naming pattern:
+// _FontNameInCamelCaseFont.scss. For example, to import Alegreya Sans, use:
+// @import 'AlegreyaSansFont';
 
-// Add import rules for any referenced fonts you below. You must use Google
-// Fonts or an equivalent over https. For example, to import Alegreya Sans, use:
-// @import 'https://fonts.googleapis.com/css?family=Alegreya+Sans';
-
+@import 'TinosFont';
 @import 'RobotoFont';
 @import 'RobotoCondensedFont';
-@import 'CrimsonTextFont';
-
