@@ -92,20 +92,29 @@ class Textbook {
 		register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
 
 		// Hook in our pieces
-		add_action( 'plugins_loaded', array( &$this, 'includes' ) );
+		add_action( 'plugins_loaded', array( $this, 'includes' ) );
 		add_action( 'pressbooks_register_theme_directory', array( $this, 'pbtInit') );
-		add_action( 'wp_enqueue_style', array( &$this, 'registerChildThemes' ) );
-		add_action( 'wp_enqueue_scripts', array( &$this, 'enqueueScriptsnStyles' ) );
-		add_filter( 'allowed_themes', array( &$this, 'filterChildThemes' ), 11 );
+		add_action( 'wp_enqueue_style', array( $this, 'registerChildThemes' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueueScriptsnStyles' ) );
+		add_filter( 'allowed_themes', array( $this, 'filterChildThemes' ), 11 );
 		add_action( 'pressbooks_new_blog', array( $this, 'newBook' ) );
 
-		// Set once, check and update network settings
-		$version = get_site_option( 'pbt_version', 0, false );
 
-		if ( version_compare( $version, self::VERSION ) < 0 ) {
+		// Set once, check and update network settings
+		$network_version = get_site_option( 'pbt_version', 0, false );
+
+		// triggers a network event with every new PBT Version
+		if ( version_compare( $network_version, self::VERSION ) < 0 ) {
 			update_site_option( 'pressbooks_sharingandprivacy_options', array( 'allow_redistribution' => 1 ) );
-			// set the version so don't trigger the above condition
 			update_site_option( 'pbt_version', self::VERSION );
+		}
+
+		// triggers a site event with every new PBT Version
+		$site_version = get_option( 'pbt_version', 0, false );
+
+		if ( version_compare( $site_version, self::VERSION ) < 0 ) {
+			add_action( 'template_redirect', array( $this, 'updateWebbookStylesheet' ) );
+			update_option( 'pbt_version', self::VERSION );
 		}
 
 		wp_cache_add_global_groups( array( 'pbt' ) );
@@ -117,7 +126,7 @@ class Textbook {
 	 *
 	 * @since     1.0.0
 	 *
-	 * @return    object    A single instance of this class.                                 pressbook
+	 * @return    object    A single instance of this class.
 	 */
 	public static function get_instance() {
 
@@ -411,6 +420,33 @@ class Textbook {
 
 		// redistribute latest exports
 		update_option( 'pbt_redistribute_settings', $redistribute_files );
+	}
+
+	/**
+	 * triggers a recompile of sass to css required for a switch to sassified theme
+	 * modified/borrowed from Pressbooks pressbooks_update_webbook_stylesheet()
+	 *
+	 */
+	function updateWebbookStylesheet() {
+		foreach ( glob( get_stylesheet_directory() . '/assets/styles/components/*.scss' ) as $import ) {
+			$inputs[] = realpath( $import );
+		}
+
+		$output    = get_stylesheet_directory_uri() . '/style.css';
+		$recompile = false;
+		foreach ( $inputs as $input ) {
+			if ( filemtime( $input ) > filemtime( $output ) ) {
+				$recompile = true;
+				break;
+			}
+		}
+		if ( true == $recompile ) {
+			error_log( 'Updating web book stylesheet.' );
+			\Pressbooks\Container::get( 'GlobalTypography' )->updateWebBookStyleSheet();
+		} else {
+			error_log( 'No update needed.' );
+		}
+
 	}
 
 }

@@ -46,7 +46,7 @@ $list-style-type-2: lower-roman;
 |
 */
 body {
-  font-family: $times;
+  font-family: $font-1;
   line-height: $body-line-height;
 }
 
@@ -69,7 +69,7 @@ small {
 */
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: $roboto_cond;
+  font-family: $roboto-cond;
   font-variant: normal;
   font-style: normal;
   font-weight: bold;
