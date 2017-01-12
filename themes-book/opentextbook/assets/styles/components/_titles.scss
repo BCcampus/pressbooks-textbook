@@ -54,13 +54,13 @@
 //}
 //
 //// Section Title
-//$section-title-font-family: $font-2 !default;
+$section-title-font-family: $font-3 !default;
 //$section-title-font-style: normal !default;
 //$section-title-font-weight: normal !default;
 //$section-title-text-transform: none !default;
 //
 //// Section Subtitle
-//$section-subtitle-font-family: $font-2 !default;
+$section-subtitle-font-family: $font-3 !default;
 //$section-subtitle-font-style: normal !default;
 //$section-subtitle-font-weight: normal !default;
 //$section-subtitle-align: center !default;
@@ -208,7 +208,7 @@ $title-title-font-weight: bold !default;
 //$part-number-prefix-text-transform: uppercase !default; // The text before the part number, e.g. 'Part '
 //
 //// Part Title
-//$part-title-font-family: $font-2 !default;
+$part-title-font-family: $font-3 !default;
 //$part-title-font-style: normal !default;
 //$part-title-font-weight: normal !default;
 //$part-title-align: center !default;
@@ -326,6 +326,8 @@ $back-matter-title-align: left !default;
 */
 
 .entry-title {
+  font-family: $font-3;
+  font-size: 1.6em;
   font-weight: normal;
   text-align: left;
   margin: 100px 0 80px;

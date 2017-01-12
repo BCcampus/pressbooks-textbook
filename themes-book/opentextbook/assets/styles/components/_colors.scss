@@ -1,7 +1,7 @@
 // Colors
 //$color-1: initial !default; //body color, usually black
 //$color-2: $color-1 !default; //highlight color, for titles etc.
-//$color-3: $color-1 !default; //second hightlight color, or black
+//$color-3: $color-1 !default; //second highlight color, or black
 //$color-4: #eee !default; //shaded
 //$color-5: $color-4 !default; //2nd shaded
 //$color-5: $color-1 !default;
@@ -11,11 +11,11 @@
 
 //A-LINK COLOR
 @if $type == 'epub' {
-  $link-color: #0b6396 !default;
+  $link-color: #2393BD !default;
 } @else if $type == 'prince' {
-  $link-color: #0b6396 !default;
+  $link-color: #2393BD !default;
 } @else if $type == 'web' {
-  $link-color: #870d0d !default;
+  $link-color: #2393BD !default;
 }
 
 ////BODY COLOR

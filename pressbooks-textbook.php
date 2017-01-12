@@ -11,7 +11,7 @@
  * @wordpress-plugin
  * Plugin Name:       Pressbooks Textbook
  * Description:       A plugin that extends Pressbooks for textbook authoring
- * Version:           2.8.0
+ * Version:           3.0
  * Author:            Brad Payne
  * Author URI:        http://bradpayne.ca
  * Text Domain:       pressbooks-textbook
@@ -38,7 +38,7 @@ class Textbook {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	const VERSION = '2.8.0';
+	const VERSION = '3.0';
 
 	/**
 	 * Unique identifier for plugin.
@@ -98,7 +98,7 @@ class Textbook {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueueScriptsnStyles' ) );
 		add_filter( 'allowed_themes', array( $this, 'filterChildThemes' ), 11 );
 		add_action( 'pressbooks_new_blog', array( $this, 'newBook' ) );
-
+		add_filter( 'pb_publisher_catalog_query_args', array( $this, 'rootThemeQuery') );
 
 		// Set once, check and update network settings
 		$network_version = get_site_option( 'pbt_version', 0, false );
@@ -173,14 +173,6 @@ class Textbook {
 	private function filterPlugins( $pbt_plugin ) {
 		$already_active         = get_option( 'active_plugins' );
 		$network_already_active = get_site_option( 'active_sitewide_plugins' );
-
-		if ( defined( 'PB_PLUGIN_VERSION' ) && version_compare( PB_PLUGIN_VERSION, '2.7.2' ) >= 0 ) {
-			// these are in PB core, code removed from PBT
-			// unset( $pbt_plugin['disable-comments/disable-comments.php'] );
-			// unset( $pbt_plugin['mce-table-buttons/mce_table_buttons.php'] );
-			// unset( $pbt_plugin['mce-superscript-subscript-buttons/mce-superscript-subscript-buttons.php'] );
-			// unset( $pbt_plugin['mce-anchor-button/mce-anchor-button.php'] );
-		}
 
 		// activate only if one of our themes is being used
 		if ( false == self::isTextbookTheme() ) {
@@ -423,7 +415,7 @@ class Textbook {
 	}
 
 	/**
-	 * triggers a recompile of sass to css required for a switch to sassified theme
+	 * Triggers a recompile of sass to css required for a switch to sassified theme
 	 * modified/borrowed from Pressbooks pressbooks_update_webbook_stylesheet()
 	 *
 	 */
@@ -447,6 +439,18 @@ class Textbook {
 			error_log( 'No update needed.' );
 		}
 
+	}
+
+	/**
+	 * Pass additional arguements to Publisher Root theme catalogue page
+	 * @return array
+	 */
+	function rootThemeQuery() {
+		return array(
+			'number'  => 150,
+			'orderby' => 'last_updated',
+			'order'   => 'DESC',
+		);
 	}
 
 }
