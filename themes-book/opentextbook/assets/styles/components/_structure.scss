@@ -8,14 +8,14 @@
 //$front-matter-page-number-font-weight: normal !default;
 //$front-matter-page-number-text-transform: none !default;
 //$page-number-font-family: $font-2 !default;
-//$page-number-font-size: .9em !default;
+$page-number-font-size: .7em !default;
 //$page-number-font-style: normal !default;
 //$page-number-font-weight: normal !default;
 //$page-number-text-transform: none !default;
 //
 //// Running Heads
 //
-//$runninghead-separator: '\A0\A0|\A0\A0' !default;
+$runninghead-separator: '\A0\A0\2022\A0\A0' !default;
 //$runninghead-padding-top: .4in !default;
 //$runninghead-left-font-family: $font-3 !default;
 //$runninghead-left-font-size: .7em !default;
@@ -114,8 +114,8 @@
 @import 'components/structure/recto-verso';
 @import 'components/structure/numbering';
 @import 'components/structure/content-strings';
-@import 'components/structure/runninghead-both-center';
-// @import 'components/structure/runninghead-both-outside';
+// @import 'components/structure/runninghead-both-center';
+ @import 'components/structure/runninghead-both-outside';
 // @import 'components/structure/runninghead-content-center';
 // @import 'components/structure/runninghead-content-outside';
 // @import 'components/structure/runninghead-number-center';

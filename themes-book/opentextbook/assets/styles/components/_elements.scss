@@ -2,13 +2,15 @@
 // Body, Headings, Paragraphs, Blockquotes, Lists, Definition Lists, Tables, Cite, Code & Pre, Links
 
 // Body
-//@if $type == 'epub' {
-//  $body-font-size: medium !default;
-//} @else if $type == 'prince' {
-//  $body-font-size: 11pt !default;
-//}  @else if $type == 'web' {
-//  $body-font-size: medium !default;
-//}
+@if $type == 'epub' {
+  //$h1-text-transform: none !default;
+  //$body-font-size: medium !default;
+} @else if $type == 'prince' {
+  //$h1-text-transform: none !default;
+  //$body-font-size: 11pt !default;
+}  @else if $type == 'web' {
+  //$body-font-size: medium !default;
+}
 //$body-font-family: $font-1 !default;
 //$body-font-style: normal !default;
 //$body-font-weight: normal !default;

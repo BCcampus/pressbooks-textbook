@@ -114,18 +114,18 @@
 //}
 //
 //// Half Title
-//$title-half-title-font-family: $font-2 !default;
+$title-half-title-font-family: $font-3 !default;
 //$title-half-title-font-style: normal !default;
-//$title-half-title-font-weight: normal !default;
+$title-half-title-font-weight: bold !default;
 //$title-half-title-letter-spacing: normal !default;
 //$title-half-title-word-spacing: normal !default;
 //$title-half-title-align: center !default;
 //$title-half-title-text-transform: none !default;
 //
 //// Title
-//$title-title-font-family: $font-2 !default;
+$title-title-font-family: $font-3 !default;
 //$title-title-font-style: normal !default;
-//$title-title-font-weight: normal !default;
+$title-title-font-weight: bold !default;
 //$title-title-letter-spacing: normal !default;
 //$title-title-word-spacing: normal !default;
 //$title-title-align: center !default;
@@ -212,14 +212,14 @@
 //$part-title-font-style: normal !default;
 //$part-title-font-weight: normal !default;
 //$part-title-align: center !default;
-//$part-title-text-transform: uppercase !default;
+$part-title-text-transform: none !default;
 //
 //// --- FRONT MATTER --- //
 //
 //// Front Matter Title
 //$front-matter-title-block-margin-top: $section-title-block-margin-top !default;
 //$front-matter-title-block-margin-bottom: $section-title-block-margin-bottom !default;
-//$front-matter-title-align: center !default;
+$front-matter-title-align: left !default;
 //
 //// Before Title
 //$before-title-title-block-margin-top: 0 !default;
@@ -244,7 +244,7 @@
 //$dedication-font-style: italic !default;
 //$dedication-font-weight: normal !default;
 //$dedication-line-height: normal !default;
-//$dedication-align: center !default;
+$dedication-align: left !default;
 //
 //// Epigraph
 //$epigraph-margin-right: 10% !default;
@@ -255,7 +255,7 @@
 //$epigraph-font-style: italic !default;
 //$epigraph-font-weight: normal !default;
 //$epigraph-line-height: normal !default;
-//$epigraph-align: center !default;
+$epigraph-align: left !default;
 //
 //// --- CHAPTERS --- //
 //$chapter-title-block-margin-top: $section-title-block-margin-top !default;
@@ -284,12 +284,12 @@
 //$chapter-number-text-transform: none !default;
 //
 //// Chapter Title
-//$chapter-title-align: center !default;
+$chapter-title-align: left !default;
 //
 //// --- BACK MATTER --- //
 //$back-matter-title-block-margin-top: $section-title-block-margin-top !default;
 //$back-matter-title-block-margin-bottom: $section-title-block-margin-bottom !default;
-//$back-matter-title-align: center !default;
+$back-matter-title-align: left !default;
 //
 //$bibliography-padding-left: 2em !default;
 //$bibliography-font-size: .9em !default;
