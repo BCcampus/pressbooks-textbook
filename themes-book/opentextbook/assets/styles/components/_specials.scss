@@ -115,7 +115,7 @@
 //$section-break-page-invisible-margin-bottom: 1em !default;
 //
 //// Textboxes
-//$textbox-font-size: .9em !default;
+$textbox-font-size: 1em !default;
 //$textbox-font-style: normal !default;
 //$textbox-font-weight: normal !default;
 //$textbox-line-height: 1.2em;
@@ -246,11 +246,12 @@ div.part.invisible {
   margin: -2% -3% 15px;
   color: $color-white;
   padding: 15px 0 15px;
+  font-wieght: normal;
 }
 /****************************************
 	Learning Objectives
 *****************************************/
-.bcc-highlight {
+div.bcc-highlight {
   background-color: $color-gray-athensgray;
 }
 
@@ -263,7 +264,7 @@ div.part.invisible {
 /****************************************
 	Key Takeaways
 *****************************************/
-.bcc-success {
+div.bcc-success {
   background-color: $color-gray-harp;
 }
 
@@ -276,7 +277,7 @@ div.part.invisible {
 /****************************************
 	Exercises
 *****************************************/
-.bcc-info {
+div.bcc-info {
   background-color: $color-blue-linkwater;
 }
 
@@ -289,7 +290,7 @@ div.part.invisible {
 /****************************************
 	I don't know what this is for
 *****************************************/
-.bcc-warning {
+div.bcc-warning {
   background-color: $color-gray-athensgray;
 }
 
@@ -327,4 +328,9 @@ p.cc-block {
 
 .screen-reader-text {
   display: none;
+}
+
+.footer .inner table{
+  color: $color-white;
+  border-top: none;
 }
