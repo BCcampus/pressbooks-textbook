@@ -11,7 +11,7 @@
  * @wordpress-plugin
  * Plugin Name:       Pressbooks Textbook
  * Description:       A plugin that extends Pressbooks for textbook authoring
- * Version:           3.0
+ * Version:           3.0.1
  * Author:            Brad Payne
  * Author URI:        http://bradpayne.ca
  * Text Domain:       pressbooks-textbook
@@ -38,7 +38,7 @@ class Textbook {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	const VERSION = '3.0';
+	const VERSION = '3.0.1';
 
 	/**
 	 * Unique identifier for plugin.
@@ -100,22 +100,7 @@ class Textbook {
 		add_action( 'pressbooks_new_blog', array( $this, 'newBook' ) );
 		add_filter( 'pb_publisher_catalog_query_args', array( $this, 'rootThemeQuery') );
 
-		// Set once, check and update network settings
-		$network_version = get_site_option( 'pbt_version', 0, false );
-
-		// triggers a network event with every new PBT Version
-		if ( version_compare( $network_version, self::VERSION ) < 0 ) {
-			update_site_option( 'pressbooks_sharingandprivacy_options', array( 'allow_redistribution' => 1 ) );
-			update_site_option( 'pbt_version', self::VERSION );
-		}
-
-		// triggers a site event with every new PBT Version
-		$site_version = get_option( 'pbt_version', 0, false );
-
-		if ( version_compare( $site_version, self::VERSION ) < 0 ) {
-			add_action( 'template_redirect', array( $this, 'updateWebbookStylesheet' ) );
-			update_option( 'pbt_version', self::VERSION );
-		}
+		$this->update();
 
 		wp_cache_add_global_groups( array( 'pbt' ) );
 
@@ -382,6 +367,10 @@ class Textbook {
 			'latest_files_public' => 1,
 		);
 
+		$web_options = array(
+			'part_title' => 1,
+		);
+
 		// Allow for override in wp-config.php
 		if ( 0 === strcmp( 'opentextbook', WP_DEFAULT_THEME ) || ! defined( 'WP_DEFAULT_THEME' ) ) {
 
@@ -412,6 +401,9 @@ class Textbook {
 
 		// redistribute latest exports
 		update_option( 'pbt_redistribute_settings', $redistribute_files );
+
+		// web theme options
+		update_option( 'pressbooks_theme_options_web', $web_options );
 	}
 
 	/**
@@ -442,7 +434,7 @@ class Textbook {
 	}
 
 	/**
-	 * Pass additional arguements to Publisher Root theme catalogue page
+	 * Pass additional arguments to Publisher Root theme catalogue page
 	 * @return array
 	 */
 	function rootThemeQuery() {
@@ -451,6 +443,37 @@ class Textbook {
 			'orderby' => 'last_updated',
 			'order'   => 'DESC',
 		);
+	}
+
+	/**
+	 * Perform site and network option updates
+	 * to keep up with a moving target
+	 */
+	private function update() {
+		// Set once, check and update network settings
+		$network_version = get_site_option( 'pbt_version', 0, false );
+
+		// triggers a network event with every new PBT Version
+		if ( version_compare( $network_version, self::VERSION ) < 0 ) {
+			update_site_option( 'pressbooks_sharingandprivacy_options', array( 'allow_redistribution' => 1 ) );
+			update_site_option( 'pbt_version', self::VERSION );
+		}
+
+		// triggers a site event with every new PBT Version
+		$site_version = get_option( 'pbt_version', 0, false );
+
+		if ( version_compare( $site_version, self::VERSION ) < 0 ) {
+			add_action( 'template_redirect', array( $this, 'updateWebbookStylesheet' ) );
+			update_option( 'pbt_version', self::VERSION );
+		}
+
+		// triggers a site event once for version 3.0.1
+		if ( version_compare( '3.0.1', self::VERSION ) == 0 ) {
+			$part_title = array(
+				'part_title' => 1,
+			);
+			update_option( 'pressbooks_theme_options_web', $part_title );
+		}
 	}
 
 }

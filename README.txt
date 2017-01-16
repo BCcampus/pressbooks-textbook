@@ -4,7 +4,7 @@ Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution
 Tags: pressbooks, textbook
 Requires at least: 4.7.1
 Tested up to: 4.7.1
-Stable tag: 3.0
+Stable tag: 3.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,10 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+= 3.0.1 (2017/01/16) =
+* styling improvements to Open Textbook theme
+* rely on parent theme template single.php
+* adjust theme options to coincide with parent theme
 
 = 3.0 (2017/01/12) =
 * updated and sass-ified Open Textbook theme

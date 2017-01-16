@@ -22,7 +22,7 @@ $h1-font-size: 1.3em !default;
 //$h1-font-family: $font-3 !default;
 //$h1-font-style: normal !default;
 //$h1-font-weight: bold !default;
-//$h1-text-transform: uppercase !default;
+$h1-text-transform: none !default;
 $h1-align: left !default;
 
 // Heading 2
@@ -203,6 +203,19 @@ $list-style-type-2: lower-roman;
 */
 small {
   font-size: 80%;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Paragraphs
+|--------------------------------------------------------------------------
+|
+|
+|
+|
+*/
+p + p {
+  text-indent: 0;
 }
 
 /*
