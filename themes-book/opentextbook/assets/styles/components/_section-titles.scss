@@ -1,0 +1,218 @@
+// // SECTIONS TITLES
+// // default styling for front matter, chapter, back matter
+//
+// // Section title wrap
+//
+// $section-title-block-margin-top:(
+//   epub: 2em,
+//   prince: 3cm,
+//   web: 3em
+// ) !default;
+// $section-title-block-margin-bottom:(
+//   epub: 2em,
+//   prince: 2cm,
+//   web: 2em
+// ) !default;
+// $section-title-block-margin-left: 0 !default;
+// $section-title-block-margin-right: 0 !default;
+//
+// // Section title
+//
+// $section-title-margin-top: 0;
+// $section-title-margin-bottom:(
+//   epub: 2em,
+//   prince: 1.5cm,
+//   web: 2em
+// ) !default;
+$section-title-font-family: $font-3 !default;
+// $section-title-font-size:(
+//   epub: 1.5em,
+//   prince: 2em,
+//   web: 2em
+// ) !default;
+// $section-title-font-style: normal !default;
+// $section-title-font-weight: normal !default;
+// $section-title-align: center !default;
+// $section-title-text-transform: none !default;
+//
+// // Section subtitle
+//
+// $section-subtitle-margin-bottom: .5em !default;
+$section-subtitle-font-family: $font-3 !default;
+// $section-subtitle-font-size: 1em !default;
+// $section-subtitle-font-style: normal !default;
+// $section-subtitle-font-weight: normal !default;
+// $section-subtitle-align: center !default;
+// $section-subtitle-text-transform: none !default;
+//
+// // Section author
+//
+// $section-author-margin-bottom: .5em !default;
+// $section-author-font-family: $font-2 !default;
+// $section-author-font-size: 1em !default;
+// $section-author-font-style: normal !default;
+// $section-author-font-weight: normal !default;
+// $section-author-align: center !default;
+// $section-author-text-transform: uppercase !default;
+//
+// // Section Aphorism
+//
+// $aphorism-font-family: $body-font-family !default;
+// $aphorism-font-size: .9em; // TODO
+// $aphorism-align: left !default;
+// $aphorism-cite-font-size: .9em !default;
+//
+// // PARTS
+//
+// // Part number
+//
+// $part-number-display: block !default;
+// $part-number-margin-bottom: 1em !default;
+// $part-number-font-family: $font-3 !default;
+// $part-number-font-size:(
+//   epub: 1em,
+//   prince: 1.5em,
+//   web: 1em
+// ) !default;
+// $part-number-font-style: normal !default;
+// $part-number-font-weight: normal !default;
+// $part-number-letter-spacing: 1px !default;
+// $part-number-word-spacing: 2px !default;
+// $part-number-align: center !default;
+// $part-number-text-transform: none !default;
+// $part-number-prefix-text-transform: uppercase !default; // The text before the part number, e.g. 'Part '
+//
+// // Part Title
+//
+$part-title-font-family: $font-3 !default;
+// $part-title-font-size:(
+//   epub: 1.75em,
+//   prince: 2.5em,
+//   web: 2.5em
+// ) !default;
+// $part-title-font-style: normal !default;
+// $part-title-font-weight: normal !default;
+// $part-title-align: center !default;
+$part-title-text-transform: none !default;
+//
+// // FRONT MATTER
+//
+// // Front matter title
+//
+// $front-matter-title-font-family: $section-title-font-family !default;
+// $front-matter-title-font-style: $section-title-font-style !default;
+// $front-matter-title-font-weight: $section-title-font-weight !default;
+$front-matter-title-align: left !default;
+// $front-matter-title-text-transform: $section-title-text-transform !default;
+//
+// // TOC title
+//
+// $toc-title-font-family: $section-title-font-family !default;
+// $toc-title-font-size: $section-title-font-size !default;
+// $toc-title-font-style: $section-title-font-style !default;
+// $toc-title-font-weight: $section-title-font-weight !default;
+// $toc-title-align: $section-title-align !default;
+// $toc-title-text-transform: $section-title-text-transform !default;
+//
+// // CHAPTERS
+//
+// // Chapter number
+//
+// $chapter-number-display: block !default;
+// $chapter-number-margin-bottom: 1em !default;
+// $chapter-number-font-family: $font-3 !default;
+// $chapter-number-font-size:(
+//   epub: 1em,
+//   prince: 1.5em,
+//   web: 1em
+// ) !default;
+// $chapter-number-font-style: normal !default;
+// $chapter-number-font-weight: normal !default;
+// $chapter-number-line-height: 1em !default;
+$chapter-title-align: left !default;
+// $chapter-number-text-transform: none !default;
+// $chapter-number-after-content: '. ' !default;
+//
+// // Chapter title
+//
+// $chapter-title-margin-top: $section-title-margin-top !default;
+// $chapter-title-margin-bottom: $section-title-margin-bottom !default;
+// $chapter-title-font-family: $section-title-font-family !default;
+// $chapter-title-font-style: $section-title-font-style !default;
+// $chapter-title-font-weight: $section-title-font-weight !default;
+// $chapter-title-align: $section-title-align !default;
+// $chapter-title-text-transform: $section-title-text-transform !default;
+//
+// // BACK MATTER
+//
+// // Back matter titles
+//
+// $back-matter-title-font-family: $section-title-font-family !default;
+// $back-matter-title-font-style: $section-title-font-style !default;
+// $back-matter-title-font-weight: $section-title-font-weight !default;
+$back-matter-title-align: left !default;
+// $back-matter-title-text-transform: $section-title-text-transform !default;
+
+// Override variables above this line, using the !default flag to allow further overrides.
+@import 'variables/section-titles';
+
+// Add custom SCSS below these imports and includes.
+@import 'components/section-titles/parts';
+@import 'components/section-titles/front-matter';
+@import 'components/section-titles/chapters';
+@import 'components/section-titles/back-matter';
+
+/*
+|--------------------------------------------------------------------------
+| Title, Subtitle, Authors & Aphorism
+|--------------------------------------------------------------------------
+|
+|
+|
+|
+*/
+
+.entry-title {
+  font-family: $font-3;
+  font-size: 1.6em;
+  font-weight: normal;
+  text-align: left;
+  margin: 100px 0 80px;
+}
+
+.entry-title span {
+  border-bottom: 1px solid $color-black-mineshaft;
+  padding: 0 0.2em 0.3em;
+  text-align: center;
+  width: 20%;
+}
+
+.chapter_subtitle {
+  font-size: 1em;
+  font-style: italic;
+  font-weight: normal;
+  margin: -80px 0 100px;
+  line-height: 1.4em;
+}
+
+.chapter_author {
+  font-style: italic;
+  font-weight: normal;
+  margin: -70px 0 100px;
+}
+
+.chapter_subtitle + .chapter_author {
+  margin-top: -80px;
+}
+
+.aphorism {
+  margin-bottom: 80px;
+  margin-left: 100px;
+  margin-top: -80px;
+  padding: 0;
+  text-align: right;
+}
+
+.aphorism cite {
+  float: none;
+}
