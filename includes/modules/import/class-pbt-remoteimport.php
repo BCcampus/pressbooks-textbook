@@ -76,15 +76,18 @@ class RemoteImport extends Html\Xhtml {
 	}
 
 	/**
-	 * Pummel then insert HTML into our database, separating it from parent class 
+	 * Pummel then insert HTML into our database, separating it from parent class
 	 * to deal with Parts, as well as chapters.
 	 *
 	 * @param string $href
 	 * @param string $post_type
 	 * @param int $chapter_parent
 	 * @param string $domain domain name of the webpage
+	 * @param string $post_status draft, publish, etc
+	 *
+	 * @return int|void|\WP_Error
 	 */
-	function kneadandInsert( $html, $post_type, $chapter_parent, $domain ) {
+	function kneadandInsert( $html, $post_type, $chapter_parent, $domain, $post_status ) {
 		$matches = array();
 		$meta = $this->getLicenseAttribution( $html );
 		$author = ( isset( $meta['authors'] )) ? $meta['authors'] : $this->getAuthors( $html );
@@ -113,7 +116,7 @@ class RemoteImport extends Html\Xhtml {
 		$new_post = array(
 		    'post_title' => $title,
 		    'post_type' => $post_type,
-		    'post_status' => ( 'part' == $post_type ) ? 'publish' : 'draft',
+		    'post_status' => ( isset( $post_status ) ) ? $post_status : 'draft',
 		);
 		
 		// parts are exceptional, content upload needs to be handled by update_post_meta
