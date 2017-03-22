@@ -1,5 +1,51 @@
 // Structure
 
+// Running content is made of three kinds of content:
+// -page number
+// -separator
+// -running content
+// First, choose page number position options (choose one!)
+
+//$numbering-position: 'top-outside-corner' !default;
+$numbering-position: 'top-outside' !default;
+//$numbering-position: 'top-center' !default;
+//$numbering-position: 'top-inside' !default;
+//$numbering-position: 'outside-top' !default;
+//$numbering-position: 'outside-middle' !default;
+//$numbering-position: 'outside-bottom' !default;
+//$numbering-position: 'bottom-outside-corner' !default;
+//$numbering-position: 'bottom-outside' !default;
+//$numbering-position: 'bottom-center' !default;
+//$numbering-position: 'bottom-inside' !default;
+
+// $first-numbering-position: null !default;
+// $first-numbering-position: 'top-center' !default;
+$first-numbering-position: 'bottom-center' !default;
+// TODO: Handle other positions based on recto-verso
+
+// Next, running content position options (choose one!)
+
+//$running-content-position: 'top-outside-corner' !default;
+$running-content-position: 'top-outside' !default;
+// $running-content-position: 'top-center' !default;
+//$running-content-position: 'top-inside' !default;
+//$running-content-position: 'outside-top' !default;
+//$running-content-position: 'outside-middle' !default;
+//$running-content-position: 'outside-bottom' !default;
+//$running-content-position: 'bottom-outside-corner' !default;
+//$running-content-position: 'bottom-outisde' !default;
+//$running-content-position: 'bottom-center' !default;
+//$running-content-position: 'bottom-inside' !default;
+
+
+// Finally, for the running separator, it either exists or it doesn't,
+//so choose between two options (null, or defined content):
+
+$left-running-separator: '\A0\A0\2022\A0\A0' !default;
+$right-running-separator: '\A0\A0\2022\A0\A0' !default;
+//$left-running-separator: '' !default;
+//$right-running-separator: '' !default;
+
 //// Page Numbers
 //
 //$front-matter-page-number-font-family: $font-2 !default;
@@ -15,7 +61,6 @@ $page-number-font-size: .7em !default;
 //
 //// Running Heads
 //
-$runninghead-separator: '\A0\A0\2022\A0\A0' !default;
 //$runninghead-padding-top: .4in !default;
 //$runninghead-left-font-family: $font-3 !default;
 //$runninghead-left-font-size: .7em !default;
@@ -112,24 +157,7 @@ $runninghead-separator: '\A0\A0\2022\A0\A0' !default;
 // Add custom SCSS below these imports and includes.
 @import 'components/structure/general';
 @import 'components/structure/recto-verso';
+@import 'components/structure/running-content';
 @import 'components/structure/numbering';
 @import 'components/structure/content-strings';
-// @import 'components/structure/runninghead-both-center';
- @import 'components/structure/runninghead-both-outside';
-// @import 'components/structure/runninghead-content-center';
-// @import 'components/structure/runninghead-content-outside';
-// @import 'components/structure/runninghead-number-center';
-// @import 'components/structure/runninghead-number-corner-content-outside';
-// @import 'components/structure/runninghead-number-outside-content-center';
-// @import 'components/structure/runninghead-number-outside-content-inside';
-// @import 'components/structure/runninghead-number-outside';
-// @import 'components/structure/runningfoot-both-center';
-// @import 'components/structure/runningfoot-both-outside';
-// @import 'components/structure/runningfoot-content-center';
-// @import 'components/structure/runningfoot-content-outside';
-// @import 'components/structure/runningfoot-number-center';
-@import 'components/structure/runningfoot-number-center-first';
-// @import 'components/structure/runningfoot-number-corner-content-outside';
-// @import 'components/structure/runningfoot-number-outside';
-// @import 'components/structure/runningfoot-number-outside-first';
 @import 'components/structure/index';
