@@ -4,7 +4,7 @@ Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution
 Tags: pressbooks, textbook
 Requires at least: 4.7.2
 Tested up to: 4.7.2
-Stable tag: 3.0.2
+Stable tag: 3.0.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,10 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+= 3.0.2.1 (2017/04/11) =
+* compatibility with PB v3.9.8.1
+* navigation arrows fix for open textbook theme - props @greatislander, @steelewagstaff
+
 = 3.0.2 (2017/02/16) =
 * compatibility with PB v3.9.7.1
 * correct strict standards warning with remote import
