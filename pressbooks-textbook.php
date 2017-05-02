@@ -435,7 +435,7 @@ class Textbook {
 		}
 		if ( true == $recompile ) {
 			error_log( 'Updating web book stylesheet.' );
-			\Pressbooks\Container::get( 'GlobalTypography' )->updateWebBookStyleSheet();
+			\Pressbooks\Container::get( 'Sass' )->updateWebBookStyleSheet();
 		} else {
 			error_log( 'No update needed.' );
 		}
