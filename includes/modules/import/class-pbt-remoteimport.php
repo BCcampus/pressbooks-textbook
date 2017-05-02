@@ -2,14 +2,14 @@
 
 /**
  * Uses the v1/API to search titles on a remote system based on a user defined search term
- * Extends the existing Xthml import class used in Pressbooks, the only differences being that we 
- * are sending that class more than one url/page to scrape at a time and we need to revoke 
+ * Extends the existing Xthml import class used in Pressbooks, the only differences being that we
+ * are sending that class more than one url/page to scrape at a time and we need to revoke
  * the PBT import rather than the PB import.
- * 
+ *
  * @package Pressbooks_Textbook
  * @author Brad Payne <brad@bradpayne.ca>
  * @license GPL-2.0+
- * 
+ *
  * @copyright 2015 Brad Payne
  */
 
@@ -26,23 +26,23 @@ if ( ! isset( $GLOBALS['pressbooks'] ) ) {
 class RemoteImport extends Html\Xhtml {
 
 	/**
-	 * 
+	 *
 	 * @param array $current_import
 	 */
 	function import( array $current_import ) {
 		$parent = 0;
 		foreach ( $current_import as $import ) {
-			
+
 			// fetch the remote content
 			$html = wp_remote_get( $import['file'] );
-			
+
 			if( is_wp_error( $html ) ){
 				$err = $html->get_error_message();
 				error_log( '\PBT\Import\RemoteImport\import() error with wp_remote_get(): ' . $err );
 				unset( $html );
 				$html['body'] = $err;
 			}
-			
+
 			$url = parse_url( $import['file'] );
 			// get parent directory (with forward slash e.g. /parent)
 			$path = dirname( $url['path'] );
@@ -64,12 +64,12 @@ class RemoteImport extends Html\Xhtml {
 			}
 
 			$pid = $this->kneadandInsert( $html['body'], $post_type, $chapter_parent, $domain );
-			
+
 			// set variable with Post ID of the last Part
 			if ( 'part' == $post_type ){
 				$parent = $pid;
 			}
-			
+
 		}
 		// Done
 		return Search\ApiSearch::revokeCurrentImport();
@@ -87,7 +87,7 @@ class RemoteImport extends Html\Xhtml {
 	 *
 	 * @return int|void|\WP_Error
 	 */
-	function kneadandInsert( $html, $post_type, $chapter_parent, $domain, $post_status ) {
+	function kneadandInsert( $html, $post_type, $chapter_parent, $domain, $post_status = 'draft' ) {
 		$matches = array();
 		$meta = $this->getLicenseAttribution( $html );
 		$author = ( isset( $meta['authors'] )) ? $meta['authors'] : $this->getAuthors( $html );
@@ -116,9 +116,9 @@ class RemoteImport extends Html\Xhtml {
 		$new_post = array(
 		    'post_title' => $title,
 		    'post_type' => $post_type,
-		    'post_status' => ( isset( $post_status ) ) ? $post_status : 'draft',
+		    'post_status' => $post_status,
 		);
-		
+
 		// parts are exceptional, content upload needs to be handled by update_post_meta
 		if ( 'part' != $post_type ) {
 			$new_post['post_content'] = $body;
@@ -134,27 +134,27 @@ class RemoteImport extends Html\Xhtml {
 		if ( 'part' == $post_type && !empty( $body ) ) {
 			update_post_meta( $pid, 'pb_part_content', $body );
 		}
-		
+
 		if( ! empty( $author )){
 			update_post_meta( $pid, 'pb_section_author', $author );
 		}
-		
+
 		if( ! empty( $license ) ){
 			update_post_meta( $pid, 'pb_section_license', $license );
 		}
-		
+
 		update_post_meta( $pid, 'pb_show_title', 'on' );
 		update_post_meta( $pid, 'pb_export', 'on' );
 
 		Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder
-		
+
 		return $pid;
-		
+
 	}
-	
+
 	/**
 	 * Cherry pick likely content areas, then cull known, unwanted content areas
-	 * 
+	 *
 	 * @param string $html
 	 * @return string $html
 	 */
