@@ -17,6 +17,7 @@ namespace PBT\Import;
 
 use PBT\Search;
 use Pressbooks\Modules\Import\Html;
+use Pressbooks\HtmLawed;
 use Pressbooks\Book;
 
 if ( ! isset( $GLOBALS['pressbooks'] ) ) {
@@ -220,7 +221,7 @@ class RemoteImport extends Html\Xhtml {
 		    'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 		);
 
-		return htmLawed( $html, $config );
+		return \Pressbooks\HtmLawed::filter( $html, $config );
 	}
 
 }
