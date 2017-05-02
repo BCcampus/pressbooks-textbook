@@ -57,6 +57,13 @@ class Textbook {
 	protected static $instance = null;
 
 	/**
+	 * If there is a dependency with a specific PB version
+	 *
+	 * @var string
+	 */
+	protected $min_pb_compatibility_version = '3.9.8.2';
+
+	/**
 	 * Initialize the plugin by setting localization and loading public scripts
 	 * and styles.
 	 *
@@ -86,6 +93,8 @@ class Textbook {
 
 		// Load translations
 		add_action( 'init', array( $this, 'loadPluginTextDomain' ) );
+		// Check Compatibility with PB
+		add_action( 'init', array( $this, 'pbCompatibility' ) );
 
 		// Setup our activation and deactivation hooks
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
@@ -476,29 +485,32 @@ class Textbook {
 		}
 	}
 
+	/**
+	 * Must meet miniumum requirements before either PB or PBT objects are instantiated
+	 *
+	 */
+	function pbCompatibility() {
+		if ( ! @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
+			add_action( 'admin_notices', function () {
+				echo '<div id="message" class="error fade"><p>' . __( 'PBT cannot find a Pressbooks install.', $this->plugin_slug ) . '</p></div>';
+			} );
+
+		} elseif ( ! pb_meets_minimum_requirements() ) { // This PB function checks for both multisite, PHP and WP minimum versions.
+			add_action( 'admin_notices', function () {
+				echo '<div id="message" class="error fade"><p>' . __( 'Your PHP version may not be supported by PressBooks.'
+				                                                      . ' If you suspect this is the case, it can be overridden, so long as it is remains above PHP 5.4.0. Add a line to wp-config.php as follows: $pb_minimum_php = "5.4.0"; ', $this->plugin_slug ) . '</p></div>';
+			} );
+
+		} elseif ( ! version_compare( PB_PLUGIN_VERSION, $this->min_pb_compatibility_version, '>=' ) ) {
+			add_action( 'admin_notices', function () {
+				echo '<div id="message" class="error fade"><p>' . __( 'PB Textbook requires Pressbooks 3.9.8.2 or greater.', $this->plugin_slug ) . '</p></div>';
+			} );
+		}
+
+	}
+
 }
 
-// ------------------------------------
-// Check minimum requirements
-// ------------------------------------
-// Must meet miniumum requirements before either PB or PBT objects are instantiated.
-
-if ( ! @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
-	add_action( 'admin_notices', function () {
-		echo '<div id="message" class="error fade"><p>' . __( 'PBT cannot find a Pressbooks install.', 'pressbooks-textbook' ) . '</p></div>';
-	} );
-
-	return;
-
-} elseif ( ! pb_meets_minimum_requirements() ) { // This PB function checks for both multisite, PHP and WP minimum versions.
-	add_action( 'admin_notices', function () {
-		echo '<div id="message" class="error fade"><p>' . __( 'Your PHP version may not be supported by PressBooks.'
-		                                                      . ' If you suspect this is the case, it can be overridden, so long as it is remains above PHP 5.4.0. Add a line to wp-config.php as follows: $pb_minimum_php = "5.4.0"; ', 'pressbooks-textbook' ) . '</p></div>';
-	} );
-
-	return;
-
-}
 
 if ( get_site_option( 'pressbooks-activated' ) ) {
 	if ( is_admin() ) {
