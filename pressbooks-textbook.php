@@ -38,7 +38,7 @@ class Textbook {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	const VERSION = '3.0.2.2';
+	const VERSION = '3.0.2.3';
 
 	/**
 	 * Unique identifier for plugin.
