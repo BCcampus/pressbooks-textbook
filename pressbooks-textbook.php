@@ -387,7 +387,6 @@ class Textbook {
 			switch_theme( 'opentextbook' );
 
 			// safety
-			update_option( 'template_root', '/plugins/pressbooks/themes-book' );
 			update_option( 'stylesheet_root', '/plugins/pressbooks-textbook/themes-book' );
 			update_option( 'template', 'pressbooks-book' );
 			update_option( 'stylesheet', 'opentextbook' );
