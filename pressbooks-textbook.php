@@ -102,12 +102,12 @@ class Textbook {
 
 		// Hook in our pieces
 		add_action( 'plugins_loaded', array( $this, 'includes' ) );
-		add_action( 'pressbooks_register_theme_directory', array( $this, 'pbtInit') );
+		add_action( 'pressbooks_register_theme_directory', array( $this, 'pbtInit' ) );
 		add_action( 'wp_enqueue_style', array( $this, 'registerChildThemes' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueueScriptsnStyles' ) );
 		add_filter( 'allowed_themes', array( $this, 'filterChildThemes' ), 11 );
 		add_action( 'pressbooks_new_blog', array( $this, 'newBook' ) );
-		add_filter( 'pb_publisher_catalog_query_args', array( $this, 'rootThemeQuery') );
+		add_filter( 'pb_publisher_catalog_query_args', array( $this, 'rootThemeQuery' ) );
 
 		$this->update();
 
@@ -460,6 +460,7 @@ class Textbook {
 	private function update() {
 		// Set once, check and update network settings
 		$network_version = get_site_option( 'pbt_version', 0, false );
+		$pb_version      = get_site_option( 'pbt_pb_version' );
 
 		// triggers a network event with every new PBT Version
 		if ( version_compare( $network_version, self::VERSION ) < 0 ) {
@@ -482,7 +483,29 @@ class Textbook {
 			);
 			update_option( 'pressbooks_theme_options_web', $part_title );
 		}
+
+		// triggers on version update to 4.0, deals with breaking change
+		if ( version_compare( $pb_version, '4.0' ) >= 0 ) {
+			$count  = [ 'count' => true ];
+			$limit = get_sites( $count );
+			// avoid the default maximum of 100
+			$number = [ 'number' => $limit ];
+			$sites  = get_sites( $number );
+
+			// update all sites
+			foreach ( $sites as $site ) {
+				switch_to_blog( $site->blog_id );
+				$root  = get_option( 'template_root' );
+				$theme = get_option( 'stylesheet' );
+				if ( strcmp( $root, '/plugins/pressbooks/themes-book' ) == 0 && strcmp( $theme, 'opentextbook' ) == 0 ) {
+					update_option( 'template_root', '/themes' );
+				}
+				restore_current_blog();
+			}
+		}
+
 	}
+
 
 	/**
 	 * Must meet miniumum requirements before either PB or PBT objects are instantiated
@@ -505,6 +528,8 @@ class Textbook {
 				echo '<div id="message" class="error fade"><p>' . __( 'PB Textbook requires Pressbooks 3.9.8.2 or greater.', $this->plugin_slug ) . '</p></div>';
 			} );
 		}
+		// need version number outside of init hook
+		update_site_option( 'pbt_pb_version', PB_PLUGIN_VERSION );
 
 	}
 
