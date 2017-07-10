@@ -46,7 +46,6 @@ Contributors
 
 This plugin comes with and activates some existing wordpress plugins. Currently these plugins include:
 * [Creative Commons Configurator](https://github.com/gnotaras/wordpress-creative-commons-configurator) gnotaras
-* [MCE Table Buttons](https://github.com/wp-plugins/mce-table-buttons) jakemgold, 10up, thinkoomph
 * [Hypothesis] (https://wordpress.org/plugins/hypothesis/) timmmmyboy
 
 More Details
