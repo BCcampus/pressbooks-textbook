@@ -2,9 +2,9 @@
 Contributors: bdolor
 Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution-guidelines
 Tags: pressbooks, textbook
-Requires at least: 4.7.5
+Requires at least: 4.8.0
 Tested up to: 4.8.0
-Stable tag: 3.0.2.3
+Stable tag: 3.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -87,6 +87,12 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+= 3.1.0 (2017/07/10) =
+* compatibility with PB v4.0.0
+* updated readme to match relevant functionality - props @greatislander
+* updated theme to use metacomponents for forward compatibility - props @greatislander
+
+
 = 3.0.2.3 (2017/06/15) =
 * fix for removed components/structure/index in PB
 

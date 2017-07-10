@@ -11,7 +11,7 @@
  * @wordpress-plugin
  * Plugin Name:       Pressbooks Textbook
  * Description:       A plugin that extends Pressbooks for textbook authoring
- * Version:           3.0.2.3
+ * Version:           3.1.0
  * Author:            Brad Payne
  * Author URI:        http://bradpayne.ca
  * Text Domain:       pressbooks-textbook
@@ -38,7 +38,7 @@ class Textbook {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	const VERSION = '3.0.2.3';
+	const VERSION = '3.1.0';
 
 	/**
 	 * Unique identifier for plugin.
@@ -61,7 +61,7 @@ class Textbook {
 	 *
 	 * @var string
 	 */
-	protected $min_pb_compatibility_version = '3.9.8.2';
+	protected $min_pb_compatibility_version = '4.0.0';
 
 	/**
 	 * Initialize the plugin by setting localization and loading public scripts
@@ -528,7 +528,7 @@ class Textbook {
 
 		} elseif ( ! version_compare( PB_PLUGIN_VERSION, $this->min_pb_compatibility_version, '>=' ) ) {
 			add_action( 'admin_notices', function () {
-				echo '<div id="message" class="error fade"><p>' . __( 'PB Textbook requires Pressbooks 3.9.8.2 or greater.', $this->plugin_slug ) . '</p></div>';
+				echo '<div id="message" class="error fade"><p>' . __( 'PB Textbook requires Pressbooks 4.0.0 or greater.', $this->plugin_slug ) . '</p></div>';
 			} );
 		}
 		// need version number outside of init hook
