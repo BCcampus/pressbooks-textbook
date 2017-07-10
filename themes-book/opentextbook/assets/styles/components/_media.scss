@@ -44,9 +44,7 @@ $prince-image-resolution: 135dpi !default;
 @import 'variables/media';
 
 // Add custom SCSS below these imports and includes.
-@import 'components/media/images';
-@import 'components/media/audio';
-@import 'components/media/video';
+@import 'components/media';
 
 /*
 |--------------------------------------------------------------------------
