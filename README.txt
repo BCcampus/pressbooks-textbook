@@ -11,39 +11,34 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Pressbooks Textbook adds functionality to the Pressbooks plugin to make it easier to author textbooks.
 
 == Description ==
-**Pressbooks Textbook** adds functionality to Pressbooks to make it easier to author textbooks as well. The features it currently offers are: 
+**Pressbooks Textbook** adds functionality to Pressbooks to make it easier to author textbooks as well. The features it currently offers are:
 
 * Textbook Theme
-* TinyMCE table buttons
-* TinyMCE textbook buttons 
+* TinyMCE textbook buttons
 * TinyMCE spell check
-* TinyMCE anchor button
-* Search functionality
 * Creative Commons license attribution
 * Prominent admin buttons (Import, Plugin)
 * Annotation functionality
-* Optionally redistributing free, digital versions of your book.
 * Download links to openly licensed textbooks, ready to remix.
 * A remix 'eco-system' — Search and Import chapters from both local and remote instances of Pressbooks
-* Disable/enable comments
 
 Textbooks have functional and styling considerations above and beyond regular books. Open textbooks are those that are licensed with a [creative commons license](http://creativecommons.org).
 This plugin was built primarily to support the creation, remixing and distribution of open textbooks for the [open textbook project in BC](http://open.bccampus.ca/about-2/).
 
 == Installation ==
 
-IMPORTANT! 
+IMPORTANT!
 
 You must first install [Pressbooks](https://github.com/pressbooks/pressbooks). This plugin won't work without it.
 The Pressbooks github repository is updated frequently. [Stay up to date](https://github.com/pressbooks/pressbooks/tree/master).
 
-Most of the functionality of this plugin, like search, textbook buttons and annotation are tied directly to the `Open Textbooks` theme. Network Activate the `Open Textbooks` 
-theme, then activate at the book level. You'll have access to those features and more. 
+Most of the functionality of this plugin, like textbook buttons and annotation, are tied directly to the `Open Textbooks` theme. Network Activate the `Open Textbooks`
+theme, then activate at the book level. You'll have access to those features and more.
 
 = Using Git =
 
-1. cd /wp-content/plugins 
-2. git clone https://github.com/BCcampus/pressbooks-textbook.git 
+1. cd /wp-content/plugins
+2. git clone https://github.com/BCcampus/pressbooks-textbook.git
 3. Activate the plugin at the network level, through the 'Plugins' menu in WordPress
 4. Activate the `Open Textbooks` theme at the network level
 5. Activate the `Open Textbooks` theme at the book level.
@@ -67,11 +62,11 @@ theme, then activate at the book level. You'll have access to those features and
 
 = What is an Open Textbook? =
 
-Open Textbooks are open educational resources (OER); they are instructional resources created and shared in ways so that more people have access to them. 
-That’s a different model than traditionally-copyrighted materials. 
+Open Textbooks are open educational resources (OER); they are instructional resources created and shared in ways so that more people have access to them.
+That’s a different model than traditionally-copyrighted materials.
 OER are defined as “teaching, learning, and research resources that reside in the public domain or have been released under an intellectual property license that permits their free use and re-purposing by others” (Hewlett Foundation).
 
-= How do you make a Textbook 'Open'? = 
+= How do you make a Textbook 'Open'? =
 
 When creating Open Textbooks and other OERs, we feel it is best to adhere to the five Rs of open education as defined by David Wiley, which are:
 
@@ -81,12 +76,12 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 4. Remix – you or your students can pull together a number of different resources to create something new.
 5. Redistribute – you are free to share with others, so they can reuse, remix, improve upon, correct, review or otherwise enjoy your work.
 
-== Screenshots == 
+== Screenshots ==
 
-1. Modified home page 
-2. Search feature 
-3. Textbook specific buttons with styling maintained throughout export routines 
-4. Textbook theme 
+1. Modified home page
+2. Search feature
+3. Textbook specific buttons with styling maintained throughout export routines
+4. Textbook theme
 5. Customize your plugin options for each book in your collection
 
 == Changelog ==
@@ -155,11 +150,11 @@ See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more det
 * adding proper formatting for warning message
 * resolving undefined index notice
 * update reference to icon on homepage
-* updating homepage code 
+* updating homepage code
 
 = 2.0 (2015/10/29) =
 * major upgrade to coincide with PB 3.0 release
-* updated namespaces 
+* updated namespaces
 
 = 1.2.16 (2015/09/16) =
 * minimum req WP version bump
@@ -185,7 +180,7 @@ See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more det
 * migration of table functionality to PB
 
 = 1.2.9 (2015/06/22) =
-* add style for tight/loose tracking 
+* add style for tight/loose tracking
 * left align h3 tags
 * support for disabling social media buttons
 * bug fix for search and import
@@ -204,7 +199,7 @@ See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more det
 * fix php notice messages in search and import
 * fix syntax error in search and import
 
-= 1.2.5 (2015/03/11) = 
+= 1.2.5 (2015/03/11) =
 * add table cell border to web and print
 * fix default theme on new book creation
 * add part title to web view
@@ -214,14 +209,14 @@ See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more det
 = 1.2.3 (2015/01/12) =
 * updating ccc documentation
 * adding sub/sup buttons to tinymce
-* css styles to support Jack! 
+* css styles to support Jack!
 * add optional (piwik/google) analytics event tracking code
 * improvements to textbook download page
 
 = 1.2.2 (2014/10/30) =
 * hotfix for inconsistent behaviour on default activation of theme
 
-= 1.2.1 (2014/10/29) = 
+= 1.2.1 (2014/10/29) =
 * changes placement of export files on homepage
 * fix for license picker in textbook downloads
 * fix for running header in pdf output (thanks Jack!)
@@ -251,16 +246,16 @@ See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more det
 * CSS updates for export files
 
 = 1.1.3 (2014/06/18) =
-* adding LRMI microdata 
+* adding LRMI microdata
 
 = 1.1.1 (2014/06/17) =
-* adding support for vanilla WP export 
+* adding support for vanilla WP export
 * fix early morning spelling error
 
 = 1.1.0 (2014/06/12) =
 * adding news feed to admin dashboard
 * updating mce table buttons plugin
-* dependency injection, caching added to remix tab 
+* dependency injection, caching added to remix tab
 
 = 1.0.9 (2014/05/30) =
 * adding copyright description to cover page
@@ -275,20 +270,20 @@ See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more det
 * fix filtering of root child themes (thanks John!)
 * tested up to WP 3.9
 
-= 1.0.6 (2014/04/11) = 
+= 1.0.6 (2014/04/11) =
 * fixing filter function to ameliorate conflicts with already active plugins.
 
-= 1.0.5 (2014/04/04) = 
+= 1.0.5 (2014/04/04) =
 * adding download links to 31 openly licensed textbooks in various digital formats. Remix!
 
-= 1.0.4 (2014/04/03) = 
+= 1.0.4 (2014/04/03) =
 * fixing redistribution of export files option on home page, requires re-setting if previously set
 
-= 1.0.3 (2014/04/01) = 
+= 1.0.3 (2014/04/01) =
 * updating and fixing mce table plugin
 
-= 1.0.2 (2014/03/31) = 
-* choose which plugins you want to include 
+= 1.0.2 (2014/03/31) =
+* choose which plugins you want to include
 * adding tabs to plugin options page
 
 = 1.0.1 (2014/03/18) =
@@ -299,8 +294,8 @@ See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more det
 = 1.0.0 (2014/03/13) =
 * initial release
 
-== How to contribute code == 
+== How to contribute code ==
 
-Pull requests are enthusiastically received **and** scrutinized for quality. 
+Pull requests are enthusiastically received **and** scrutinized for quality.
 
 * The best way is to initiate a pull request on [GitHub](https://github.com/BCcampus/pressbooks-textbook).
