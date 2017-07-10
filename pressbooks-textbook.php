@@ -486,8 +486,8 @@ class Textbook {
 
 		// triggers on version update to 4.0, deals with breaking change
 		// runs once
-		$once = get_site_option( 'pbt_update_template_root', false );
-		if ( version_compare( $pb_version, '4.0' ) >= 0 && $once === false ) {
+		$once = get_site_option( 'pbt_update_template_root', 0 );
+		if ( version_compare( $pb_version, '4.0.0' ) >= 0 && $once === 0 ) {
 			$count = [ 'count' => true ];
 			$limit = get_sites( $count );
 			// avoid the default maximum of 100
@@ -504,7 +504,7 @@ class Textbook {
 				}
 				restore_current_blog();
 			}
-			update_site_option( 'pbt_update_template_root', true );
+			update_site_option( 'pbt_update_template_root', 1 );
 		}
 
 	}
