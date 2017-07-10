@@ -5,18 +5,16 @@ A plugin that extends Pressbooks for textbook authoring.
 
 [Pressbooks](https://github.com/pressbooks/pressbooks) is a content management and 'one button publishing' system for books.
 
-**Pressbooks Textbook** adds functionality to Pressbooks to make it easier to author textbooks as well. The features it currently offers are: 
+**Pressbooks Textbook** adds functionality to Pressbooks to make it easier to author textbooks as well. The features it currently offers are:
+
 * Textbook Theme
-* TinyMCE buttons: tables, spell check, anchor, super/subscript
-* TinyMCE textbook specific buttons (learning objectives, key terms, exercises)
-* Search functionality
+* TinyMCE textbook buttons (learning objectives, key terms, exercises)
+* TinyMCE spell check
 * Creative Commons license attribution
 * Prominent admin buttons (Import, Plugin)
-* Annotation features
-* Optionally redistributing free, electronic versions of your book
+* Annotation functionality
 * Download links to openly licensed textbooks, ready to remix.
-* A remix 'eco-system' — Search and Import chapters from the same instance of Pressbooks
-* Disable/enable comments
+* A remix 'eco-system' — Search and Import chapters from both local and remote instances of Pressbooks
 
 Primary Use Case
 ------------
@@ -28,8 +26,8 @@ FAQ
 
 **What is an Open Textbook?**
 
-Open Textbooks are open educational resources (OER); they are instructional resources created and shared in ways so that more people have access to them. 
-That’s a different model than traditionally-copyrighted materials. 
+Open Textbooks are open educational resources (OER); they are instructional resources created and shared in ways so that more people have access to them.
+That’s a different model than traditionally-copyrighted materials.
 OER are defined as “teaching, learning, and research resources that reside in the public domain or have been released under an intellectual property license that permits their free use and re-purposing by others” (Hewlett Foundation).
 
 **How do you make a Textbook 'Open'?**
@@ -47,8 +45,7 @@ Contributors
 * https://github.com/BCcampus/pressbooks-textbook/graphs/contributors
 
 This plugin comes with and activates some existing wordpress plugins. Currently these plugins include:
-* [Creative Commons Configurator](https://github.com/gnotaras/wordpress-creative-commons-configurator) gnotaras 
-* [MCE Table Buttons](https://github.com/wp-plugins/mce-table-buttons) jakemgold, 10up, thinkoomph 
+* [Creative Commons Configurator](https://github.com/gnotaras/wordpress-creative-commons-configurator) gnotaras
 * [Hypothesis] (https://wordpress.org/plugins/hypothesis/) timmmmyboy
 
 More Details
