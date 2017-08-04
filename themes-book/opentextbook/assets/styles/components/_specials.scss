@@ -223,6 +223,9 @@ div.part.invisible {
 
 .entry-content {
   overflow-wrap: break-word;
+  sub, sup {
+    font-size: 10px;
+  }
 }
 
 .bcc-box, .textbox {

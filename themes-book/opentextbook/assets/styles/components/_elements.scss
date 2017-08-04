@@ -364,3 +364,29 @@ tr.border,
 td.border {
   border: 1px solid $color-black;
 }
+
+/*
+|--------------------------------------------------------------------------
+| Sup/Sub
+|--------------------------------------------------------------------------
+|
+|
+|
+|
+*/
+
+sup,
+sub {
+  position: relative;
+  height: 0;
+  line-height: 1;
+  vertical-align: baseline;
+}
+
+sup {
+  bottom: 1ex;
+}
+
+sub {
+  top: 0.5ex;
+}
