@@ -1,4 +1,12 @@
-// Structure
+/*
+|--------------------------------------------------------------------------
+| Structure
+|--------------------------------------------------------------------------
+|
+| Open Textbook Variable Overrides
+|
+|
+*/
 
 // Running content is made of three kinds of content:
 // -page number
@@ -156,3 +164,25 @@ $page-number-font-size: .7em !default;
 
 // Add custom SCSS below these imports and includes.
 @import 'components/structure';
+
+/*
+|--------------------------------------------------------------------------
+| Structure
+|--------------------------------------------------------------------------
+|
+| Open Textbook Custom SCSS
+|
+|
+*/
+
+/* "short title override" ... this sets short chapter title content (for running header) but does not display it.
+it can cause problems with spacing of things, so be careful to design around it */
+
+div.front-matter > div.ugc h6.short-title:first-of-type,
+div.chapter > div.ugc h6.short-title:first-of-type,
+div.back-matter > div.ugc h6.short-title:first-of-type {
+  string-set: section-title content() !important; /* override running header */
+  visibility: hidden; /* display:none breaks string-set: */
+  font-size: 0;
+  height: 0;
+}

@@ -1,4 +1,31 @@
-// Colors
+/*
+|--------------------------------------------------------------------------
+| Colors
+|--------------------------------------------------------------------------
+|
+| Open Textbook Variable Overrides
+|
+|
+*/
+
+$color-white: #ffffff;
+$color-white-alabaster: #f9f9f9;
+$color-gray-athensgray: #f7f7f9;
+$color-gray-harp: #eaf5ea;
+$color-gray-mercury: #e7e7e7;
+$color-gray-alto: #dddddd;
+$color-gray-gallery: #eeeeee;
+$color-black: #000000;
+$color-black-codgray: #111111;
+$color-black-tuatara: #1f1f1d;
+$color-black-mineshaft: #333333;
+$color-green-goblin: #3a7a33;
+$color-blue-venice: #0b6396;
+$color-blue-linkwater: #E3EFF6;
+$color-yellow-twine: #c09853;
+$color-red-monza: #b40026;
+$color-red-tamarillo: #870d0d;
+
 //$color-1: initial !default; //body color, usually black
 //$color-2: $color-1 !default; //highlight color, for titles etc.
 //$color-3: $color-1 !default; //second highlight color, or black
@@ -99,23 +126,16 @@
 // Add custom SCSS below these imports and includes.
 @import 'components/colors';
 
-$color-white: #ffffff;
-$color-white-alabaster: #f9f9f9;
-$color-gray-athensgray: #f7f7f9;
-$color-gray-harp: #eaf5ea;
-$color-gray-mercury: #e7e7e7;
-$color-gray-alto: #dddddd;
-$color-gray-gallery: #eeeeee;
-$color-black: #000000;
-$color-black-codgray: #111111;
-$color-black-tuatara: #1f1f1d;
-$color-black-mineshaft: #333333;
-$color-green-goblin: #3a7a33;
-$color-blue-venice: #0b6396;
-$color-blue-linkwater: #E3EFF6;
-$color-yellow-twine: #c09853;
-$color-red-monza: #b40026;
-$color-red-tamarillo: #870d0d;
+/*
+|--------------------------------------------------------------------------
+| Colours
+|--------------------------------------------------------------------------
+|
+| Open Textbook Custom SCSS
+|
+|
+*/
+
 
 
 
