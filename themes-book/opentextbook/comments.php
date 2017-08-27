@@ -39,12 +39,12 @@
 
 <?php endif; // end have_comments() ?>
 
-<?php 
+<?php
 /* Comment form submit text*/
 $comments_args = array(
-		'label_submit' => __('Submit', 'pressbooks'),						
+		'label_submit' => __( 'Submit', 'pressbooks' ),
 );
 
-comment_form($comments_args); ?>
+comment_form( $comments_args ); ?>
 
 </div><!-- #comments -->

@@ -196,7 +196,6 @@ class Textbook {
 				if ( in_array( $key, $already_active ) || array_key_exists( $key, $network_already_active ) ) {
 					unset( $pbt_plugin[ $key ] );
 				}
-
 			}
 		}
 
@@ -210,7 +209,7 @@ class Textbook {
 				foreach ( $pbt_plugin as $key => $val ) {
 
 					$name       = strstr( $key, '/', true );
-					$pbt_option = "pbt_" . $name . "_active";
+					$pbt_option = 'pbt_' . $name . '_active';
 
 					// either it doesn't exist, or the client doesn't want it
 					if ( array_key_exists( $pbt_option, $user_options ) ) {
@@ -383,7 +382,7 @@ class Textbook {
 		);
 
 		$epub_compress_images = array(
-			'ebook_compress_images' => 1
+			'ebook_compress_images' => 1,
 		);
 
 		$redistribute_files = array(
@@ -537,7 +536,7 @@ class Textbook {
 		} elseif ( ! pb_meets_minimum_requirements() ) { // This PB function checks for both multisite, PHP and WP minimum versions.
 			add_action( 'admin_notices', function () {
 				echo '<div id="message" class="error fade"><p>' . __( 'Your PHP version may not be supported by PressBooks.'
-				                                                      . ' If you suspect this is the case, it can be overridden, so long as it is remains above PHP 5.4.0. Add a line to wp-config.php as follows: $pb_minimum_php = "5.4.0"; ', $this->plugin_slug ) . '</p></div>';
+				. ' If you suspect this is the case, it can be overridden, so long as it is remains above PHP 5.4.0. Add a line to wp-config.php as follows: $pb_minimum_php = "5.4.0"; ', $this->plugin_slug ) . '</p></div>';
 			} );
 
 		} elseif ( ! version_compare( PB_PLUGIN_VERSION, $this->min_pb_compatibility_version, '>=' ) ) {

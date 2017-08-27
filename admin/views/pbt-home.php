@@ -1,14 +1,15 @@
 <?php
 /**
- * This admin home page describes the what and why of opentextbooks. 
+ * This admin home page describes the what and why of opentextbooks.
  *
  * @package Pressbooks_Textbook
  * @author Brad Payne <brad@bradpayne.ca>
  * @license   GPL-2.0+
- * 
+ *
  * @copyright 2014 Brad Payne
  */
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) { exit;
+}
 
 ?>
 

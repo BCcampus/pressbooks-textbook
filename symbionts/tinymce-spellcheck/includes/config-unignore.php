@@ -4,17 +4,19 @@
  */
 function TSpell_ignore_call() {
 
-	if ( ! TSpell_is_allowed() )
+	if ( ! TSpell_is_allowed() ) {
 		return;
+	}
 
 	$user = wp_get_current_user();
 
-	if ( ! $user || $user->ID == 0 )
+	if ( ! $user || $user->ID == 0 ) {
 		return;
+	}
 
 	check_admin_referer( 'tspell_ignore' );
 
-	$ignores = explode( ',', TSpell_get_setting( $user->ID, 'TSpell_ignored_phrases') );
+	$ignores = explode( ',', TSpell_get_setting( $user->ID, 'TSpell_ignored_phrases' ) );
 	array_push( $ignores, $_GET['phrase'] );
 
 	$ignores = array_filter( array_map( 'strip_tags', $ignores ) );
@@ -31,19 +33,22 @@ function TSpell_ignore_call() {
  */
 function TSpell_process_unignore_update() {
 
-	if ( ! TSpell_is_allowed() )
+	if ( ! TSpell_is_allowed() ) {
 		return;
+	}
 
-	if ( ! isset( $_POST['TSpell_ignored_phrases'] ) )
+	if ( ! isset( $_POST['TSpell_ignored_phrases'] ) ) {
 		return;
+	}
 
-    $user = wp_get_current_user();
+	$user = wp_get_current_user();
 
-    if ( ! $user || $user->ID == 0 )
-            return;
+	if ( ! $user || $user->ID == 0 ) {
+			return;
+	}
 
 	$ignores = array_filter( array_map( 'strip_tags', explode( ',', $_POST['TSpell_ignored_phrases'] ) ) );
-        TSpell_update_setting( $user->ID, 'TSpell_ignored_phrases', join( ',', $ignores ) );
+		TSpell_update_setting( $user->ID, 'TSpell_ignored_phrases', join( ',', $ignores ) );
 }
 
 /*
@@ -51,13 +56,15 @@ function TSpell_process_unignore_update() {
  */
 function TSpell_display_unignore_form() {
 
-	if ( ! TSpell_is_allowed() )
+	if ( ! TSpell_is_allowed() ) {
 		return;
+	}
 
 	$user = wp_get_current_user();
 
-	if ( ! $user || $user->ID == 0 )
+	if ( ! $user || $user->ID == 0 ) {
 		return;
+	}
 
 	$ignores = TSpell_get_setting( $user->ID, 'TSpell_ignored_phrases' );
 ?>
@@ -65,8 +72,8 @@ function TSpell_display_unignore_form() {
 function atd_show_phrases( ignored )
 {
 	var element = jQuery( '#atd_ignores' ),
-	    items   = [],
-	    delLink;
+		items   = [],
+		delLink;
 
 	ignored.sort();
 
@@ -85,30 +92,30 @@ function atd_show_phrases( ignored )
 function atd_unignore( phrase ) {
 	// get the ignored values and remove the unwanted phrase
 	var ignored = jQuery( '#TSpell_ignored_phrases' ).val().split( /,/g );
-        ignored = jQuery.map(ignored, function(value, index) { return value == phrase ? null : value; });
-        jQuery( '#TSpell_ignored_phrases' ).val( ignored.join(',') );
+		ignored = jQuery.map(ignored, function(value, index) { return value == phrase ? null : value; });
+		jQuery( '#TSpell_ignored_phrases' ).val( ignored.join(',') );
 
 	// update the UI
 	atd_show_phrases( ignored );
 
 	// show a nifty message to the user
-    jQuery( '#TSpell_message' ).show();
+	jQuery( '#TSpell_message' ).show();
 }
 
 function atd_ignore () {
 	// get the ignored values and update the hidden field
 	var ignored = jQuery( '#TSpell_ignored_phrases' ).val().split( /,/g );
 
-    jQuery.map(jQuery( '#TSpell_add_ignore' ).val().split(/,\s*/g), function(value, index) { ignored.push(value); });
+	jQuery.map(jQuery( '#TSpell_add_ignore' ).val().split(/,\s*/g), function(value, index) { ignored.push(value); });
 
-    jQuery( '#TSpell_ignored_phrases' ).val( ignored.join(',') );
+	jQuery( '#TSpell_ignored_phrases' ).val( ignored.join(',') );
 
 	// update the UI
 	atd_show_phrases( ignored );
 	jQuery( '#TSpell_add_ignore' ).val('');
 
 	// show that nifteroo messaroo to the useroo
-    jQuery( '#TSpell_message' ).show();
+	jQuery( '#TSpell_message' ).show();
 }
 
 function atd_ignore_init() {
@@ -128,20 +135,20 @@ else
 </script>
    <input type="hidden" name="TSpell_ignored_phrases" id="TSpell_ignored_phrases" value="<?php echo esc_attr( $ignores ); ?>">
 
-          <p style="font-weight: bold"><?php _e( 'Ignored Phrases', 'tinymce-spellcheck' ); ?></font>
+		  <p style="font-weight: bold"><?php _e( 'Ignored Phrases', 'tinymce-spellcheck' ); ?></font>
 
-          <p><?php _e( 'Identify words and phrases to ignore while proofreading your posts and pages:', 'tinymce-spellcheck' ); ?></p>
+		  <p><?php _e( 'Identify words and phrases to ignore while proofreading your posts and pages:', 'tinymce-spellcheck' ); ?></p>
 
-          <p><input type="text" id="TSpell_add_ignore" name="TSpell_add_ignore"> <input type="button" value="<?php _e( 'Add', 'tinymce-spellcheck' ); ?>" onclick="javascript:atd_ignore()"></p>
+		  <p><input type="text" id="TSpell_add_ignore" name="TSpell_add_ignore"> <input type="button" value="<?php _e( 'Add', 'tinymce-spellcheck' ); ?>" onclick="javascript:atd_ignore()"></p>
 
-          <div class="tagchecklist" id="atd_ignores"></div>
+		  <div class="tagchecklist" id="atd_ignores"></div>
 
-          <div class="plugin-update-tr" id="TSpell_message" style="display: none">
-          <div class="update-message"><strong><?php _e( 'Be sure to click "Update Profile" at the bottom of the screen to save your changes.', 'tinymce-spellcheck' ); ?></strong></div>
-          </div>
+		  <div class="plugin-update-tr" id="TSpell_message" style="display: none">
+		  <div class="update-message"><strong><?php _e( 'Be sure to click "Update Profile" at the bottom of the screen to save your changes.', 'tinymce-spellcheck' ); ?></strong></div>
+		  </div>
 
-         </td>
-      </tr>
+		 </td>
+	  </tr>
    </table>
 
 <?php

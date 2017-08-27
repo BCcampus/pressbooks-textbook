@@ -53,10 +53,10 @@ class TextbookAdmin extends \PBT\Textbook {
 			add_options_page( __( 'Pressbooks Textbook Settings', $this->plugin_slug ), __( 'PB Textbook', $this->plugin_slug ), 'manage_options', $this->plugin_slug . '-settings', array( $this, 'displayPluginAdminPage' ) );
 			add_menu_page( __( 'Pressbooks Textbook', $this->plugin_slug ), __( 'PB Textbook', $this->plugin_slug ), 'edit_posts', $this->plugin_slug , array( $this, 'displayPBTPage' ), 'dashicons-tablet', 64 );
 			// check if the functionality we need is available
-			if ( class_exists('\Pressbooks\Modules\Api_v1\Api') ){
-				add_submenu_page( $this->plugin_slug, __('Search and Import', $this->plugin_slug), __('Search and Import', $this->plugin_slug), 'edit_posts', 'api_search_import',array( $this, 'displayApiSearchPage' ), '', 65 );
+			if ( class_exists( '\Pressbooks\Modules\Api_v1\Api' ) ) {
+				add_submenu_page( $this->plugin_slug, __( 'Search and Import', $this->plugin_slug ), __( 'Search and Import', $this->plugin_slug ), 'edit_posts', 'api_search_import',array( $this, 'displayApiSearchPage' ), '', 65 );
 			}
-			add_submenu_page( $this->plugin_slug, __('Download Textbooks', $this->plugin_slug), __('Download Textbooks', $this->plugin_slug), 'edit_posts', 'download_textbooks', array( $this, 'displayDownloadTextbooks' ), '', 66 );
+			add_submenu_page( $this->plugin_slug, __( 'Download Textbooks', $this->plugin_slug ), __( 'Download Textbooks', $this->plugin_slug ), 'edit_posts', 'download_textbooks', array( $this, 'displayDownloadTextbooks' ), '', 66 );
 			if ( version_compare( PB_PLUGIN_VERSION, '2.7' ) >= 0 ) {
 				remove_menu_page( 'pb_publish' );
 			} else {
@@ -99,7 +99,7 @@ class TextbookAdmin extends \PBT\Textbook {
 	 */
 	function modForSchemaOrg( $init ) {
 
-		$ext = "span[*],img[*],h3[*],div[*],a[*],meta[*]";
+		$ext = 'span[*],img[*],h3[*],div[*],a[*],meta[*]';
 
 		$init['extended_valid_elements'] = $ext;
 
@@ -113,7 +113,7 @@ class TextbookAdmin extends \PBT\Textbook {
 	 */
 	function addOtbNewsFeed() {
 		// remove PB news from their blog
-		remove_meta_box('pb_dashboard_widget_metadata', 'dashboard', 'side');
+		remove_meta_box( 'pb_dashboard_widget_metadata', 'dashboard', 'side' );
 		// add our own
 		add_meta_box( 'pbt_news_feed', __( 'Open Textbook News', $this->plugin_slug ), array( $this, 'displayOtbFeed' ), 'dashboard', 'side', 'high' );
 	}
@@ -125,25 +125,25 @@ class TextbookAdmin extends \PBT\Textbook {
 	 */
 	function displayOtbFeed() {
 		wp_widget_rss_output( array(
-		    'url' => 'http://open.bccampus.ca/?feed=rss2',
-		    'title' => __( 'Open Textbook News', $this->plugin_slug ),
-		    'items' => 5,
-		    'show_summary' => 1,
-		    'show_author' => 0,
-		    'show_date' => 1,
+			'url' => 'http://open.bccampus.ca/?feed=rss2',
+			'title' => __( 'Open Textbook News', $this->plugin_slug ),
+			'items' => 5,
+			'show_summary' => 1,
+			'show_author' => 0,
+			'show_date' => 1,
 		) );
 	}
 
 	/**
 	 * Options for functionality that support remix
 	 */
-	private function remixSettings(){
+	private function remixSettings() {
 		$page = $option = 'pbt_remix_settings';
 		$section = 'pbt_remix_section';
 
 		// Remix
 		$defaults = array(
-		    'pbt_api_endpoints' => array( network_home_url() ),
+			'pbt_api_endpoints' => array( network_home_url() ),
 		);
 
 		if ( false == get_option( 'pbt_remix_settings' ) ) {
@@ -176,7 +176,7 @@ class TextbookAdmin extends \PBT\Textbook {
 			'\PBT\Settings\remix_url_sanitize'
 		);
 
-		}
+	}
 
 
 	/**
@@ -184,13 +184,13 @@ class TextbookAdmin extends \PBT\Textbook {
 	 *
 	 * @since 1.0.2
 	 */
-	private function otherSettings(){
+	private function otherSettings() {
 		$page = $option = 'pbt_other_settings';
 		$section = 'other_section';
 
 		// Hypothesis
 		$defaults = array(
-		    'pbt_hypothesis_active' => 0
+			'pbt_hypothesis_active' => 0,
 		);
 
 		if ( false == get_option( 'pbt_other_settings' ) ) {
@@ -224,13 +224,13 @@ class TextbookAdmin extends \PBT\Textbook {
 	 *
 	 * @since 1.0.2
 	 */
-	private function reuseSettings(){
+	private function reuseSettings() {
 		$page = $option = 'pbt_reuse_settings';
 		$section = 'reuse_section';
 
 		// Reuse
 		$defaults = array(
-		    'pbt_creative-commons-configurator-1_active' => 0
+			'pbt_creative-commons-configurator-1_active' => 0,
 		);
 
 		if ( false == get_option( 'pbt_reuse_settings' ) ) {
@@ -270,17 +270,17 @@ class TextbookAdmin extends \PBT\Textbook {
 		global $allowedposttags;
 
 		$microdata_atts = array(
-		    'itemprop' => true,
-		    'itemscope' => true,
-		    'itemtype' => true,
+			'itemprop' => true,
+			'itemscope' => true,
+			'itemtype' => true,
 		);
 
 		$allowedposttags['iframe'] = array(
-		    'src' => true,
-		    'height' => true,
-		    'width' => true,
-		    'allowfullscreen' => true,
-		    'name' => true,
+			'src' => true,
+			'height' => true,
+			'width' => true,
+			'allowfullscreen' => true,
+			'name' => true,
 		);
 
 		$allowedposttags['div'] += $microdata_atts;
@@ -302,18 +302,18 @@ class TextbookAdmin extends \PBT\Textbook {
 		include_once( 'views/admin-settings.php' );
 	}
 
-	function displayPBTPage(){
+	function displayPBTPage() {
 
-		include_once( 'views/pbt-home.php');
+		include_once( 'views/pbt-home.php' );
 	}
 	/**
 	 * Render the downloand textbooks page for editors
 	 *
 	 * @since 1.1.8
 	 */
-	function displayDownloadTextbooks(){
+	function displayDownloadTextbooks() {
 
-		include_once( 'views/download-textbooks.php');
+		include_once( 'views/download-textbooks.php' );
 	}
 
 	/**
@@ -323,7 +323,7 @@ class TextbookAdmin extends \PBT\Textbook {
 	 */
 	function displayApiSearchPage() {
 
-		include_once( 'views/api-search.php');
+		include_once( 'views/api-search.php' );
 	}
 
 	/**
@@ -335,7 +335,7 @@ class TextbookAdmin extends \PBT\Textbook {
 
 		return array_merge(
 			array(
-		    'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug . '-settings' ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>'
+			'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug . '-settings' ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>',
 			), $links
 		);
 	}

@@ -49,17 +49,17 @@
 			case 'revise':
 				echo '<h3>Adapt, Adjust, Modify</h3>'
 				. "<p><b>Good News!</b> We've added some functionality to the TinyMCE editor</p>"
-				. "<ol><li><b>MCE Textbook Buttons</b> by Brad Payne adds the following textbook specific buttons: Learning Objectives (LO), Key Takeaways (KT), Excercies (EX).</li>"
-				. "<li><b>MCE Table Buttons</b> by jakemgold, 10up, thinkoomph adds table buttons to the editor.</li>"
+				. '<ol><li><b>MCE Textbook Buttons</b> by Brad Payne adds the following textbook specific buttons: Learning Objectives (LO), Key Takeaways (KT), Excercies (EX).</li>'
+				. '<li><b>MCE Table Buttons</b> by jakemgold, 10up, thinkoomph adds table buttons to the editor.</li>'
 				. "<li><b><a href='options-general.php?page=pb-latex'>PB LaTeX</a></b> by Brad Payne adds the ability to include math equations using LaTeX markup.</li>"
-				. "<li>Anchor tags!</li></ol>";
+				. '<li>Anchor tags!</li></ol>';
 				break;
 
 			case 'remix':
 
-				echo "<h3>Search, Import</h3>";
+				echo '<h3>Search, Import</h3>';
 
-				if ( class_exists( '\Pressbooks\Modules\Api_v1\Api') ){
+				if ( class_exists( '\Pressbooks\Modules\Api_v1\Api' ) ) {
 					echo "<p>Remixing starts with finding the right content. <a href='admin.php?page=api_search_import'>Search this instance of Pressbooks for relevant content and import it into your book</a>.</p>";
 					settings_fields( 'pbt_remix_settings' );
 					do_settings_sections( 'pbt_remix_settings' );
@@ -71,20 +71,20 @@
 				break;
 
 			case 'redistribute':
-				echo "<p>If they exist, one of each of the latest export files (epub, pdf, xhtml, hpub, mobi, wxr, icml) will be available for download on the homepage.</p>" .
+				echo '<p>If they exist, one of each of the latest export files (epub, pdf, xhtml, hpub, mobi, wxr, icml) will be available for download on the homepage.</p>' .
 				'<figure><img src="' . PBT_PLUGIN_URL . 'admin/assets/img/latest-export-files.png" /><figcaption>The dowload links as they would appear on the homepage.</figcaption></figure>' .
-				"<p><strong>This feature is now part of Pressbooks Core and can be found under <a href=" . admin_url( 'options-general.php?page=pressbooks_sharingandprivacy_options' ). ">Settings &rarr; Sharing &amp; Privacy</a>.</strong></p>";
+				'<p><strong>This feature is now part of Pressbooks Core and can be found under <a href=' . admin_url( 'options-general.php?page=pressbooks_sharingandprivacy_options' ) . '>Settings &rarr; Sharing &amp; Privacy</a>.</strong></p>';
 
 				break;
 
 			case 'retain':
-				require( PBT_PLUGIN_DIR . 'includes/modules/catalogue/EquellaFetch.php');
-				require( PBT_PLUGIN_DIR . 'includes/modules/catalogue/Filter.php');
+				require( PBT_PLUGIN_DIR . 'includes/modules/catalogue/EquellaFetch.php' );
+				require( PBT_PLUGIN_DIR . 'includes/modules/catalogue/Filter.php' );
 
-				echo "<h3>Download openly licensed textbooks</h3>";
+				echo '<h3>Download openly licensed textbooks</h3>';
 
 				// check if it's in the cache
-				$textbooks = wp_cache_get('open-textbooks', 'pbt');
+				$textbooks = wp_cache_get( 'open-textbooks', 'pbt' );
 
 				// check if we need to regenerate cache
 				if ( $textbooks ) {
