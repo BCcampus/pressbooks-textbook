@@ -1,4 +1,13 @@
-// Specials
+/*
+|--------------------------------------------------------------------------
+| Specials
+|--------------------------------------------------------------------------
+|
+| Open Textbook Variable Overrides
+|
+|
+*/
+
 // Columns, Dropcaps, Footnotes, Endnotes, Asides, Pullquotes, Sidebars, Separators, Textboxes, Educational Textboxes
 
 //// Columns
@@ -172,10 +181,10 @@ $textbox-font-size: 1em !default;
 
 /*
 |--------------------------------------------------------------------------
-| Misc
+| Specials
 |--------------------------------------------------------------------------
 |
-|
+| Open Textbook Custom SCSS
 |
 |
 */
@@ -211,15 +220,9 @@ div.part.invisible {
   display: none;
 }
 
-/*
-|--------------------------------------------------------------------------
-| Textbook specific styles
-|--------------------------------------------------------------------------
-|
-|
-|
-|
-*/
+/****************************************
+	Textbook Specific Styles
+*****************************************/
 
 .entry-content {
   overflow-wrap: break-word;
@@ -296,15 +299,9 @@ div.bcc-warning {
   border-top-right-radius: 4px;
 }
 
-/*
-|--------------------------------------------------------------------------
-| Footer, Footnotes & Endnotes
-|--------------------------------------------------------------------------
-|
-|
-|
-|
-*/
+/****************************************
+	Footer, Footnotes and Endnotes
+*****************************************/
 
 .endnotes h3 {
   text-align: left;
