@@ -2,18 +2,18 @@
 				<div class="second-block clearfix">
 						<div class="description-book-info">
 							<?php $metadata = pb_get_book_information();?>
-							<h2><?php _e('Book Description', 'pressbooks'); ?></h2>
-								<?php if ( ! empty( $metadata['pb_about_unlimited'] ) ): ?>
+							<h2><?php _e( 'Book Description', 'pressbooks' ); ?></h2>
+								<?php if ( ! empty( $metadata['pb_about_unlimited'] ) ) : ?>
 									<p><?php
 										$about_unlimited = pb_decode( $metadata['pb_about_unlimited'] );
 										$about_unlimited = preg_replace( '/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', $about_unlimited ); // Make valid HTML by removing first <p> and last </p>
 										echo $about_unlimited; ?></p>
 								<?php endif; ?>	
 							<!-- if there is a custom copyright description -->		
-							<?php if ( ! empty ($metadata['pb_custom_copyright'])) : ?>
-									<h2><?php _e('Copyright', 'pressbooks') ;?></h2>
-									<p><?php 
-										$custom_copyright = pb_decode( $metadata['pb_custom_copyright']);
+							<?php if ( ! empty( $metadata['pb_custom_copyright'] ) ) : ?>
+									<h2><?php _e( 'Copyright', 'pressbooks' );?></h2>
+									<p><?php
+										$custom_copyright = pb_decode( $metadata['pb_custom_copyright'] );
 										$custom_copyright = preg_replace( '/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', $custom_copyright );
 										echo $custom_copyright;?>
 									</p>
@@ -21,7 +21,7 @@
 									<div id="share">
 										<?php
 										$social_buttons = get_option( 'pressbooks_theme_options_web' );
-										if ( isset ( $social_buttons['social_media'] ) && 1 === $social_buttons['social_media'] || ! isset( $social_buttons['social_media'] ) ) {
+										if ( isset( $social_buttons['social_media'] ) && 1 === $social_buttons['social_media'] || ! isset( $social_buttons['social_media'] ) ) {
 											?>
 											<div id="twitter" data-url="<?php the_permalink(); ?>" data-text="Check out this great book on Pressbooks." data-title="Tweet"></div>
 											<div id="facebook" data-url="<?php the_permalink(); ?>" data-text="Check out this great book on Pressbooks." data-title="Like"></div>
@@ -31,25 +31,25 @@
 						</div>
 							
 								<?php	$args = $args = array(
-										    'post_type' => 'back-matter',
-										    'tax_query' => array(
-										        array(
-										            'taxonomy' => 'back-matter-type',
-										            'field' => 'slug',
-										            'terms' => 'about-the-author'
-										        )
-										    )
+											'post_type' => 'back-matter',
+											'tax_query' => array(
+												array(
+													'taxonomy' => 'back-matter-type',
+													'field' => 'slug',
+													'terms' => 'about-the-author',
+												),
+											),
 										); ?>
 			
-		      				
-								<div class="author-book-info">
-		      				
-		      						<?php $loop = new WP_Query( $args );
+						
+									  <div class="author-book-info">
+						
+											<?php $loop = new WP_Query( $args );
 											while ( $loop->have_posts() ) : $loop->the_post(); ?>
-										    <h4><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h4>
-											<?php  echo '<div class="entry-content">';
-										    the_excerpt();
-										    echo '</div>';
+													<h4><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h4>
+													<?php  echo '<div class="entry-content">';
+													the_excerpt();
+													echo '</div>';
 											endwhile; ?>
 								</div>	
 					</div><!-- end .secondary-block -->

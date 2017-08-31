@@ -37,7 +37,7 @@ class RemoteImport extends Html\Xhtml {
 			// fetch the remote content
 			$html = wp_remote_get( $import['file'] );
 
-			if( is_wp_error( $html ) ){
+			if ( is_wp_error( $html ) ) {
 				$err = $html->get_error_message();
 				error_log( '\PBT\Import\RemoteImport\import() error with wp_remote_get(): ' . $err );
 				unset( $html );
@@ -58,7 +58,7 @@ class RemoteImport extends Html\Xhtml {
 
 			// chapter is the exception, needs a post_parent other than 0
 			// front-matter, back-matter, parts all have post parent = 0;
-			if ( 'chapter' == $post_type ){
+			if ( 'chapter' == $post_type ) {
 				$chapter_parent = $this->getChapterParent();
 			} else {
 				$chapter_parent = $parent;
@@ -67,10 +67,9 @@ class RemoteImport extends Html\Xhtml {
 			$pid = $this->kneadandInsert( $html['body'], $post_type, $chapter_parent, $domain );
 
 			// set variable with Post ID of the last Part
-			if ( 'part' == $post_type ){
+			if ( 'part' == $post_type ) {
 				$parent = $pid;
 			}
-
 		}
 		// Done
 		return Search\ApiSearch::revokeCurrentImport();
@@ -115,9 +114,9 @@ class RemoteImport extends Html\Xhtml {
 		$body = $this->kneadHtml( $xhtml, $post_type, $domain );
 
 		$new_post = array(
-		    'post_title' => $title,
-		    'post_type' => $post_type,
-		    'post_status' => $post_status,
+			'post_title' => $title,
+			'post_type' => $post_type,
+			'post_status' => $post_status,
 		);
 
 		// parts are exceptional, content upload needs to be handled by update_post_meta
@@ -132,15 +131,15 @@ class RemoteImport extends Html\Xhtml {
 		$pid = wp_insert_post( add_magic_quotes( $new_post ) );
 
 		// give parts content if it has some
-		if ( 'part' == $post_type && !empty( $body ) ) {
+		if ( 'part' == $post_type && ! empty( $body ) ) {
 			update_post_meta( $pid, 'pb_part_content', $body );
 		}
 
-		if( ! empty( $author )){
+		if ( ! empty( $author ) ) {
 			update_post_meta( $pid, 'pb_section_author', $author );
 		}
 
-		if( ! empty( $license ) ){
+		if ( ! empty( $license ) ) {
 			update_post_meta( $pid, 'pb_section_license', $license );
 		}
 
@@ -214,11 +213,11 @@ class RemoteImport extends Html\Xhtml {
 		// Make XHTML 1.1 strict using htmlLawed
 
 		$config = array(
-		    'comment' => 1,
-		    'safe' => 1,
-		    'valid_xhtml' => 1,
-		    'no_deprecated_attr' => 2,
-		    'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
+			'comment' => 1,
+			'safe' => 1,
+			'valid_xhtml' => 1,
+			'no_deprecated_attr' => 2,
+			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 		);
 
 		return \Pressbooks\HtmLawed::filter( $html, $config );

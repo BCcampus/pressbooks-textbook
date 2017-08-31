@@ -35,7 +35,7 @@ include( 'includes/config-options.php' );
 include( 'includes/config-unignore.php' );
 include( 'includes/proxy.php' );
 
-define('TSPELL_VERSION', '20140801');
+define( 'TSPELL_VERSION', '20140801' );
 
 /**
  * Update a user's After the Deadline Setting
@@ -64,8 +64,9 @@ function TSpell_config() {
  */
 function TSpell_addbuttons() {
 	/* Don't bother doing this stuff if the current user lacks permissions */
-	if ( ! TSpell_is_allowed() )
+	if ( ! TSpell_is_allowed() ) {
 		return;
+	}
 
 	if ( ! defined( 'TSPELL_TINYMCE_4' ) ) {
 		define( 'TSPELL_TINYMCE_4', ( ! empty( $GLOBALS['tinymce_version'] ) && substr( $GLOBALS['tinymce_version'], 0, 1 ) >= 4 ) );
@@ -98,7 +99,7 @@ function register_TSpell_button( $buttons ) {
 	/* kill the spellchecker.. don't need no steenkin PHP spell checker */
 	foreach ( $buttons as $key => $button ) {
 		if ( $button == 'spellchecker' ) {
-			$buttons[$key] = 'AtD';
+			$buttons[ $key ] = 'AtD';
 			return $buttons;
 		}
 	}
@@ -122,14 +123,15 @@ function add_TSpell_tinymce_plugin( $plugin_array ) {
  * Update the TinyMCE init block with AtD specific settings
  */
 function TSpell_change_mce_settings( $init_array ) {
-	if ( ! TSpell_is_allowed() )
+	if ( ! TSpell_is_allowed() ) {
 		return $init_array;
+	}
 
 	$user = wp_get_current_user();
 
 	$init_array['atd_rpc_url']        = admin_url( 'admin-ajax.php?action=proxy_atd&_wpnonce=' . wp_create_nonce( 'proxy_atd' ) . '&url=' );
 	$init_array['atd_ignore_rpc_url'] = admin_url( 'admin-ajax.php?action=atd_ignore&_wpnonce=' . wp_create_nonce( 'tspell_ignore' ) . '&phrase=' );
-	$init_array['atd_rpc_id']         = 'WPORG-' . md5(get_bloginfo('wpurl'));
+	$init_array['atd_rpc_id']         = 'WPORG-' . md5( get_bloginfo( 'wpurl' ) );
 	$init_array['atd_theme']          = 'wordpress';
 	$init_array['atd_ignore_enable']  = 'true';
 	$init_array['atd_strip_on_get']   = 'true';
@@ -144,45 +146,46 @@ function TSpell_change_mce_settings( $init_array ) {
  * Sanitizes AtD AJAX data to acceptable chars, caller needs to make sure ' is escaped
  */
 function TSpell_sanitize( $untrusted ) {
-        return preg_replace( '/[^a-zA-Z0-9\-\',_ ]/i', "", $untrusted );
+		return preg_replace( '/[^a-zA-Z0-9\-\',_ ]/i', '', $untrusted );
 }
 
 /*
  * AtD HTML Editor Stuff
  */
 function TSpell_settings() {
-    $user = wp_get_current_user();
+	$user = wp_get_current_user();
 
-    header( 'Content-Type: text/javascript' );
+	header( 'Content-Type: text/javascript' );
 
 	/* set the RPC URL for AtD */
-	echo "AtD.rpc = " . json_encode( esc_url_raw( admin_url( 'admin-ajax.php?action=proxy_atd&_wpnonce=' . wp_create_nonce( 'proxy_atd' ) . '&url=' ) ) ) . ";\n";
+	echo 'AtD.rpc = ' . json_encode( esc_url_raw( admin_url( 'admin-ajax.php?action=proxy_atd&_wpnonce=' . wp_create_nonce( 'proxy_atd' ) . '&url=' ) ) ) . ";\n";
 
 	/* set the API key for AtD */
-	echo "AtD.api_key = " . json_encode( 'WPORG-' . md5( get_bloginfo( 'wpurl' ) ) ) . ";\n";
+	echo 'AtD.api_key = ' . json_encode( 'WPORG-' . md5( get_bloginfo( 'wpurl' ) ) ) . ";\n";
 
-    /* set the ignored phrases for AtD */
-	echo "AtD.setIgnoreStrings(" . json_encode( TSpell_get_setting( $user->ID, 'TSpell_ignored_phrases' ) ) . ");\n";
+	/* set the ignored phrases for AtD */
+	echo 'AtD.setIgnoreStrings(' . json_encode( TSpell_get_setting( $user->ID, 'TSpell_ignored_phrases' ) ) . ");\n";
 
-    /* honor the types we want to show */
-    echo "AtD.showTypes(" . json_encode( TSpell_get_setting( $user->ID, 'TSpell_options' ) ) .");\n";
+	/* honor the types we want to show */
+	echo 'AtD.showTypes(' . json_encode( TSpell_get_setting( $user->ID, 'TSpell_options' ) ) . ");\n";
 
 	/* this is not an AtD/jQuery setting but I'm putting it in AtD to make it easy for the non-viz plugin to find it */
 	$admin_ajax_url = admin_url( 'admin-ajax.php?action=atd_ignore&_wpnonce=' . wp_create_nonce( 'atd_ignore' ) . '&phrase=' );
-	echo "AtD.rpc_ignore = " . json_encode( esc_url_raw( $admin_ajax_url ) ) . ";\n";
+	echo 'AtD.rpc_ignore = ' . json_encode( esc_url_raw( $admin_ajax_url ) ) . ";\n";
 
-    die;
+	die;
 }
 
 function TSpell_load_javascripts() {
-	if ( !TSpell_should_load_on_page() )
+	if ( ! TSpell_should_load_on_page() ) {
 		return;
+	}
 
 	wp_enqueue_script( 'TSpell_core', plugins_url( '/js/atd.core.js', __FILE__ ), array(), TSPELL_VERSION );
-	wp_enqueue_script( 'TSpell_quicktags', plugins_url( '/js/atd-nonvis-editor-plugin.js', __FILE__ ), array('quicktags'), TSPELL_VERSION );
-	wp_enqueue_script( 'TSpell_jquery', plugins_url( '/js/jquery.atd.js', __FILE__ ), array('jquery'), TSPELL_VERSION );
-	wp_enqueue_script( 'TSpell_settings', admin_url() . 'admin-ajax.php?action=atd_settings', array('TSpell_jquery'), TSPELL_VERSION );
-	wp_enqueue_script( 'TSpell_autoproofread', plugins_url( '/js/atd-autoproofread.js', __FILE__ ), array('TSpell_jquery'), TSPELL_VERSION );
+	wp_enqueue_script( 'TSpell_quicktags', plugins_url( '/js/atd-nonvis-editor-plugin.js', __FILE__ ), array( 'quicktags' ), TSPELL_VERSION );
+	wp_enqueue_script( 'TSpell_jquery', plugins_url( '/js/jquery.atd.js', __FILE__ ), array( 'jquery' ), TSPELL_VERSION );
+	wp_enqueue_script( 'TSpell_settings', admin_url() . 'admin-ajax.php?action=atd_settings', array( 'TSpell_jquery' ), TSPELL_VERSION );
+	wp_enqueue_script( 'TSpell_autoproofread', plugins_url( '/js/atd-autoproofread.js', __FILE__ ), array( 'TSpell_jquery' ), TSPELL_VERSION );
 }
 
 /* Spits out user options for auto-proofreading on publish/update */
@@ -190,17 +193,18 @@ function TSpell_load_submit_check_javascripts() {
 	global $pagenow;
 
 	$user = wp_get_current_user();
-	if ( ! $user || $user->ID == 0 )
+	if ( ! $user || $user->ID == 0 ) {
 		return;
+	}
 
 	if ( TSpell_should_load_on_page() ) {
 		$atd_check_when = TSpell_get_setting( $user->ID, 'TSpell_check_when' );
 
-		if ( !empty( $atd_check_when ) ) {
+		if ( ! empty( $atd_check_when ) ) {
 			$check_when = array();
 			/* Set up the options in json */
-			foreach( explode( ',', $atd_check_when ) as $option ) {
-				$check_when[$option] = true;
+			foreach ( explode( ',', $atd_check_when ) as $option ) {
+				$check_when[ $option ] = true;
 			}
 			echo '<script type="text/javascript">' . "\n";
 			echo 'TSpell_check_when = ' . json_encode( (object) $check_when ) . ";\n";
@@ -213,19 +217,22 @@ function TSpell_load_submit_check_javascripts() {
  * Check if a user is allowed to use AtD
  */
 function TSpell_is_allowed() {
-        $user = wp_get_current_user();
-        if ( ! $user || $user->ID == 0 )
-                return;
+		$user = wp_get_current_user();
+	if ( ! $user || $user->ID == 0 ) {
+			return;
+	}
 
-        if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) )
-                return;
+	if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) ) {
+			return;
+	}
 
-        return 1;
+		return 1;
 }
 
 function TSpell_load_css() {
-	if ( TSpell_should_load_on_page() )
-	        wp_enqueue_style( 'TSpell_style', plugins_url( '/css/atd.css', __FILE__ ), null, TSPELL_VERSION, 'screen' );
+	if ( TSpell_should_load_on_page() ) {
+			wp_enqueue_style( 'TSpell_style', plugins_url( '/css/atd.css', __FILE__ ), null, TSPELL_VERSION, 'screen' );
+	}
 }
 
 /* Helper used to check if javascript should be added to page. Helps avoid bloat in admin */
@@ -246,7 +253,7 @@ function TSpell_should_load_on_page() {
 
 // add button to DFW
 add_filter( 'wp_fullscreen_buttons', 'TSpell_fullscreen' );
-function TSpell_fullscreen($buttons) {
+function TSpell_fullscreen( $buttons ) {
 	$buttons['spellchecker'] = array( 'title' => __( 'Proofread Writing', 'tinymce-spellcheck' ), 'onclick' => "tinyMCE.execCommand('mceWritingImprovementTool');", 'both' => false );
 	return $buttons;
 }

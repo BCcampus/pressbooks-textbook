@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Filter provides different views of the data. It takes arrays and turns them into html 
+ * Filter provides different views of the data. It takes arrays and turns them into html
  * October 2012
- * 
+ *
  * @package   Pressbooks_Textbook
  * @author    Brad Payne <brad@bradpayne.ca>
  * @license   GPL-2.0+
@@ -29,11 +29,11 @@ class Filter {
 
 	/**
 	 * This class needs an array of values and takes care of displaying those values
-	 * in different ways depending on what you need. 
+	 * in different ways depending on what you need.
 	 * @param bool $keywordFlag
 	 * @param array $anyArray
 	 * @param string $subject either a keyword, subject or contributor details
-	 * @param string $uuid 
+	 * @param string $uuid
 	 */
 	public function __construct( EquellaFetch $response ) {
 		/* get results from an equella array */
@@ -46,14 +46,13 @@ class Filter {
 		}
 		if ( $response->getContributorFlag() == true ) {
 			$this->contributor = $subject;
-		}
-		elseif ( $response->getContributorFlag() == false && $response->getKeywordFlag() == false ) {
+		} elseif ( $response->getContributorFlag() == false && $response->getKeywordFlag() == false ) {
 			$this->subject = $response->getWhereClause();
 		}
 	}
 
 	/**
-	 * 
+	 *
 	 * @param type $number
 	 * @return string
 	 */
@@ -62,26 +61,27 @@ class Filter {
 		$num = '';
 
 		//bail if nothing is passed.
-		if ( empty( $number ) ) return;
+		if ( empty( $number ) ) { return;
+		}
 
 		//if it's a number
 		if ( is_int( $number ) ) {
 			$num = intval( $number );
 		}
-		//only process if it's bigger than zero 
+		//only process if it's bigger than zero
 		if ( $num > 0 ) {
 			//return in Megabytes
 			$result = ($num / 1000000);
 			//account for the fact that it might be less than 1MB
 			($result <= 1) ? $result = round( $result, 2 ) : $result = intval( $result );
-			$result = "(" . $result . " MB)";
+			$result = '(' . $result . ' MB)';
 		}
 		return $result;
 	}
 
 	/**
 	 * Helper function to evaluate the type of document and add the appropriate logo
-	 * 
+	 *
 	 * @param type $string
 	 * @return string
 	 */
@@ -137,19 +137,19 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 			$result = "<img src='" . PBT_PLUGIN_URL . "admin/assets/img/drive-download.png'/> DOWNLOAD <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-code.png' alt='HTML file. This icon is licensed under a Creative Commons
 Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 		}
-		// if it's a tex 
+		// if it's a tex
 		if ( ! stristr( $string, '.tex' ) == false ) {
 			$result = "<img src='" . PBT_PLUGIN_URL . "admin/assets/img/drive-download.png' /> DOWNLOAD <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-tex.png' alt='TEX file. This icon is licensed under a Creative Commons
 Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
-		}		
-		
+		}
+
 		return $result;
 	}
 
 		/**
-	 * Checks for part of a string, removes it and returns to make it something 
+	 * Checks for part of a string, removes it and returns to make it something
 	 * the API can deal with
-	 * 
+	 *
 	 * @param type $license
 	 * @return type
 	 * @throws \Exception
@@ -161,14 +161,14 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 			return $license;
 		}
 
-		$license = strstr( $license, '-3.0', true ) ;
+		$license = strstr( $license, '-3.0', true );
 
 		return $license;
 	}
-	
+
 	/**
 	 * Helper function to display whichever license applies
-	 * 
+	 *
 	 * @param string
 	 * @return string
 	 */
@@ -180,10 +180,10 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 		if ( $xml ) {
 			$license = $xml->lom->rights->description[0];
 			$license = $this->v3license( $license );
-			
+
 			switch ( $license ) {
 				case 'CC-BY-NC-SA':
-				
+
 					$result = "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/4.0/deed.en_US'>
         <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png' />
         </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/4.0/deed.en_US'>
@@ -255,7 +255,7 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
         <figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-sa/2.5/ca/deed.en_US'>
         Creative Commons Attribution-ShareAlike 2.5 Canada License</a>.</small></figcaption></figure>";
 					break;
-	}
+			}
 		}
 
 		return $result;
@@ -264,9 +264,9 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 	/**
 	 * Filters through an array by the keys you pass it, with a default limit of 10
 	 * and unless specified otherwise, starting at the beginning of the array
-	 * 
+	 *
 	 * @param Int $start - where in the array you'd like to start from
-	 * @param Int $limit - how many results you want, pass a zero if you want all 
+	 * @param Int $limit - how many results you want, pass a zero if you want all
 	 * the results.
 	 * @return String with HTML
 	 */
@@ -275,7 +275,7 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 		$i = 0;
 		$reviews = '';
 
-		//just in case a start value is passed that is greater than what is available  
+		//just in case a start value is passed that is greater than what is available
 		if ( $start > $this->size ) {
 			$html = "<p>That's it, no more records</p>";
 			return $html;
@@ -287,37 +287,37 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 		// if we're displaying all of the results (from a search form request)
 		if ( $limit == 0 ) {
 			$limit = $this->size;
-			$html .= "<ol>";
+			$html .= '<ol>';
 		} else {
-			$html .= "<ul>";
+			$html .= '<ul>';
 		}
 
 		// check if it's been reviewed
 		while ( $i < $limit ) {
-			$desc = (strlen( $this->resultsData[$start]['description'] ) > 500) ? substr( $this->resultsData[$start]['description'], 0, 499 ) . "..." : $this->resultsData[$start]['description'];
-			( false === strpos( $this->resultsData[$start]['metadata'], 'REVIEWED149df27a3ba8b2ddeff0d7ed1e6e54e4' )) ? $reviews = '' : $reviews = " <sup><small> Faculty reviewed</small></sup>";
-			$authors = EquellaFetch::arrayToCSV( $this->resultsData[$start]['drm']['options']['contentOwners'], 'name' );
-			
-			$html .= "<li>";
-			$html .= "<h4>" . $this->resultsData[$start]['name'] . $reviews . "</h4>";
-			$html .= "<strong>Author(s):</strong> " . $authors . "<br>";
-			$html .= "<strong>Last modified:</strong> " . date( 'M j, Y', strtotime( $this->resultsData[$start]['modifiedDate'] ) );
-			$html .= "<p><strong>Description:</strong> " . $desc . "</p>";
-			$html .= "</li><ul>";
-			
-			$attachments = $this->reOrderAttachments($this->resultsData[$start]['attachments']);
-			
+			$desc = (strlen( $this->resultsData[ $start ]['description'] ) > 500) ? substr( $this->resultsData[ $start ]['description'], 0, 499 ) . '...' : $this->resultsData[ $start ]['description'];
+			( false === strpos( $this->resultsData[ $start ]['metadata'], 'REVIEWED149df27a3ba8b2ddeff0d7ed1e6e54e4' )) ? $reviews = '' : $reviews = ' <sup><small> Faculty reviewed</small></sup>';
+			$authors = EquellaFetch::arrayToCSV( $this->resultsData[ $start ]['drm']['options']['contentOwners'], 'name' );
+
+			$html .= '<li>';
+			$html .= '<h4>' . $this->resultsData[ $start ]['name'] . $reviews . '</h4>';
+			$html .= '<strong>Author(s):</strong> ' . $authors . '<br>';
+			$html .= '<strong>Last modified:</strong> ' . date( 'M j, Y', strtotime( $this->resultsData[ $start ]['modifiedDate'] ) );
+			$html .= '<p><strong>Description:</strong> ' . $desc . '</p>';
+			$html .= '</li><ul>';
+
+			$attachments = $this->reOrderAttachments( $this->resultsData[ $start ]['attachments'] );
+
 			foreach ( $attachments  as $attachment ) {
 				(array_key_exists( 'size', $attachment )) ? $file_size = $this->determineFileSize( $attachment['size'] ) : $file_size = '';
 
 				$html .= "<li><a class='btn btn-small' href='" . $attachment['links']['view'] . "' title='" . $attachment['description'] . "'>
-				" . $this->addLogo( $attachment['description'] ) . "</a> "
-					. $attachment['description'] . " " . $file_size . "</li>";
+				" . $this->addLogo( $attachment['description'] ) . '</a> '
+					. $attachment['description'] . ' ' . $file_size . '</li>';
 			}
-			$html .= "</ul>";
+			$html .= '</ul>';
 
 			//send it to the picker for evaluation
-			$substring = $this->licensePicker( $this->resultsData[$start]['metadata'] );
+			$substring = $this->licensePicker( $this->resultsData[ $start ]['metadata'] );
 			//include it, depending on what license it is
 			$html .= $substring;
 
@@ -325,17 +325,17 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 			$i ++;
 		}
 		if ( $limit == $this->size ) {
-			$html .= "</ol>";
+			$html .= '</ol>';
 		} else {
-			$html .= "</ul>";
+			$html .= '</ul>';
 		}
 
 		return $html;
 	}
-	
+
 	/**
 	 * Reorders an array of attachments based on an arbitrary hierarchy
-	 * 
+	 *
 	 * @param array $attachments
 	 * @return array $new_order of attachments
 	 */
@@ -402,14 +402,14 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 					break;
 			}
 
-			$sort[$key] = $val;
+			$sort[ $key ] = $val;
 		}
 		// sort it alphabetically
 		asort( $sort );
 
 		// rebuild the array
 		foreach ( $sort as $k => $v ) {
-			$new_order[] = $attachments[$k];
+			$new_order[] = $attachments[ $k ];
 		}
 
 		return $new_order;
@@ -417,4 +417,4 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 
 }
 
-?>
+
