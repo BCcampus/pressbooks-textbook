@@ -9,7 +9,7 @@
  * @license   GPL-2.0+
  */
 
-namespace PBT\Catalogue;
+namespace PBT\Modules\Catalogue;
 
 class Filter {
 
@@ -341,7 +341,6 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 	 */
 	private function reOrderAttachments( array $attachments ) {
 		$new_order = array();
-		$filetype = '';
 
 		// string hunting
 		foreach ( $attachments as $key => $attachment ) {
@@ -354,7 +353,7 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 
 			if ( isset( $attachment['url'] ) ) {
 				$sfu = parse_url( $attachment['url'] );
-				if ( 0 == strcmp( 'opentextbook.docsol.sfu.ca', $sfu['host'] ) ) {
+				if ( isset( $sfu['host'] ) && 0 == strcmp( 'opentextbook.docsol.sfu.ca', $sfu['host'] ) ) {
 					$filetype = '.print';
 				}
 			}

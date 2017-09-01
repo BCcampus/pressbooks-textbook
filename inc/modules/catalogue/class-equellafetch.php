@@ -10,7 +10,7 @@
  * @license   GPL-2.0+
  */
 
-namespace PBT\Catalogue;
+namespace PBT\Modules\Catalogue;
 
 class EquellaFetch {
 

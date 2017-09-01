@@ -9,7 +9,6 @@
  * @copyright 2014 Brad Payne
  *
  */
-
 namespace PBT\Admin;
 
 class TextbookAdmin extends \PBT\Textbook {
@@ -27,7 +26,7 @@ class TextbookAdmin extends \PBT\Textbook {
 		// Add the options page and menu item.
 		add_action( 'admin_menu', array( &$this, 'adminMenuAdjuster' ) );
 		add_action( 'admin_init', array( &$this, 'adminSettings' ) );
-		add_action( 'init', '\PBT\Search\ApiSearch::formSubmit', 50 );
+		add_action( 'init', '\PBT\Modules\Search\ApiSearch::formSubmit', 50 );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueueAdminStyles' ) );
 		add_filter( 'tiny_mce_before_init', array( &$this, 'modForSchemaOrg' ) );
 		// needs to be delayed to come after PB
@@ -38,8 +37,7 @@ class TextbookAdmin extends \PBT\Textbook {
 		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'addActionLinks' ) );
 
 		// include other functions
-		require( PBT_PLUGIN_DIR . 'includes/pbt-settings.php' );
-		require( PBT_PLUGIN_DIR . 'includes/modules/search/class-pbt-apisearch.php' );
+		require( PBT_PLUGIN_DIR . 'inc/pbt-settings.php' );
 	}
 
 	/**
@@ -299,12 +297,12 @@ class TextbookAdmin extends \PBT\Textbook {
 	 */
 	function displayPluginAdminPage() {
 
-		include_once( 'views/admin-settings.php' );
+		include_once( PBT_PLUGIN_DIR . 'admin/views/admin-settings.php' );
 	}
 
 	function displayPBTPage() {
 
-		include_once( 'views/pbt-home.php' );
+		include_once( PBT_PLUGIN_DIR . 'admin/views/pbt-home.php' );
 	}
 	/**
 	 * Render the downloand textbooks page for editors
@@ -313,7 +311,7 @@ class TextbookAdmin extends \PBT\Textbook {
 	 */
 	function displayDownloadTextbooks() {
 
-		include_once( 'views/download-textbooks.php' );
+		include_once( PBT_PLUGIN_DIR . 'admin/views/download-textbooks.php' );
 	}
 
 	/**
@@ -323,7 +321,7 @@ class TextbookAdmin extends \PBT\Textbook {
 	 */
 	function displayApiSearchPage() {
 
-		include_once( 'views/api-search.php' );
+		include_once( PBT_PLUGIN_DIR . 'admin/views/api-search.php' );
 	}
 
 	/**
