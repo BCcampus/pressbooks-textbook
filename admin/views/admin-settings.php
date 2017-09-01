@@ -78,8 +78,8 @@
 				break;
 
 			case 'retain':
-				require( PBT_PLUGIN_DIR . 'includes/modules/catalogue/EquellaFetch.php' );
-				require( PBT_PLUGIN_DIR . 'includes/modules/catalogue/Filter.php' );
+				require( PBT_PLUGIN_DIR . 'inc/modules/catalogue/class-equellafetch.php' );
+				require( PBT_PLUGIN_DIR . 'inc/modules/catalogue/class-filter.php' );
 
 				echo '<h3>Download openly licensed textbooks</h3>';
 

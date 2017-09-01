@@ -13,11 +13,10 @@
  * @copyright 2015 Brad Payne
  */
 
-namespace PBT\Import;
+namespace PBT\Modules\Import;
 
-use PBT\Search;
+use PBT\Modules\Search;
 use Pressbooks\Modules\Import\Html;
-use Pressbooks\HtmLawed;
 use Pressbooks\Book;
 
 if ( ! isset( $GLOBALS['pressbooks'] ) ) {
@@ -27,8 +26,9 @@ if ( ! isset( $GLOBALS['pressbooks'] ) ) {
 class RemoteImport extends Html\Xhtml {
 
 	/**
-	 *
 	 * @param array $current_import
+	 *
+	 * @return Search\type
 	 */
 	function import( array $current_import ) {
 		$parent = 0;
@@ -39,7 +39,7 @@ class RemoteImport extends Html\Xhtml {
 
 			if ( is_wp_error( $html ) ) {
 				$err = $html->get_error_message();
-				error_log( '\PBT\Import\RemoteImport\import() error with wp_remote_get(): ' . $err );
+				error_log( '\PBT\Modules\Import\RemoteImport\import() error with wp_remote_get(): ' . $err );
 				unset( $html );
 				$html['body'] = $err;
 			}
@@ -79,7 +79,7 @@ class RemoteImport extends Html\Xhtml {
 	 * Pummel then insert HTML into our database, separating it from parent class
 	 * to deal with Parts, as well as chapters.
 	 *
-	 * @param string $href
+	 * @param string $html
 	 * @param string $post_type
 	 * @param int $chapter_parent
 	 * @param string $domain domain name of the webpage

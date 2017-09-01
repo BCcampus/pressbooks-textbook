@@ -10,12 +10,9 @@
  * @copyright 2014 Brad Payne
  */
 
-namespace PBT\Search;
+namespace PBT\Modules\Search;
 
-use PBT\Import;
-
-require PBT_PLUGIN_DIR . '/includes/modules/import/class-pbt-pbimport.php';
-require PBT_PLUGIN_DIR . '/includes/modules/import/class-pbt-remoteimport.php';
+use PBT\Modules\Import;
 
 /**
  * Description of class-pb-apisearch
@@ -283,7 +280,7 @@ class ApiSearch {
 
 	/**
 	 * Given a response from the API, it returns an array that can be handed off
-	 * @see \PBT\Import\RemoteImport($current_import)
+	 * @see \PBT\Modules\Import\RemoteImport($current_import)
 	 *
 	 * @param array $import_chapters
 	 * @return array $all_chapters

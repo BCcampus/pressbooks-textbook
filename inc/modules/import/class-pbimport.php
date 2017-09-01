@@ -12,11 +12,13 @@
  * @copyright 2014 Brad Payne
  */
 
-namespace PBT\Import;
+namespace PBT\Modules\Import;
 
 require_once( ABSPATH . 'wp-admin/includes/image.php' );
 require_once( ABSPATH . 'wp-admin/includes/file.php' );
 require_once( ABSPATH . 'wp-admin/includes/media.php' );
+
+use PBT\Search;
 
 class PBImport {
 
@@ -96,8 +98,8 @@ class PBImport {
 
 			// check for errors, redirect and record
 			if ( is_wp_error( $pid ) ) {
-				error_log( '\PBT\Import\PBImport()->import error at `wp_insert_post()`: ' . $pid->get_error_message() );
-				\PBT\Search\ApiSearch::revokeCurrentImport();
+				error_log( '\PBT\Modules\Import\PBImport()->import error at `wp_insert_post()`: ' . $pid->get_error_message() );
+				\PBT\Modules\Search\ApiSearch::revokeCurrentImport();
 				\Pressbooks\Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=api_search_import' );
 			}
 
@@ -107,7 +109,7 @@ class PBImport {
 			\Pressbooks\Book::consolidatePost( $pid, get_post( $pid ) );
 		}
 
-		return \PBT\Search\ApiSearch::revokeCurrentImport();
+		return \PBT\Modules\Search\ApiSearch::revokeCurrentImport();
 	}
 
 	/**
