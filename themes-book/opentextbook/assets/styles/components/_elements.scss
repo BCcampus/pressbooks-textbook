@@ -371,3 +371,14 @@ sup {
 sub {
   top: 0.5ex;
 }
+
+/****************************************
+	Blockquotes - missing for exports
+*****************************************/
+blockquote {
+  padding: 1px 5px 5px 50px;
+  margin-bottom: 20px;
+  @if $type == 'prince' or $type == 'epub'{
+    background: $color-desert-storm url('images/blockquote-open.png') no-repeat 10px 10px;
+  }
+}
