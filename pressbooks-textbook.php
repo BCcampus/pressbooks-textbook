@@ -472,12 +472,12 @@ class Textbook {
 	 */
 	private function update() {
 		// Set once, check and update network settings
-		$network_version = get_site_option( 'pbt_version', 0, false );
+		$network_version = get_site_option( 'pbt_version', 0 );
 		$pb_version      = get_site_option( 'pbt_pb_version' );
 
 		// triggers a network event with every new PBT Version
 		if ( version_compare( $network_version, self::VERSION ) < 0 ) {
-			update_site_option( 'pressbooks_sharingandprivacy_options', array( 'allow_redistribution' => 1 ) );
+			// recurring event goes here
 			update_site_option( 'pbt_version', self::VERSION );
 		}
 
@@ -495,6 +495,13 @@ class Textbook {
 				'part_title' => 1,
 			);
 			update_option( 'pressbooks_theme_options_web', $part_title );
+		}
+
+		// triggers once for version 3.1.2
+		if ( version_compare( '3.1.2', self::VERSION ) == 0 ) {
+			update_site_option( 'pressbooks_sharingandprivacy_options', array( 'allow_redistribution' => 1 ) );
+			update_site_option( 'pressbooks_sharingandprivacy_options', array( 'enable_network_api' => 1 ) );
+			update_site_option( 'pressbooks_sharingandprivacy_options', array( 'enable_cloning' => 1 ) );
 		}
 
 		// triggers on version update to 4.0, deals with breaking change
