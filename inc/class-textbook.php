@@ -64,11 +64,6 @@ class Textbook {
 		add_action( 'pressbooks_new_blog', array( $this, 'newBook' ) );
 		add_filter( 'pb_publisher_catalog_query_args', array( $this, 'rootThemeQuery' ) );
 
-		// Load Composer Dependencies
-		if ( file_exists( $composer = PBT_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
-			require_once( $composer );
-		}
-
 		$this->update();
 
 		wp_cache_add_global_groups( array( 'pbt' ) );
