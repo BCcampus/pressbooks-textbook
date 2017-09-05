@@ -260,6 +260,7 @@ ol.alphalist li::before {
 ol {
   list-style: none outside;
   counter-reset: level1;
+  text-indent: -1em;
 }
 
 ol li::before {
