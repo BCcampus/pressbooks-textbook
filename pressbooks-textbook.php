@@ -99,8 +99,15 @@ add_action( 'init', 'pb_compatibility' );
 |
 |
 */
-include 'autoloader.php';
+require PBT_PLUGIN_DIR . 'autoloader.php';
+$loader = new \BCcampus\Autoloader();
+$loader->register();
+$loader->addNamespace( 'PBT', PBT_PLUGIN_DIR . 'inc' );
 
+// Load Composer Dependencies
+if ( file_exists( $composer = PBT_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
+	require_once( $composer );
+}
 /*
 |--------------------------------------------------------------------------
 | All Your Base Are Belong To Us
@@ -111,7 +118,6 @@ include 'autoloader.php';
 |
 */
 if ( get_site_option( 'pressbooks-activated' ) ) {
-	require 'inc/class-textbooks.php';
 	$pbt = \PBT\Textbook::get_instance();
 	if ( is_admin() ) {
 		$pbt = new \PBT\Admin\TextbookAdmin;
