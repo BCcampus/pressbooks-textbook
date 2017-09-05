@@ -118,7 +118,6 @@ if ( file_exists( $composer = PBT_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
 |
 */
 if ( get_site_option( 'pressbooks-activated' ) ) {
-	//require 'inc/class-textbook.php';
 	$pbt = \PBT\Textbook::get_instance();
 	if ( is_admin() ) {
 		$pbt = new \PBT\Admin\TextbookAdmin;
