@@ -31,7 +31,7 @@ add_action( 'wp_enqueue_scripts', 'pbt_enqueue_scripts' );
  * @return string
  */
 function pbt_tab_revision_history( $post ) {
-	$html    = '<h4>Revision History</h4>';
+	$html    = '';
 	$args    = array(
 		'order'         => 'DESC',
 		'orderby'       => 'date ID',
@@ -88,7 +88,7 @@ function pbt_tab_revision_history( $post ) {
  * @return string
  */
 function pbt_tab_book_info() {
-	$html      = '<h4>Book Information</h4>';
+	$html      = '';
 	$book_meta = \Pressbooks\Book::getBookInformation();
 	$expected  = array(
 		'pb_title',
@@ -120,6 +120,23 @@ function pbt_tab_book_info() {
 }
 
 /**
+ *
+ * @return string
+ */
+function pbt_tab_citations() {
+	global $post;
+	$html = '';
+
+	if ( $citation = \Candela\Citation::renderCitation( $post->ID ) ) {
+		$html .= '<section role="contentinfo"><div class="post-citations">' . $citation . '</div></section>';
+	} else {
+		$html .= 'no page citations';
+	}
+
+	return $html;
+}
+
+/**
  * Add our field to settings section
  *
  * @param $_page
@@ -144,20 +161,29 @@ add_action( 'pb_theme_options_web_add_settings_fields', 'pbt_theme_options_web_a
 function pbt_tabbed_content_callback() {
 	$options = get_option( 'pressbooks_theme_options_web' );
 
+	// add default if not set
+	if ( ! isset( $options['tab_revision_history'] ) ) {
+		$options['tab_revision_history'] = 0;
+	}
+	if ( ! isset( $options['tab_book_info'] ) ) {
+		$options['tab_book_info'] = 0;
+	}
+	if ( ! isset( $options['tab_citations'] ) ) {
+		$options['tab_citations'] = 0;
+	}
+
 	// revision history
-	$html = '<input type="checkbox" id="revision_history" name="pressbooks_theme_options_web[tab_revision_history]" value="1" ';
-	if ( $options['tab_revision_history'] ) {
-		$html .= 'checked="checked" ';
-	}
-	$html .= '/>';
-	$html .= '<label for="revision_history"> ' . __( 'Share revision history for each chapter with everyone.', 'opentextbooks' ) . '</label><br />';
+	$html = '<input type="checkbox" id="tab_revision_history" name="pressbooks_theme_options_web[tab_revision_history]" value="1" ' . checked( 1, $options['tab_revision_history'], false ) . '/>';
+	$html .= '<label for="tab_revision_history"> ' . __( 'Share revision history for each chapter with everyone.', 'opentextbooks' ) . '</label><br/>';
+
 	// book info
-	$html .= '<input type="checkbox" id="book_info" name="pressbooks_theme_options_web[tab_book_info]" value="1" ';
-	if ( $options['tab_book_info'] ) {
-		$html .= 'checked="checked" ';
-	}
-	$html .= '/>';
-	$html .= '<label for="book_info"> ' . __( 'Share book information for each chapter with everyone.', 'opentextbooks' ) . '</label>';
+	$html .= '<input type="checkbox" id="tab_book_info" name="pressbooks_theme_options_web[tab_book_info]" value="1"  ' . checked( 1, $options['tab_book_info'], false ) . '/>';
+	$html .= '<label for="tab_book_info"> ' . __( 'Share book information for each chapter with everyone.', 'opentextbooks' ) . '</label><br/>';
+
+	// tab citations
+	$html .= '<input type="checkbox" id="tab_citations" name="pressbooks_theme_options_web[tab_citations]" value="1"  ' . checked( 1, $options['tab_citations'], false ) . '/>';
+	$html .= '<label for="tab_citations"> ' . __( 'Display page citations.', 'opentextbooks' ) . '</label>';
+
 	echo $html;
 }
 
@@ -172,6 +198,7 @@ function pbt_web_defaults( $args ) {
 
 	$args['tab_revision_history'] = 1;
 	$args['tab_book_info']        = 1;
+	$args['tab_citations']        = 1;
 
 	return $args;
 }
@@ -186,33 +213,10 @@ add_filter( 'pb_theme_options_web_defaults', 'pbt_web_defaults' );
  * @return mixed
  */
 function pbt_boolean_options( $args ) {
-	array_push( $args, 'tab_revision_history', 'tab_book_info' );
+	array_push( $args, 'tab_revision_history', 'tab_book_info', 'tab_citations' );
 
 	return $args;
 }
 
 add_filter( 'pb_theme_options_web_booleans', 'pbt_boolean_options' );
 
-/**
- * Check if user wants to display tabbed content
- *
- * @return array
- */
-function pbt_get_tab_options() {
-	$options         = get_option( 'pressbooks_theme_options_web' );
-	$web_option_keys = array_keys( $options );
-	$prefix          = 'tab_';
-	$length          = strlen( $prefix );
-	$tabs            = array();
-
-	// compare first four characters and check tab option is true
-	foreach ( $web_option_keys as $key ) {
-		if ( strncmp( $prefix, $key, $length ) === 0 && $options[ $key ] === 1 ) {
-			$tabs[ $key ] = $options[ $key ];
-
-		}
-	}
-
-	return $tabs;
-
-}

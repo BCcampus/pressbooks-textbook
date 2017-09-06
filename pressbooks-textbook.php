@@ -100,9 +100,6 @@ add_action( 'init', 'pb_compatibility' );
 |
 */
 require PBT_PLUGIN_DIR . 'autoloader.php';
-$loader = new \BCcampus\Autoloader();
-$loader->register();
-$loader->addNamespace( 'PBT', PBT_PLUGIN_DIR . 'inc' );
 
 // Load Composer Dependencies
 if ( file_exists( $composer = PBT_PLUGIN_DIR . 'vendor/autoload.php' ) ) {

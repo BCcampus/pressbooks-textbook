@@ -91,19 +91,15 @@ class EquellaFetch {
 
 	/**
 	 * Makes a request to the API for resources by subject/or keyword. This method builds the
-	 * REST url and sets the response (json to an associative array) and size in instance variables.
+	 * REST url and sets the response (json to an associative array) and size in instance variables
+	 * 
+	 * @param string $anyQuery
+	 * @param string $order
+	 * @param int $start
+	 * @param array $info
+	 * @param int $limit
 	 *
-	 * @param string $query - query string
-	 * @param string $order - Allowed values are 'relevance', 'modified', 'name' or 'rating'.
-	 * @param int $start - the first record of the search results to return (zero based)
-	 * @param string $info - How much information to return for each result.
-	 * Allowed values are 'basic', 'metadata', 'detail', 'attachment', 'navigation',
-	 * 'drm' and 'all'. Multiple values can be specified via comma separation.
-	 * Specifying an info parameter with no value will return resource
-	 * representations containing only uuid, version and links fields only.
-	 * @param int $limit - the number of results to return, default is 0, or no limit,
-	 * which as far as the API is concerned is 50 at a time; the max allowed.
-	 *
+	 * @throws \Exception
 	 */
 	private function searchBySubject( $anyQuery = '', $order = 'modified', $start = 0, $info = array( 'basic', 'metadata', 'detail', 'attachment', 'drm' ), $limit = 0 ) {
 		$availableResults = 0;
@@ -160,7 +156,7 @@ class EquellaFetch {
 		$ok = curl_exec( $ch );
 
 		if ( false == $ok ) {
-			throw new \Exception( 'Sorry, something went wrong with the API call to SOLR. <p>Visit <b>http://open.bccampus.ca/find-open-textbooks/</b> to discover and download free textbooks.</p>' );
+			throw new \Exception( 'Sorry, something went wrong with the API call to SOLR. <p>Visit <b>https://open.bccampus.ca/find-open-textbooks/</b> to discover and download free textbooks.</p>' );
 		}
 
 		//get the array back from the API call
