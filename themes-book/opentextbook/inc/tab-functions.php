@@ -17,14 +17,26 @@
  * enable footer tabs
  */
 function pbt_enqueue_scripts() {
-	if ( is_single() ) {
+
+	// scripts only required if on a single page and user has configured theme options
+	if ( is_single() && ! empty( pbt_get_web_options_tab() ) ) {
 		wp_enqueue_script( 'pb-tabs', get_stylesheet_directory_uri() . '/assets/js/tabs.js', array( 'jquery' ), null, false );
 		wp_enqueue_script( 'jquery-ui-tabs' );
+		wp_enqueue_style( 'revisions', ABSPATH . '/wp-admin/css/revisions.css' );
 	}
 }
 
 add_action( 'wp_enqueue_scripts', 'pbt_enqueue_scripts' );
 
+/*
+|--------------------------------------------------------------------------
+| Tabbed Content
+|--------------------------------------------------------------------------
+|
+| naming convention for functions that produce content is pbt_tab_
+|
+|
+*/
 /**
  * @param $post
  *
@@ -38,7 +50,7 @@ function pbt_tab_revision_history( $post ) {
 		'check_enabled' => false,
 	);
 	$enabled = wp_revisions_enabled( $post );
-	$limit   = ( defined( WP_POST_REVISIONS ) ? WP_POST_REVISIONS : 25 );
+	$limit   = 3;
 	$i       = 0;
 	if ( false === $enabled ) {
 		$html .= '<p>' . __( 'Revisions are not enabled', 'pressbooks' ) . '</p>';
@@ -46,38 +58,50 @@ function pbt_tab_revision_history( $post ) {
 		// these are not the revisions you're looking for
 		return $html;
 	}
-	// wp_get_post_revisions returns an empty array
-	// if there are no revisions
+
+	// wp_get_post_revisions returns an empty array if there are no revisions
 	$revisions = wp_get_post_revisions( $post->ID, $args );
+
 	// could be empty
 	if ( empty( $revisions && true === $enabled ) ) {
 		$html .= '<p>' . __( 'There are currently no revisions', 'pressbooks' ) . '</p>';
 
 		return $html;
 	}
-	$html .= '<table class="table"><thead>
-    <tr>
-      <th scope="col">Revision</th>
-      <th scope="col">Date/Time</th>
-      <th scope="col">Publisher</th>
-    </tr>
-  </thead>';
+
 	foreach ( $revisions as $revision ) {
+
 		// skip autosave revisions
-		if ( true === wp_is_post_autosave( $revision ) ) {
+		if ( true === wp_is_post_autosave( $revision->ID ) ) {
 			continue;
 		}
-		$html .= "<tbody><tr>";
-		$html .= "<td>{$revision->ID}</td>";
-		$html .= "<td>{$revision->post_date_gmt}</td>";
-		$html .= "<td>" . get_the_author_meta( 'nicename', $revision->post_author ) . "</td>";
-		$html .= "</tr>";
+		// save revision id
+		$ids[] = $revision->ID;
+
+		// special if it's the first loop
+		if ( 0 === $i ) {
+			$prev = 0;
+			$new  = $post->post_content;
+		} else {
+			$prev = $i - 1;
+			$new  = $revision->post_content;
+		}
+
+		// get previous revision
+		$old_rev = wp_get_post_revision( $ids[ $prev ] );
+
+		$diff = wp_text_diff( $new, $old_rev->post_content );
+
+		if ( ! empty( $diff ) ) {
+			$human_readable_date = date( 'M j, Y', strtotime( $revision->post_date_gmt ) );
+			$html                .= "<b>{$human_readable_date}</b>{$diff}";
+		}
+
 		$i ++;
 		if ( $limit === $i ) {
 			break;
 		}
 	}
-	$html .= "</table>";
 
 	return $html;
 }
@@ -129,13 +153,20 @@ function pbt_tab_citations() {
 
 	if ( $citation = \Candela\Citation::renderCitation( $post->ID ) ) {
 		$html .= '<section role="contentinfo"><div class="post-citations">' . $citation . '</div></section>';
-	} else {
-		$html .= 'no page citations';
 	}
 
 	return $html;
 }
 
+/*
+|--------------------------------------------------------------------------
+| Tab Settings
+|--------------------------------------------------------------------------
+|
+| Displays in Theme Options -> Web
+|
+|
+*/
 /**
  * Add our field to settings section
  *
@@ -174,11 +205,11 @@ function pbt_tabbed_content_callback() {
 
 	// revision history
 	$html = '<input type="checkbox" id="tab_revision_history" name="pressbooks_theme_options_web[tab_revision_history]" value="1" ' . checked( 1, $options['tab_revision_history'], false ) . '/>';
-	$html .= '<label for="tab_revision_history"> ' . __( 'Share revision history for each chapter with everyone.', 'opentextbooks' ) . '</label><br/>';
+	$html .= '<label for="tab_revision_history"> ' . __( 'Display revision history for each chapter with everyone.', 'opentextbooks' ) . '</label><br/>';
 
 	// book info
 	$html .= '<input type="checkbox" id="tab_book_info" name="pressbooks_theme_options_web[tab_book_info]" value="1"  ' . checked( 1, $options['tab_book_info'], false ) . '/>';
-	$html .= '<label for="tab_book_info"> ' . __( 'Share book information for each chapter with everyone.', 'opentextbooks' ) . '</label><br/>';
+	$html .= '<label for="tab_book_info"> ' . __( 'Display book information for each chapter with everyone.', 'opentextbooks' ) . '</label><br/>';
 
 	// tab citations
 	$html .= '<input type="checkbox" id="tab_citations" name="pressbooks_theme_options_web[tab_citations]" value="1"  ' . checked( 1, $options['tab_citations'], false ) . '/>';
@@ -220,3 +251,34 @@ function pbt_boolean_options( $args ) {
 
 add_filter( 'pb_theme_options_web_booleans', 'pbt_boolean_options' );
 
+/*
+|--------------------------------------------------------------------------
+| Utility
+|--------------------------------------------------------------------------
+|
+|
+|
+|
+*/
+/**
+ * Return an array of web theme options related to tabbed content
+ *
+ * @return array
+ */
+function pbt_get_web_options_tab() {
+	$options         = get_option( 'pressbooks_theme_options_web' );
+	$web_option_keys = array_keys( $options );
+	$prefix          = 'tab_';
+	$length          = strlen( $prefix );
+	$tabs            = array();
+
+	// compare first four characters and check tab option is true
+	foreach ( $web_option_keys as $key ) {
+		if ( strncmp( $prefix, $key, $length ) === 0 && $options[ $key ] === 1 ) {
+			$tabs[ $key ] = $options[ $key ];
+
+		}
+	}
+
+	return $tabs;
+}

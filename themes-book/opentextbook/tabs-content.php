@@ -1,7 +1,7 @@
 <?php
 
 
-$tabs = \PBT\Textbook::getWebOptionsTab();
+$tabs = pbt_get_web_options_tab();
 
 if ( ! empty( $tabs ) ) {
 
