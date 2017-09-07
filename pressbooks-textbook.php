@@ -57,7 +57,7 @@ define( 'PB_HIDE_COVER_PROMO', true );
 
 /*
 |--------------------------------------------------------------------------
-| Miniumum requirements before either PB or PBT objects are instantiated
+| Minimum requirements before either PB or PBT objects are instantiated
 |--------------------------------------------------------------------------
 |
 |
@@ -105,6 +105,18 @@ require PBT_PLUGIN_DIR . 'autoloader.php';
 if ( file_exists( $composer = PBT_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
 	require_once( $composer );
 }
+
+/*
+|--------------------------------------------------------------------------
+| Other requirements
+|--------------------------------------------------------------------------
+|
+|
+|
+|
+*/
+require PBT_PLUGIN_DIR . 'inc/pbt-settings.php';
+
 /*
 |--------------------------------------------------------------------------
 | All Your Base Are Belong To Us
