@@ -98,6 +98,8 @@ class Textbook {
 			'creative-commons-configurator-1/cc-configurator.php' => 1,
 			'hypothesis/hypothesis.php'                           => 1,
 			'tinymce-spellcheck/tinymce-spellcheck.php'           => 1,
+			'lumenlearning/candela-citation.php'                  => 1,
+			'candela-citation/candela-citation.php'               => 1,
 		);
 
 		$pbt_plugin = $this->filterPlugins( $pbt_plugin );
@@ -111,9 +113,10 @@ class Textbook {
 			}
 			// move to vendor directory
 			foreach ( $pbt_plugin as $key => $val ) {
-				$vendor_name = explode( '/', $key );
-				if ( file_exists( PBT_PLUGIN_DIR . 'vendor/' . $vendor_name[0] . '/' . $key ) ) {
-					require_once( PBT_PLUGIN_DIR . 'vendor/' . $vendor_name[0] . '/' . $key );
+				$parts     = explode( '/', $key );
+				$directory = strstr( $parts[1], '.php', true );
+				if ( file_exists( PBT_PLUGIN_DIR . 'vendor/' . $parts[0] . '/' . $directory . '/' . $parts[1] ) ) {
+					require_once( PBT_PLUGIN_DIR . 'vendor/' . $parts[0] . '/' . $directory . '/' . $parts[1] );
 				}
 			}
 		}
@@ -138,6 +141,7 @@ class Textbook {
 			unset( $pbt_plugin['hypothesis/hypothesis.php'] );
 			unset( $pbt_plugin['creative-commons-configurator-1/cc-configurator.php'] );
 			unset( $pbt_plugin['tinymce-spellcheck/tinymce-spellcheck.php'] );
+			unset( $pbt_plugin['lumenlearning/candela-citation.php'] );
 		}
 
 		// don't include plugins already active at the site level, network level
@@ -182,7 +186,6 @@ class Textbook {
 	 * @return array
 	 */
 	private function getUserOptions() {
-		$result = array();
 
 		( array ) $other = get_option( 'pbt_other_settings' );
 		( array ) $reuse = get_option( 'pbt_reuse_settings' );
@@ -191,6 +194,30 @@ class Textbook {
 		$result = @array_merge( $other, $reuse, $redistribute );
 
 		return $result;
+	}
+
+
+	/**
+	 * Return an array of web theme options related to tabbed content
+	 *
+	 * @return array
+	 */
+	 static function getWebOptionsTab() {
+		$options         = get_option( 'pressbooks_theme_options_web' );
+		$web_option_keys = array_keys( $options );
+		$prefix          = 'tab_';
+		$length          = strlen( $prefix );
+		$tabs            = array();
+
+		// compare first four characters and check tab option is true
+		foreach ( $web_option_keys as $key ) {
+			if ( strncmp( $prefix, $key, $length ) === 0 && $options[ $key ] === 1 ) {
+				$tabs[ $key ] = $options[ $key ];
+
+			}
+		}
+
+		return $tabs;
 	}
 
 	/**

@@ -90,8 +90,8 @@
 				if ( $textbooks ) {
 					echo $textbooks;
 				} else {
-					$equellaFetch = new \PBT\Catalogue\EquellaFetch();
-					$filter = new \PBT\Catalogue\Filter( $equellaFetch );
+					$equellaFetch = new \PBT\Modules\Catalogue\EquellaFetch();
+					$filter = new \PBT\Modules\Catalogue\Filter( $equellaFetch );
 					$textbooks = $filter->displayBySubject();
 
 					wp_cache_set( 'open-textbooks', $textbooks, 'pbt', 10800 );

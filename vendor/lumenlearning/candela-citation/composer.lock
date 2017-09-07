@@ -4,78 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "71334d5ba3a7d88ffe0e6cd1fb6873a5",
-    "packages": [
-        {
-            "name": "hypothesis/hypothesis",
-            "version": "v0.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hypothesis/wp-hypothesis.git",
-                "reference": "90a7562ba8cc320168ffc7bc21508dc55c06dc75"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hypothesis/wp-hypothesis/zipball/90a7562ba8cc320168ffc7bc21508dc55c06dc75",
-                "reference": "90a7562ba8cc320168ffc7bc21508dc55c06dc75",
-                "shasum": ""
-            },
-            "require-dev": {
-                "squizlabs/php_codesniffer": "^2.7",
-                "wp-coding-standards/wpcs": "^0.10"
-            },
-            "type": "wordpress-plugin",
-            "scripts": {
-                "test": [
-                    "vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
-                    "vendor/bin/phpcs --standard=phpcs.xml --extensions=php ."
-                ]
-            },
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "description": "An open platform for the collaborative evaluation of knowledge.",
-            "homepage": "https://github.com/hypothesis/wp-hypothesis",
-            "support": {
-                "issues": "https://github.com/hypothesis/wp-hypothesis/issues",
-                "source": "https://github.com/hypothesis/wp-hypothesis/"
-            },
-            "time": "2016-12-19T19:13:50+00:00"
-        },
-        {
-            "name": "lumenlearning/candela-citation",
-            "version": "0.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/BCcampus/candela-citation.git",
-                "reference": "03526c79a67b0978946b264e7b700429b4e81583"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/BCcampus/candela-citation/zipball/03526c79a67b0978946b264e7b700429b4e81583",
-                "reference": "03526c79a67b0978946b264e7b700429b4e81583",
-                "shasum": ""
-            },
-            "require-dev": {
-                "humanmade/coding-standards": "^0.2.1"
-            },
-            "type": "wordpress-plugin",
-            "scripts": {
-                "test": [
-                    "@standards"
-                ],
-                "standards": [
-                    "vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php ."
-                ]
-            },
-            "description": "Extends creative commons attribution functionality",
-            "homepage": "https://github.com/lumenlearning/candela-citation",
-            "support": {
-                "source": "https://github.com/BCcampus/candela-citation/tree/dev"
-            },
-            "time": "2017-09-06T17:56:42+00:00"
-        }
-    ],
+    "content-hash": "3fb101ee959af91d6b4efd9b05da2682",
+    "packages": [],
     "packages-dev": [
         {
             "name": "doctrine/instantiator",

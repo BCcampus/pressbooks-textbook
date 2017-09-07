@@ -19,10 +19,15 @@
     {
       "type": "vcs",
       "url": "https://github.com/hypothesis/wp-hypothesis"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/bccampus/candela-citation.git"
     }
   ],
   "require": {
-    "hypothesis/hypothesis": "^0.5.0"
+    "hypothesis/hypothesis": "^0.5.0",
+    "lumenlearning/candela-citation": "^0.2.1"
   },
   "scripts": {
     "test": [
