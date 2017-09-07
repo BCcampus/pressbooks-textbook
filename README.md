@@ -8,9 +8,9 @@ A plugin that extends Pressbooks for textbook authoring.
 **Pressbooks Textbook** adds functionality to Pressbooks to make it easier to author textbooks as well. The features it currently offers are:
 
 * Textbook Theme
+* Optional tabbed content (page citations, revision history, book information)
 * TinyMCE textbook buttons (learning objectives, key terms, exercises)
 * TinyMCE spell check
-* Creative Commons license attribution
 * Prominent admin buttons (Import, Plugin)
 * Annotation functionality
 * Download links to openly licensed textbooks, ready to remix.
@@ -43,10 +43,6 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 Contributors
 ------------
 * https://github.com/BCcampus/pressbooks-textbook/graphs/contributors
-
-This plugin comes with and activates some existing wordpress plugins. Currently these plugins include:
-* [Creative Commons Configurator](https://github.com/gnotaras/wordpress-creative-commons-configurator) gnotaras
-* [Hypothesis] (https://wordpress.org/plugins/hypothesis/) timmmmyboy
 
 More Details
 ------------

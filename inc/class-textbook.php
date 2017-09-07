@@ -196,30 +196,6 @@ class Textbook {
 		return $result;
 	}
 
-
-	/**
-	 * Return an array of web theme options related to tabbed content
-	 *
-	 * @return array
-	 */
-	 static function getWebOptionsTab() {
-		$options         = get_option( 'pressbooks_theme_options_web' );
-		$web_option_keys = array_keys( $options );
-		$prefix          = 'tab_';
-		$length          = strlen( $prefix );
-		$tabs            = array();
-
-		// compare first four characters and check tab option is true
-		foreach ( $web_option_keys as $key ) {
-			if ( strncmp( $prefix, $key, $length ) === 0 && $options[ $key ] === 1 ) {
-				$tabs[ $key ] = $options[ $key ];
-
-			}
-		}
-
-		return $tabs;
-	}
-
 	/**
 	 * Checks to see if one of our child themes is active
 	 *

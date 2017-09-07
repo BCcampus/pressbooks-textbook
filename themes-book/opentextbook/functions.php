@@ -8,7 +8,7 @@
 |
 |
 */
-require get_stylesheet_directory() . '/inc/tabs.php';
+require get_stylesheet_directory() . '/inc/tab-functions.php';
 
 /**
  * Returns an html blog of meta elements
