@@ -201,7 +201,6 @@ $text-transform-norm: none;
 // lists custom
 $list-style-type: lower-alpha;
 $list-style-type-2: lower-roman;
-$list-style-type-sub: circle;
 
 /****************************************
 	Body
@@ -248,14 +247,11 @@ ol.alphalist li::before {
 
 .entry-content ul {
   margin-left: 30px;
+  list-style: outside circle;
 }
 
 .entry-content ol {
   margin-left: 30px;
-}
-
-.entry-content ul {
-  list-style: outside disc;
 }
 
 ol {
@@ -293,10 +289,6 @@ ol li li li::before {
   list-style-position: outside;
   content: counter(level3, $list-style-type-2) ". ";
   counter-increment: level3;
-}
-
-ol ol, ul ul li {
-  list-style: $list-style-type-sub;
 }
 
 /****************************************
