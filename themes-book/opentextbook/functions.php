@@ -10,6 +10,37 @@
 */
 require get_stylesheet_directory() . '/inc/tab-functions.php';
 
+/*
+|--------------------------------------------------------------------------
+| Automatically update web theme if necessary
+|--------------------------------------------------------------------------
+|
+|
+|
+|
+*/
+
+/**
+ * Automatically update theme files/regenerate scss compile based on theme version number
+ *
+ * @return bool
+ */
+function pbt_maybe_update_webbook_stylesheet() {
+	$theme           = wp_get_theme();
+	$current_version = $theme->get( 'Version' );
+	$last_version    = get_option( 'pbt_otb_theme_version' );
+	if ( version_compare( $current_version, $last_version ) > 0 ) {
+		\Pressbooks\Container::get( 'Sass' )->updateWebBookStyleSheet();
+		update_option( 'pbt_otb_theme_version', $current_version );
+
+		return true;
+	}
+
+	return false;
+}
+
+add_action( 'init', 'pbt_maybe_update_webbook_stylesheet' );
+
 /**
  * Returns an html blog of meta elements
  *
@@ -125,7 +156,7 @@ function pbt_fix_img_relative( $content ) {
  * @return type
  */
 function pbt_fix_img_relative_callback( $matches ) {
-	$avoid    = 'http://s.wordpress.com';
+	$avoid = 'http://s.wordpress.com';
 
 	if ( 0 === strcmp( $avoid, substr( $matches[0], 0, 22 ) ) ) {
 		$protocol = $matches[0];
