@@ -381,33 +381,6 @@ class Textbook {
 	}
 
 	/**
-	 * Triggers a recompile of sass to css required for a switch to sassified theme
-	 * modified/borrowed from Pressbooks pressbooks_update_webbook_stylesheet()
-	 *
-	 */
-	function updateWebbookStylesheet() {
-		foreach ( glob( get_stylesheet_directory() . '/assets/styles/components/*.scss' ) as $import ) {
-			$inputs[] = realpath( $import );
-		}
-
-		$output    = get_stylesheet_directory_uri() . '/style.css';
-		$recompile = false;
-		foreach ( $inputs as $input ) {
-			if ( filemtime( $input ) > filemtime( $output ) ) {
-				$recompile = true;
-				break;
-			}
-		}
-		if ( true == $recompile ) {
-			error_log( 'Updating web book stylesheet.' );
-			\Pressbooks\Container::get( 'Sass' )->updateWebBookStyleSheet();
-		} else {
-			error_log( 'No update needed.' );
-		}
-
-	}
-
-	/**
 	 * Pass additional arguments to Publisher Root theme catalogue page
 	 * @return array
 	 */
@@ -438,7 +411,6 @@ class Textbook {
 		$site_version = get_option( 'pbt_version', 0, false );
 
 		if ( version_compare( $site_version, self::VERSION ) < 0 ) {
-			add_action( 'template_redirect', array( $this, 'updateWebbookStylesheet' ) );
 			update_option( 'pbt_version', self::VERSION );
 		}
 
