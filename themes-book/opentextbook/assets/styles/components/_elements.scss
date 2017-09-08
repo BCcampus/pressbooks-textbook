@@ -16,14 +16,14 @@
 } @else if $type == 'prince' {
   //$h1-text-transform: none !default;
   //$body-font-size: 11pt !default;
-}  @else if $type == 'web' {
+} @else if $type == 'web' {
   //$body-font-size: medium !default;
 }
+
 //$body-font-family: $font-1 !default;
 //$body-font-style: normal !default;
 //$body-font-weight: normal !default;
 $body-line-height: 1.5em !default;
-
 
 // Heading 1
 $h1-font-size: 1.3em !default;
@@ -90,6 +90,7 @@ $para-margin-bottom: 1em !default;
 } @else if $type == 'web' {
   $para-align: left !default;
 }
+
 //$widows: 2 !default;
 //$orphans: 1 !default;
 //$para-hyphens: auto !default;
@@ -201,7 +202,7 @@ $text-transform-norm: none;
 // lists custom
 $list-style-type: lower-alpha;
 $list-style-type-2: lower-roman;
-$list-style-type-sub: circle;
+$list-style-type-3: outside circle;
 
 /****************************************
 	Body
@@ -231,10 +232,30 @@ h6 + p {
   margin-bottom: 15px;
 }
 
-
 /****************************************
 	Lists
 *****************************************/
+
+#content {
+  ul{
+    list-style: $list-style-type-3;
+  }
+  .entry-content {
+    ul {
+      margin-left: 30px;
+      list-style: $list-style-type-3;
+      ul {
+        list-style: $list-style-type-3;
+      }
+    }
+    ol {
+      margin-left: 30px;
+      ul {
+        list-style: $list-style-type-3;
+      }
+    }
+  }
+}
 
 ol.alphalist {
   list-style-type: $list-style-type;
@@ -244,18 +265,6 @@ ol.alphalist {
 
 ol.alphalist li::before {
   content: normal;
-}
-
-.entry-content ul {
-  margin-left: 30px;
-}
-
-.entry-content ol {
-  margin-left: 30px;
-}
-
-.entry-content ul {
-  list-style: outside disc;
 }
 
 ol {
@@ -295,10 +304,6 @@ ol li li li::before {
   counter-increment: level3;
 }
 
-ol ol, ul ul li {
-  list-style: $list-style-type-sub;
-}
-
 /****************************************
 	Tables
 *****************************************/
@@ -314,12 +319,13 @@ table td,
 table th {
   vertical-align: middle;
 }
+
 #content table td,
-#content table th{
+#content table th {
   border: 1px solid $color-gray-alto;
 }
 
-#content tr th, #content thead th{
+#content tr th, #content thead th {
   color: $color-black; /* increase contrast for accessibility */
 }
 
@@ -384,7 +390,7 @@ sub {
 blockquote {
   padding: 1px 5px 5px 50px;
   margin-bottom: 20px;
-  @if $type == 'prince' or $type == 'epub'{
+  @if $type == 'prince' or $type == 'epub' {
     background: $color-desert-storm url('images/blockquote-open.png') no-repeat 10px 10px;
   }
 }
