@@ -126,9 +126,7 @@ require PBT_PLUGIN_DIR . 'inc/pbt-settings.php';
 |
 |
 */
-if ( get_site_option( 'pressbooks-activated' ) ) {
-	$pbt = \PBT\Textbook::get_instance();
-	if ( is_admin() ) {
-		$pbt = new \PBT\Admin\TextbookAdmin;
-	}
+\PBT\Textbook::get_instance();
+if ( is_admin() ) {
+	new \PBT\Admin\TextbookAdmin;
 }
