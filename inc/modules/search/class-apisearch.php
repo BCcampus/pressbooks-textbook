@@ -372,7 +372,8 @@ class ApiSearch {
 		$titles = ( ! empty( $search ) ) ? '?titles=' . $search : '';
 
 		// build the url, get list of public books
-		$public_books = wp_remote_get( $endpoint . 'books' . '/' . $titles );
+		$args         = [ 'timeout' => '15' ];
+		$public_books = wp_remote_get( $endpoint . 'books' . '/' . $titles, $args );
 
 		if ( is_wp_error( $public_books ) ) {
 			error_log( '\PBT\Search\getPublicBooks error: ' . $public_books->get_error_message() );

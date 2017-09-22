@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "71334d5ba3a7d88ffe0e6cd1fb6873a5",
+    "content-hash": "4e40a688d3ebe454d2a95046d3c8bff7",
     "packages": [
         {
             "name": "hypothesis/hypothesis",
@@ -44,16 +44,16 @@
         },
         {
             "name": "lumenlearning/candela-citation",
-            "version": "0.2.1",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/BCcampus/candela-citation.git",
-                "reference": "03526c79a67b0978946b264e7b700429b4e81583"
+                "url": "https://github.com/lumenlearning/candela-citation.git",
+                "reference": "5b07d0ab1d65569c9c7c461790a8a35812d74753"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BCcampus/candela-citation/zipball/03526c79a67b0978946b264e7b700429b4e81583",
-                "reference": "03526c79a67b0978946b264e7b700429b4e81583",
+                "url": "https://api.github.com/repos/lumenlearning/candela-citation/zipball/5b07d0ab1d65569c9c7c461790a8a35812d74753",
+                "reference": "5b07d0ab1d65569c9c7c461790a8a35812d74753",
                 "shasum": ""
             },
             "require-dev": {
@@ -71,40 +71,41 @@
             "description": "Extends creative commons attribution functionality",
             "homepage": "https://github.com/lumenlearning/candela-citation",
             "support": {
-                "source": "https://github.com/BCcampus/candela-citation/tree/dev"
+                "source": "https://github.com/lumenlearning/candela-citation/tree/1.0.0",
+                "issues": "https://github.com/lumenlearning/candela-citation/issues"
             },
-            "time": "2017-09-06T17:56:42+00:00"
+            "time": "2017-09-19T18:03:53+00:00"
         }
     ],
     "packages-dev": [
         {
             "name": "doctrine/instantiator",
-            "version": "1.1.0",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda"
+                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda",
-                "reference": "185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/8e884e78f9f0eb1329e445619e04456e64d8051d",
+                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1"
+                "php": ">=5.3,<8.0-DEV"
             },
             "require-dev": {
                 "athletic/athletic": "~0.1.8",
                 "ext-pdo": "*",
                 "ext-phar": "*",
-                "phpunit/phpunit": "^6.2.3",
-                "squizlabs/php_codesniffer": "^3.0.2"
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~2.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2.x-dev"
+                    "dev-master": "1.0.x-dev"
                 }
             },
             "autoload": {
@@ -129,7 +130,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2017-07-22T11:58:36+00:00"
+            "time": "2015-06-14T21:17:01+00:00"
         },
         {
             "name": "fig-r/psr2r-sniffer",
@@ -243,16 +244,16 @@
         },
         {
             "name": "phpdocumentor/reflection-common",
-            "version": "1.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionCommon.git",
-                "reference": "144c307535e82c8fdcaacbcfc1d6d8eeb896687c"
+                "reference": "21bdeb5f65d7ebf9f43b1b25d404f87deab5bfb6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/144c307535e82c8fdcaacbcfc1d6d8eeb896687c",
-                "reference": "144c307535e82c8fdcaacbcfc1d6d8eeb896687c",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/21bdeb5f65d7ebf9f43b1b25d404f87deab5bfb6",
+                "reference": "21bdeb5f65d7ebf9f43b1b25d404f87deab5bfb6",
                 "shasum": ""
             },
             "require": {
@@ -293,7 +294,7 @@
                 "reflection",
                 "static analysis"
             ],
-            "time": "2015-12-27T11:43:31+00:00"
+            "time": "2017-09-11T18:02:19+00:00"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -1433,7 +1434,7 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.3.8",
+            "version": "v3.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",

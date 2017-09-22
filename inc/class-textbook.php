@@ -22,7 +22,7 @@ class Textbook {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	const VERSION = '3.1.1';
+	const VERSION = '3.1.5';
 
 	/**
 	 * Unique identifier for plugin.
@@ -422,8 +422,8 @@ class Textbook {
 			update_option( 'pressbooks_theme_options_web', $part_title );
 		}
 
-		// triggers once for version 3.1.2
-		if ( version_compare( '3.1.2', self::VERSION ) == 0 ) {
+		// triggers once for version 3.1.5
+		if ( version_compare( '3.1.5', self::VERSION ) == 0 ) {
 			update_site_option( 'pressbooks_sharingandprivacy_options', array( 'allow_redistribution' => 1 ) );
 			update_site_option( 'pressbooks_sharingandprivacy_options', array( 'enable_network_api' => 1 ) );
 			update_site_option( 'pressbooks_sharingandprivacy_options', array( 'enable_cloning' => 1 ) );

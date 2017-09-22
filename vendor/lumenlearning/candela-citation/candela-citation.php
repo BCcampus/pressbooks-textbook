@@ -3,7 +3,7 @@
  * @wordpress-plugin
  * Plugin Name:       Candela Attributions
  * Description:       Creative Commons Attributions for Candela/Pressbooks
- * Version:           0.2.1
+ * Version:           1.0.0
  * Author:            Lumen Learning
  * Author URI:        http://lumenlearning.com
  * Text Domain:       lti
@@ -60,5 +60,3 @@ require CANDELA_PLUGIN_DIR . 'autoloader.php';
 
 // Do our necessary plugin setup and add_action routines.
 Citation::init();
-
-

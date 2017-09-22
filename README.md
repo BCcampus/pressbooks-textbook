@@ -9,6 +9,7 @@ A plugin that extends Pressbooks for textbook authoring.
 
 * Textbook Theme
 * Optional tabbed content (page citations, revision history, book information)
+* Extended Citation functionality
 * TinyMCE textbook buttons (learning objectives, key terms, exercises)
 * TinyMCE spell check
 * Prominent admin buttons (Import, Plugin)
