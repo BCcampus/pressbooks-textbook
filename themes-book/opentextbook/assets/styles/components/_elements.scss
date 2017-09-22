@@ -203,6 +203,7 @@ $text-transform-norm: none;
 $list-style-type: lower-alpha;
 $list-style-type-2: lower-roman;
 $list-style-type-3: outside circle;
+//$list-style-type-4: outside disc;
 
 /****************************************
 	Body
@@ -238,12 +239,12 @@ h6 + p {
 
 #content {
   ul{
-    list-style: $list-style-type-3;
+    //list-style: $list-style-type-3;
   }
   .entry-content {
     ul {
       margin-left: 30px;
-      list-style: $list-style-type-3;
+      //list-style: $list-style-type-3;
       ul {
         list-style: $list-style-type-3;
       }
@@ -251,7 +252,8 @@ h6 + p {
     ol {
       margin-left: 30px;
       ul {
-        list-style: $list-style-type-3;
+        margin-left: 30px;
+        //list-style: $list-style-type-3;
       }
     }
   }
