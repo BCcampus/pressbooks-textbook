@@ -178,7 +178,8 @@ class ApiSearch {
 			$endpoint = $protocol . $book['domain'] . '/api/' . self::$version . '/books/' . $book_id . '/';
 
 			// remote call to the API using book id
-			$response = wp_remote_get( $endpoint );
+			$args         = [ 'timeout' => '15' ];
+			$response = wp_remote_get( $endpoint , $args );
 
 			// response gets all chapters, types
 			if ( is_wp_error( $response ) ) {
@@ -187,7 +188,8 @@ class ApiSearch {
 					$protocol = 'https://';
 					$endpoint = $protocol . $book['domain'] . '/api/' . self::$version . '/books/' . $book_id . '/';
 					// remote call to the API using book id
-					$response = wp_remote_get( $endpoint );
+					$args         = [ 'timeout' => '15' ];
+					$response = wp_remote_get( $endpoint, $args );
 
 					if ( is_wp_error( $response ) ) {
 						throw new \Exception( $response->get_error_message() );
@@ -372,7 +374,8 @@ class ApiSearch {
 		$titles = ( ! empty( $search ) ) ? '?titles=' . $search : '';
 
 		// build the url, get list of public books
-		$public_books = wp_remote_get( $endpoint . 'books' . '/' . $titles );
+		$args         = [ 'timeout' => '15' ];
+		$public_books = wp_remote_get( $endpoint . 'books' . '/' . $titles, $args );
 
 		if ( is_wp_error( $public_books ) ) {
 			error_log( '\PBT\Search\getPublicBooks error: ' . $public_books->get_error_message() );
@@ -431,7 +434,8 @@ class ApiSearch {
 		// iterate through books, search for string match in chapter titles
 		foreach ( $blog_ids as $id ) {
 			$request = $endpoint . 'books/' . $id . '/' . $titles;
-			$response = wp_remote_get( $request );
+			$args         = [ 'timeout' => '15' ];
+			$response = wp_remote_get( $request , $args );
 			$body = json_decode( $response['body'], true );
 			if ( ! empty( $body ) && 1 == $body['success'] ) {
 				$chapters[ $id ] = $books[ $id ];
