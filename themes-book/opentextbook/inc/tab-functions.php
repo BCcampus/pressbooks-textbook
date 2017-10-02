@@ -147,7 +147,7 @@ function pbt_tab_book_info() {
  *
  * @return string
  */
-function pbt_tab_citations() {
+function pbt_tab_attributions() {
 	global $post;
 	$html = '';
 
@@ -199,8 +199,8 @@ function pbt_tabbed_content_callback() {
 	if ( ! isset( $options['tab_book_info'] ) ) {
 		$options['tab_book_info'] = 0;
 	}
-	if ( ! isset( $options['tab_citations'] ) ) {
-		$options['tab_citations'] = 0;
+	if ( ! isset( $options['tab_attributions'] ) ) {
+		$options['tab_attributions'] = 0;
 	}
 
 	// revision history
@@ -212,8 +212,8 @@ function pbt_tabbed_content_callback() {
 	$html .= '<label for="tab_book_info"> ' . __( 'Display book information for each chapter with everyone.', 'opentextbooks' ) . '</label><br/>';
 
 	// tab citations
-	$html .= '<input type="checkbox" id="tab_citations" name="pressbooks_theme_options_web[tab_citations]" value="1"  ' . checked( 1, $options['tab_citations'], false ) . '/>';
-	$html .= '<label for="tab_citations"> ' . __( 'Display page citations.', 'opentextbooks' ) . '</label>';
+	$html .= '<input type="checkbox" id="tab_attributions" name="pressbooks_theme_options_web[tab_attributions]" value="1"  ' . checked( 1, $options['tab_attributions'], false ) . '/>';
+	$html .= '<label for="tab_attributions"> ' . __( 'Display page attributions and licenses.', 'opentextbooks' ) . '</label>';
 
 	echo $html;
 }
@@ -229,7 +229,7 @@ function pbt_web_defaults( $args ) {
 
 	$args['tab_revision_history'] = 1;
 	$args['tab_book_info']        = 1;
-	$args['tab_citations']        = 1;
+	$args['tab_attributions']     = 1;
 
 	return $args;
 }
@@ -244,7 +244,7 @@ add_filter( 'pb_theme_options_web_defaults', 'pbt_web_defaults' );
  * @return mixed
  */
 function pbt_boolean_options( $args ) {
-	array_push( $args, 'tab_revision_history', 'tab_book_info', 'tab_citations' );
+	array_push( $args, 'tab_revision_history', 'tab_book_info', 'tab_attributions' );
 
 	return $args;
 }

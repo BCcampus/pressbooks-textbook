@@ -22,12 +22,18 @@
     },
     {
       "type": "vcs",
-      "url": "https://github.com/bccampus/candela-citation.git"
+      "url": "https://github.com/lumenlearning/candela-citation.git"
     }
   ],
+  "extra": {
+    "installer-paths": {
+      "vendor/lumenlearning": ["lumenlearning/candela-citation"],
+      "vendor/hypothesis": ["hypothesis/hypothesis"]
+    }
+  },
   "require": {
     "hypothesis/hypothesis": "^0.5.0",
-    "lumenlearning/candela-citation": "^0.2.1"
+    "lumenlearning/candela-citation": "^0.2.2"
   },
   "scripts": {
     "test": [

@@ -1,78 +1,5 @@
 [
     {
-        "name": "hypothesis/hypothesis",
-        "version": "v0.5.0",
-        "version_normalized": "0.5.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/hypothesis/wp-hypothesis.git",
-            "reference": "90a7562ba8cc320168ffc7bc21508dc55c06dc75"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/hypothesis/wp-hypothesis/zipball/90a7562ba8cc320168ffc7bc21508dc55c06dc75",
-            "reference": "90a7562ba8cc320168ffc7bc21508dc55c06dc75",
-            "shasum": ""
-        },
-        "require-dev": {
-            "squizlabs/php_codesniffer": "^2.7",
-            "wp-coding-standards/wpcs": "^0.10"
-        },
-        "time": "2016-12-19T19:13:50+00:00",
-        "type": "wordpress-plugin",
-        "installation-source": "dist",
-        "scripts": {
-            "test": [
-                "vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
-                "vendor/bin/phpcs --standard=phpcs.xml --extensions=php ."
-            ]
-        },
-        "license": [
-            "BSD-2-Clause"
-        ],
-        "description": "An open platform for the collaborative evaluation of knowledge.",
-        "homepage": "https://github.com/hypothesis/wp-hypothesis",
-        "support": {
-            "issues": "https://github.com/hypothesis/wp-hypothesis/issues",
-            "source": "https://github.com/hypothesis/wp-hypothesis/"
-        }
-    },
-    {
-        "name": "lumenlearning/candela-citation",
-        "version": "0.2.1",
-        "version_normalized": "0.2.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/BCcampus/candela-citation.git",
-            "reference": "03526c79a67b0978946b264e7b700429b4e81583"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/BCcampus/candela-citation/zipball/03526c79a67b0978946b264e7b700429b4e81583",
-            "reference": "03526c79a67b0978946b264e7b700429b4e81583",
-            "shasum": ""
-        },
-        "require-dev": {
-            "humanmade/coding-standards": "^0.2.1"
-        },
-        "time": "2017-09-06T17:56:42+00:00",
-        "type": "wordpress-plugin",
-        "installation-source": "dist",
-        "scripts": {
-            "test": [
-                "@standards"
-            ],
-            "standards": [
-                "vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php ."
-            ]
-        },
-        "description": "Extends creative commons attribution functionality",
-        "homepage": "https://github.com/lumenlearning/candela-citation",
-        "support": {
-            "source": "https://github.com/BCcampus/candela-citation/tree/dev"
-        }
-    },
-    {
         "name": "squizlabs/php_codesniffer",
         "version": "2.9.1",
         "version_normalized": "2.9.1.0",
@@ -261,63 +188,6 @@
             "GPL-2.0"
         ],
         "description": "Human Made coding standards"
-    },
-    {
-        "name": "symfony/yaml",
-        "version": "v3.3.8",
-        "version_normalized": "3.3.8.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/yaml.git",
-            "reference": "1d8c2a99c80862bdc3af94c1781bf70f86bccac0"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/yaml/zipball/1d8c2a99c80862bdc3af94c1781bf70f86bccac0",
-            "reference": "1d8c2a99c80862bdc3af94c1781bf70f86bccac0",
-            "shasum": ""
-        },
-        "require": {
-            "php": "^5.5.9|>=7.0.8"
-        },
-        "require-dev": {
-            "symfony/console": "~2.8|~3.0"
-        },
-        "suggest": {
-            "symfony/console": "For validating YAML files using the lint command"
-        },
-        "time": "2017-07-29T21:54:42+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.3-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Component\\Yaml\\": ""
-            },
-            "exclude-from-classmap": [
-                "/Tests/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony Yaml Component",
-        "homepage": "https://symfony.com"
     },
     {
         "name": "sebastian/version",
@@ -806,62 +676,6 @@
         ]
     },
     {
-        "name": "doctrine/instantiator",
-        "version": "1.1.0",
-        "version_normalized": "1.1.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/doctrine/instantiator.git",
-            "reference": "185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/instantiator/zipball/185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda",
-            "reference": "185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda",
-            "shasum": ""
-        },
-        "require": {
-            "php": "^7.1"
-        },
-        "require-dev": {
-            "athletic/athletic": "~0.1.8",
-            "ext-pdo": "*",
-            "ext-phar": "*",
-            "phpunit/phpunit": "^6.2.3",
-            "squizlabs/php_codesniffer": "^3.0.2"
-        },
-        "time": "2017-07-22T11:58:36+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.2.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Doctrine\\Instantiator\\": "src/Doctrine/Instantiator/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Marco Pivetta",
-                "email": "ocramius@gmail.com",
-                "homepage": "http://ocramius.github.com/"
-            }
-        ],
-        "description": "A small, lightweight utility to instantiate objects in PHP without invoking their constructors",
-        "homepage": "https://github.com/doctrine/instantiator",
-        "keywords": [
-            "constructor",
-            "instantiate"
-        ]
-    },
-    {
         "name": "phpunit/php-text-template",
         "version": "1.2.1",
         "version_normalized": "1.2.1.0",
@@ -1281,62 +1095,6 @@
         ]
     },
     {
-        "name": "phpdocumentor/reflection-common",
-        "version": "1.0",
-        "version_normalized": "1.0.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/phpDocumentor/ReflectionCommon.git",
-            "reference": "144c307535e82c8fdcaacbcfc1d6d8eeb896687c"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/144c307535e82c8fdcaacbcfc1d6d8eeb896687c",
-            "reference": "144c307535e82c8fdcaacbcfc1d6d8eeb896687c",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.5"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "^4.6"
-        },
-        "time": "2015-12-27T11:43:31+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.0.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "phpDocumentor\\Reflection\\": [
-                    "src"
-                ]
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Jaap van Otterdijk",
-                "email": "opensource@ijaap.nl"
-            }
-        ],
-        "description": "Common reflection classes used by phpdocumentor to reflect the code structure",
-        "homepage": "http://www.phpdoc.org",
-        "keywords": [
-            "FQSEN",
-            "phpDocumentor",
-            "phpdoc",
-            "reflection",
-            "static analysis"
-        ]
-    },
-    {
         "name": "phpdocumentor/type-resolver",
         "version": "0.4.0",
         "version_normalized": "0.4.0.0",
@@ -1542,18 +1300,187 @@
         ]
     },
     {
-        "name": "phpunit/phpunit",
-        "version": "5.7.21",
-        "version_normalized": "5.7.21.0",
+        "name": "symfony/yaml",
+        "version": "v3.3.9",
+        "version_normalized": "3.3.9.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/sebastianbergmann/phpunit.git",
-            "reference": "3b91adfb64264ddec5a2dee9851f354aa66327db"
+            "url": "https://github.com/symfony/yaml.git",
+            "reference": "1d8c2a99c80862bdc3af94c1781bf70f86bccac0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3b91adfb64264ddec5a2dee9851f354aa66327db",
-            "reference": "3b91adfb64264ddec5a2dee9851f354aa66327db",
+            "url": "https://api.github.com/repos/symfony/yaml/zipball/1d8c2a99c80862bdc3af94c1781bf70f86bccac0",
+            "reference": "1d8c2a99c80862bdc3af94c1781bf70f86bccac0",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^5.5.9|>=7.0.8"
+        },
+        "require-dev": {
+            "symfony/console": "~2.8|~3.0"
+        },
+        "suggest": {
+            "symfony/console": "For validating YAML files using the lint command"
+        },
+        "time": "2017-07-29T21:54:42+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.3-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\Yaml\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Yaml Component",
+        "homepage": "https://symfony.com"
+    },
+    {
+        "name": "doctrine/instantiator",
+        "version": "1.0.5",
+        "version_normalized": "1.0.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/doctrine/instantiator.git",
+            "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/doctrine/instantiator/zipball/8e884e78f9f0eb1329e445619e04456e64d8051d",
+            "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3,<8.0-DEV"
+        },
+        "require-dev": {
+            "athletic/athletic": "~0.1.8",
+            "ext-pdo": "*",
+            "ext-phar": "*",
+            "phpunit/phpunit": "~4.0",
+            "squizlabs/php_codesniffer": "~2.0"
+        },
+        "time": "2015-06-14T21:17:01+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Doctrine\\Instantiator\\": "src/Doctrine/Instantiator/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Marco Pivetta",
+                "email": "ocramius@gmail.com",
+                "homepage": "http://ocramius.github.com/"
+            }
+        ],
+        "description": "A small, lightweight utility to instantiate objects in PHP without invoking their constructors",
+        "homepage": "https://github.com/doctrine/instantiator",
+        "keywords": [
+            "constructor",
+            "instantiate"
+        ]
+    },
+    {
+        "name": "phpdocumentor/reflection-common",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/phpDocumentor/ReflectionCommon.git",
+            "reference": "21bdeb5f65d7ebf9f43b1b25d404f87deab5bfb6"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/21bdeb5f65d7ebf9f43b1b25d404f87deab5bfb6",
+            "reference": "21bdeb5f65d7ebf9f43b1b25d404f87deab5bfb6",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.5"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^4.6"
+        },
+        "time": "2017-09-11T18:02:19+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "phpDocumentor\\Reflection\\": [
+                    "src"
+                ]
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jaap van Otterdijk",
+                "email": "opensource@ijaap.nl"
+            }
+        ],
+        "description": "Common reflection classes used by phpdocumentor to reflect the code structure",
+        "homepage": "http://www.phpdoc.org",
+        "keywords": [
+            "FQSEN",
+            "phpDocumentor",
+            "phpdoc",
+            "reflection",
+            "static analysis"
+        ]
+    },
+    {
+        "name": "phpunit/phpunit",
+        "version": "5.7.22",
+        "version_normalized": "5.7.22.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/sebastianbergmann/phpunit.git",
+            "reference": "10df877596c9906d4110b5b905313829043f2ada"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/10df877596c9906d4110b5b905313829043f2ada",
+            "reference": "10df877596c9906d4110b5b905313829043f2ada",
             "shasum": ""
         },
         "require": {
@@ -1590,7 +1517,7 @@
             "ext-xdebug": "*",
             "phpunit/php-invoker": "~1.1"
         },
-        "time": "2017-06-21T08:11:54+00:00",
+        "time": "2017-09-24T07:23:38+00:00",
         "bin": [
             "phpunit"
         ],
@@ -1624,5 +1551,209 @@
             "testing",
             "xunit"
         ]
+    },
+    {
+        "name": "composer/installers",
+        "version": "v1.4.0",
+        "version_normalized": "1.4.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/composer/installers.git",
+            "reference": "9ce17fb70e9a38dd8acff0636a29f5cf4d575c1b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/composer/installers/zipball/9ce17fb70e9a38dd8acff0636a29f5cf4d575c1b",
+            "reference": "9ce17fb70e9a38dd8acff0636a29f5cf4d575c1b",
+            "shasum": ""
+        },
+        "require": {
+            "composer-plugin-api": "^1.0"
+        },
+        "replace": {
+            "roundcube/plugin-installer": "*",
+            "shama/baton": "*"
+        },
+        "require-dev": {
+            "composer/composer": "1.0.*@dev",
+            "phpunit/phpunit": "4.1.*"
+        },
+        "time": "2017-08-09T07:53:48+00:00",
+        "type": "composer-plugin",
+        "extra": {
+            "class": "Composer\\Installers\\Plugin",
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Composer\\Installers\\": "src/Composer/Installers"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Kyle Robinson Young",
+                "email": "kyle@dontkry.com",
+                "homepage": "https://github.com/shama"
+            }
+        ],
+        "description": "A multi-framework Composer library installer",
+        "homepage": "https://composer.github.io/installers/",
+        "keywords": [
+            "Craft",
+            "Dolibarr",
+            "Eliasis",
+            "Hurad",
+            "ImageCMS",
+            "Kanboard",
+            "Lan Management System",
+            "MODX Evo",
+            "Mautic",
+            "Maya",
+            "OXID",
+            "Plentymarkets",
+            "Porto",
+            "RadPHP",
+            "SMF",
+            "Thelia",
+            "WolfCMS",
+            "agl",
+            "aimeos",
+            "annotatecms",
+            "attogram",
+            "bitrix",
+            "cakephp",
+            "chef",
+            "cockpit",
+            "codeigniter",
+            "concrete5",
+            "croogo",
+            "dokuwiki",
+            "drupal",
+            "eZ Platform",
+            "elgg",
+            "expressionengine",
+            "fuelphp",
+            "grav",
+            "installer",
+            "itop",
+            "joomla",
+            "kohana",
+            "laravel",
+            "lavalite",
+            "lithium",
+            "magento",
+            "mako",
+            "mediawiki",
+            "modulework",
+            "moodle",
+            "osclass",
+            "phpbb",
+            "piwik",
+            "ppi",
+            "puppet",
+            "reindex",
+            "roundcube",
+            "shopware",
+            "silverstripe",
+            "sydes",
+            "symfony",
+            "typo3",
+            "wordpress",
+            "yawik",
+            "zend",
+            "zikula"
+        ]
+    },
+    {
+        "name": "lumenlearning/candela-citation",
+        "version": "0.2.2",
+        "version_normalized": "0.2.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/lumenlearning/candela-citation.git",
+            "reference": "1b7dcdc1114deb97ece3a8612dfa8638e66860cc"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/lumenlearning/candela-citation/zipball/1b7dcdc1114deb97ece3a8612dfa8638e66860cc",
+            "reference": "1b7dcdc1114deb97ece3a8612dfa8638e66860cc",
+            "shasum": ""
+        },
+        "require": {
+            "composer/installers": "~1.0",
+            "php": ">=5.6.0"
+        },
+        "require-dev": {
+            "humanmade/coding-standards": "^0.2.2"
+        },
+        "time": "2017-09-25T22:26:27+00:00",
+        "type": "wordpress-plugin",
+        "installation-source": "dist",
+        "scripts": {
+            "test": [
+                "@standards"
+            ],
+            "standards": [
+                "vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php ."
+            ]
+        },
+        "authors": [
+            {
+                "name": "Lumen Learning",
+                "email": "dev@lumenlearning.com",
+                "homepage": "https://lumenlearning.com"
+            }
+        ],
+        "description": "Extends creative commons attribution functionality",
+        "homepage": "https://github.com/lumenlearning/candela-citation",
+        "support": {
+            "issues": "https://github.com/lumenlearning/candela-citation/issues/",
+            "source": "https://github.com/lumenlearning/candela-citation/"
+        }
+    },
+    {
+        "name": "hypothesis/hypothesis",
+        "version": "v0.5.0",
+        "version_normalized": "0.5.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/hypothesis/wp-hypothesis.git",
+            "reference": "90a7562ba8cc320168ffc7bc21508dc55c06dc75"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/hypothesis/wp-hypothesis/zipball/90a7562ba8cc320168ffc7bc21508dc55c06dc75",
+            "reference": "90a7562ba8cc320168ffc7bc21508dc55c06dc75",
+            "shasum": ""
+        },
+        "require-dev": {
+            "squizlabs/php_codesniffer": "^2.7",
+            "wp-coding-standards/wpcs": "^0.10"
+        },
+        "time": "2016-12-19T19:13:50+00:00",
+        "type": "wordpress-plugin",
+        "installation-source": "dist",
+        "scripts": {
+            "test": [
+                "vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
+                "vendor/bin/phpcs --standard=phpcs.xml --extensions=php ."
+            ]
+        },
+        "license": [
+            "BSD-2-Clause"
+        ],
+        "description": "An open platform for the collaborative evaluation of knowledge.",
+        "homepage": "https://github.com/hypothesis/wp-hypothesis",
+        "support": {
+            "issues": "https://github.com/hypothesis/wp-hypothesis/issues",
+            "source": "https://github.com/hypothesis/wp-hypothesis/"
+        }
     }
 ]
