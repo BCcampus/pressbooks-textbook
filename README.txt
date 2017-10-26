@@ -2,8 +2,8 @@
 Contributors: bdolor
 Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution-guidelines
 Tags: pressbooks, textbook
-Requires at least: 4.8.1
-Tested up to: 4.8.1
+Requires at least: 4.8.2
+Tested up to: 4.8.2
 Stable tag: 3.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -89,7 +89,7 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
 
-= 3.1.5 (2017/09/20) =
+= 3.1.5 (2017/10/26) =
 * oh, lists.
 * automatic trigger of scss compile on theme version update
 * addition of footer tabs for optional content (including extended citations)
@@ -100,6 +100,7 @@ See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more det
 * code clean up, coding standards
 * move and update hypothesis plugin to composer dependency
 * fix for extraneous blank pages ending up in PDF export
+* add special styling for cnx imports
 
 = 3.1.1 (2017/08/04) =
 * sup and sup styling fixed
