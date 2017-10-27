@@ -1,9 +1,13 @@
 .svn/
 .DS_Store
-tests/
-bin/
-phpunit.xml
-.travis.yml
 .map
 .sass-cache
 .idea/
+.travis.yml
+tests/
+bin/
+!vendor
+vendor/*
+!vendor/autoload.php
+!vendor/hypothesis
+!vendor/lumenlearning

@@ -1,14 +1,15 @@
 <?php
 /**
- * This admin page allows editors access to functionality that downloads textbooks. 
+ * This admin page allows editors access to functionality that downloads textbooks.
  *
  * @package Pressbooks_Textbook
  * @author Brad Payne <brad@bradpayne.ca>
  * @license   GPL-2.0+
- * 
+ *
  * @copyright 2014 Brad Payne
  */
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) { exit;
+}
 
 ?>
 
@@ -16,10 +17,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
 	
 	<?php
-	require( PBT_PLUGIN_DIR . 'includes/modules/catalogue/EquellaFetch.php');
-	require( PBT_PLUGIN_DIR . 'includes/modules/catalogue/Filter.php');
+	require( PBT_PLUGIN_DIR . 'inc/modules/catalogue/class-equellafetch.php' );
+	require( PBT_PLUGIN_DIR . 'inc/modules/catalogue/class-filter.php' );
 
-	echo "<h3>Download openly licensed textbooks</h3>";
+	echo '<h3>Download openly licensed textbooks</h3>';
 
 	// check if it's in the cache
 	$textbooks = wp_cache_get( 'open-textbooks', 'pbt' );
@@ -29,10 +30,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		echo $textbooks;
 	} else {
 		try {
-			$equellaFetch = new \PBT\Catalogue\EquellaFetch();
-			$filter = new \PBT\Catalogue\Filter( $equellaFetch );
+			$equellaFetch = new \PBT\Modules\Catalogue\EquellaFetch();
+			$filter = new \PBT\Modules\Catalogue\Filter( $equellaFetch );
 			$textbooks = $filter->displayBySubject();
-			
+
 		} catch ( Exception $exc ) {
 			echo $exc->getMessage();
 		}

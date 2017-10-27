@@ -3,12 +3,12 @@
  * loads AtD localization strings (shared between Visual and HTML Editors)
  */
 function TSpell_init_l10n_js() {
-	if ( !TSpell_should_load_on_page() ) {
+	if ( ! TSpell_should_load_on_page() ) {
 		return;
 	}
 
 	// load localized strings for AtD
-	wp_localize_script( 'TSpell_settings', 'TSpell_l10n_r0ar', array (
+	wp_localize_script( 'TSpell_settings', 'TSpell_l10n_r0ar', array(
 		'menu_title_spelling'         => __( 'Spelling', 'tinymce-spellcheck' ),
 		'menu_title_repeated_word'    => __( 'Repeated Word', 'tinymce-spellcheck' ),
 

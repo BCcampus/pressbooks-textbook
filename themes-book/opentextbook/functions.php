@@ -1,4 +1,45 @@
 <?php
+/*
+|--------------------------------------------------------------------------
+| Include tab functionality
+|--------------------------------------------------------------------------
+|
+| Tabs
+|
+|
+*/
+require get_stylesheet_directory() . '/inc/tab-functions.php';
+
+/*
+|--------------------------------------------------------------------------
+| Automatically update web theme if necessary
+|--------------------------------------------------------------------------
+|
+|
+|
+|
+*/
+
+/**
+ * Automatically update theme files/regenerate scss compile based on theme version number
+ *
+ * @return bool
+ */
+function pbt_maybe_update_webbook_stylesheet() {
+	$theme           = wp_get_theme();
+	$current_version = $theme->get( 'Version' );
+	$last_version    = get_option( 'pbt_otb_theme_version' );
+	if ( version_compare( $current_version, $last_version ) > 0 ) {
+		\Pressbooks\Container::get( 'Sass' )->updateWebBookStyleSheet();
+		update_option( 'pbt_otb_theme_version', $current_version );
+
+		return true;
+	}
+
+	return false;
+}
+
+add_action( 'init', 'pbt_maybe_update_webbook_stylesheet' );
 
 /**
  * Returns an html blog of meta elements
@@ -33,6 +74,9 @@ function pbt_get_seo_meta_elements() {
 	return $html;
 }
 
+/**
+ * @return string
+ */
 function pbt_get_citation_pdf_url() {
 	$url    = '';
 	$domain = site_url();
@@ -45,7 +89,7 @@ function pbt_get_citation_pdf_url() {
 
 			foreach ( $files as $filetype => $filename ) {
 				if ( 'pdf' == $filetype || 'mpdf' == $filetype ) {
-					$filename = preg_replace( '/(-\d{10})(.*)/ui', "$1", $filename );
+					$filename = preg_replace( '/(-\d{10})(.*)/ui', '$1', $filename );
 					// rewrite rule
 					$url = $domain . "/open/download?filename={$filename}&type={$filetype}";
 				}
@@ -56,9 +100,12 @@ function pbt_get_citation_pdf_url() {
 	return $url;
 }
 
+/**
+ * @return string
+ */
 function pbt_get_microdata_meta_elements() {
 	// map items that are already captured
-	$html = '';
+	$html = $metadata = '';
 
 	// add elements that aren't captured, and don't need user input
 	$edu_align = ( isset( $metadata['pb_bisac_subject'] ) ) ? $metadata['pb_bisac_subject'] : '';
@@ -79,83 +126,6 @@ function pbt_get_microdata_meta_elements() {
 
 	return $html;
 }
-
-/**
- * Modifies 'chapters' to 'page' for text processed in __() to avoid confusion.
- * Lightly modified function, original author Lumen Learning
- * https://github.com/lumenlearning/candela
- *
- *
- * @param type $translated
- * @param type $original
- * @param type $domain
- *
- * @return type
- */
-function pbt_terminology_modify( $translated, $original, $domain ) {
-
-	if ( 'pressbooks' == $domain ) {
-		$modify = array(
-			"Chapter Metadata"                                                            => "Page Metadata",
-			"Chapter Short Title (appears in the PDF running header)"                     => "Page Short Title (appears in the PDF running header)",
-			"Chapter Subtitle (appears in the Web/ebook/PDF output)"                      => "Page Subtitle (appears in the Web/ebook/PDF output)",
-			"Chapter Author (appears in Web/ebook/PDF output)"                            => "Page Author (appears in Web/ebook/PDF output)",
-			"Chapter Copyright License (overrides book license on this page)"             => "Page Copyright License (overrides book license on this page)",
-			"Promote your book, set individual chapters privacy below."                   => "Promote your book, set individual page's privacy below.",
-			"Add Chapter"                                                                 => "Add Page",
-			"Reordering the Chapters"                                                     => "Reordering the Pages",
-			"Chapter 1"                                                                   => "Page 1",
-			"Imported %s chapters."                                                       => "Imported %s pages.",
-			"Chapters"                                                                    => "Pages",
-			"Chapter"                                                                     => "Page",
-			"Add New Chapter"                                                             => "Add New Page",
-			"Edit Chapter"                                                                => "Edit Page",
-			"New Chapter"                                                                 => "New Page",
-			"View Chapter"                                                                => "View Page",
-			"Search Chapters"                                                             => "Search Pages",
-			"No chapters found"                                                           => "No pages found",
-			"No chapters found in Trash"                                                  => "No pages found in Trash",
-			"Chapter numbers"                                                             => "Page numbers",
-			"display chapter numbers"                                                     => "display page numbers",
-			"do not display chapter numbers"                                              => "do not display page numbers",
-			"Chapter Numbers"                                                             => "Page Numbers",
-			"Display chapter numbers"                                                     => "Display page numbers",
-			"This is the first chapter in the main body of the text. You can change the " => "This is the first page in the main body of the text. You can change the ",
-			"text, rename the chapter, add new chapters, and add new parts."              => "text, rename the page, add new pages, and add new parts.",
-			"Only users you invite can see your book, regardless of individual chapter "  => "Only users you invite can see your book, regardless of individual page ",
-		);
-
-		if ( isset( $modify[ $original ] ) ) {
-			$translated = $modify[ $original ];
-		}
-	}
-
-	return $translated;
-}
-
-/**
- * Modifies 'chapter' to 'page' for text processed in _x()
- * Lightly modified function, original author Lumen Learning
- * https://github.com/lumenlearning/candela
- *
- * @param type $translated
- * @param type $original
- * @param type $context
- * @param type $domain
- *
- * @return type
- */
-function pbt_terminology_modify_context( $translated, $original, $context, $domain ) {
-	if ( 'pressbooks' == $domain && 'book' == $context ) {
-		$translated = pbt_terminology_modify( $translated, $original, $domain );
-	}
-
-	return $translated;
-}
-
-/**** Removing these filters Jume 2015 to remain consistent with the PB documentation *****/
-//add_filter( 'gettext', 'pbt_terminology_modify', 11, 3 );
-//add_filter( 'gettext_with_context', 'pbt_terminology_modify_context', 11, 4 );
 
 // removes incorrect notice on epub/pdf export that the book was created on pressbooks.com
 $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES_EPUB'] = 'not_created_on_pb_com';
@@ -186,8 +156,7 @@ function pbt_fix_img_relative( $content ) {
  * @return type
  */
 function pbt_fix_img_relative_callback( $matches ) {
-	$avoid    = 'http://s.wordpress.com';
-	$protocol = '';
+	$avoid = 'http://s.wordpress.com';
 
 	if ( 0 === strcmp( $avoid, substr( $matches[0], 0, 22 ) ) ) {
 		$protocol = $matches[0];
@@ -225,7 +194,7 @@ function pbt_add_openstax() {
 	if ( 'https://opentextbc.ca/anatomyandphysiology' == $openstax ) {
 		echo "<small class='aligncenter'>";
 		__( 'Download for free at http://cnx.org/contents/14fb4ad7-39a1-4eee-ab6e-3ef2482e3e22@8.24', 'pressbooks-textbook' );
-		echo "</small>";
+		echo '</small>';
 	}
 }
 
@@ -234,3 +203,45 @@ add_action( 'wp_footer', 'pbt_add_openstax' );
 add_filter( 'pressbooks_download_tracking_code', function ( $tracking, $filetype ) {
 	return "_paq.push(['trackEvent','exportFiles','Downloads','{$filetype}']);";
 }, 10, 2 );
+
+/**
+ * Converts a_string_with_underscores to
+ * A String With Underscores
+ *
+ * @param string $string A string with underscores to be converted
+ * @param string $exclude exclude first or last word from results
+ *
+ * @return string
+ */
+function pbt_explode_on_underscores( $string, $exclude = '' ) {
+	$result   = '';
+	$expected = array(
+		'first',
+		'last',
+	);
+	// not a string, force it
+	if ( ! is_string( $string ) ) {
+		$string = strval( $string );
+	}
+	// no underscore present, return original string
+	$parts = explode( '_', strtolower( $string ) );
+	if ( false === $parts ) {
+		return $string;
+	}
+	// exclude the first or the last element
+	if ( in_array( $exclude, $expected ) ) {
+		if ( 0 === strcasecmp( 'first', $exclude ) && count( $parts ) >= 2 ) {
+			array_shift( $parts );
+		}
+		if ( 0 === strcasecmp( 'last', $exclude ) && count( $parts ) >= 2 ) {
+			array_pop( $parts );
+		}
+	}
+	foreach ( $parts as $part ) {
+		$result .= ucfirst( $part ) . ' ';
+	}
+	// rm trailing space
+	rtrim( $result, ' ' );
+
+	return $result;
+}

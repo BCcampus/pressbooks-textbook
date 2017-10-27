@@ -26,7 +26,7 @@ class TextbookButtons {
 
 	function __construct() {
 		// Define plugin constants
-		
+
 		// Load translations
 
 		// Hook in our bits
@@ -34,7 +34,7 @@ class TextbookButtons {
 	}
 
 	function addFilters() {
-		
+
 		if ( ! current_user_can( 'edit_posts' ) && ! current_user_can( 'edit_pages' ) ) {
 			return;
 		}
@@ -48,8 +48,8 @@ class TextbookButtons {
 
 	/**
 	 * Add the script to the mce array
-	 * 
-	 * @param array $plugin_array	
+	 *
+	 * @param array $plugin_array
 	 * @return array
 	 */
 	function addTextbookButtons( $plugin_array ) {
@@ -60,7 +60,7 @@ class TextbookButtons {
 
 	/**
 	 * Push our buttons onto the buttons stack in the 3rd mce row
-	 * 
+	 *
 	 * @param type $buttons
 	 */
 	function registerTBButtons( $buttons ) {
@@ -71,19 +71,20 @@ class TextbookButtons {
 
 	/**
 	 * Add editor styles
-	 * 
+	 *
 	 * @param string $mce_css
 	 * @return string
 	 */
 	function textbookStyles( $mce_css ) {
 
-		if ( ! empty( $mce_css ) ) $mce_css .= ',';
+		if ( ! empty( $mce_css ) ) { $mce_css .= ',';
+		}
 		$mce_css .= PBT_PLUGIN_URL . 'symbionts/mce-textbook-buttons/assets/css/editor-style.css';
 
 		return $mce_css;
 	}
-	
-	}
+
+}
 
 $textbook_buttons = new \PBT\Plugins\TextbookButtons();
 
