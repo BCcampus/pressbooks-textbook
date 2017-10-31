@@ -424,9 +424,11 @@ class Textbook {
 
 		// triggers once for version 3.1.5
 		if ( version_compare( '3.1.5', self::VERSION ) == 0 ) {
-			update_site_option( 'pressbooks_sharingandprivacy_options', array( 'allow_redistribution' => 1 ) );
-			update_site_option( 'pressbooks_sharingandprivacy_options', array( 'enable_network_api' => 1 ) );
-			update_site_option( 'pressbooks_sharingandprivacy_options', array( 'enable_cloning' => 1 ) );
+			update_site_option( 'pressbooks_sharingandprivacy_options', array(
+				'allow_redistribution' => 1,
+				'enable_network_api' => 1,
+				'enable_cloning' => 1
+			) );
 		}
 
 		// triggers on version update to 4.0, deals with breaking change
