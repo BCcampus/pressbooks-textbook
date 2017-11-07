@@ -111,7 +111,7 @@ class Textbook {
 					require_once( PBT_PLUGIN_DIR . 'symbionts/' . $key );
 				}
 			}
-			// move to vendor directory
+			// check vendor directory
 			foreach ( $pbt_plugin as $key => $val ) {
 				$parts     = explode( '/', $key );
 				$directory = strstr( $parts[1], '.php', true );
@@ -201,8 +201,8 @@ class Textbook {
 	 *
 	 * @return boolean
 	 */
-	static function isTextbookTheme() {
-		$t = wp_get_theme()->Tags;
+	static function isTextbookTheme( $stylesheet = '' ) {
+		$t = wp_get_theme( $stylesheet )->Tags;
 		if ( is_array( $t ) && in_array( 'Pressbooks Textbook', $t ) ) {
 			return true;
 		}
