@@ -111,7 +111,7 @@ class Textbook {
 					require_once( PBT_PLUGIN_DIR . 'symbionts/' . $key );
 				}
 			}
-			// move to vendor directory
+			// check vendor directory
 			foreach ( $pbt_plugin as $key => $val ) {
 				$parts     = explode( '/', $key );
 				$directory = strstr( $parts[1], '.php', true );
@@ -197,12 +197,17 @@ class Textbook {
 	}
 
 	/**
-	 * Checks to see if one of our child themes is active
+	 * Checks to see if a PBT compatible theme is active
 	 *
-	 * @return boolean
+	 * @param \WP_Theme|null $obj
+	 *
+	 * @return bool
 	 */
-	static function isTextbookTheme() {
-		$t = wp_get_theme()->Tags;
+	static function isTextbookTheme( \WP_Theme $obj = null ) {
+		if ( is_object( $obj ) ) {
+			$style = $obj->get_stylesheet();
+		}
+		$t = ( null === $obj ) ? wp_get_theme()->Tags : wp_get_theme( $style )->Tags;
 		if ( is_array( $t ) && in_array( 'Pressbooks Textbook', $t ) ) {
 			return true;
 		}
