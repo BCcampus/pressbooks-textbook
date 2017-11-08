@@ -3,9 +3,6 @@
 
 class TextbookTest extends WP_UnitTestCase {
 
-	/**
-	 * @var PBT instance
-	 */
 	protected $pbt;
 
 	public function setUp() {
@@ -14,31 +11,26 @@ class TextbookTest extends WP_UnitTestCase {
 
 	}
 
-	public function testGetInstance() {
-		$this->assertInstanceOf( '\PBT\Textbook', $this->pbt );
-
+	public function tearDown() {
+		parent::tearDown();
 	}
 
-	function testIsTexbookTheme() {
-		$nope = __DIR__ . '/data/not-pbt-theme.css';
-		$yup = __DIR__ . '/data/pbt-theme.css';// set the default theme to opentextbooks
+	public function test_getInstance() {
+		$this->assertInstanceOf( '\PBT\Textbook', $this->pbt );
+	}
 
-		switch_theme( 'notpbttheme' );
-		update_option( 'stylesheet_root', $nope );
-		update_option( 'stylesheet', 'notpbttheme' );
 
-		$false = $this->pbt::isTextbookTheme( $nope );
-		$this->assertFalse( $false );
+	function test_isTexbookTheme() {
+		register_theme_directory( __DIR__ . '/data/themes' );
+
+		$nope = wp_get_theme( 'notpbt', __DIR__ . '/data/themes' );
+		$f    = $this->pbt::isTextbookTheme( $nope );
+		$this->assertFalse( $f );
 		wp_clean_themes_cache();
 
-
-//		switch_theme( 'pbttheme' );
-//		update_option( 'stylesheet_root', $yup );
-//		update_option( 'stylesheet', 'pbttheme' );
-//
-//		$true = $this->pbt::isTextbookTheme( $yup );
-//		$this->assertTrue( $true );
-//		wp_clean_themes_cache();
-
+		$yup = wp_get_theme( 'pbt', __DIR__ . '/data/themes' );
+		$t   = $this->pbt::isTextbookTheme( $yup );
+		$this->assertTrue( $t );
+		wp_clean_themes_cache();
 	}
 }
