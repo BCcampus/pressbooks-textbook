@@ -248,7 +248,9 @@ function pbt_explode_on_underscores( $string, $exclude = '' ) {
 
 /**
  * Keep the "kitchen sink" open
+ *
  * @param $in
+ *
  * @return mixed
  */
 add_filter( 'tiny_mce_before_init', function ( $in ) {
