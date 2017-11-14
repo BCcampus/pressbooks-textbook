@@ -245,3 +245,16 @@ function pbt_explode_on_underscores( $string, $exclude = '' ) {
 
 	return $result;
 }
+
+/**
+ * Keep the "kitchen sink" open
+ *
+ * @param $in
+ *
+ * @return mixed
+ */
+add_filter( 'tiny_mce_before_init', function ( $in ) {
+	$in['wordpress_adv_hidden'] = false;
+
+	return $in;
+} );
