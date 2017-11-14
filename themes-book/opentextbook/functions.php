@@ -251,11 +251,8 @@ function pbt_explode_on_underscores( $string, $exclude = '' ) {
  * @param $in
  * @return mixed
  */
-function pressbooks_changeMceDefaults( $in ) {
-
+add_filter( 'tiny_mce_before_init', function ( $in ) {
 	$in['wordpress_adv_hidden'] = false;
 
 	return $in;
-}
-
-add_filter( 'tiny_mce_before_init', 'pressbooks_changeMceDefaults' );
+} );
