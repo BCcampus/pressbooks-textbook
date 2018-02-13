@@ -7,7 +7,7 @@
  * the PBT import rather than the PB import.
  *
  * @package Pressbooks_Textbook
- * @author Brad Payne <brad@bradpayne.ca>
+ * @author Brad Payne
  * @license GPL-2.0+
  *
  * @copyright 2015 Brad Payne

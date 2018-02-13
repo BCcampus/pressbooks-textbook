@@ -2,7 +2,7 @@
 /**
  * Project: pressbooks
  * Project Sponsor: BCcampus <https://bccampus.ca>
- * Copyright 2012-2017 Brad Payne <https://bradpayne.ca>
+ * Copyright 2012-2017 Brad Payne <https://github.com/bdolor>
  * Date: 2017-09-01
  * Licensed under GPLv3, or any later version
  *

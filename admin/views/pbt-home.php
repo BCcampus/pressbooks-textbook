@@ -3,7 +3,7 @@
  * This admin home page describes the what and why of opentextbooks.
  *
  * @package Pressbooks_Textbook
- * @author Brad Payne <brad@bradpayne.ca>
+ * @author Brad Payne
  * @license   GPL-2.0+
  *
  * @copyright 2014 Brad Payne

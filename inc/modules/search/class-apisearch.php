@@ -4,7 +4,7 @@
  * Searches the API for resources, returns results to an import interface
  *
  * @package Pressbooks_Textbook
- * @author Brad Payne <brad@bradpayne.ca>
+ * @author Brad Payne
  * @license   GPL-2.0+
  *
  * @copyright 2014 Brad Payne
