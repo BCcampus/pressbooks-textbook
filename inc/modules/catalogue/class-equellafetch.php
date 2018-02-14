@@ -92,7 +92,7 @@ class EquellaFetch {
 	/**
 	 * Makes a request to the API for resources by subject/or keyword. This method builds the
 	 * REST url and sets the response (json to an associative array) and size in instance variables
-	 * 
+	 *
 	 * @param string $anyQuery
 	 * @param string $order
 	 * @param int $start

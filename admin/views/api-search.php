@@ -5,7 +5,7 @@
  * returned by the search.
  *
  * @package Pressbooks_Textbook
- * @author Brad Payne 
+ * @author Brad Payne
  * @license   GPL-2.0+
  *
  * @copyright 2014 Brad Payne

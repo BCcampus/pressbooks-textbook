@@ -412,7 +412,7 @@ class Textbook {
 			update_site_option( 'pressbooks_sharingandprivacy_options', array(
 				'allow_redistribution' => 1,
 				'enable_network_api'   => 1,
-				'enable_cloning'       => 1
+				'enable_cloning'       => 1,
 			) );
 
 			update_site_option( 'pbt_version', self::VERSION );

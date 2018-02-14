@@ -49,11 +49,11 @@ function TSpell_redirect_call() {
 	if ( defined( 'WPLANG' ) ) {
 		if ( strpos( WPLANG, 'pt' ) !== false ) {
 			$service = 'pt.service.afterthedeadline.com';
-		} else if ( strpos( WPLANG, 'de' ) !== false ) {
+		} elseif ( strpos( WPLANG, 'de' ) !== false ) {
 			$service = 'de.service.afterthedeadline.com';
-		} else if ( strpos( WPLANG, 'es' ) !== false ) {
+		} elseif ( strpos( WPLANG, 'es' ) !== false ) {
 			$service = 'es.service.afterthedeadline.com';
-		} else if ( strpos( WPLANG, 'fr' ) !== false ) {
+		} elseif ( strpos( WPLANG, 'fr' ) !== false ) {
 			$service = 'fr.service.afterthedeadline.com';
 		}
 	}

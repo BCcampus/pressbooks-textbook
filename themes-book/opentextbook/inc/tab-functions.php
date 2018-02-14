@@ -126,7 +126,7 @@ function pbt_tab_book_info() {
 		'pb_copyright_holder',
 		'pb_book_licence',
 		'pb_keywords_tags',
-		'pb_bisac_subject'
+		'pb_bisac_subject',
 	);
 	$html      .= '<dl class="dl-horizontal">';
 	foreach ( $book_meta as $key => $val ) {
