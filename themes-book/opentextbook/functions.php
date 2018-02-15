@@ -258,3 +258,11 @@ add_filter( 'tiny_mce_before_init', function ( $in ) {
 
 	return $in;
 } );
+
+/**
+ * Insert tabs content before a single (front matter, part, chapter, back matter)
+ * page footer.
+ */
+add_action( 'pb_book_content_before_footer', function() {
+	get_template_part( 'tabs', 'content' );
+} );
