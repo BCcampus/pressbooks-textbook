@@ -22,16 +22,16 @@
 		echo "<div class='updated'><p>To access many features of this plugin, first <a href='themes.php'>activate one of our themes</a>, such as the Open Textbook theme.</p></div>";
 	}
 	?>
-	<?php $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'reuse'; ?>
+	<?php $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'remix'; ?>
 
 	<div id="icon-options-general" class="icon32"></div>
 	<h2 class="nav-tab-wrapper">
-		<a href="?page=pressbooks-textbook-settings&tab=reuse" class="nav-tab <?php echo $active_tab == 'reuse' ? 'nav-tab-active' : ''; ?>">Reuse</a>
-		<a href="?page=pressbooks-textbook-settings&tab=revise" class="nav-tab <?php echo $active_tab == 'revise' ? 'nav-tab-active' : ''; ?>">Revise</a>
-		<a href="?page=pressbooks-textbook-settings&tab=remix" class="nav-tab <?php echo $active_tab == 'remix' ? 'nav-tab-active' : ''; ?>">Remix</a>
-		<a href="?page=pressbooks-textbook-settings&tab=redistribute" class="nav-tab <?php echo $active_tab == 'redistribute' ? 'nav-tab-active' : ''; ?>">Redistribute</a>
-		<a href="?page=pressbooks-textbook-settings&tab=retain" class="nav-tab <?php echo $active_tab == 'retain' ? 'nav-tab-active' : ''; ?>">Retain</a>
-		<a href="?page=pressbooks-textbook-settings&tab=other" class="nav-tab <?php echo $active_tab == 'other' ? 'nav-tab-active' : ''; ?>">Other</a>
+<!--		<a href="?page=pressbooks-textbook-settings&tab=reuse" class="nav-tab --><?php //echo $active_tab == 'reuse' ? 'nav-tab-active' : ''; ?><!--">Reuse</a>-->
+<!--		<a href="?page=pressbooks-textbook-settings&tab=revise" class="nav-tab --><?php //echo $active_tab == 'revise' ? 'nav-tab-active' : ''; ?><!--">Revise</a>-->
+		<a href="?page=pressbooks-textbook-settings&tab=remix" class="nav-tab <?php echo $active_tab == 'remix' ? 'nav-tab-active' : ''; ?>">Search and Import</a>
+<!--		<a href="?page=pressbooks-textbook-settings&tab=redistribute" class="nav-tab --><?php //echo $active_tab == 'redistribute' ? 'nav-tab-active' : ''; ?><!--">Redistribute</a>-->
+<!--		<a href="?page=pressbooks-textbook-settings&tab=retain" class="nav-tab --><?php //echo $active_tab == 'retain' ? 'nav-tab-active' : ''; ?><!--">Retain</a>-->
+		<a href="?page=pressbooks-textbook-settings&tab=other" class="nav-tab <?php echo $active_tab == 'other' ? 'nav-tab-active' : ''; ?>">Hypothesis</a>
 	</h2>
 	<!-- Create the form that will be used to modify display options -->
 	<form method="post" action="options.php" name="pbt_settings">
