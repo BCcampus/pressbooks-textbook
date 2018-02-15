@@ -394,7 +394,7 @@ class ApiSearch {
 			foreach ( $public_books_array['data'] as $id => $val ) {
 				$books[ $id ] = array(
 					'title' => $public_books_array['data'][ $id ]['book_meta']['pb_title'],
-					'author' => $public_books_array['data'][ $id ]['book_meta']['pb_author'],
+					'author' => $public_books_array['data'][ $id ]['book_meta']['pb_authors'],
 					'license' => $public_books_array['data'][ $id ]['book_meta']['pb_book_license'],
 					'domain' => $domain,
 				);
@@ -418,12 +418,12 @@ class ApiSearch {
 	}
 
 	/**
-	 * Gets a list of books that are set to display publically
+	 * Gets a list of books that are set to display publicly
 	 *
 	 *
-	 * @param type $books
-	 * @param type $endpoint
-	 * @param type $search
+	 * @param array $books
+	 * @param string $endpoint
+	 * @param string $search
 	 * @return array $chapters from the search results
 	 */
 	static function getPublicChapters( $books, $endpoint, $search = '' ) {

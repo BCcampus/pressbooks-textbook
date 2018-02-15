@@ -116,10 +116,11 @@ function pbt_tab_book_info() {
 	$book_meta = \Pressbooks\Book::getBookInformation();
 	$expected  = array(
 		'pb_title',
-		'pb_author',
+		'pb_authors',
+		'pb_contributors',
+		'pb_editors',
 		'pb_short_title',
 		'pb_subtitle',
-		'pb_contributing_authors',
 		'pb_publisher',
 		'pb_publisher_city',
 		'pb_copyright_year',

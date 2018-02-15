@@ -136,7 +136,7 @@ class RemoteImport extends Html\Xhtml {
 		}
 
 		if ( ! empty( $author ) ) {
-			update_post_meta( $pid, 'pb_section_author', $author );
+			update_post_meta( $pid, 'pb_authors', $author );
 		}
 
 		if ( ! empty( $license ) ) {

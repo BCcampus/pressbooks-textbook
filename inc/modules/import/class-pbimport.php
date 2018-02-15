@@ -120,7 +120,7 @@ class PBImport {
 	protected function setPostMeta( $pid, array $metadata ) {
 
 		if ( ! empty( $metadata['pb_section_author'] ) ) {
-			update_post_meta( $pid, 'pb_section_author', $metadata['pb_section_author'] );
+			update_post_meta( $pid, 'pb_authors', $metadata['pb_section_author'] );
 		}
 
 		if ( ! empty( $metadata['pb_section_license'] ) ) {
