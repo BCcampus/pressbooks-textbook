@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Options/Settings for Pressbooks Textbook plugin
+ * Options/Settings for Textbooks for Pressbooks plugin
  *
  * @package Pressbooks_Textbook
  * @author Brad Payne

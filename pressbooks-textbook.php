@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Pressbooks Textbook
+ * Textbooks for Pressbooks
  *
  * @package   Pressbooks_Textbook
  * @author    Brad Payne
@@ -9,7 +9,7 @@
  * @copyright 2014 Brad Payne
  *
  * @wordpress-plugin
- * Plugin Name:       Pressbooks Textbook
+ * Plugin Name:       Textbooks for Pressbooks
  * Description:       A plugin that extends Pressbooks for textbook authoring
  * Version:           4.0.0
  * Author:            Brad Payne
@@ -83,7 +83,7 @@ function pb_compatibility() {
 
 	if ( ! version_compare( PB_PLUGIN_VERSION, $min_pb_compatibility_version, '>=' ) ) {
 		add_action( 'admin_notices', function () {
-			echo '<div id="message" class="error fade"><p>' . __( 'PB Textbook requires Pressbooks 5.0.0-beta or greater.', $this->plugin_slug ) . '</p></div>';
+			echo '<div id="message" class="error fade"><p>' . __( 'Textbooks for Pressbooks requires Pressbooks 5.0.0-beta or greater.', $this->plugin_slug ) . '</p></div>';
 		} );
 	}
 	// need version number outside of init hook

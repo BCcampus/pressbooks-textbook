@@ -1,6 +1,6 @@
 <?php
 /**
- * Represents the view for Pressbooks Textbook Options page.
+ * Represents the view for Textbooks for Pressbooks Options page.
  *
  * @package Pressbooks_Textbook
  * @author Brad Payne

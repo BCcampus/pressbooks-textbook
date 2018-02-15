@@ -206,7 +206,7 @@ class Textbook {
 			$style = $obj->get_stylesheet();
 		}
 		$t = ( null === $obj ) ? wp_get_theme()->Tags : wp_get_theme( $style )->Tags;
-		if ( is_array( $t ) && in_array( 'Pressbooks Textbook', $t ) ) {
+		if ( is_array( $t ) && in_array( 'Textbooks for Pressbooks', $t ) ) {
 			return true;
 		}
 

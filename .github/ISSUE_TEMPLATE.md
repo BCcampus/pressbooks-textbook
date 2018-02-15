@@ -16,6 +16,6 @@
 
 ### System Information
 
-- Pressbooks Textbook: [Enter PTB Version here] 
+- Textbooks for Pressbooks: [Enter PTB Version here] 
 - Pressbooks: [Enter PB Version number here] 
 - WordPress: [Enter WP Version number here] 

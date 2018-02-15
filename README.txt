@@ -1,4 +1,4 @@
-=== Pressbooks Textbook ===
+=== Textbooks for Pressbooks ===
 Contributors: bdolor, aparedes
 Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution-guidelines
 Tags: pressbooks, textbook
@@ -9,10 +9,10 @@ Requires PHP: 7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Pressbooks Textbook adds functionality to the Pressbooks plugin to make it easier to author textbooks.
+Textbooks for Pressbooks adds functionality to the Pressbooks plugin to make it easier to author textbooks.
 
 == Description ==
-**Pressbooks Textbook** adds functionality to Pressbooks to make it easier to author textbooks as well. The features it currently offers are:
+**Textbooks for Pressbooks** adds functionality to Pressbooks to make it easier to author textbooks as well. The features it currently offers are:
 
 * Textbook Theme
 * Optional tabbed content (page citations, revision history, book information)
@@ -48,7 +48,7 @@ theme, then activate at the book level. You'll have access to those features and
 = OR, go to the WordPress Dashboard =
 
 1. Navigate to the Network Admin -> Plugins
-2. Search for 'Pressbooks Textbook'
+2. Search for 'Textbooks for Pressbooks'
 3. Click 'Network Activate'
 4. Activate the `Open Textbooks` theme at the network level
 5. Activate the `Open Textbooks` theme at the book level.
