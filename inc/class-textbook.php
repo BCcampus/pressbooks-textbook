@@ -95,7 +95,6 @@ class Textbook {
 	function includes() {
 		$pbt_plugin = array(
 			'mce-textbook-buttons/mce-textbook-buttons.php'       => 1,
-			'creative-commons-configurator-1/cc-configurator.php' => 1,
 			'hypothesis/hypothesis.php'                           => 1,
 			'tinymce-spellcheck/tinymce-spellcheck.php'           => 1,
 			'lumenlearning/candela-citation.php'                  => 1,
@@ -139,7 +138,6 @@ class Textbook {
 		if ( false == self::isTextbookTheme() ) {
 			unset( $pbt_plugin['mce-textbook-buttons/mce-textbook-buttons.php'] );
 			unset( $pbt_plugin['hypothesis/hypothesis.php'] );
-			unset( $pbt_plugin['creative-commons-configurator-1/cc-configurator.php'] );
 			unset( $pbt_plugin['tinymce-spellcheck/tinymce-spellcheck.php'] );
 			unset( $pbt_plugin['lumenlearning/candela-citation.php'] );
 		}

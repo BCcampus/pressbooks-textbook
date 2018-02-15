@@ -120,7 +120,7 @@ class TextbookAdmin extends \PBT\Textbook {
 	 */
 	function displayOtbFeed() {
 		wp_widget_rss_output( array(
-			'url' => 'http://open.bccampus.ca/?feed=rss2',
+			'url' => 'https://open.bccampus.ca/feed/',
 			'title' => __( 'Open Textbook News', $this->plugin_slug ),
 			'items' => 5,
 			'show_summary' => 1,
@@ -223,15 +223,6 @@ class TextbookAdmin extends \PBT\Textbook {
 		$page = $option = 'pbt_reuse_settings';
 		$section = 'reuse_section';
 
-		// Reuse
-		$defaults = array(
-			'pbt_creative-commons-configurator-1_active' => 0,
-		);
-
-		if ( false == get_option( 'pbt_reuse_settings' ) ) {
-			add_option( 'pbt_reuse_settings', $defaults );
-		}
-
 		// Creative Commons
 		add_settings_section(
 			$section,
@@ -240,19 +231,6 @@ class TextbookAdmin extends \PBT\Textbook {
 			$page
 		);
 
-		add_settings_field(
-			'pbt_creative-commons-configurator-1_active',
-			__( 'Creative Commons Configurator (optional)', $this->plugin_slug ),
-			'\PBT\Settings\pbt_ccc_active_callback',
-			$page,
-			$section
-		);
-
-		register_setting(
-			$option,
-			$option,
-			'\PBT\Settings\reuse_absint_sanitize'
-		);
 	}
 
 	/**

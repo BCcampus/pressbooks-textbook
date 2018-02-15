@@ -105,7 +105,7 @@
 				do_settings_sections( 'pbt_other_settings' );
 				break;
 		}
-		if ( ! in_array( $active_tab, array( 'revise', 'redistribute' ) ) ) {
+		if ( ! in_array( $active_tab, array( 'revise', 'reuse', 'redistribute' ) ) ) {
 			submit_button();
 		} ?>
 	</form>
