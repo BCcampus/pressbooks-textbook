@@ -90,7 +90,7 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
 
-= 4.0.0 =
+= 4.0.0 (2018/02/15) =
 * compatibility with PB 5
 * removing deprecated ccc plugin
 
