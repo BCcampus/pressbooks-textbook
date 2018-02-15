@@ -2,9 +2,9 @@
 Contributors: bdolor, aparedes
 Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution-guidelines
 Tags: pressbooks, textbook
-Requires at least: 4.8.2
-Tested up to: 4.8.2
-Stable tag: 3.1.6
+Requires at least: 4.9.4
+Tested up to: 4.9.4
+Stable tag: 4.0.0
 Requires PHP: 7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -89,6 +89,10 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 4.0.0 =
+* compatibility with PB 5
+* removing deprecated ccc plugin
 
 = 3.1.6 (2017/10/31) =
 * correction for network and sharing settings - props @greatislander and @steelwagstaff

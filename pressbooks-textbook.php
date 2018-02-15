@@ -11,7 +11,7 @@
  * @wordpress-plugin
  * Plugin Name:       Pressbooks Textbook
  * Description:       A plugin that extends Pressbooks for textbook authoring
- * Version:           3.1.6
+ * Version:           4.0.0
  * Author:            Brad Payne
  * Author URI:        http://github.com/bdolor
  * Text Domain:       pressbooks-textbook
@@ -65,7 +65,7 @@ define( 'PB_HIDE_COVER_PROMO', true );
 |
 */
 function pb_compatibility() {
-	$min_pb_compatibility_version = '4.0.0';
+	$min_pb_compatibility_version = '5.0.0-beta';
 
 	if ( ! @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
 		add_action( 'admin_notices', function () {
@@ -76,14 +76,14 @@ function pb_compatibility() {
 
 	if ( ! pb_meets_minimum_requirements() ) { // This PB function checks for both multisite, PHP and WP minimum versions.
 		add_action( 'admin_notices', function () {
-			echo '<div id="message" class="error fade"><p>' . __( 'Your PHP version may not be supported by PressBooks.', $this->plugin_slug ) . '</p></div>';
+			echo '<div id="message" class="error fade"><p>' . __( 'Your PHP or WP version may not be up to date.', $this->plugin_slug ) . '</p></div>';
 		} );
 
 	}
 
 	if ( ! version_compare( PB_PLUGIN_VERSION, $min_pb_compatibility_version, '>=' ) ) {
 		add_action( 'admin_notices', function () {
-			echo '<div id="message" class="error fade"><p>' . __( 'PB Textbook requires Pressbooks 4.0.0 or greater.', $this->plugin_slug ) . '</p></div>';
+			echo '<div id="message" class="error fade"><p>' . __( 'PB Textbook requires Pressbooks 5.0.0-beta or greater.', $this->plugin_slug ) . '</p></div>';
 		} );
 	}
 	// need version number outside of init hook
