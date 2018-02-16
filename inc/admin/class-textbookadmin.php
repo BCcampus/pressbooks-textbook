@@ -11,7 +11,9 @@
  */
 namespace PBT\Admin;
 
-class TextbookAdmin extends \PBT\Textbook {
+use PBT;
+
+class TextbookAdmin extends PBT\Textbook {
 
 	/**
 	 * Initialize the plugin by loading admin scripts & styles and adding a
@@ -90,7 +92,7 @@ class TextbookAdmin extends \PBT\Textbook {
 	 * @TODO - make this better.
 	 * @since 1.1.5
 	 * @param array $init
-	 * @return string
+	 * @return array $init
 	 */
 	function modForSchemaOrg( $init ) {
 
@@ -237,7 +239,7 @@ class TextbookAdmin extends \PBT\Textbook {
 	 * Modifies a global variable to prevent wp_kses from stripping it out
 	 *
 	 * @since 1.1.5
-	 * @global type $allowedposttags
+	 * @global array $allowedposttags
 	 */
 	function allowedPostTags() {
 		global $allowedposttags;
@@ -275,6 +277,9 @@ class TextbookAdmin extends \PBT\Textbook {
 		include_once( PBT_PLUGIN_DIR . 'admin/views/admin-settings.php' );
 	}
 
+	/**
+	 * Render the menu page
+	 */
 	function displayPBTPage() {
 
 		include_once( PBT_PLUGIN_DIR . 'admin/views/pbt-home.php' );
@@ -303,6 +308,10 @@ class TextbookAdmin extends \PBT\Textbook {
 	 * Add settings action link to the plugins page.
 	 *
 	 * @since    1.0.1
+	 *
+	 * @param array $links
+	 *
+	 * @return array
 	 */
 	function addActionLinks( $links ) {
 
