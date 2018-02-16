@@ -16,11 +16,11 @@ if ( ! empty( $tabs ) ) {
 		$labels .= "<li><a href='#tabs-{$i}'>{$title} <span class='dashicons'></span></a></li>";
 		$panels .= "<div id='tabs-{$i}'>";
 		$panels .= $method( $post );
-		$panels .= "</div>";
+		$panels .= '</div>';
 		$i ++;
 	}
-	$labels .= "</ul>";
-	$panels .= "</div>";
+	$labels .= '</ul>';
+	$panels .= '</div>';
 
 	$html .= $labels . $panels;
 

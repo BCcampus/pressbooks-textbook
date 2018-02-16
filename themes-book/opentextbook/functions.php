@@ -51,7 +51,7 @@ function pbt_get_seo_meta_elements() {
 	$meta_mapping = array(
 
 		'citation_title'            => 'pb_title',
-		'citation_author'           => 'pb_authors_file_as',
+		'citation_author'           => 'pb_authors',
 		'citation_language'         => 'pb_language',
 		'citation_keywords'         => 'pb_keywords_tags',
 		'citation_pdf_url'          => pbt_get_citation_pdf_url(),
@@ -257,4 +257,12 @@ add_filter( 'tiny_mce_before_init', function ( $in ) {
 	$in['wordpress_adv_hidden'] = false;
 
 	return $in;
+} );
+
+/**
+ * Insert tabs content before a single (front matter, part, chapter, back matter)
+ * page footer.
+ */
+add_action( 'pb_book_content_before_footer', function() {
+	get_template_part( 'tabs', 'content' );
 } );

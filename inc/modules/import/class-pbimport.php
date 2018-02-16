@@ -6,7 +6,7 @@
  * Provides an interface to turn an instance of Pressbooks into a remix 'ecosystem'
  *
  * @package Pressbooks_Textbook
- * @author Brad Payne <brad@bradpayne.ca>
+ * @author Brad Payne
  * @license   GPL-2.0+
  *
  * @copyright 2014 Brad Payne
@@ -120,7 +120,7 @@ class PBImport {
 	protected function setPostMeta( $pid, array $metadata ) {
 
 		if ( ! empty( $metadata['pb_section_author'] ) ) {
-			update_post_meta( $pid, 'pb_section_author', $metadata['pb_section_author'] );
+			update_post_meta( $pid, 'pb_authors', $metadata['pb_section_author'] );
 		}
 
 		if ( ! empty( $metadata['pb_section_license'] ) ) {

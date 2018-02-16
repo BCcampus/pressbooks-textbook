@@ -3,7 +3,7 @@
  * This admin home page describes the what and why of opentextbooks.
  *
  * @package Pressbooks_Textbook
- * @author Brad Payne <brad@bradpayne.ca>
+ * @author Brad Payne
  * @license   GPL-2.0+
  *
  * @copyright 2014 Brad Payne
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit;
 	<?php
 	// temporary message to shift people over to the correct location
 	if ( current_user_can( 'manage_options' ) ) {
-		echo "<div class='updated'><p>Manage <a href='options-general.php?page=pressbooks-textbook-settings'>Pressbooks Textbook settings</a>.</p></div>";
+		echo "<div class='updated'><p>Manage <a href='options-general.php?page=pressbooks-textbook-settings'>Textbooks for Pressbooks settings</a>.</p></div>";
 	}
 	?>
 	<h3>Why Open Textbooks?</h3>

@@ -1,11 +1,11 @@
-Pressbooks Textbook
+Textbooks for Pressbooks
 ===================
 
 A plugin that extends Pressbooks for textbook authoring.
 
 [Pressbooks](https://github.com/pressbooks/pressbooks) is a content management and 'one button publishing' system for books.
 
-**Pressbooks Textbook** adds functionality to Pressbooks to make it easier to author textbooks as well. The features it currently offers are:
+**Textbooks for Pressbooks** adds functionality to Pressbooks to make it easier to author textbooks as well. The features it currently offers are:
 
 * Textbook Theme
 * Optional tabbed content (page citations, revision history, book information)

@@ -4,7 +4,7 @@
  * Searches the API for resources, returns results to an import interface
  *
  * @package Pressbooks_Textbook
- * @author Brad Payne <brad@bradpayne.ca>
+ * @author Brad Payne
  * @license   GPL-2.0+
  *
  * @copyright 2014 Brad Payne
@@ -164,7 +164,7 @@ class ApiSearch {
 
 			if ( $ok ) {
 				// Success! Redirect to organize page
-				$success_url = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pressbooks';
+				$success_url = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_organize';
 				self::log( $msg, $books );
 				\Pressbooks\Redirect\location( $success_url );
 			}
@@ -178,7 +178,7 @@ class ApiSearch {
 			$endpoint = $protocol . $book['domain'] . '/api/' . self::$version . '/books/' . $book_id . '/';
 
 			// remote call to the API using book id
-			$args         = [ 'timeout' => '15' ];
+			$args         = [ 'timeout' => '20' ];
 			$response = wp_remote_get( $endpoint , $args );
 
 			// response gets all chapters, types
@@ -188,7 +188,7 @@ class ApiSearch {
 					$protocol = 'https://';
 					$endpoint = $protocol . $book['domain'] . '/api/' . self::$version . '/books/' . $book_id . '/';
 					// remote call to the API using book id
-					$args         = [ 'timeout' => '15' ];
+					$args         = [ 'timeout' => '20' ];
 					$response = wp_remote_get( $endpoint, $args );
 
 					if ( is_wp_error( $response ) ) {
@@ -218,7 +218,7 @@ class ApiSearch {
 
 			if ( $ok ) {
 				// Success! Redirect to organize page
-				$success_url = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pressbooks';
+				$success_url = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_organize';
 				self::log( $msg, $import_chapters['data'][ $book_id ]['book_toc'] );
 				\Pressbooks\Redirect\location( $success_url );
 			}
@@ -374,8 +374,8 @@ class ApiSearch {
 		$titles = ( ! empty( $search ) ) ? '?titles=' . $search : '';
 
 		// build the url, get list of public books
-		$args         = [ 'timeout' => '15' ];
-		$public_books = wp_remote_get( $endpoint . 'books' . '/' . $titles, $args );
+		$args         = [ 'timeout' => '25' ];
+		$public_books = wp_remote_get( $endpoint . 'books' . $titles, $args );
 
 		if ( is_wp_error( $public_books ) ) {
 			error_log( '\PBT\Search\getPublicBooks error: ' . $public_books->get_error_message() );
@@ -394,7 +394,7 @@ class ApiSearch {
 			foreach ( $public_books_array['data'] as $id => $val ) {
 				$books[ $id ] = array(
 					'title' => $public_books_array['data'][ $id ]['book_meta']['pb_title'],
-					'author' => $public_books_array['data'][ $id ]['book_meta']['pb_author'],
+					'author' => $public_books_array['data'][ $id ]['book_meta']['pb_authors'],
 					'license' => $public_books_array['data'][ $id ]['book_meta']['pb_book_license'],
 					'domain' => $domain,
 				);
@@ -418,12 +418,12 @@ class ApiSearch {
 	}
 
 	/**
-	 * Gets a list of books that are set to display publically
+	 * Gets a list of books that are set to display publicly
 	 *
 	 *
-	 * @param type $books
-	 * @param type $endpoint
-	 * @param type $search
+	 * @param array $books
+	 * @param string $endpoint
+	 * @param string $search
 	 * @return array $chapters from the search results
 	 */
 	static function getPublicChapters( $books, $endpoint, $search = '' ) {
@@ -434,7 +434,7 @@ class ApiSearch {
 		// iterate through books, search for string match in chapter titles
 		foreach ( $blog_ids as $id ) {
 			$request = $endpoint . 'books/' . $id . '/' . $titles;
-			$args         = [ 'timeout' => '15' ];
+			$args         = [ 'timeout' => '20' ];
 			$response = wp_remote_get( $request , $args );
 			$body = json_decode( $response['body'], true );
 			if ( ! empty( $body ) && 1 == $body['success'] ) {
