@@ -72,19 +72,25 @@ function pb_compatibility() {
 			echo '<div id="message" class="error fade"><p>' . __( 'PBT cannot find a Pressbooks install.', 'pressbooks-textbook' ) . '</p></div>';
 		} );
 
+		return;
 	}
 
-	if ( ! pb_meets_minimum_requirements() ) { // This PB function checks for both multisite, PHP and WP minimum versions.
-		add_action( 'admin_notices', function () {
-			echo '<div id="message" class="error fade"><p>' . __( 'Your PHP or WP version may not be up to date.', 'pressbooks-textbook' ) . '</p></div>';
-		} );
+	if ( function_exists( 'pb_meets_minimum_requirements' ) ) {
+		if ( ! pb_meets_minimum_requirements() ) { // This PB function checks for both multisite, PHP and WP minimum versions.
+			add_action( 'admin_notices', function () {
+				echo '<div id="message" class="error fade"><p>' . __( 'Your PHP or WP version may not be up to date.', 'pressbooks-textbook' ) . '</p></div>';
+			} );
 
+			return;
+		}
 	}
 
 	if ( ! version_compare( PB_PLUGIN_VERSION, $min_pb_compatibility_version, '>=' ) ) {
 		add_action( 'admin_notices', function () {
 			echo '<div id="message" class="error fade"><p>' . __( 'Textbooks for Pressbooks requires Pressbooks 5.0.0-rc.1 or greater.', 'pressbooks-textbook' ) . '</p></div>';
 		} );
+
+		return;
 	}
 	// need version number outside of init hook
 	update_site_option( 'pbt_pb_version', PB_PLUGIN_VERSION );
