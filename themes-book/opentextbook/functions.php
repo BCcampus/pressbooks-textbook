@@ -30,7 +30,7 @@ function pbt_maybe_update_webbook_stylesheet() {
 	$current_version = $theme->get( 'Version' );
 	$last_version    = get_option( 'pbt_otb_theme_version' );
 	if ( version_compare( $current_version, $last_version ) > 0 ) {
-		\Pressbooks\Container::get( 'Sass' )->updateWebBookStyleSheet();
+		\Pressbooks\Container::get( 'Styles' )->updateWebBookStyleSheet();
 		update_option( 'pbt_otb_theme_version', $current_version );
 
 		return true;
