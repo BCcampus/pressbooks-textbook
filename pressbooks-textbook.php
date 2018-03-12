@@ -19,6 +19,8 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages
  * GitHub Plugin URI: https://github.com/BCcampus/pressbooks-textbook
+ * Tags: pressbooks, OER, publishing, textbooks
+ * Pressbooks tested up to: 5.0.2
  */
 
 // If file is called directly, abort.
