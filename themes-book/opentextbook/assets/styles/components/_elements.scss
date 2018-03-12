@@ -215,8 +215,21 @@ small {
 /****************************************
 	Paragraphs
 *****************************************/
-p + p {
-  text-indent: 0;
+@if $type != 'web' {
+  p + p{
+    text-indent: 0;
+  }
+}
+
+@if $type == 'web' {
+  .front-matter,
+  .part,
+  .chapter,
+  .back-matter {
+    p + p {
+      text-indent: 0;
+    }
+  }
 }
 
 /****************************************
