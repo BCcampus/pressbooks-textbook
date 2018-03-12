@@ -4,7 +4,7 @@ Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution
 Tags: pressbooks, textbook
 Requires at least: 4.9.4
 Tested up to: 4.9.4
-Stable tag: 4.0.0
+Stable tag: 4.0.1
 Requires PHP: 7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -89,6 +89,11 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 4.0.1 (2018/03/12) =
+* fix for web view table of contents - props @SteelWagstaff for reporting
+* update OTB theme to 2.0.1
+* CSS paragraph indents not the default
 
 = 4.0.0 (2018/02/27) =
 * compatibility with PB 5
