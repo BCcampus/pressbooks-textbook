@@ -9,3 +9,4 @@ vendor/*
 !vendor/autoload.php
 !vendor/hypothesis
 !vendor/lumenlearning
+!vendor/composer
