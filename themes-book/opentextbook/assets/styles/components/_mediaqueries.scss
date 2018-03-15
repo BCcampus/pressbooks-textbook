@@ -7,48 +7,50 @@
 |
 |
 */
-@media screen and (min-width: 940px) {
-  #content, #tabs {
-    width: 720px;
-  }
-  .posts-navigation {
-    width: 900px;
-    margin-left: -450px;
-  }
+@if $type == 'web' {
+  @media screen and (min-width: 940px) {
+    #content, #tabs {
+      width: 720px;
+    }
+    .posts-navigation {
+      width: 900px;
+      margin-left: -450px;
+    }
 
-  #sidebar {
-    margin-right: -24px;
-  }
-}
-
-@media screen and (max-width: 939px) {
-  #tabs {
-    width: 520px;
-  }
-}
-
-// Tablet Portrait
-@media screen and (max-width: 768px) {
-  #tabs {
-    width: auto;
-    padding: 0px 60px;
-    margin: 0 10px;
+    #sidebar {
+      margin-right: -24px;
+    }
   }
 
-}
-
-// Mobile Landscape
-@media screen and (max-width: 480px) {
-  #tabs {
-    padding: 20px 10px 10px;
+  @media screen and (max-width: 939px) {
+    #tabs {
+      width: 520px;
+    }
   }
 
-}
+  // Tablet Portrait
+  @media screen and (max-width: 768px) {
+    #tabs {
+      width: auto;
+      padding: 0px 60px;
+      margin: 0 10px;
+    }
 
-// Print
-@media print {
+  }
 
-  #tabs {
-    display: none;
+  // Mobile Landscape
+  @media screen and (max-width: 480px) {
+    #tabs {
+      padding: 20px 10px 10px;
+    }
+
+  }
+
+  // Print
+  @media print {
+
+    #tabs {
+      display: none;
+    }
   }
 }
