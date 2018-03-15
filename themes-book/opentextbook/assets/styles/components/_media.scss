@@ -64,11 +64,11 @@ $prince-image-resolution: 135dpi !default;
 |
 */
 // blockquote image
-$blockquote-open-url: (
-  prince: "assets/images/blockquote-open.png",
-  epub: "assets/images/blockquote-open.png",
-  web: "assets/images/blockquote-open.png"
-);
+//$blockquote-open-url: (
+//  prince: "images/blockquote-open.png",
+//  epub: "images/blockquote-open.png",
+//  web: "images/blockquote-open.png"
+//);
 
 .wp-caption-text{
   text-align: left;

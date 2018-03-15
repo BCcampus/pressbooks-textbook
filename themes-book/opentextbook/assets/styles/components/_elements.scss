@@ -199,11 +199,6 @@ $para-margin-bottom: 1em !default;
 $text-transform-upper: uppercase;
 $text-transform-norm: none;
 
-// lists custom
-$list-style-type: lower-alpha;
-$list-style-type-2: lower-roman;
-$list-style-type-3: outside circle;
-//$list-style-type-4: outside disc;
 
 @mixin otb-elements {
   /****************************************
@@ -239,42 +234,12 @@ $list-style-type-3: outside circle;
   *****************************************/
 
   ol {
-    list-style: none outside;
-    counter-reset: level1;
-    text-indent: -1em;
-
-    &.alphalist li::before {
-      content: normal;
-    }
-    li::before {
-      content: counter(level1) ". ";
-      counter-increment: level1;
-    }
-
-    li {
-      li::before {
-        list-style-position: outside;
-        content: counter(level2, $list-style-type) ". ";
-        counter-increment: level2;
-      }
-      ul li::before {
-        content: '';
-
-      }
-      li li::before {
-        list-style-position: outside;
-        content: counter(level3, $list-style-type-2) ". ";
-        counter-increment: level3;
-      }
-    }
 
     ol {
-      list-style: none outside;
-      counter-reset: level2;
+      list-style: lower-alpha;
 
       ol {
-        list-style: none outside;
-        counter-reset: level3;
+        list-style: lower-roman;
       }
     }
 
@@ -289,6 +254,7 @@ $list-style-type-3: outside circle;
     border-collapse: collapse;
     display: table; /* display:table is better for screen readers than display:block */
     overflow-x: auto;
+    border-style: none;
     caption {
       caption-side: top;
       text-align: center;
@@ -302,6 +268,9 @@ $list-style-type-3: outside circle;
       background-color: $color-gray-mercury;
       vertical-align: bottom;
       border-bottom: 2px solid $color-gray-alto;
+    }
+    td{
+      border-top: 1px solid $color-black;
     }
     p {
       text-align: left;
@@ -355,7 +324,7 @@ $list-style-type-3: outside circle;
     padding: 1px 5px 5px 50px;
     margin-bottom: 20px;
     background-color: $color-desert-storm;
-    background-image: url(if-map-get($blockquote-open-url, $type)) no-repeat 10px 10px;
+    //background-image: url(if-map-get($blockquote-open-url, $type)) no-repeat 10px 10px;
 
   }
 
