@@ -1,24 +1,26 @@
 <?php
 
 /**
- * Pressbooks Textbook
+ * Textbooks for Pressbooks
  *
  * @package   Pressbooks_Textbook
- * @author    Brad Payne <brad@bradpayne.ca>
+ * @author    Brad Payne
  * @license   GPL-2.0+
  * @copyright 2014 Brad Payne
  *
  * @wordpress-plugin
- * Plugin Name:       Pressbooks Textbook
+ * Plugin Name:       Textbooks for Pressbooks
  * Description:       A plugin that extends Pressbooks for textbook authoring
- * Version:           3.1.6
+ * Version:           4.0.2
  * Author:            Brad Payne
- * Author URI:        http://bradpayne.ca
+ * Author URI:        http://github.com/bdolor
  * Text Domain:       pressbooks-textbook
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages
  * GitHub Plugin URI: https://github.com/BCcampus/pressbooks-textbook
+ * Tags: pressbooks, OER, publishing, textbooks
+ * Pressbooks tested up to: 5.1.0
  */
 
 // If file is called directly, abort.
@@ -65,23 +67,32 @@ define( 'PB_HIDE_COVER_PROMO', true );
 |
 */
 function pb_compatibility() {
-	$min_pb_compatibility_version = '4.0.0';
+	$min_pb_compatibility_version = '5.0.0';
 
 	if ( ! @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
 		add_action( 'admin_notices', function () {
 			echo '<div id="message" class="error fade"><p>' . __( 'PBT cannot find a Pressbooks install.', 'pressbooks-textbook' ) . '</p></div>';
 		} );
 
-	} elseif ( ! pb_meets_minimum_requirements() ) { // This PB function checks for both multisite, PHP and WP minimum versions.
+		return;
+	}
+
+	if ( function_exists( 'pb_meets_minimum_requirements' ) ) {
+		if ( ! pb_meets_minimum_requirements() ) { // This PB function checks for both multisite, PHP and WP minimum versions.
+			add_action( 'admin_notices', function () {
+				echo '<div id="message" class="error fade"><p>' . __( 'Your PHP or WP version may not be up to date.', 'pressbooks-textbook' ) . '</p></div>';
+			} );
+
+			return;
+		}
+	}
+
+	if ( ! version_compare( PB_PLUGIN_VERSION, $min_pb_compatibility_version, '>=' ) ) {
 		add_action( 'admin_notices', function () {
-			echo '<div id="message" class="error fade"><p>' . __( 'Your PHP version may not be supported by PressBooks.'
-			                                                      . ' If you suspect this is the case, it can be overridden, so long as it is remains above PHP 5.4.0. Add a line to wp-config.php as follows: $pb_minimum_php = "5.4.0"; ', $this->plugin_slug ) . '</p></div>';
+			echo '<div id="message" class="error fade"><p>' . __( 'Textbooks for Pressbooks requires Pressbooks 5.0.0 or greater.', 'pressbooks-textbook' ) . '</p></div>';
 		} );
 
-	} elseif ( ! version_compare( PB_PLUGIN_VERSION, $min_pb_compatibility_version, '>=' ) ) {
-		add_action( 'admin_notices', function () {
-			echo '<div id="message" class="error fade"><p>' . __( 'PB Textbook requires Pressbooks 4.0.0 or greater.', 'pressbooks-textbook' ) . '</p></div>';
-		} );
+		return;
 	}
 	// need version number outside of init hook
 	update_site_option( 'pbt_pb_version', PB_PLUGIN_VERSION );

@@ -2,7 +2,7 @@
 /**
  * Project: pressbooks-textbook
  * Project Sponsor: BCcampus <https://bccampus.ca>
- * Copyright 2012-2017 Brad Payne <https://bradpayne.ca>
+ * Copyright 2012-2017 Brad Payne <https://github.com/bdolor>
  * Date: 2017-09-05
  * Licensed under GPLv3, or any later version
  *
@@ -116,17 +116,18 @@ function pbt_tab_book_info() {
 	$book_meta = \Pressbooks\Book::getBookInformation();
 	$expected  = array(
 		'pb_title',
-		'pb_author',
+		'pb_authors',
+		'pb_contributors',
+		'pb_editors',
 		'pb_short_title',
 		'pb_subtitle',
-		'pb_contributing_authors',
 		'pb_publisher',
 		'pb_publisher_city',
 		'pb_copyright_year',
 		'pb_copyright_holder',
 		'pb_book_licence',
 		'pb_keywords_tags',
-		'pb_bisac_subject'
+		'pb_bisac_subject',
 	);
 	$html      .= '<dl class="dl-horizontal">';
 	foreach ( $book_meta as $key => $val ) {

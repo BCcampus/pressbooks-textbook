@@ -5,7 +5,7 @@
  *
  * @package			Pressbooks
  * @author			Pressbooks <code@pressbooks.com>
- * @contributors	Brad Payne <brad@bradpayne.ca>
+ * @contributors	Brad Payne
  * @license			GPLv2
  * @copyright		2015 BookOven Inc.
  *

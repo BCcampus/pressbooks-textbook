@@ -3,6 +3,7 @@ $type: 'web';
 //order matters, keep these first
 @import 'fonts';
 @import '../components/colors';
+@import '../components/media';
 
 // the rest
 @import '../components/elements';
@@ -11,7 +12,5 @@ $type: 'web';
 @import '../components/pages';
 @import '../components/section-titles';
 @import '../components/toc';
-@import '../components/media';
-@import '../components/structure';
 @import '../components/accessibility';
 @import '../components/mediaqueries';

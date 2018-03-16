@@ -2,12 +2,11 @@
 .DS_Store
 .map
 .sass-cache
-.idea/
 .travis.yml
-tests/
-bin/
+.idea/
 !vendor
 vendor/*
 !vendor/autoload.php
 !vendor/hypothesis
 !vendor/lumenlearning
+!vendor/composer

@@ -4,14 +4,16 @@
  * Administrative functionality, settings/options
  *
  * @package   Pressbooks_Textbook
- * @author    Brad Payne <brad@bradpayne.ca>
+ * @author    Brad Payne
  * @license   GPL-2.0+
  * @copyright 2014 Brad Payne
  *
  */
 namespace PBT\Admin;
 
-class TextbookAdmin extends \PBT\Textbook {
+use PBT;
+
+class TextbookAdmin extends PBT\Textbook {
 
 	/**
 	 * Initialize the plugin by loading admin scripts & styles and adding a
@@ -45,8 +47,8 @@ class TextbookAdmin extends \PBT\Textbook {
 	function adminMenuAdjuster() {
 		if ( \Pressbooks\Book::isBook() ) {
 			add_menu_page( __( 'Import', $this->plugin_slug ), __( 'Import', $this->plugin_slug ), 'edit_posts', 'pb_import', '\Pressbooks\Admin\Laf\display_import', 'dashicons-upload', 15 );
-			add_options_page( __( 'Pressbooks Textbook Settings', $this->plugin_slug ), __( 'PB Textbook', $this->plugin_slug ), 'manage_options', $this->plugin_slug . '-settings', array( $this, 'displayPluginAdminPage' ) );
-			add_menu_page( __( 'Pressbooks Textbook', $this->plugin_slug ), __( 'PB Textbook', $this->plugin_slug ), 'edit_posts', $this->plugin_slug , array( $this, 'displayPBTPage' ), 'dashicons-tablet', 64 );
+			add_options_page( __( 'Textbooks for Pressbooks Settings', $this->plugin_slug ), __( 'Textbooks for PB', $this->plugin_slug ), 'manage_options', $this->plugin_slug . '-settings', array( $this, 'displayPluginAdminPage' ) );
+			add_menu_page( __( 'Textbooks for Pressbooks', $this->plugin_slug ), __( 'Textbooks for PB', $this->plugin_slug ), 'edit_posts', $this->plugin_slug , array( $this, 'displayPBTPage' ), 'dashicons-tablet', 64 );
 			// check if the functionality we need is available
 			if ( class_exists( '\Pressbooks\Modules\Api_v1\Api' ) ) {
 				add_submenu_page( $this->plugin_slug, __( 'Search and Import', $this->plugin_slug ), __( 'Search and Import', $this->plugin_slug ), 'edit_posts', 'api_search_import',array( $this, 'displayApiSearchPage' ), '', 65 );
@@ -90,7 +92,7 @@ class TextbookAdmin extends \PBT\Textbook {
 	 * @TODO - make this better.
 	 * @since 1.1.5
 	 * @param array $init
-	 * @return string
+	 * @return array $init
 	 */
 	function modForSchemaOrg( $init ) {
 
@@ -120,7 +122,7 @@ class TextbookAdmin extends \PBT\Textbook {
 	 */
 	function displayOtbFeed() {
 		wp_widget_rss_output( array(
-			'url' => 'http://open.bccampus.ca/?feed=rss2',
+			'url' => 'https://open.bccampus.ca/feed/',
 			'title' => __( 'Open Textbook News', $this->plugin_slug ),
 			'items' => 5,
 			'show_summary' => 1,
@@ -223,15 +225,6 @@ class TextbookAdmin extends \PBT\Textbook {
 		$page = $option = 'pbt_reuse_settings';
 		$section = 'reuse_section';
 
-		// Reuse
-		$defaults = array(
-			'pbt_creative-commons-configurator-1_active' => 0,
-		);
-
-		if ( false == get_option( 'pbt_reuse_settings' ) ) {
-			add_option( 'pbt_reuse_settings', $defaults );
-		}
-
 		// Creative Commons
 		add_settings_section(
 			$section,
@@ -240,26 +233,13 @@ class TextbookAdmin extends \PBT\Textbook {
 			$page
 		);
 
-		add_settings_field(
-			'pbt_creative-commons-configurator-1_active',
-			__( 'Creative Commons Configurator (optional)', $this->plugin_slug ),
-			'\PBT\Settings\pbt_ccc_active_callback',
-			$page,
-			$section
-		);
-
-		register_setting(
-			$option,
-			$option,
-			'\PBT\Settings\reuse_absint_sanitize'
-		);
 	}
 
 	/**
 	 * Modifies a global variable to prevent wp_kses from stripping it out
 	 *
 	 * @since 1.1.5
-	 * @global type $allowedposttags
+	 * @global array $allowedposttags
 	 */
 	function allowedPostTags() {
 		global $allowedposttags;
@@ -297,6 +277,9 @@ class TextbookAdmin extends \PBT\Textbook {
 		include_once( PBT_PLUGIN_DIR . 'admin/views/admin-settings.php' );
 	}
 
+	/**
+	 * Render the menu page
+	 */
 	function displayPBTPage() {
 
 		include_once( PBT_PLUGIN_DIR . 'admin/views/pbt-home.php' );
@@ -325,6 +308,10 @@ class TextbookAdmin extends \PBT\Textbook {
 	 * Add settings action link to the plugins page.
 	 *
 	 * @since    1.0.1
+	 *
+	 * @param array $links
+	 *
+	 * @return array
 	 */
 	function addActionLinks( $links ) {
 

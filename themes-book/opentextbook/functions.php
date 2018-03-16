@@ -30,7 +30,7 @@ function pbt_maybe_update_webbook_stylesheet() {
 	$current_version = $theme->get( 'Version' );
 	$last_version    = get_option( 'pbt_otb_theme_version' );
 	if ( version_compare( $current_version, $last_version ) > 0 ) {
-		\Pressbooks\Container::get( 'Sass' )->updateWebBookStyleSheet();
+		\Pressbooks\Container::get( 'Styles' )->updateWebBookStyleSheet();
 		update_option( 'pbt_otb_theme_version', $current_version );
 
 		return true;
@@ -51,7 +51,7 @@ function pbt_get_seo_meta_elements() {
 	$meta_mapping = array(
 
 		'citation_title'            => 'pb_title',
-		'citation_author'           => 'pb_authors_file_as',
+		'citation_author'           => 'pb_authors',
 		'citation_language'         => 'pb_language',
 		'citation_keywords'         => 'pb_keywords_tags',
 		'citation_pdf_url'          => pbt_get_citation_pdf_url(),
@@ -245,3 +245,24 @@ function pbt_explode_on_underscores( $string, $exclude = '' ) {
 
 	return $result;
 }
+
+/**
+ * Keep the "kitchen sink" open
+ *
+ * @param $in
+ *
+ * @return mixed
+ */
+add_filter( 'tiny_mce_before_init', function ( $in ) {
+	$in['wordpress_adv_hidden'] = false;
+
+	return $in;
+} );
+
+/**
+ * Insert tabs content before a single (front matter, part, chapter, back matter)
+ * page footer.
+ */
+add_action( 'pb_book_content_before_footer', function() {
+	get_template_part( 'tabs', 'content' );
+} );

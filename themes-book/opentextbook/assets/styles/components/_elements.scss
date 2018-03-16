@@ -199,200 +199,166 @@ $para-margin-bottom: 1em !default;
 $text-transform-upper: uppercase;
 $text-transform-norm: none;
 
-// lists custom
-$list-style-type: lower-alpha;
-$list-style-type-2: lower-roman;
-$list-style-type-3: outside circle;
-//$list-style-type-4: outside disc;
 
-/****************************************
-	Body
-*****************************************/
-small {
-  font-size: 80%;
-}
+@mixin otb-elements {
+  /****************************************
+    Body
+  *****************************************/
+  small {
+    font-size: 80%;
+  }
 
-/****************************************
+  /****************************************
 	Paragraphs
-*****************************************/
-p + p {
-  text-indent: 0;
-}
+  *****************************************/
+  p + p {
+    text-indent: 0;
+  }
 
-/****************************************
+  /****************************************
 	Headings
-*****************************************/
+  *****************************************/
 
-h1 + p,
-h2 + p,
-h3 + p,
-h4 + p,
-h5 + p,
-h6 + p {
-  margin-top: -5px;
-  margin-bottom: 15px;
-}
-
-/****************************************
-	Lists
-*****************************************/
-
-#content {
-  ul{
-    //list-style: $list-style-type-3;
+  h1 + p,
+  h2 + p,
+  h3 + p,
+  h4 + p,
+  h5 + p,
+  h6 + p {
+    margin-top: -5px;
+    margin-bottom: 15px;
   }
-  .entry-content {
-    ul {
-      margin-left: 30px;
-      //list-style: $list-style-type-3;
-      ul {
-        list-style: $list-style-type-3;
-      }
-    }
+
+  /****************************************
+      Lists
+  *****************************************/
+
+  ol {
+
     ol {
-      margin-left: 30px;
-      ul {
-        margin-left: 30px;
-        //list-style: $list-style-type-3;
+      list-style: lower-alpha;
+
+      ol {
+        list-style: lower-roman;
       }
     }
+
+  }
+
+  /****************************************
+      Tables
+  *****************************************/
+
+  table {
+    max-width: 100%;
+    border-collapse: collapse;
+    display: table; /* display:table is better for screen readers than display:block */
+    overflow-x: auto;
+    border-style: none;
+    caption {
+      caption-side: top;
+      text-align: center;
+      color: $color-black;
+    }
+    td, th {
+      vertical-align: middle;
+    }
+    th {
+      font-weight: bold;
+      background-color: $color-gray-mercury;
+      vertical-align: bottom;
+      border-bottom: 2px solid $color-gray-alto;
+    }
+    td{
+      border-top: 1px solid $color-black;
+    }
+    p {
+      text-align: left;
+    }
+    &.lines {
+      tr {
+        border-top: 1px solid $color-black;
+        border-bottom: 1px solid $color-black;
+      }
+    }
+    &.no-lines {
+      tr, td {
+        border-top: 0;
+        border-bottom: 0;
+      }
+    }
+    &.shaded, th.shaded, tr.shaded, td.shaded {
+      background-color: $color-gray-gallery;
+    }
+    th.border, tr.border, td.border {
+      border: 1px solid $color-black;
+
+    }
+  }
+
+
+  /****************************************
+      Sub/Sup
+  *****************************************/
+
+  sup,
+  sub {
+    position: relative;
+    height: 0;
+    line-height: 1;
+    vertical-align: baseline;
+  }
+
+  sup {
+    bottom: 1ex;
+  }
+
+  sub {
+    top: 0.5ex;
+  }
+
+  /****************************************
+      Blockquotes - missing for exports
+  *****************************************/
+  blockquote {
+    padding: 1px 5px 5px 50px;
+    margin-bottom: 20px;
+    background-color: $color-desert-storm;
+    //background-image: url(if-map-get($blockquote-open-url, $type)) no-repeat 10px 10px;
+
+  }
+
+}
+
+/*
+|--------------------------------------------------------------------------
+| Not web
+|--------------------------------------------------------------------------
+|
+|
+|
+|
+*/
+@if $type != 'web' {
+  @include otb-elements;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Web
+|--------------------------------------------------------------------------
+|
+| Web styles require CSS specificity
+|
+|
+*/
+@if $type == 'web' {
+  .front-matter,
+  .part,
+  .chapter,
+  .back-matter {
+    @include otb-elements;
   }
 }
 
-ol.alphalist {
-  list-style-type: $list-style-type;
-  list-style-position: inside;
-  margin-left: 25px;
-}
 
-ol.alphalist li::before {
-  content: normal;
-}
-
-ol {
-  list-style: none outside;
-  counter-reset: level1;
-  text-indent: -1em;
-}
-
-ol li::before {
-  content: counter(level1) ". ";
-  counter-increment: level1;
-}
-
-ol li ul li::before {
-  content: '';
-}
-
-ol ol {
-  list-style: none outside;
-  counter-reset: level2;
-}
-
-ol li li::before {
-  list-style-position: outside;
-  content: counter(level2, $list-style-type) ". ";
-  counter-increment: level2;
-}
-
-ol ol ol {
-  list-style: none outside;
-  counter-reset: level3;
-}
-
-ol li li li::before {
-  list-style-position: outside;
-  content: counter(level3, $list-style-type-2) ". ";
-  counter-increment: level3;
-}
-
-/****************************************
-	Tables
-*****************************************/
-
-table {
-  max-width: 100%;
-  border-collapse: collapse;
-  display: table; /* display:table is better for screen readers than display:block */
-  overflow-x: auto;
-}
-
-table td,
-table th {
-  vertical-align: middle;
-}
-
-#content table td,
-#content table th {
-  border: 1px solid $color-gray-alto;
-}
-
-#content tr th, #content thead th {
-  color: $color-black; /* increase contrast for accessibility */
-}
-
-table th {
-  font-weight: bold;
-  background-color: $color-gray-mercury;
-  vertical-align: bottom;
-  border-bottom: 2px solid $color-gray-alto;
-}
-
-table p {
-  text-align: left;
-}
-
-table.lines tr {
-  border-top: 1px solid $color-black;
-  border-bottom: 1px solid $color-black;
-}
-
-table.no-lines tr,
-table.no-lines td {
-  border-top: 0;
-  border-bottom: 0;
-}
-
-table.shaded,
-th.shaded,
-tr.shaded,
-td.shaded {
-  background-color: $color-gray-gallery;
-}
-
-th.border,
-tr.border,
-td.border {
-  border: 1px solid $color-black;
-}
-
-/****************************************
-	Sub/Sup
-*****************************************/
-
-sup,
-sub {
-  position: relative;
-  height: 0;
-  line-height: 1;
-  vertical-align: baseline;
-}
-
-sup {
-  bottom: 1ex;
-}
-
-sub {
-  top: 0.5ex;
-}
-
-/****************************************
-	Blockquotes - missing for exports
-*****************************************/
-blockquote {
-  padding: 1px 5px 5px 50px;
-  margin-bottom: 20px;
-  @if $type == 'prince' or $type == 'epub' {
-    background: $color-desert-storm url('images/blockquote-open.png') no-repeat 10px 10px;
-  }
-}
