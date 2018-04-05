@@ -9,22 +9,14 @@
 */
 @if $type == 'web' {
   @media screen and (min-width: 940px) {
-    #content, #tabs {
-      width: 720px;
-    }
-    .posts-navigation {
-      width: 900px;
-      margin-left: -450px;
-    }
-
-    #sidebar {
-      margin-right: -24px;
+    #tabs {
+      width: inherit;
     }
   }
 
   @media screen and (max-width: 939px) {
     #tabs {
-      width: 520px;
+      width: inherit;
     }
   }
 
