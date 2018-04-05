@@ -321,8 +321,7 @@ $text-transform-norm: none;
       Blockquotes - missing for exports
   *****************************************/
   blockquote {
-    padding: 1px 5px 5px 50px;
-    margin-bottom: 20px;
+    padding: 1px 15px 5px 50px;
     background-color: $color-desert-storm;
     //background-image: url(if-map-get($blockquote-open-url, $type)) no-repeat 10px 10px;
 

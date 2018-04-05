@@ -90,6 +90,10 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
 
+= 4.0.2 (2018/04/05) =
+* update OTB theme to 2.1.2
+* fix responsive content area
+
 = 4.0.2 (2018/03/15) =
 * update OTB theme to 2.1.1
 * fix table captions, blockquote, ordered lists, mpdf export

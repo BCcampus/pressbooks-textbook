@@ -20,7 +20,7 @@
  * Domain Path:       /languages
  * GitHub Plugin URI: https://github.com/BCcampus/pressbooks-textbook
  * Tags: pressbooks, OER, publishing, textbooks
- * Pressbooks tested up to: 5.1.0
+ * Pressbooks tested up to: 5.2.1
  */
 
 // If file is called directly, abort.
