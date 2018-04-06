@@ -3,21 +3,20 @@
 /**
  * MCE Textbook Buttons for Pressbooks
  *
- * @package			Pressbooks
- * @author			Pressbooks <code@pressbooks.com>
- * @contributors	Brad Payne
- * @license			GPLv2
- * @copyright		2015 BookOven Inc.
+ * @package            Textbooks for Pressbooks
+ * @author              Brad Payne
+ * @license             GPL-2.0+
+ * @copyright           Brad Payne
  *
  * @wordpress-plugin
- * Plugin Name:		MCE Anchor Button for Pressbooks
- * Description:		Adds buttons to TinyMCE for textbook-specific styles in PressBooks
- * Version:			1.0.0
- * Author:			BookOven Inc.
- * Author URI:		http://www.pressbooks.com
- * Text Domain:		pressbooks-mce-textbook-buttons
- * License:			GPLv2
- * License URI:		http://www.gnu.org/licenses/gpl-2.0.html
+ * Plugin Name:       MCE Textbook Buttons for PressBooks
+ * Description:       Adds buttons to TinyMCE for textbook specific sytles in PressBooks
+ * Version:           1.0.0
+ * Author:            Brad Payne
+ * Text Domain:       mce-textbook-buttons
+ * License:           GPL-2.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * Pressbooks tested up to: 5.2.1
  */
 
 namespace PBT\Plugins;
@@ -61,7 +60,9 @@ class TextbookButtons {
 	/**
 	 * Push our buttons onto the buttons stack in the 3rd mce row
 	 *
-	 * @param type $buttons
+	 * @param array $buttons
+	 *
+	 * @return array
 	 */
 	function registerTBButtons( $buttons ) {
 
