@@ -10,7 +10,8 @@
  *
  * @copyright 2014 Brad Payne
  */
-if ( ! defined( 'ABSPATH' ) ) { exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 ?>
 
@@ -63,9 +64,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit;
 			});
 			// ]]>
 		</script>
-		<?php
-		?>
-		<form id='pbt_import_form' action='<?php echo $pbt_import_url; ?>' method='post'>
+				<form id='pbt_import_form' action='<?php echo $pbt_import_url; ?>' method='post'>
 			<table class="wp-list-table widefat">
 				<thead>
 					<tr>
@@ -100,12 +99,18 @@ if ( ! defined( 'ABSPATH' ) ) { exit;
 								// book author/license sets chapter author/license if not set
 								$license = ( empty( $chapter['post_license'] ) ) ? $book_license : $chapter['post_license'];
 								// don't allow importing of chapters marked as all-rights-reserved
-								if ( 0 === strcmp( $license, 'all-rights-reserved' ) ) { continue;
+								if ( 0 === strcmp( $license, 'all-rights-reserved' ) ) {
+									continue;
 								}
 								$author = ( empty( $chapter['post_authors'] ) ) ? $book_author : $chapter['post_authors'];
 								?>
 
-								<tr <?php if ( $i % 2 ) { echo 'class="alt"';} ?> >
+								<tr 
+								<?php
+								if ( $i % 2 ) {
+									echo 'class="alt"';}
+?>
+ >
 
 									<td><input type='checkbox' id='selective_import_<?php echo $i; ?>' name='chapters[<?php echo $key; ?>][import]' value='1'></td>
 							<input type='hidden' name='chapters[<?php echo $key; ?>][book]' value='<?php echo $book_id; ?>'>
@@ -124,14 +129,20 @@ if ( ! defined( 'ABSPATH' ) ) { exit;
 							++ $i;
 							}
 							// do books
-						} else { ?>
-								<tr <?php if ( $i % 2 ) { echo 'class="alt"';} ?> >
+						} else {
+						?>
+								<tr 
+								<?php
+								if ( $i % 2 ) {
+									echo 'class="alt"';}
+?>
+ >
 							
-								<td><input type="radio" id="selective_import_<?php echo $i; ?>" name="book" value="<?php echo $book_id ;?>" /></td>
+								<td><input type="radio" id="selective_import_<?php echo $i; ?>" name="book" value="<?php echo $book_id ; ?>" /></td>
 								<input type='hidden' name='domain' value='<?php echo $book_domain; ?>'>
 								<td><label>-----</label></td>
-								<td><label for="selective_import_<?php echo $i ;?>"><?php echo $book_title . ', by ' . $book_author ;?></label>
-								<td><label><?php echo $book_license;?></label></td>
+								<td><label for="selective_import_<?php echo $i ; ?>"><?php echo $book_title . ', by ' . $book_author ; ?></label>
+								<td><label><?php echo $book_license; ?></label></td>
 								<td><label>-----</label></td>
 								<td><label>-----</label></td>
 								<td><label>-----</label></td>
@@ -145,11 +156,13 @@ if ( ! defined( 'ABSPATH' ) ) { exit;
 				</tbody>
 			</table>
 
-			<p><?php
+			<p>
+			<?php
 			submit_button( __( 'Start', 'pressbooks-textbook' ), 'primary', 'submit', false );
 			echo ' &nbsp; '; // Space
 			submit_button( __( 'Cancel', 'pressbooks-textbook' ), 'delete', 'abort_button', false );
-				?></p>
+				?>
+				</p>
 
 		</form>
 
@@ -169,7 +182,7 @@ if ( ! defined( 'ABSPATH' ) ) { exit;
 		?>
 		<p><i>Search for the following terms:</i></p>
 
-		<form method="post" id="search_api_form" action="<?php echo $pbt_import_url ?>">
+		<form method="post" id="search_api_form" action="<?php echo $pbt_import_url; ?>">
 			<p><label for="search_api">Search terms</label>
 				<input type="text" name="search_api" id="search_api" /></p>
 

@@ -2,8 +2,8 @@
 Contributors: bdolor, aparedes
 Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution-guidelines
 Tags: pressbooks, textbook
-Requires at least: 4.9.4
-Tested up to: 4.9.4
+Requires at least: 4.9.5
+Tested up to: 4.9.6
 Stable tag: 4.0.3
 Requires PHP: 7
 License: GPLv2 or later

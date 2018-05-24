@@ -27,17 +27,17 @@ class PBImport {
 	 *
 	 * @var array
 	 */
-	protected $chapters = array();
+	protected $chapters = [];
 
 	/**
 	 * Metadata not covered by the API
 	 *
 	 * @var array
 	 */
-	protected $accepted_meta = array(
+	protected $accepted_meta = [
 		'pb_short_title',
 		'pb_subtitle',
-	);
+	];
 
 	public function __construct() {
 
@@ -78,14 +78,14 @@ class PBImport {
 			$html = $doc->saveXML( $doc->documentElement );
 
 			// Remove auto-created <html> <body> and <!DOCTYPE> tags.
-			$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array( '<html>', '</html>', '<body>', '</body>' ), array( '', '', '', '' ), $html ) );
+			$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( [ '<html>', '</html>', '<body>', '</body>' ], [ '', '', '', '' ], $html ) );
 
-			$import_post = array(
+			$import_post = [
 				'post_title' => $new_post['post_title'],
 				'post_content' => $html,
 				'post_type' => $new_post['post_type'],
 				'post_status' => $new_post['post_status'],
-			);
+			];
 
 			// set post parent
 			if ( 'chapter' == $new_post['post_type'] ) {
@@ -186,7 +186,7 @@ class PBImport {
 		$remote_img_location = $url;
 
 		// Cheap cache
-		static $already_done = array();
+		static $already_done = [];
 		if ( isset( $already_done[ $remote_img_location ] ) ) {
 			return $already_done[ $remote_img_location ];
 		}
@@ -228,9 +228,15 @@ class PBImport {
 			}
 		}
 
-		$pid = media_handle_sideload( array( 'name' => $filename, 'tmp_name' => $tmp_name ), 0 );
+		$pid = media_handle_sideload(
+			[
+				'name' => $filename,
+				'tmp_name' => $tmp_name,
+			], 0
+		);
 		$src = wp_get_attachment_url( $pid );
-		if ( ! $src ) { $src = ''; // Change false to empty string
+		if ( ! $src ) {
+			$src = ''; // Change false to empty string
 		}
 		$already_done[ $remote_img_location ] = $src;
 		@unlink( $tmp_name );
@@ -258,7 +264,7 @@ class PBImport {
 		}
 
 		$i = 0;
-		$posts_to_import = array();
+		$posts_to_import = [];
 
 		foreach ( $this->chapters as $blog_id => $chapters ) {
 
@@ -294,14 +300,14 @@ class PBImport {
 
 		$q = new \WP_Query();
 
-		$args = array(
+		$args = [
 			'post_type' => 'part',
 			'post_status' => 'publish',
 			'posts_per_page' => 1,
 			'orderby' => 'menu_order',
 			'order' => 'ASC',
 			'no_found_rows' => true,
-		);
+		];
 
 		$results = $q->query( $args );
 

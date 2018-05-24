@@ -14,7 +14,7 @@ namespace PBT\Modules\Catalogue;
 class Filter {
 
 	private $baseURL = '';
-	private $resultsData = array();
+	private $resultsData = [];
 	private $size = 0;
 	private $uuid;
 	private $keyword = '';
@@ -61,7 +61,8 @@ class Filter {
 		$num = '';
 
 		//bail if nothing is passed.
-		if ( empty( $number ) ) { return;
+		if ( empty( $number ) ) {
+			return;
 		}
 
 		//if it's a number
@@ -183,7 +184,6 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 
 			switch ( $license ) {
 				case 'CC-BY-NC-SA':
-
 					$result = "<figure><a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/4.0/deed.en_US'>
         <img alt='Creative Commons License' style='border-width:0' src='http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png' />
         </a><figcaption><small class='muted'>Except where otherwise noted, this work is licensed under a <a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/4.0/deed.en_US'>
@@ -340,7 +340,7 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 	 * @return array $new_order of attachments
 	 */
 	private function reOrderAttachments( array $attachments ) {
-		$new_order = array();
+		$new_order = [];
 
 		// string hunting
 		foreach ( $attachments as $key => $attachment ) {

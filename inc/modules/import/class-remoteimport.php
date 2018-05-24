@@ -88,7 +88,7 @@ class RemoteImport extends Html\Xhtml {
 	 * @return int|void|\WP_Error
 	 */
 	function kneadandInsert( $html, $post_type, $chapter_parent, $domain, $post_status = 'draft' ) {
-		$matches = array();
+		$matches = [];
 		$meta = $this->getLicenseAttribution( $html );
 		$author = ( isset( $meta['authors'] )) ? $meta['authors'] : $this->getAuthors( $html );
 		$license = ( isset( $meta['license'] )) ? $this->extractCCLicense( $meta['license'] ) : '';
@@ -113,11 +113,11 @@ class RemoteImport extends Html\Xhtml {
 
 		$body = $this->kneadHtml( $xhtml, $post_type, $domain );
 
-		$new_post = array(
+		$new_post = [
 			'post_title' => $title,
 			'post_type' => $post_type,
 			'post_status' => $post_status,
-		);
+		];
 
 		// parts are exceptional, content upload needs to be handled by update_post_meta
 		if ( 'part' != $post_type ) {
@@ -212,13 +212,13 @@ class RemoteImport extends Html\Xhtml {
 		// Reduce the vulnerability for scripting attacks
 		// Make XHTML 1.1 strict using htmlLawed
 
-		$config = array(
+		$config = [
 			'comment' => 1,
 			'safe' => 1,
 			'valid_xhtml' => 1,
 			'no_deprecated_attr' => 2,
 			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
-		);
+		];
 
 		return \Pressbooks\HtmLawed::filter( $html, $config );
 	}

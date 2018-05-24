@@ -26,17 +26,17 @@ class TextbookAdmin extends PBT\Textbook {
 		parent::get_instance();
 
 		// Add the options page and menu item.
-		add_action( 'admin_menu', array( &$this, 'adminMenuAdjuster' ) );
-		add_action( 'admin_init', array( &$this, 'adminSettings' ) );
+		add_action( 'admin_menu', [ &$this, 'adminMenuAdjuster' ] );
+		add_action( 'admin_init', [ &$this, 'adminSettings' ] );
 		add_action( 'init', '\PBT\Modules\Search\ApiSearch::formSubmit', 50 );
-		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueueAdminStyles' ) );
-		add_filter( 'tiny_mce_before_init', array( &$this, 'modForSchemaOrg' ) );
+		add_action( 'admin_enqueue_scripts', [ &$this, 'enqueueAdminStyles' ] );
+		add_filter( 'tiny_mce_before_init', [ &$this, 'modForSchemaOrg' ] );
 		// needs to be delayed to come after PB
-		add_action( 'wp_dashboard_setup', array( &$this, 'addOtbNewsFeed' ), 11 );
+		add_action( 'wp_dashboard_setup', [ &$this, 'addOtbNewsFeed' ], 11 );
 
 		// Add an action link pointing to the options page.
 		$plugin_basename = plugin_basename( plugin_dir_path( __DIR__ ) . $this->plugin_slug . '.php' );
-		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'addActionLinks' ) );
+		add_filter( 'plugin_action_links_' . $plugin_basename, [ $this, 'addActionLinks' ] );
 	}
 
 	/**
@@ -47,13 +47,13 @@ class TextbookAdmin extends PBT\Textbook {
 	function adminMenuAdjuster() {
 		if ( \Pressbooks\Book::isBook() ) {
 			add_menu_page( __( 'Import', $this->plugin_slug ), __( 'Import', $this->plugin_slug ), 'edit_posts', 'pb_import', '\Pressbooks\Admin\Laf\display_import', 'dashicons-upload', 15 );
-			add_options_page( __( 'Textbooks for Pressbooks Settings', $this->plugin_slug ), __( 'Textbooks for PB', $this->plugin_slug ), 'manage_options', $this->plugin_slug . '-settings', array( $this, 'displayPluginAdminPage' ) );
-			add_menu_page( __( 'Textbooks for Pressbooks', $this->plugin_slug ), __( 'Textbooks for PB', $this->plugin_slug ), 'edit_posts', $this->plugin_slug , array( $this, 'displayPBTPage' ), 'dashicons-tablet', 64 );
+			add_options_page( __( 'Textbooks for Pressbooks Settings', $this->plugin_slug ), __( 'Textbooks for PB', $this->plugin_slug ), 'manage_options', $this->plugin_slug . '-settings', [ $this, 'displayPluginAdminPage' ] );
+			add_menu_page( __( 'Textbooks for Pressbooks', $this->plugin_slug ), __( 'Textbooks for PB', $this->plugin_slug ), 'edit_posts', $this->plugin_slug , [ $this, 'displayPBTPage' ], 'dashicons-tablet', 64 );
 			// check if the functionality we need is available
 			if ( class_exists( '\Pressbooks\Modules\Api_v1\Api' ) ) {
-				add_submenu_page( $this->plugin_slug, __( 'Search and Import', $this->plugin_slug ), __( 'Search and Import', $this->plugin_slug ), 'edit_posts', 'api_search_import',array( $this, 'displayApiSearchPage' ), '', 65 );
+				add_submenu_page( $this->plugin_slug, __( 'Search and Import', $this->plugin_slug ), __( 'Search and Import', $this->plugin_slug ), 'edit_posts', 'api_search_import',[ $this, 'displayApiSearchPage' ], '', 65 );
 			}
-			add_submenu_page( $this->plugin_slug, __( 'Download Textbooks', $this->plugin_slug ), __( 'Download Textbooks', $this->plugin_slug ), 'edit_posts', 'download_textbooks', array( $this, 'displayDownloadTextbooks' ), '', 66 );
+			add_submenu_page( $this->plugin_slug, __( 'Download Textbooks', $this->plugin_slug ), __( 'Download Textbooks', $this->plugin_slug ), 'edit_posts', 'download_textbooks', [ $this, 'displayDownloadTextbooks' ], '', 66 );
 			if ( version_compare( PB_PLUGIN_VERSION, '2.7' ) >= 0 ) {
 				remove_menu_page( 'pb_publish' );
 			} else {
@@ -65,7 +65,7 @@ class TextbookAdmin extends PBT\Textbook {
 	/**
 	 * Initializes PBT Settings page options
 	 *
-	 * @since	1.0.1
+	 * @since   1.0.1
 	 */
 	function adminSettings() {
 
@@ -112,7 +112,7 @@ class TextbookAdmin extends PBT\Textbook {
 		// remove PB news from their blog
 		remove_meta_box( 'pb_dashboard_widget_metadata', 'dashboard', 'side' );
 		// add our own
-		add_meta_box( 'pbt_news_feed', __( 'Open Textbook News', $this->plugin_slug ), array( $this, 'displayOtbFeed' ), 'dashboard', 'side', 'high' );
+		add_meta_box( 'pbt_news_feed', __( 'Open Textbook News', $this->plugin_slug ), [ $this, 'displayOtbFeed' ], 'dashboard', 'side', 'high' );
 	}
 
 	/**
@@ -121,14 +121,16 @@ class TextbookAdmin extends PBT\Textbook {
 	 * @since 1.1.0
 	 */
 	function displayOtbFeed() {
-		wp_widget_rss_output( array(
-			'url' => 'https://open.bccampus.ca/feed/',
-			'title' => __( 'Open Textbook News', $this->plugin_slug ),
-			'items' => 5,
-			'show_summary' => 1,
-			'show_author' => 0,
-			'show_date' => 1,
-		) );
+		wp_widget_rss_output(
+			[
+				'url' => 'https://open.bccampus.ca/feed/',
+				'title' => __( 'Open Textbook News', $this->plugin_slug ),
+				'items' => 5,
+				'show_summary' => 1,
+				'show_author' => 0,
+				'show_date' => 1,
+			]
+		);
 	}
 
 	/**
@@ -139,9 +141,9 @@ class TextbookAdmin extends PBT\Textbook {
 		$section = 'pbt_remix_section';
 
 		// Remix
-		$defaults = array(
-			'pbt_api_endpoints' => array( network_home_url() ),
-		);
+		$defaults = [
+			'pbt_api_endpoints' => [ network_home_url() ],
+		];
 
 		if ( false == get_option( 'pbt_remix_settings' ) ) {
 			add_option( 'pbt_remix_settings', $defaults );
@@ -186,9 +188,9 @@ class TextbookAdmin extends PBT\Textbook {
 		$section = 'other_section';
 
 		// Hypothesis
-		$defaults = array(
+		$defaults = [
 			'pbt_hypothesis_active' => 0,
-		);
+		];
 
 		if ( false == get_option( 'pbt_other_settings' ) ) {
 			add_option( 'pbt_other_settings', $defaults );
@@ -244,27 +246,33 @@ class TextbookAdmin extends PBT\Textbook {
 	function allowedPostTags() {
 		global $allowedposttags;
 
-		$microdata_atts = array(
+		$microdata_atts = [
 			'itemprop' => true,
 			'itemscope' => true,
 			'itemtype' => true,
-		);
+		];
 
-		$allowedposttags['iframe'] = array(
+		$allowedposttags['iframe'] = [
 			'src' => true,
 			'height' => true,
 			'width' => true,
 			'allowfullscreen' => true,
 			'name' => true,
-		);
+		];
 
 		$allowedposttags['div'] += $microdata_atts;
 		$allowedposttags['a'] += $microdata_atts;
 		$allowedposttags['img'] += $microdata_atts;
 		$allowedposttags['h3'] += $microdata_atts;
-		$allowedposttags['span'] += array( 'content' => true ) + $microdata_atts;
-		$allowedposttags['meta'] = array( 'content' => true ) + $microdata_atts;
-		$allowedposttags['time'] = array( 'datetime' => true ) + $microdata_atts;
+		$allowedposttags['span'] += [
+			'content' => true,
+		] + $microdata_atts;
+		$allowedposttags['meta'] = [
+			'content' => true,
+		] + $microdata_atts;
+		$allowedposttags['time'] = [
+			'datetime' => true,
+		] + $microdata_atts;
 	}
 
 	/**
@@ -316,9 +324,9 @@ class TextbookAdmin extends PBT\Textbook {
 	function addActionLinks( $links ) {
 
 		return array_merge(
-			array(
-			'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug . '-settings' ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>',
-			), $links
+			[
+				'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug . '-settings' ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>',
+			], $links
 		);
 	}
 

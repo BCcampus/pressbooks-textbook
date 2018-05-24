@@ -21,7 +21,7 @@ class EquellaFetch {
 	private $keywordPath = '/xml/item/keywords';
 	private $whereClause = '';
 	private $url = '';
-	private $justTheResultsMaam = array();
+	private $justTheResultsMaam = [];
 	private $availableResults = 0;
 	private $searchTerm = '';
 	private $keywordFlag = false;
@@ -101,10 +101,10 @@ class EquellaFetch {
 	 *
 	 * @throws \Exception
 	 */
-	private function searchBySubject( $anyQuery = '', $order = 'modified', $start = 0, $info = array( 'basic', 'metadata', 'detail', 'attachment', 'drm' ), $limit = 0 ) {
+	private function searchBySubject( $anyQuery = '', $order = 'modified', $start = 0, $info = [ 'basic', 'metadata', 'detail', 'attachment', 'drm' ], $limit = 0 ) {
 		$availableResults = 0;
 		$loop = 0;
-		$result = array();
+		$result = [];
 
 		//the limit for the API is 50 items, so we need 50 or less. 0 is 'limitless' so we need to set
 		//it to the max and loop until we reach all available results, 50 at a time.
@@ -177,7 +177,7 @@ class EquellaFetch {
 			if ( $availableResults > $limit ) {
 				$loop = intval( $availableResults / $limit );
 
-				for ( $i = 0; $i < $loop; $i ++  ) {
+				for ( $i = 0; $i < $loop; $i ++ ) {
 					$start = $start + 50;
 					$searchWhere = 'search?' . $anyQuery . '&collections=' . $this->collectionUuid . '&start=' . $start . '&length=' . $limit . '&order=' . $order . '&where=';   //length 50 is the max results allowed by the API
 					//Three different scenarios here, depending..
@@ -223,7 +223,7 @@ class EquellaFetch {
 	 * @param String $key - the key of the associative array you want returned
 	 * @return String of comma separated values
 	 */
-	public static function arrayToCSV( $anyArray = array(), $key = '' ) {
+	public static function arrayToCSV( $anyArray = [], $key = '' ) {
 		$result = '';
 
 		if ( is_array( $anyArray ) ) {
