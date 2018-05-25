@@ -31,7 +31,9 @@ class RemoteImport extends Html\Xhtml {
 	 * @return Search\type
 	 */
 	function import( array $current_import ) {
-		$parent = 0;
+		if ( ! isset( $parent ) ) {
+			$parent = 0;
+		};
 		foreach ( $current_import as $import ) {
 
 			// fetch the remote content

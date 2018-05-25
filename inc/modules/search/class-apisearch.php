@@ -173,7 +173,6 @@ class ApiSearch {
 		} elseif ( $_GET['import'] && isset( $_POST['book'] ) && is_array( $current_import ) && check_admin_referer( 'pbt-import' ) ) {
 
 			// get the one book that we are importing
-			$book = $current_import[ $_POST['book'] ];
 			$book_id = $_POST['book'];
 			$fqdn = network_home_url();
 			$endpoint = $fqdn . '/api/' . self::$version . '/books/' . $book_id . '/';

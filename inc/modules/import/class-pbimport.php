@@ -3,7 +3,8 @@
 /**
  * Uses the v1/API to search titles based on a user defined search term
  *
- * Provides an interface to turn an instance of Pressbooks into a remix 'ecosystem'
+ * Provides an interface to turn an instance of Pressbooks into a remix
+ * 'ecosystem'
  *
  * @package Pressbooks_Textbook
  * @author Brad Payne
@@ -48,13 +49,14 @@ class PBImport {
 	 *
 	 * @param array $chapters
 	 * Array(
-	  [5] => Array(
-		[222] => chapter
-		)
-	  [14] => Array(
-		[164] => front-matter
-		)
-	  )
+	 * [5] => Array(
+	 * [222] => chapter
+	 * )
+	 * [14] => Array(
+	 * [164] => front-matter
+	 * )
+	 * )
+	 *
 	 * @return type
 	 */
 	function import( array $chapters ) {
@@ -69,7 +71,7 @@ class PBImport {
 
 			// Load HTMl snippet into DOMDocument using UTF-8 hack
 			$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
-			$doc = new \DOMDocument();
+			$doc       = new \DOMDocument();
 			$doc->loadHTML( $utf8_hack . $new_post['post_content'] );
 
 			// Download images, change image paths
@@ -78,18 +80,27 @@ class PBImport {
 			$html = $doc->saveXML( $doc->documentElement );
 
 			// Remove auto-created <html> <body> and <!DOCTYPE> tags.
-			$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( [ '<html>', '</html>', '<body>', '</body>' ], [ '', '', '', '' ], $html ) );
+			$html = preg_replace(
+				'/^<!DOCTYPE.+?>/', '', str_replace(
+					[
+						'<html>',
+						'</html>',
+						'<body>',
+						'</body>',
+					], [ '', '', '', '' ], $html
+				)
+			);
 
 			$import_post = [
-				'post_title' => $new_post['post_title'],
+				'post_title'   => $new_post['post_title'],
 				'post_content' => $html,
-				'post_type' => $new_post['post_type'],
-				'post_status' => $new_post['post_status'],
+				'post_type'    => $new_post['post_type'],
+				'post_status'  => $new_post['post_status'],
 			];
 
 			// set post parent
 			if ( 'chapter' == $new_post['post_type'] ) {
-				$post_parent = $this->getChapterParent();
+				$post_parent                = $this->getChapterParent();
 				$import_post['post_parent'] = $post_parent;
 			}
 
@@ -139,7 +150,8 @@ class PBImport {
 	}
 
 	/**
-	 * Parse HTML snippet, save all found <img> tags using media_handle_sideload(), return the HTML with changed <img> paths.
+	 * Parse HTML snippet, save all found <img> tags using
+	 * media_handle_sideload(), return the HTML with changed <img> paths.
 	 *
 	 * @param \DOMDocument $doc
 	 *
@@ -202,6 +214,7 @@ class PBImport {
 		if ( ! preg_match( '/\.(jpe?g|gif|png)$/i', $filename ) ) {
 			// Unsupported image type
 			$already_done[ $remote_img_location ] = '';
+
 			return '';
 		}
 
@@ -209,6 +222,7 @@ class PBImport {
 		if ( is_wp_error( $tmp_name ) ) {
 			// Download failed
 			$already_done[ $remote_img_location ] = '';
+
 			return '';
 		}
 
@@ -224,13 +238,14 @@ class PBImport {
 				// Garbage, don't import
 				$already_done[ $remote_img_location ] = '';
 				unlink( $tmp_name );
+
 				return '';
 			}
 		}
 
 		$pid = media_handle_sideload(
 			[
-				'name' => $filename,
+				'name'     => $filename,
 				'tmp_name' => $tmp_name,
 			], 0
 		);
@@ -246,15 +261,16 @@ class PBImport {
 
 	/**
 	 * Expects the array structure:
-	  Array(
-		[103] => Array (
-		  [6] => Array(
-		  [type] => chapter
-		  [license] => cc-by
-		  [author] => Brad Payne
-		  )
-		)
-	  )
+	 * Array(
+	 * [103] => Array (
+	 * [6] => Array(
+	 * [type] => chapter
+	 * [license] => cc-by
+	 * [author] => Brad Payne
+	 * )
+	 * )
+	 * )
+	 *
 	 * @return array of posts to import
 	 */
 	protected function getChapters() {
@@ -263,7 +279,7 @@ class PBImport {
 			return false;
 		}
 
-		$i = 0;
+		$i               = 0;
 		$posts_to_import = [];
 
 		foreach ( $this->chapters as $blog_id => $chapters ) {
@@ -275,19 +291,20 @@ class PBImport {
 				$old_post = get_post( $post_id );
 				$old_meta = get_post_meta( $post_id );
 
-				$posts_to_import[ $i ]['post_title'] = $old_post->post_title;
-				$posts_to_import[ $i ]['post_content'] = $old_post->post_content;
-				$posts_to_import[ $i ]['post_type'] = $info['type'];
-				$posts_to_import[ $i ]['pb_section_author'] = $info['author'];
+				$posts_to_import[ $i ]['post_title']         = $old_post->post_title;
+				$posts_to_import[ $i ]['post_content']       = $old_post->post_content;
+				$posts_to_import[ $i ]['post_type']          = $info['type'];
+				$posts_to_import[ $i ]['pb_section_author']  = $info['author'];
 				$posts_to_import[ $i ]['pb_section_license'] = $info['license'];
-				$posts_to_import[ $i ]['post_status'] = 'draft';
-				$posts_to_import[ $i ]['meta'] = $old_meta;
+				$posts_to_import[ $i ]['post_status']        = 'draft';
+				$posts_to_import[ $i ]['meta']               = $old_meta;
 
 				$i ++;
 			}
 
 			restore_current_blog();
 		}
+
 		return $posts_to_import;
 	}
 
@@ -301,12 +318,12 @@ class PBImport {
 		$q = new \WP_Query();
 
 		$args = [
-			'post_type' => 'part',
-			'post_status' => 'publish',
+			'post_type'      => 'part',
+			'post_status'    => 'publish',
 			'posts_per_page' => 1,
-			'orderby' => 'menu_order',
-			'order' => 'ASC',
-			'no_found_rows' => true,
+			'orderby'        => 'menu_order',
+			'order'          => 'ASC',
+			'no_found_rows'  => true,
 		];
 
 		$results = $q->query( $args );
@@ -317,6 +334,7 @@ class PBImport {
 	/**
 	 *
 	 * @param type $id
+	 *
 	 * @return boolean
 	 */
 	static function flaggedForImport( $id ) {
