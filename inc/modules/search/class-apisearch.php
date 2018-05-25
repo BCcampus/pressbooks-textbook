@@ -292,7 +292,7 @@ class ApiSearch {
 			$remote_import['type_of'] = 'html';
 			$remote_import['type'] = 'front-matter';
 			$remote_import['chapters'] = [
-				$chapters['post_id'] => 'title_placeholder',
+				$chapters['post_id'] => $chapters['post_title'],
 			];
 			$all_chapters[] = $remote_import;
 		}
@@ -307,8 +307,8 @@ class ApiSearch {
 			$part_import['type'] = 'part';
 			$part_import['chapters'] = [
 				// @TODO - this misses chapters nested inside the part
-				// need to loop in to grab 'post_id'
-				$chap[ $i ]['post_id'] => 'title_placeholder',
+				// loop in to grab 'post_id'
+				$chap[ $i ]['post_id'] => $chap['post_title'],
 			];
 			$all_chapters[] = $part_import;
 
@@ -320,7 +320,7 @@ class ApiSearch {
 				$remote_import['type_of'] = 'html';
 				$remote_import['type'] = 'chapter';
 				$remote_import['chapters'] = [
-					$chapters['post_id'] => 'title_placeholder',
+					$chapters['post_id'] => $chapters['post_title'],
 				];
 				$all_chapters[] = $remote_import;
 			}
@@ -334,7 +334,7 @@ class ApiSearch {
 			$remote_import['type_of'] = 'html';
 			$remote_import['type'] = 'back-matter';
 			$remote_import['chapters'] = [
-				$chapters['post_id'] => 'title_placeholder',
+				$chapters['post_id'] => $chapters['post_title'],
 			];
 			$all_chapters[] = $remote_import;
 		}

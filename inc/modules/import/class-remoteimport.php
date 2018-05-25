@@ -1,10 +1,11 @@
 <?php
 
 /**
- * Uses the v1/API to search titles on a remote system based on a user defined search term
- * Extends the existing Xthml import class used in Pressbooks, the only differences being that we
- * are sending that class more than one url/page to scrape at a time and we need to revoke
- * the PBT import rather than the PB import.
+ * Uses the v1/API to search titles on a remote system based on a user defined
+ * search term Extends the existing Xthml import class used in Pressbooks, the
+ * only differences being that we are sending that class more than one url/page
+ * to scrape at a time and we need to revoke the PBT import rather than the PB
+ * import.
  *
  * @package Pressbooks_Textbook
  * @author Brad Payne
@@ -35,6 +36,9 @@ class RemoteImport extends Html\Xhtml {
 			$parent = 0;
 		};
 		foreach ( $current_import as $import ) {
+			// get id (there will be only one)
+			$id    = array_keys( $import['chapters'] );
+			$title = $import['chapters'][ $id[0] ];
 
 			// fetch the remote content
 			$html = wp_remote_get( $import['file'] );
@@ -44,6 +48,7 @@ class RemoteImport extends Html\Xhtml {
 				error_log( '\PBT\Modules\Import\RemoteImport\import() error with wp_remote_get(): ' . $err );
 				unset( $html );
 				$html['body'] = $err;
+				continue;
 			}
 
 			$url = parse_url( $import['file'] );
@@ -51,9 +56,6 @@ class RemoteImport extends Html\Xhtml {
 			$path = dirname( $url['path'] );
 
 			$domain = $url['scheme'] . '://' . $url['host'] . $path;
-
-			// get id (there will be only one)
-			$id = array_keys( $import['chapters'] );
 
 			// front-matter, part, chapter, or back-matter
 			$post_type = ( isset( $import['type'] ) ) ? $import['type'] : $this->determinePostType( $id[0] );
@@ -66,42 +68,46 @@ class RemoteImport extends Html\Xhtml {
 				$chapter_parent = $parent;
 			}
 
-			$pid = $this->kneadandInsert( $html['body'], $post_type, $chapter_parent, $domain );
+			$pid = $this->kneadandInsert( $html['body'], $post_type, $chapter_parent, $domain, $title );
 
 			// set variable with Post ID of the last Part
 			if ( 'part' == $post_type ) {
 				$parent = $pid;
 			}
 		}
+
 		// Done
 		return Search\ApiSearch::revokeCurrentImport();
 	}
 
 	/**
-	 * Pummel then insert HTML into our database, separating it from parent class
-	 * to deal with Parts, as well as chapters.
+	 * Pummel then insert HTML into our database, separating it from parent
+	 * class to deal with Parts, as well as chapters.
 	 *
 	 * @param string $html
 	 * @param string $post_type
 	 * @param int $chapter_parent
 	 * @param string $domain domain name of the webpage
 	 * @param string $post_status draft, publish, etc
+	 * @param string $title of the post
 	 *
 	 * @return int|void|\WP_Error
 	 */
-	function kneadandInsert( $html, $post_type, $chapter_parent, $domain, $post_status = 'draft' ) {
+	function kneadandInsert( $html, $post_type, $chapter_parent, $domain, $post_status = 'draft', $title = '' ) {
 		$matches = [];
-		$meta = $this->getLicenseAttribution( $html );
-		$author = ( isset( $meta['authors'] )) ? $meta['authors'] : $this->getAuthors( $html );
-		$license = ( isset( $meta['license'] )) ? $this->extractCCLicense( $meta['license'] ) : '';
+		$meta    = $this->getLicenseAttribution( $html );
+		$author  = ( isset( $meta['authors'] ) ) ? $meta['authors'] : $this->getAuthors( $html );
+		$license = ( isset( $meta['license'] ) ) ? $this->extractCCLicense( $meta['license'] ) : '';
 
-		// get the title, preference to title set by PB
-		preg_match( '/<h2 class="entry-title">(.*)<\/h2>/', $html, $matches );
-		if ( ! empty( $matches[1] ) ) {
-			$title = wp_strip_all_tags( $matches[1] );
-		} else {
-			preg_match( '/<title>(.+)<\/title>/', $html, $matches );
-			$title = ( ! empty( $matches[1] ) ? wp_strip_all_tags( $matches[1] ) : '__UNKNOWN__' );
+		// get the title, back up
+		if ( empty( $title ) ) {
+			preg_match( '/<h2 class="entry-title">(.*)<\/h2>/', $html, $matches );
+			if ( ! empty( $matches[1] ) ) {
+				$title = wp_strip_all_tags( $matches[1] );
+			} else {
+				preg_match( '/<title>(.+)<\/title>/', $html, $matches );
+				$title = ( ! empty( $matches[1] ) ? wp_strip_all_tags( $matches[1] ) : '__UNKNOWN__' );
+			}
 		}
 
 		// just get the body
@@ -116,8 +122,8 @@ class RemoteImport extends Html\Xhtml {
 		$body = $this->kneadHtml( $xhtml, $post_type, $domain );
 
 		$new_post = [
-			'post_title' => $title,
-			'post_type' => $post_type,
+			'post_title'  => $title,
+			'post_type'   => $post_type,
 			'post_status' => $post_status,
 		];
 
@@ -158,6 +164,7 @@ class RemoteImport extends Html\Xhtml {
 	 * Cherry pick likely content areas, then cull known, unwanted content areas
 	 *
 	 * @param string $html
+	 *
 	 * @return string $html
 	 */
 	protected function regexSearchReplace( $html ) {
@@ -165,19 +172,19 @@ class RemoteImport extends Html\Xhtml {
 		/* cherry pick likely content areas */
 		// HTML5, ungreedy
 		preg_match( '/(?:<main[^>]*>)(.*)<\/main>/isU', $html, $matches );
-		$html = ( ! empty( $matches[1] )) ? $matches[1] : $html;
+		$html = ( ! empty( $matches[1] ) ) ? $matches[1] : $html;
 
 		// WP content area, greedy
 		preg_match( '/(?:<div id="main"[^>]*>)(.*)<\/div>/is', $html, $matches );
-		$html = ( ! empty( $matches[1] )) ? $matches[1] : $html;
+		$html = ( ! empty( $matches[1] ) ) ? $matches[1] : $html;
 
 		// general content area, greedy
 		preg_match( '/(?:<div id="content"[^>]*>)(.*)<\/div>/is', $html, $matches );
-		$html = ( ! empty( $matches[1] )) ? $matches[1] : $html;
+		$html = ( ! empty( $matches[1] ) ) ? $matches[1] : $html;
 
 		// specific PB content area, greedy
 		preg_match( '/(?:<div class="entry-content"[^>]*>)(.*)<\/div>/is', $html, $matches );
-		$html = ( ! empty( $matches[1] )) ? $matches[1] : $html;
+		$html = ( ! empty( $matches[1] ) ) ? $matches[1] : $html;
 
 		/* cull */
 		// get rid of page authors, we replace them anyways
@@ -215,11 +222,11 @@ class RemoteImport extends Html\Xhtml {
 		// Make XHTML 1.1 strict using htmlLawed
 
 		$config = [
-			'comment' => 1,
-			'safe' => 1,
-			'valid_xhtml' => 1,
+			'comment'            => 1,
+			'safe'               => 1,
+			'valid_xhtml'        => 1,
 			'no_deprecated_attr' => 2,
-			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
+			'hook'               => '\Pressbooks\Sanitize\html5_to_xhtml11',
 		];
 
 		return \Pressbooks\HtmLawed::filter( $html, $config );
