@@ -35,6 +35,7 @@ class RemoteImport extends Html\Xhtml {
 		if ( ! isset( $parent ) ) {
 			$parent = 0;
 		};
+
 		foreach ( $current_import as $import ) {
 			// get id (there will be only one)
 			$id    = array_keys( $import['chapters'] );
@@ -43,11 +44,21 @@ class RemoteImport extends Html\Xhtml {
 			// fetch the remote content
 			$html = wp_remote_get( $import['file'] );
 
-			if ( is_wp_error( $html ) ) {
-				$err = $html->get_error_message();
-				error_log( '\PBT\Modules\Import\RemoteImport\import() error with wp_remote_get(): ' . $err );
-				unset( $html );
-				$html['body'] = $err;
+			$ok = wp_remote_retrieve_response_code( $html );
+
+			if ( absint( $ok ) === 200 && is_wp_error( $html ) === FALSE ) {
+				$html = $html['body'];
+			} else {
+				// Something went wrong, try to log it
+				if ( is_wp_error( $html ) ) {
+					$error_message = $html->get_error_message();
+				} elseif ( is_array( $html ) && ! empty( $html['body'] ) ) {
+					$error_message = wp_strip_all_tags( $html['body'] );
+				} else {
+					$error_message = 'An unknown error occurred';
+				}
+				error_log( '\PBT\Modules\Import\RemoteImport\import() error with wp_remote_get(): ' . $error_message );
+				$html = ''; // Set empty string
 				continue;
 			}
 
@@ -68,7 +79,7 @@ class RemoteImport extends Html\Xhtml {
 				$chapter_parent = $parent;
 			}
 
-			$pid = $this->kneadandInsert( $html['body'], $post_type, $chapter_parent, $domain, $title );
+			$pid = $this->kneadandInsert( $html, $post_type, $chapter_parent, $domain, 'web-only', $title );
 
 			// set variable with Post ID of the last Part
 			if ( 'part' == $post_type ) {
@@ -93,7 +104,7 @@ class RemoteImport extends Html\Xhtml {
 	 *
 	 * @return int|void|\WP_Error
 	 */
-	function kneadandInsert( $html, $post_type, $chapter_parent, $domain, $post_status = 'draft', $title = '' ) {
+	function kneadandInsert( $html, $post_type, $chapter_parent, $domain, $post_status = 'web-only', $title = '' ) {
 		$matches = [];
 		$meta    = $this->getLicenseAttribution( $html );
 		$author  = ( isset( $meta['authors'] ) ) ? $meta['authors'] : $this->getAuthors( $html );
@@ -128,20 +139,14 @@ class RemoteImport extends Html\Xhtml {
 		];
 
 		// parts are exceptional, content upload needs to be handled by update_post_meta
-		if ( 'part' != $post_type ) {
-			$new_post['post_content'] = $body;
-		}
+		$new_post['post_content'] = $body;
+
 		// chapters are exceptional, need a chapter_parent
 		if ( 'chapter' == $post_type ) {
 			$new_post['post_parent'] = $chapter_parent;
 		}
 
 		$pid = wp_insert_post( add_magic_quotes( $new_post ) );
-
-		// give parts content if it has some
-		if ( 'part' == $post_type && ! empty( $body ) ) {
-			update_post_meta( $pid, 'pb_part_content', $body );
-		}
 
 		if ( ! empty( $author ) ) {
 			update_post_meta( $pid, 'pb_authors', $author );
@@ -170,41 +175,33 @@ class RemoteImport extends Html\Xhtml {
 	protected function regexSearchReplace( $html ) {
 
 		/* cherry pick likely content areas */
-		// HTML5, ungreedy
-		preg_match( '/(?:<main[^>]*>)(.*)<\/main>/isU', $html, $matches );
-		$html = ( ! empty( $matches[1] ) ) ? $matches[1] : $html;
+		// HTML5, non-greedy
+		preg_match_all( '/(?:<main[^>]*>)(.*)<\/main>/isU', $html, $matches, PREG_PATTERN_ORDER );
+		$html = ( ! empty( $matches[1][0] ) ) ? $matches[1][0] : $html;
 
-		// WP content area, greedy
-		preg_match( '/(?:<div id="main"[^>]*>)(.*)<\/div>/is', $html, $matches );
-		$html = ( ! empty( $matches[1] ) ) ? $matches[1] : $html;
+		// general content area, non-greedy
+		preg_match_all( '/(?:<div class="ugc"[^>]*>)(.*)<\/div>/isU', $html, $matches, PREG_PATTERN_ORDER );
+		$html = ( ! empty( $matches[1][0] ) ) ? $matches[1][0] : $html;
 
-		// general content area, greedy
-		preg_match( '/(?:<div id="content"[^>]*>)(.*)<\/div>/is', $html, $matches );
-		$html = ( ! empty( $matches[1] ) ) ? $matches[1] : $html;
+		// general content area, non-greedy
+		preg_match_all( '/(?:<div class="ugc front-matter-ugc|chapter-ugc|back-matter-ugc"[^>]*>)(.*)<\/div>/isU', $html, $matches, PREG_PATTERN_ORDER );
+		$html = ( ! empty( $matches[1][0] ) ) ? $matches[1][0] : $html;
 
-		// specific PB content area, greedy
-		preg_match( '/(?:<div class="entry-content"[^>]*>)(.*)<\/div>/is', $html, $matches );
-		$html = ( ! empty( $matches[1] ) ) ? $matches[1] : $html;
+		// general content area, non-greedy
+		preg_match_all( '/(?:<div class="part"[^>]*>)(.*)<\/div>/isU', $html, $matches, PREG_PATTERN_ORDER );
+		$html = ( ! empty( $matches[1][0] ) ) ? $matches[1][0] : $html;
 
 		/* cull */
-		// get rid of page authors, we replace them anyways
-		$result = preg_replace( '/(?:<h2 class="chapter_author"[^>]*>)(.*)<\/h2>/isU', '', $html );
+		// get rid of headers
+		$result = preg_replace( '/(?:<header[^>]*>)(.*)<\/header>/isU', '', $html );
 		// get rid of script tags, ungreedy
-		$result = preg_replace( '/(?:<script[^>]*>)(.*)<\/script>/isU', '', $html );
+		$result = preg_replace( '/(?:<script[^>]*>)(.*)<\/script>/isU', '', $result );
 		// get rid of forms, ungreedy
 		$result = preg_replace( '/(?:<form[^>]*>)(.*)<\/form>/isU', '', $result );
 		// get rid of html5 nav content, ungreedy
 		$result = preg_replace( '/(?:<nav[^>]*>)(.*)<\/nav>/isU', '', $result );
-		// get rid of PB nav, next/previous
-		$result = preg_replace( '/(?:<div class="nav"[^>]*>)(.*)<\/div>/isU', '', $result );
-		// get rid of PB share buttons
-		$result = preg_replace( '/(?:<div class="share-wrap-single"[^>]*>)(.*)<\/div>/isU', '', $result );
-		// get rid of html5 footer content, ungreedy
-		$result = preg_replace( '/(?:<footer[^>]*>)(.*)<\/footer>/isU', '', $result );
-		// get rid of sidebar content, greedy
-		$result = preg_replace( '/(?:<div id="sidebar\d{0,}"[^>]*>)(.*)<\/div>/is', '', $result );
-		// get rid of comments, greedy
-		$result = preg_replace( '/(?:<div id="comments"[^>]*>)(.*)<\/div>/is', '', $result );
+		$result = preg_replace( '/(?:<div class="block-reading-meta"[^>]*>)(.*)<\/div>/isU', '', $result );
+		$result = preg_replace( '/(?:<div class="section-comments"[^>]*>)(.*)<\/div>/isU', '', $result );
 
 		return $result;
 	}
