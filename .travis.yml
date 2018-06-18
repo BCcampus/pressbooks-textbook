@@ -1,0 +1,51 @@
+language: php
+php:
+- 7.0.29
+- 7.1.18
+sudo: required
+notifications:
+  email:
+    on_success: never
+    on_failure: change
+branches:
+  only:
+  - dev
+  - "/\\d+\\.\\d+(\\.\\d+)?(-\\S*)?$/"
+env:
+- WP_VERSION=latest
+cache:
+  apt: true
+  directories:
+  - "$HOME/.composer/cache"
+  - node_modules
+  - vendor
+before_install:
+- sudo apt-get -qq update
+install:
+- composer install
+before_script:
+- if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.1" ]] && php -v | grep -q 'Xdebug'; then phpenv
+  config-rm xdebug.ini; fi
+- bash bin/install-wp-tests.sh pbt_test root '' localhost $WP_VERSION
+script:
+- vendor/bin/phpunit --configuration phpunit.xml
+before_deploy:
+- export TRAVIS_PROJECT_SLUG="$(basename $TRAVIS_BUILD_DIR)"
+- curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+- chmod +x wp-cli.phar
+- sudo mv wp-cli.phar /usr/local/bin/wp
+- wp package install wp-cli/dist-archive-command
+- composer install --no-dev --optimize-autoloader
+- cd ../
+- wp dist-archive $TRAVIS_PROJECT_SLUG $TRAVIS_BUILD_DIR/$TRAVIS_PROJECT_SLUG-$TRAVIS_TAG.zip
+- cd $TRAVIS_BUILD_DIR
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: DRAzuPt48y7FwrUvAmtFxVK4zROhjAghlg3uiYJq/s4ApYqG0pSEBF27dKb1GBj5p24cMbdaTjDQAN9d05jpWZ8deBWrA4jDD5OKLRtmMtwu3ijG8MkoOKrLCpyxkj1qnQ3PdyJaIMEWkNLqdXejYWeX4KnmtSRhx0dfCTPs5Pwwqjr0fb+bATbpFmwzzI7O961nSo3poMKlul4KDtlHr+dJPUwtebCZFU+Z7Ic5uyxJBEBBezteYKW3l8BbmeVOvlkqa3V9uXGNN8Dgkw6SYBHrPLRg9Uw3ynh1CTFl4iMvVMpNGJvjNO9VfWIpzKWkfKkTWvIg2e9aHrMghh3dMogGZK4mSBtyjibiNkyPeNjvGQH7IZ9sTBrWF/WGVn1gWI5BN0xaMbmJoEMyf+Zh4jmER9OUDSkVaf35pNuQl4rGSUrRJxVY62fW5GU54jZKsdEt/p87qLIMPfaInC1QE3NefGsLvbtNa5uSZw9gR5anRBCVlchjfHWB1s+zNGZyP56TiRBcDhjlhd/dZBi7d7RZwiuIRfebeTfcxiboKXQffbymZ7S2DzswmdrST+41ymYxoqnG1VwVvQWcE88mmZssMuGMydIK7jxPwzCHoRlaPxG/Qicr4A4fLJdps1+zfHSBYc3h3Fgi/0Jkb1aCamiFpLrxzKPPPRSN2D1/4zw=
+  file: pressbooks-textbook-$TRAVIS_TAG.zip
+  on:
+    tags: true
+    repo: BCcampus/pressbooks-textbook
+    branch: dev
