@@ -1,5 +1,6 @@
 Textbooks for Pressbooks
 ===================
+[![Build Status](https://travis-ci.com/BCcampus/pressbooks-textbook.svg?branch=dev)](https://travis-ci.com/BCcampus/pressbooks-textbook)
 
 A plugin that extends Pressbooks for textbook authoring.
 
