@@ -21,7 +21,8 @@ require get_stylesheet_directory() . '/inc/tab-functions.php';
 */
 
 /**
- * Automatically update theme files/regenerate scss compile based on theme version number
+ * Automatically update theme files/regenerate scss compile based on theme
+ * version number
  *
  * @return bool
  */
@@ -33,13 +34,20 @@ function pbt_maybe_update_webbook_stylesheet() {
 		\Pressbooks\Container::get( 'Styles' )->updateWebBookStyleSheet();
 		update_option( 'pbt_otb_theme_version', $current_version );
 
-		return true;
+		return TRUE;
 	}
 
-	return false;
+	return FALSE;
 }
 
 add_action( 'init', 'pbt_maybe_update_webbook_stylesheet' );
+
+/**
+ * add BCC Kaltura instance endpoint
+ */
+add_action( 'init', function () {
+	wp_oembed_add_provider( 'https://video.bccampus.ca/id/*', 'https://video.bccampus.ca/oembed/', FALSE );
+} );
 
 /**
  * Returns an html blog of meta elements
@@ -85,7 +93,7 @@ function pbt_get_citation_pdf_url() {
 		$files = \Pressbooks\Utility\latest_exports();
 
 		$options = get_option( 'pbt_redistribute_settings' );
-		if ( ! empty( $files ) && ( true == $options['latest_files_public'] ) ) {
+		if ( ! empty( $files ) && ( TRUE == $options['latest_files_public'] ) ) {
 
 			foreach ( $files as $filetype => $filename ) {
 				if ( 'pdf' == $filetype || 'mpdf' == $filetype ) {
@@ -133,16 +141,13 @@ $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES_PDF']  = 'not_created_on_p
 
 
 /**
+ * @param $content
  *
- * @staticvar array $searches
- *
- * @param type $content
- *
- * @return type
+ * @return null|string|string[]
  */
 function pbt_fix_img_relative( $content ) {
 	static $searches = [
-		'#<(?:img) .*?src=[\'"]\Khttp://[^\'"]+#i', // fix image and iframe elements
+		'#<(?:img) .*?src=[\'"]\Khttp://[^\'"]+#i'
 	];
 	$content = preg_replace_callback( $searches, 'pbt_fix_img_relative_callback', $content );
 
@@ -150,10 +155,9 @@ function pbt_fix_img_relative( $content ) {
 }
 
 /**
+ * @param $matches
  *
- * @param type $matches
- *
- * @return type
+ * @return string
  */
 function pbt_fix_img_relative_callback( $matches ) {
 	$avoid = 'http://s.wordpress.com';
@@ -200,10 +204,13 @@ function pbt_add_openstax() {
 
 add_action( 'wp_footer', 'pbt_add_openstax' );
 
+/**
+ * using Matomo for tracking downloads
+ */
 add_filter(
 	'pressbooks_download_tracking_code', function ( $tracking, $filetype ) {
-		return "_paq.push(['trackEvent','exportFiles','Downloads','{$filetype}']);";
-	}, 10, 2
+	return "_paq.push(['trackEvent','exportFiles','Downloads','{$filetype}']);";
+}, 10, 2
 );
 
 /**
@@ -227,7 +234,7 @@ function pbt_explode_on_underscores( $string, $exclude = '' ) {
 	}
 	// no underscore present, return original string
 	$parts = explode( '_', strtolower( $string ) );
-	if ( false === $parts ) {
+	if ( FALSE === $parts ) {
 		return $string;
 	}
 	// exclude the first or the last element
@@ -257,18 +264,18 @@ function pbt_explode_on_underscores( $string, $exclude = '' ) {
  */
 add_filter(
 	'tiny_mce_before_init', function ( $in ) {
-		$in['wordpress_adv_hidden'] = false;
+	$in['wordpress_adv_hidden'] = FALSE;
 
-		return $in;
-	}
+	return $in;
+}
 );
 
 /**
- * Insert tabs content before a single (front matter, part, chapter, back matter)
- * page footer.
+ * Insert tabs content before a single (front matter, part, chapter, back
+ * matter) page footer.
  */
 add_action(
-	'pb_book_content_before_footer', function() {
-		get_template_part( 'tabs', 'content' );
-	}
+	'pb_book_content_before_footer', function () {
+	get_template_part( 'tabs', 'content' );
+}
 );
