@@ -21,7 +21,8 @@ require get_stylesheet_directory() . '/inc/tab-functions.php';
 */
 
 /**
- * Automatically update theme files/regenerate scss compile based on theme version number
+ * Automatically update theme files/regenerate scss compile based on theme
+ * version number
  *
  * @return bool
  */
@@ -40,6 +41,15 @@ function pbt_maybe_update_webbook_stylesheet() {
 }
 
 add_action( 'init', 'pbt_maybe_update_webbook_stylesheet' );
+
+/**
+ * add BCC Kaltura instance endpoint
+ */
+add_action(
+	'init', function () {
+		wp_oembed_add_provider( 'https://video.bccampus.ca/id/*', 'https://video.bccampus.ca/oembed/', false );
+	}
+);
 
 /**
  * Returns an html blog of meta elements
@@ -133,16 +143,13 @@ $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES_PDF']  = 'not_created_on_p
 
 
 /**
+ * @param $content
  *
- * @staticvar array $searches
- *
- * @param type $content
- *
- * @return type
+ * @return null|string|string[]
  */
 function pbt_fix_img_relative( $content ) {
 	static $searches = [
-		'#<(?:img) .*?src=[\'"]\Khttp://[^\'"]+#i', // fix image and iframe elements
+		'#<(?:img) .*?src=[\'"]\Khttp://[^\'"]+#i',
 	];
 	$content = preg_replace_callback( $searches, 'pbt_fix_img_relative_callback', $content );
 
@@ -150,10 +157,9 @@ function pbt_fix_img_relative( $content ) {
 }
 
 /**
+ * @param $matches
  *
- * @param type $matches
- *
- * @return type
+ * @return string
  */
 function pbt_fix_img_relative_callback( $matches ) {
 	$avoid = 'http://s.wordpress.com';
@@ -200,6 +206,9 @@ function pbt_add_openstax() {
 
 add_action( 'wp_footer', 'pbt_add_openstax' );
 
+/**
+ * using Matomo for tracking downloads
+ */
 add_filter(
 	'pressbooks_download_tracking_code', function ( $tracking, $filetype ) {
 		return "_paq.push(['trackEvent','exportFiles','Downloads','{$filetype}']);";
@@ -264,11 +273,11 @@ add_filter(
 );
 
 /**
- * Insert tabs content before a single (front matter, part, chapter, back matter)
- * page footer.
+ * Insert tabs content before a single (front matter, part, chapter, back
+ * matter) page footer.
  */
 add_action(
-	'pb_book_content_before_footer', function() {
+	'pb_book_content_before_footer', function () {
 		get_template_part( 'tabs', 'content' );
 	}
 );
