@@ -23,7 +23,7 @@
 //$body-font-family: $font-1 !default;
 //$body-font-style: normal !default;
 //$body-font-weight: normal !default;
-//$body-line-height: 1.5em !default;
+$body-line-height: 1.5em !default;
 
 // Heading 1
 $h1-font-size: 1.3em !default;
@@ -184,7 +184,15 @@ $para-margin-bottom: 1em !default;
 @import 'variables/elements';
 
 // Add custom SCSS below these imports and includes.
-@import 'components/elements';
+// Add custom SCSS below these imports and includes.
+@import 'components/elements/links';
+@import 'components/elements/blockquotes';
+@import 'components/elements/body';
+@import 'components/elements/headings';
+@import 'components/elements/lists';
+@import 'components/elements/miscellaneous';
+@import 'components/elements/paragraphs';
+@import 'components/elements/tables';
 
 /*
 |--------------------------------------------------------------------------

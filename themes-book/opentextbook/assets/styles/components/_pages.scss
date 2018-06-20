@@ -187,7 +187,11 @@ $epigraph-align: left !default;
 @import 'variables/pages';
 
 // Add custom SCSS below these imports and includes.
-@import 'components/pages';
+@import 'components/pages/titles';
+@import 'components/pages/parts';
+@import 'components/pages/front-matter';
+@import 'components/pages/chapters';
+@import 'components/pages/back-matter';
 
 /*
 |--------------------------------------------------------------------------

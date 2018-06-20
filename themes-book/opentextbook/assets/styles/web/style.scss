@@ -3,11 +3,11 @@ $type: 'web';
 //order matters, keep these first
 @import 'fonts';
 @import '../components/colors';
+@import '../components/elements';
+@import '../components/specials';
 @import '../components/media';
 
 // the rest
-@import '../components/elements';
-@import '../components/specials';
 @import '../components/tabs';
 @import '../components/pages';
 @import '../components/section-titles';
