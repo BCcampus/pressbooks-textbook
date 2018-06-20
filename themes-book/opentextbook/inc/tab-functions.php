@@ -202,7 +202,7 @@ function pbt_tabbed_content_callback() {
 	if ( ! isset( $options['tab_book_info'] ) ) {
 		$options['tab_book_info'] = 0;
 	}
-	if ( ! isset( $options['tab_attributions'] ) ) {
+	if ( ! isset( $options['tab_attributions'] ) ||  ! class_exists( 'Candela\Citation' ) ) {
 		$options['tab_attributions'] = 0;
 	}
 

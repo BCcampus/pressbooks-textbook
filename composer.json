@@ -19,22 +19,16 @@
     {
       "type": "vcs",
       "url": "https://github.com/hypothesis/wp-hypothesis"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/lumenlearning/candela-citation"
     }
   ],
   "extra": {
     "installer-paths": {
-      "vendor/lumenlearning": ["lumenlearning/candela-citation"],
       "vendor/hypothesis": ["hypothesis/hypothesis"]
     }
   },
   "require": {
     "php": ">=7.0",
-    "hypothesis/hypothesis": "^0.5.0",
-    "lumenlearning/candela-citation": "^0.2.2"
+    "hypothesis/hypothesis": "^0.5.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^5.7",
