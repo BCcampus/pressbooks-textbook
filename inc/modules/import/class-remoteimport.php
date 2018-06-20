@@ -46,7 +46,7 @@ class RemoteImport extends Html\Xhtml {
 
 			$ok = wp_remote_retrieve_response_code( $html );
 
-			if ( absint( $ok ) === 200 && is_wp_error( $html ) === FALSE ) {
+			if ( absint( $ok ) === 200 && is_wp_error( $html ) === false ) {
 				$html = $html['body'];
 			} else {
 				// Something went wrong, try to log it

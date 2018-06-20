@@ -70,27 +70,33 @@ function pb_compatibility() {
 	$min_pb_compatibility_version = '5.0.0';
 
 	if ( ! @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
-		add_action( 'admin_notices', function () {
-			echo '<div id="message" class="error fade"><p>' . __( 'PBT cannot find a Pressbooks install.', 'pressbooks-textbook' ) . '</p></div>';
-		} );
+		add_action(
+			'admin_notices', function () {
+				echo '<div id="message" class="error fade"><p>' . __( 'PBT cannot find a Pressbooks install.', 'pressbooks-textbook' ) . '</p></div>';
+			}
+		);
 
 		return;
 	}
 
 	if ( function_exists( 'pb_meets_minimum_requirements' ) ) {
 		if ( ! pb_meets_minimum_requirements() ) { // This PB function checks for both multisite, PHP and WP minimum versions.
-			add_action( 'admin_notices', function () {
-				echo '<div id="message" class="error fade"><p>' . __( 'Your PHP or WP version may not be up to date.', 'pressbooks-textbook' ) . '</p></div>';
-			} );
+			add_action(
+				'admin_notices', function () {
+					echo '<div id="message" class="error fade"><p>' . __( 'Your PHP or WP version may not be up to date.', 'pressbooks-textbook' ) . '</p></div>';
+				}
+			);
 
 			return;
 		}
 	}
 
 	if ( ! version_compare( PB_PLUGIN_VERSION, $min_pb_compatibility_version, '>=' ) ) {
-		add_action( 'admin_notices', function () {
-			echo '<div id="message" class="error fade"><p>' . __( 'Textbooks for Pressbooks requires Pressbooks 5.0.0 or greater.', 'pressbooks-textbook' ) . '</p></div>';
-		} );
+		add_action(
+			'admin_notices', function () {
+				echo '<div id="message" class="error fade"><p>' . __( 'Textbooks for Pressbooks requires Pressbooks 5.0.0 or greater.', 'pressbooks-textbook' ) . '</p></div>';
+			}
+		);
 
 		return;
 	}
