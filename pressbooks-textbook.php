@@ -119,7 +119,8 @@ add_action( 'init', 'pb_compatibility' );
 require PBT_PLUGIN_DIR . 'autoloader.php';
 
 // Load Composer Dependencies
-if ( file_exists( $composer = PBT_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
+$composer = PBT_PLUGIN_DIR . 'vendor/autoload.php';
+if ( file_exists( $composer ) ) {
 	require_once( $composer );
 }
 
