@@ -96,9 +96,7 @@ class Textbook {
 		$pbt_plugin = [
 			'mce-textbook-buttons/mce-textbook-buttons.php'       => 1,
 			'hypothesis/hypothesis.php'                           => 1,
-			'tinymce-spellcheck/tinymce-spellcheck.php'           => 1,
-			'lumenlearning/candela-citation.php'                  => 1,
-			'candela-citation/candela-citation.php'               => 1,
+			'tinymce-spellcheck/tinymce-spellcheck.php'           => 1
 		];
 
 		$pbt_plugin = $this->filterPlugins( $pbt_plugin );
@@ -139,7 +137,6 @@ class Textbook {
 			unset( $pbt_plugin['mce-textbook-buttons/mce-textbook-buttons.php'] );
 			unset( $pbt_plugin['hypothesis/hypothesis.php'] );
 			unset( $pbt_plugin['tinymce-spellcheck/tinymce-spellcheck.php'] );
-			unset( $pbt_plugin['lumenlearning/candela-citation.php'] );
 		}
 
 		// don't include plugins already active at the site level, network level
