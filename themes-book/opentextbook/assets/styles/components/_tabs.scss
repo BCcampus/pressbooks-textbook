@@ -9,19 +9,7 @@
 */
 @if $type == 'web' {
   #tabs {
-    box-shadow: 2px 2px 2px #ddd;
-    border: 0px;
-    margin: 0 auto 60px;
-    padding: 0px 60px;
-  }
-  .ui-widget {
-    font-family: inherit;
-    font-size: inherit;
-    .ui-widget-content {
-      border: none;
-      background: inherit;
-      color: inherit;
-    }
+    padding: 0 1rem;
   }
 
   .ui-state-default,
