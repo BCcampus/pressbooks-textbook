@@ -56,7 +56,6 @@
 				break;
 
 			case 'remix':
-
 				echo '<h3>Search, Import</h3>';
 
 				if ( class_exists( '\Pressbooks\Modules\Api_v1\Api' ) ) {
@@ -105,9 +104,10 @@
 				do_settings_sections( 'pbt_other_settings' );
 				break;
 		}
-		if ( ! in_array( $active_tab, array( 'revise', 'reuse', 'redistribute' ) ) ) {
+		if ( ! in_array( $active_tab, [ 'revise', 'reuse', 'redistribute' ] ) ) {
 			submit_button();
-		} ?>
+		}
+		?>
 	</form>
 
 </div>

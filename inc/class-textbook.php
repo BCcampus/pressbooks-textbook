@@ -22,7 +22,7 @@ class Textbook {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	const VERSION = '4.0.3';
+	const VERSION = '4.0.5';
 
 	/**
 	 * Unique identifier for plugin.
@@ -49,24 +49,24 @@ class Textbook {
 	private function __construct() {
 
 		// Load translations
-		add_action( 'init', array( $this, 'loadPluginTextDomain' ) );
+		add_action( 'init', [ $this, 'loadPluginTextDomain' ] );
 
 		// Setup our activation and deactivation hooks
-		register_activation_hook( __FILE__, array( $this, 'activate' ) );
-		register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
+		register_activation_hook( __FILE__, [ $this, 'activate' ] );
+		register_deactivation_hook( __FILE__, [ $this, 'deactivate' ] );
 
 		// Hook in our pieces
-		add_action( 'plugins_loaded', array( $this, 'includes' ) );
-		add_action( 'pressbooks_register_theme_directory', array( $this, 'pbtInit' ) );
-		add_action( 'wp_enqueue_style', array( $this, 'registerChildThemes' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueueScriptsnStyles' ) );
-		add_filter( 'allowed_themes', array( $this, 'filterChildThemes' ), 11 );
-		add_action( 'pressbooks_new_blog', array( $this, 'newBook' ) );
-		add_filter( 'pb_publisher_catalog_query_args', array( $this, 'rootThemeQuery' ) );
+		add_action( 'plugins_loaded', [ $this, 'includes' ] );
+		add_action( 'pressbooks_register_theme_directory', [ $this, 'pbtInit' ] );
+		add_action( 'wp_enqueue_style', [ $this, 'registerChildThemes' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueueScriptsnStyles' ] );
+		add_filter( 'allowed_themes', [ $this, 'filterChildThemes' ], 11 );
+		add_action( 'pressbooks_new_blog', [ $this, 'newBook' ] );
+		add_filter( 'pb_publisher_catalog_query_args', [ $this, 'rootThemeQuery' ] );
 
 		$this->update();
 
-		wp_cache_add_global_groups( array( 'pbt' ) );
+		wp_cache_add_global_groups( [ 'pbt' ] );
 
 	}
 
@@ -93,13 +93,11 @@ class Textbook {
 	 * @since 1.0.8
 	 */
 	function includes() {
-		$pbt_plugin = array(
+		$pbt_plugin = [
 			'mce-textbook-buttons/mce-textbook-buttons.php'       => 1,
 			'hypothesis/hypothesis.php'                           => 1,
-			'tinymce-spellcheck/tinymce-spellcheck.php'           => 1,
-			'lumenlearning/candela-citation.php'                  => 1,
-			'candela-citation/candela-citation.php'               => 1,
-		);
+			'tinymce-spellcheck/tinymce-spellcheck.php'           => 1
+		];
 
 		$pbt_plugin = $this->filterPlugins( $pbt_plugin );
 
@@ -139,7 +137,6 @@ class Textbook {
 			unset( $pbt_plugin['mce-textbook-buttons/mce-textbook-buttons.php'] );
 			unset( $pbt_plugin['hypothesis/hypothesis.php'] );
 			unset( $pbt_plugin['tinymce-spellcheck/tinymce-spellcheck.php'] );
-			unset( $pbt_plugin['lumenlearning/candela-citation.php'] );
 		}
 
 		// don't include plugins already active at the site level, network level
@@ -185,9 +182,9 @@ class Textbook {
 	 */
 	private function getUserOptions() {
 
-		( array ) $other = get_option( 'pbt_other_settings' );
-		( array ) $reuse = get_option( 'pbt_reuse_settings' );
-		( array ) $redistribute = get_option( 'pbt_redistribute_settings' );
+		(array) $other = get_option( 'pbt_other_settings' );
+		(array) $reuse = get_option( 'pbt_reuse_settings' );
+		(array) $redistribute = get_option( 'pbt_redistribute_settings' );
 
 		$result = @array_merge( $other, $reuse, $redistribute );
 
@@ -281,7 +278,7 @@ class Textbook {
 	 * @since 1.0.0
 	 */
 	function registerChildThemes() {
-		wp_register_style( 'open-textbook', PBT_PLUGIN_URL . 'themes-book/opentextbook/style.css', array( 'pressbooks' ), self::VERSION, 'screen' );
+		wp_register_style( 'open-textbook', PBT_PLUGIN_URL . 'themes-book/opentextbook/style.css', [ 'pressbooks' ], self::VERSION, 'screen' );
 	}
 
 	/**
@@ -294,7 +291,7 @@ class Textbook {
 	 * @return array
 	 */
 	function filterChildThemes( $themes ) {
-		$pbt_themes = array();
+		$pbt_themes = [];
 
 		if ( \Pressbooks\Book::isBook() ) {
 			$registered_themes = search_theme_directories();
@@ -328,26 +325,26 @@ class Textbook {
 	 */
 	function newBook() {
 
-		$display_copyright = array(
+		$display_copyright = [
 			'copyright_license' => 1,
-		);
+		];
 
-		$pdf_options = array(
+		$pdf_options = [
 			'pdf_page_size'  => 3,
 			'pdf_blankpages' => 2,
-		);
+		];
 
-		$epub_compress_images = array(
+		$epub_compress_images = [
 			'ebook_compress_images' => 1,
-		);
+		];
 
-		$redistribute_files = array(
+		$redistribute_files = [
 			'latest_files_public' => 1,
-		);
+		];
 
-		$web_options = array(
+		$web_options = [
 			'part_title' => 1,
-		);
+		];
 
 		// Allow for override in wp-config.php
 		if ( 0 === strcmp( 'opentextbook', WP_DEFAULT_THEME ) || ! defined( 'WP_DEFAULT_THEME' ) ) {
@@ -388,11 +385,11 @@ class Textbook {
 	 * @return array
 	 */
 	function rootThemeQuery() {
-		return array(
+		return [
 			'number'  => 150,
 			'orderby' => 'last_updated',
 			'order'   => 'DESC',
-		);
+		];
 	}
 
 	/**
@@ -407,11 +404,13 @@ class Textbook {
 		// triggers a network event with every new PBT Version
 		if ( version_compare( $network_version, self::VERSION ) < 0 ) {
 			// network and sharing options
-			update_site_option( 'pressbooks_sharingandprivacy_options', array(
-				'allow_redistribution' => 1,
-				'enable_network_api'   => 1,
-				'enable_cloning'       => 1,
-			) );
+			update_site_option(
+				'pressbooks_sharingandprivacy_options', [
+					'allow_redistribution' => 1,
+					'enable_network_api'   => 1,
+					'enable_cloning'       => 1,
+				]
+			);
 
 			update_site_option( 'pbt_version', self::VERSION );
 		}
@@ -425,9 +424,9 @@ class Textbook {
 
 		// triggers a site event once for version 3.0.1
 		if ( version_compare( '3.0.1', self::VERSION ) == 0 ) {
-			$part_title = array(
+			$part_title = [
 				'part_title' => 1,
-			);
+			];
 			update_option( 'pressbooks_theme_options_web', $part_title );
 		}
 
@@ -435,10 +434,14 @@ class Textbook {
 		// runs once
 		$once = get_site_option( 'pbt_update_template_root', 0 );
 		if ( version_compare( $pb_version, '4.0.0' ) >= 0 && $once === 0 ) {
-			$count = [ 'count' => true ];
+			$count = [
+				'count' => true,
+			];
 			$limit = get_sites( $count );
 			// avoid the default maximum of 100
-			$number = [ 'number' => $limit ];
+			$number = [
+				'number' => $limit,
+			];
 			$sites  = get_sites( $number );
 
 			// update all sites

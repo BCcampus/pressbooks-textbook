@@ -166,8 +166,10 @@ $back-matter-title-align: left !default;
 @import 'variables/section-titles';
 
 // Add custom SCSS below these imports and includes.
-@import 'components/section-titles';
-
+@import 'components/section-titles/parts';
+@import 'components/section-titles/front-matter';
+@import 'components/section-titles/chapters';
+@import 'components/section-titles/back-matter';
 /*
 |--------------------------------------------------------------------------
 | Section Titles

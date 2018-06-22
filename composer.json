@@ -2,7 +2,7 @@
   "name": "bccampus/pressbooks-textbook",
   "description": "Adds functionality to Pressbooks to make it easier to author textbooks",
   "type": "wordpress-plugin",
-  "version": "4.0.3",
+  "version": "4.0.5",
   "homepage": "https://github.com/bccampus/pressbooks-textbook",
   "authors": [
     {
@@ -10,36 +10,36 @@
       "homepage": "https://github.com/bdolor"
     }
   ],
-  "require-dev": {
-    "phpunit/phpunit": "^5.7",
-    "humanmade/coding-standards": "^0.3.0"
+  "config": {
+    "platform": {
+      "php": "7.0.30"
+    }
   },
   "repositories": [
     {
       "type": "vcs",
       "url": "https://github.com/hypothesis/wp-hypothesis"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/lumenlearning/candela-citation.git"
     }
   ],
   "extra": {
     "installer-paths": {
-      "vendor/lumenlearning": ["lumenlearning/candela-citation"],
       "vendor/hypothesis": ["hypothesis/hypothesis"]
     }
   },
   "require": {
-    "hypothesis/hypothesis": "^0.5.0",
-    "lumenlearning/candela-citation": "^0.2.2"
+    "php": ">=7.0",
+    "hypothesis/hypothesis": "^0.5.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.7",
+    "humanmade/coding-standards": "^0.3.0"
   },
   "scripts": {
     "test": [
       "@standards"
     ],
     "standards": [
-      "vendor/bin/phpcs --standard=phpcs.ruleset.xml ."
+      "vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/"
     ]
   }
 }

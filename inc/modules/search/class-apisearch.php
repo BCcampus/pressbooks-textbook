@@ -66,21 +66,22 @@ class ApiSearch {
 		if ( $_GET['import'] && isset( $_POST['chapters'] ) && is_array( $_POST['chapters'] ) && is_array( $current_import ) && check_admin_referer( 'pbt-import' ) ) {
 
 			$keys = array_keys( $_POST['chapters'] );
-			$books = array();
+			$books = [];
 
 			// Comes in as:
 			/** Array (
 			 *    [103] => Array(
-			 * 	[import] => 1
-			 * 	[book] => 6
-			 * 	[license] =>
-			 * 	[author] => bpayne
-			 * 	[type] => chapter
+			 *  [import] => 1
+			 *  [book] => 6
+			 *  [license] =>
+			 *  [author] => bpayne
+			 *  [type] => chapter
 			 *    )
 			 *  )
 			 */
 			foreach ( $keys as $id ) {
-				if ( ! Import\PBImport::flaggedForImport( $id ) ) { continue;
+				if ( ! Import\PBImport::flaggedForImport( $id ) ) {
+					continue;
 				}
 
 				// set the post_id and type
@@ -95,12 +96,12 @@ class ApiSearch {
 			// Modified as:
 			/** Array(
 			 *   [103] => Array (
-			 * 	[6] => Array(
-			 * 	[type] => chapter
-			 * 	[license] => cc-by
-			 * 	[author] => Brad Payne
-			 * 	[link] => http://opentextbc.ca/modernphilosophy/chapter/background-to-modern-philosophy/
-			 * 	)
+			 *  [6] => Array(
+			 *  [type] => chapter
+			 *  [license] => cc-by
+			 *  [author] => Brad Payne
+			 *  [link] => http://opentextbc.ca/modernphilosophy/chapter/background-to-modern-philosophy/
+			 *  )
 			 *    )
 			 *  )
 			 */
@@ -123,9 +124,9 @@ class ApiSearch {
 				 *  [file_type] => text/html
 				 *  [type_of] => html
 				 *  [chapters] => Array
-				 * 	(
-				 * 		[1] => Background to Modern Philosophy | Modern Philosophy
-				 * 	 )
+				 *  (
+				 *      [1] => Background to Modern Philosophy | Modern Philosophy
+				 *   )
 				 *  )
 				 */
 				foreach ( $books as $book => $chapters ) {
@@ -137,9 +138,9 @@ class ApiSearch {
 							$remote_import['file'] = $chapter['link'];
 							$remote_import['file_type'] = 'text/html';
 							$remote_import['type_of'] = 'html';
-							$remote_import['chapters'] = array(
+							$remote_import['chapters'] = [
 								$key => 'title_placeholder',
-							);
+							];
 							$all_chapters[] = $remote_import;
 						}
 					} else {
@@ -148,9 +149,9 @@ class ApiSearch {
 						$remote_import['file'] = $chapters[ $id[0] ]['link'];
 						$remote_import['file_type'] = 'text/html';
 						$remote_import['type_of'] = 'html';
-						$remote_import['chapters'] = array(
+						$remote_import['chapters'] = [
 							$id[0] => 'title_placeholder',
-						);
+						];
 						$all_chapters[] = $remote_import;
 					}
 				}
@@ -172,32 +173,20 @@ class ApiSearch {
 		} elseif ( $_GET['import'] && isset( $_POST['book'] ) && is_array( $current_import ) && check_admin_referer( 'pbt-import' ) ) {
 
 			// get the one book that we are importing
-			$book = $current_import[ $_POST['book'] ];
 			$book_id = $_POST['book'];
-			$protocol = 'http://';
-			$endpoint = $protocol . $book['domain'] . '/api/' . self::$version . '/books/' . $book_id . '/';
+			$fqdn = network_home_url();
+			$endpoint = $fqdn . '/api/' . self::$version . '/books/' . $book_id . '/';
 
 			// remote call to the API using book id
-			$args         = [ 'timeout' => '20' ];
+			$args         = [
+				'timeout' => '20',
+			];
 			$response = wp_remote_get( $endpoint , $args );
 
 			// response gets all chapters, types
 			if ( is_wp_error( $response ) ) {
-				try {
-					// try different protocol
-					$protocol = 'https://';
-					$endpoint = $protocol . $book['domain'] . '/api/' . self::$version . '/books/' . $book_id . '/';
-					// remote call to the API using book id
-					$args         = [ 'timeout' => '20' ];
-					$response = wp_remote_get( $endpoint, $args );
-
-					if ( is_wp_error( $response ) ) {
-						throw new \Exception( $response->get_error_message() );
-					}
-				} catch ( \Exception $exc ) {
-					error_log( '\PBT\Search\formSubmit error: ' . $exc );
-					\Pressbooks\Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=api_search_import' );
-				}
+				error_log( '\PBT\Search\formSubmit error: ' . $response['response']['message'] );
+				\Pressbooks\Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=api_search_import' );
 			}
 
 			$import_chapters = json_decode( $response['body'], true );
@@ -289,7 +278,7 @@ class ApiSearch {
 	 */
 	static function getAllChapters( $import_chapters, $book_id ) {
 
-		$all_chapters = array();
+		$all_chapters = [];
 		$fm = $import_chapters['data'][ $book_id ]['book_toc']['front-matter'];
 		$chap = $import_chapters['data'][ $book_id ]['book_toc']['part'];
 		$bm = $import_chapters['data'][ $book_id ]['book_toc']['back-matter'];
@@ -302,9 +291,9 @@ class ApiSearch {
 			$remote_import['file_type'] = 'text/html';
 			$remote_import['type_of'] = 'html';
 			$remote_import['type'] = 'front-matter';
-			$remote_import['chapters'] = array(
-				$chapters['post_id'] => 'title_placeholder',
-			);
+			$remote_import['chapters'] = [
+				$chapters['post_id'] => $chapters['post_title'],
+			];
 			$all_chapters[] = $remote_import;
 		}
 
@@ -316,9 +305,11 @@ class ApiSearch {
 			$part_import['file_type'] = 'text/html';
 			$part_import['type_of'] = 'html';
 			$part_import['type'] = 'part';
-			$part_import['chapters'] = array(
-				$chap[ $i ]['post_id'] => 'title_placeholder',
-			);
+			$part_import['chapters'] = [
+				// @TODO - this misses chapters nested inside the part
+				// loop in to grab 'post_id'
+				$chap[ $i ]['post_id'] => $chap['post_title'],
+			];
 			$all_chapters[] = $part_import;
 
 			// chapters
@@ -328,9 +319,9 @@ class ApiSearch {
 				$remote_import['file_type'] = 'text/html';
 				$remote_import['type_of'] = 'html';
 				$remote_import['type'] = 'chapter';
-				$remote_import['chapters'] = array(
-					$chapters['post_id'] => 'title_placeholder',
-				);
+				$remote_import['chapters'] = [
+					$chapters['post_id'] => $chapters['post_title'],
+				];
 				$all_chapters[] = $remote_import;
 			}
 		}
@@ -342,9 +333,9 @@ class ApiSearch {
 			$remote_import['file_type'] = 'text/html';
 			$remote_import['type_of'] = 'html';
 			$remote_import['type'] = 'back-matter';
-			$remote_import['chapters'] = array(
-				$chapters['post_id'] => 'title_placeholder',
-			);
+			$remote_import['chapters'] = [
+				$chapters['post_id'] => $chapters['post_title'],
+			];
 			$all_chapters[] = $remote_import;
 		}
 
@@ -357,24 +348,26 @@ class ApiSearch {
 	 * @param string $endpoint API url
 	 * @return array of books
 	 * [2] => Array(
-	 * 	[title] => Brad can has book
-	 * 	[author] => Brad Payne
-	 * 	[license] => cc-by-sa
+	 *  [title] => Brad can has book
+	 *  [author] => Brad Payne
+	 *  [license] => cc-by-sa
 	 *  )
 	 *  [5] => Array(
-	 * 	[title] => Help, I'm a Book!
-	 * 	[author] => Frank Zappa
-	 * 	[license] => cc-by-nc-sa
+	 *  [title] => Help, I'm a Book!
+	 *  [author] => Frank Zappa
+	 *  [license] => cc-by-nc-sa
 	 *  )
 	 */
 	static function getPublicBooks( $endpoint, $search = '' ) {
-		$books = array();
+		$books = [];
 		$current_book = get_current_blog_id();
 		$domain = parse_url( $endpoint, PHP_URL_HOST );
 		$titles = ( ! empty( $search ) ) ? '?titles=' . $search : '';
 
 		// build the url, get list of public books
-		$args         = [ 'timeout' => '25' ];
+		$args         = [
+			'timeout' => '25',
+		];
 		$public_books = wp_remote_get( $endpoint . 'books' . $titles, $args );
 
 		if ( is_wp_error( $public_books ) ) {
@@ -392,12 +385,12 @@ class ApiSearch {
 		// a valid response
 		if ( false !== ( $public_books_array ) ) {
 			foreach ( $public_books_array['data'] as $id => $val ) {
-				$books[ $id ] = array(
+				$books[ $id ] = [
 					'title' => $public_books_array['data'][ $id ]['book_meta']['pb_title'],
 					'author' => $public_books_array['data'][ $id ]['book_meta']['pb_authors'],
 					'license' => $public_books_array['data'][ $id ]['book_meta']['pb_book_license'],
 					'domain' => $domain,
-				);
+				];
 				if ( 0 === strcmp( 'all-rights-reserved', $books[ $id ]['license'] ) ) {
 					unset( $books[ $id ] );
 				}
@@ -427,14 +420,16 @@ class ApiSearch {
 	 * @return array $chapters from the search results
 	 */
 	static function getPublicChapters( $books, $endpoint, $search = '' ) {
-		$chapters = array();
+		$chapters = [];
 		$blog_ids = array_keys( $books );
 		$titles = ( ! empty( $search ) ) ? '?titles=' . $search : '';
 
 		// iterate through books, search for string match in chapter titles
 		foreach ( $blog_ids as $id ) {
 			$request = $endpoint . 'books/' . $id . '/' . $titles;
-			$args         = [ 'timeout' => '20' ];
+			$args         = [
+				'timeout' => '20',
+			];
 			$response = wp_remote_get( $request , $args );
 			$body = json_decode( $response['body'], true );
 			if ( ! empty( $body ) && 1 == $body['success'] ) {
@@ -490,15 +485,15 @@ class ApiSearch {
 		// send to superadmin
 		$admin_email = get_site_option( 'admin_email' );
 		$from = 'From: no-reply@' . get_blog_details()->domain;
-		$logs_email = array(
+		$logs_email = [
 			$admin_email,
-		);
+		];
 
 		$time = strftime( '%c' );
-		$info = array(
+		$info = [
 			'time' => $time,
 			'site_url' => site_url(),
-		);
+		];
 
 		$msg = print_r( array_merge( $info, $more_info ), true ) . $message;
 

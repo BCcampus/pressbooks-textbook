@@ -11,7 +11,7 @@
  * @wordpress-plugin
  * Plugin Name:       Textbooks for Pressbooks
  * Description:       A plugin that extends Pressbooks for textbook authoring
- * Version:           4.0.3
+ * Version:           4.0.5
  * Author:            Brad Payne
  * Author URI:        http://github.com/bdolor
  * Text Domain:       pressbooks-textbook
@@ -20,7 +20,7 @@
  * Domain Path:       /languages
  * GitHub Plugin URI: https://github.com/BCcampus/pressbooks-textbook
  * Tags: pressbooks, OER, publishing, textbooks
- * Pressbooks tested up to: 5.2.1
+ * Pressbooks tested up to: 5.3.3
  */
 
 // If file is called directly, abort.
@@ -70,27 +70,33 @@ function pb_compatibility() {
 	$min_pb_compatibility_version = '5.0.0';
 
 	if ( ! @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
-		add_action( 'admin_notices', function () {
-			echo '<div id="message" class="error fade"><p>' . __( 'PBT cannot find a Pressbooks install.', 'pressbooks-textbook' ) . '</p></div>';
-		} );
+		add_action(
+			'admin_notices', function () {
+				echo '<div id="message" class="error fade"><p>' . __( 'PBT cannot find a Pressbooks install.', 'pressbooks-textbook' ) . '</p></div>';
+			}
+		);
 
 		return;
 	}
 
 	if ( function_exists( 'pb_meets_minimum_requirements' ) ) {
 		if ( ! pb_meets_minimum_requirements() ) { // This PB function checks for both multisite, PHP and WP minimum versions.
-			add_action( 'admin_notices', function () {
-				echo '<div id="message" class="error fade"><p>' . __( 'Your PHP or WP version may not be up to date.', 'pressbooks-textbook' ) . '</p></div>';
-			} );
+			add_action(
+				'admin_notices', function () {
+					echo '<div id="message" class="error fade"><p>' . __( 'Your PHP or WP version may not be up to date.', 'pressbooks-textbook' ) . '</p></div>';
+				}
+			);
 
 			return;
 		}
 	}
 
 	if ( ! version_compare( PB_PLUGIN_VERSION, $min_pb_compatibility_version, '>=' ) ) {
-		add_action( 'admin_notices', function () {
-			echo '<div id="message" class="error fade"><p>' . __( 'Textbooks for Pressbooks requires Pressbooks 5.0.0 or greater.', 'pressbooks-textbook' ) . '</p></div>';
-		} );
+		add_action(
+			'admin_notices', function () {
+				echo '<div id="message" class="error fade"><p>' . __( 'Textbooks for Pressbooks requires Pressbooks 5.0.0 or greater.', 'pressbooks-textbook' ) . '</p></div>';
+			}
+		);
 
 		return;
 	}
@@ -113,7 +119,8 @@ add_action( 'init', 'pb_compatibility' );
 require PBT_PLUGIN_DIR . 'autoloader.php';
 
 // Load Composer Dependencies
-if ( file_exists( $composer = PBT_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
+$composer = PBT_PLUGIN_DIR . 'vendor/autoload.php';
+if ( file_exists( $composer ) ) {
 	require_once( $composer );
 }
 

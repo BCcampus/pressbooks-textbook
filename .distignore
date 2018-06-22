@@ -1,0 +1,17 @@
+.git
+.idea
+.tx
+bin
+node_modules
+tests
+.distignore
+.editorconfig
+.gitattributes
+.gitignore
+.travis.yml
+codecov.yml
+coverage.xml
+phpcs.ruleset.xml
+phpunit.xml
+webpack.mix.js
+yarn.lock

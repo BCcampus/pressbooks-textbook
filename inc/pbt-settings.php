@@ -52,7 +52,7 @@ function other_absint_sanitize( $input ) {
 	$options = get_option( 'pbt_other_settings' );
 
 	// radio buttons
-	foreach ( array( 'pbt_hypothesis_active' ) as $val ) {
+	foreach ( [ 'pbt_hypothesis_active' ] as $val ) {
 		$options[ $val ] = absint( $input[ $val ] );
 	}
 
@@ -118,9 +118,9 @@ function api_endpoint_public_callback() {
  * @return type
  */
 function remix_url_sanitize( $input ) {
-	$protocols   = array( 'http', 'https' );
+	$protocols   = [ 'http', 'https' ];
 	$i           = 0;
-	$valid       = array();
+	$valid       = [];
 	$success_msg = 'Settings saved. <a href="admin.php?page=api_search_import">Ready to search and import?</a>';
 
 	// get rid of blank input, sanitize url

@@ -21,7 +21,8 @@ require get_stylesheet_directory() . '/inc/tab-functions.php';
 */
 
 /**
- * Automatically update theme files/regenerate scss compile based on theme version number
+ * Automatically update theme files/regenerate scss compile based on theme
+ * version number
  *
  * @return bool
  */
@@ -42,13 +43,22 @@ function pbt_maybe_update_webbook_stylesheet() {
 add_action( 'init', 'pbt_maybe_update_webbook_stylesheet' );
 
 /**
+ * add BCC Kaltura instance endpoint
+ */
+add_action(
+	'init', function () {
+		wp_oembed_add_provider( 'https://video.bccampus.ca/id/*', 'https://video.bccampus.ca/oembed/', false );
+	}
+);
+
+/**
  * Returns an html blog of meta elements
  *
  * @return string $html metadata
  */
 function pbt_get_seo_meta_elements() {
 	// map items that are already captured
-	$meta_mapping = array(
+	$meta_mapping = [
 
 		'citation_title'            => 'pb_title',
 		'citation_author'           => 'pb_authors',
@@ -57,7 +67,7 @@ function pbt_get_seo_meta_elements() {
 		'citation_pdf_url'          => pbt_get_citation_pdf_url(),
 		'citation_publication_date' => 'pb_publication_date',
 
-	);
+	];
 
 	$html     = "<meta name='application-name' content='Pressbooks'>\n";
 	$metadata = \Pressbooks\Book::getBookInformation();
@@ -110,14 +120,14 @@ function pbt_get_microdata_meta_elements() {
 	// add elements that aren't captured, and don't need user input
 	$edu_align = ( isset( $metadata['pb_bisac_subject'] ) ) ? $metadata['pb_bisac_subject'] : '';
 
-	$lrmi_meta = array(
+	$lrmi_meta = [
 		'educationalAlignment' => $edu_align,
 		'educationalUse'       => 'Open textbook study',
 		'audience'             => 'student',
 		'interactivityType'    => 'mixed',
 		'learningResourceType' => 'textbook',
 		'typicalAgeRange'      => '17-',
-	);
+	];
 
 	foreach ( $lrmi_meta as $itemprop => $content ) {
 		// @todo parse educationalAlignment items into alignmentOjects
@@ -133,27 +143,23 @@ $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES_PDF']  = 'not_created_on_p
 
 
 /**
+ * @param $content
  *
- * @staticvar array $searches
- *
- * @param type $content
- *
- * @return type
+ * @return null|string|string[]
  */
 function pbt_fix_img_relative( $content ) {
-	static $searches = array(
-		'#<(?:img) .*?src=[\'"]\Khttp://[^\'"]+#i', // fix image and iframe elements
-	);
+	static $searches = [
+		'#<(?:img) .*?src=[\'"]\Khttp://[^\'"]+#i',
+	];
 	$content = preg_replace_callback( $searches, 'pbt_fix_img_relative_callback', $content );
 
 	return $content;
 }
 
 /**
+ * @param $matches
  *
- * @param type $matches
- *
- * @return type
+ * @return string
  */
 function pbt_fix_img_relative_callback( $matches ) {
 	$avoid = 'http://s.wordpress.com';
@@ -200,9 +206,14 @@ function pbt_add_openstax() {
 
 add_action( 'wp_footer', 'pbt_add_openstax' );
 
-add_filter( 'pressbooks_download_tracking_code', function ( $tracking, $filetype ) {
-	return "_paq.push(['trackEvent','exportFiles','Downloads','{$filetype}']);";
-}, 10, 2 );
+/**
+ * using Matomo for tracking downloads
+ */
+add_filter(
+	'pressbooks_download_tracking_code', function ( $tracking, $filetype ) {
+		return "_paq.push(['trackEvent','exportFiles','Downloads','{$filetype}']);";
+	}, 10, 2
+);
 
 /**
  * Converts a_string_with_underscores to
@@ -215,10 +226,10 @@ add_filter( 'pressbooks_download_tracking_code', function ( $tracking, $filetype
  */
 function pbt_explode_on_underscores( $string, $exclude = '' ) {
 	$result   = '';
-	$expected = array(
+	$expected = [
 		'first',
 		'last',
-	);
+	];
 	// not a string, force it
 	if ( ! is_string( $string ) ) {
 		$string = strval( $string );
@@ -253,16 +264,20 @@ function pbt_explode_on_underscores( $string, $exclude = '' ) {
  *
  * @return mixed
  */
-add_filter( 'tiny_mce_before_init', function ( $in ) {
-	$in['wordpress_adv_hidden'] = false;
+add_filter(
+	'tiny_mce_before_init', function ( $in ) {
+		$in['wordpress_adv_hidden'] = false;
 
-	return $in;
-} );
+		return $in;
+	}
+);
 
 /**
- * Insert tabs content before a single (front matter, part, chapter, back matter)
- * page footer.
+ * Insert tabs content before a single (front matter, part, chapter, back
+ * matter) page footer.
  */
-add_action( 'pb_book_content_before_footer', function() {
-	get_template_part( 'tabs', 'content' );
-} );
+add_action(
+	'pb_book_content_before_footer', function () {
+		get_template_part( 'tabs', 'content' );
+	}
+);

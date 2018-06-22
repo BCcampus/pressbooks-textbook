@@ -152,8 +152,10 @@ function pbt_tab_attributions() {
 	global $post;
 	$html = '';
 
-	if ( $citation = \Candela\Citation::renderCitation( $post->ID ) ) {
-		$html .= '<section role="contentinfo"><div class="post-citations">' . $citation . '</div></section>';
+	if ( class_exists( 'Candela\Citation' ) ) {
+		if ( $citation = \Candela\Citation::renderCitation( $post->ID ) ) {
+			$html .= '<section role="contentinfo"><div class="post-citations">' . $citation . '</div></section>';
+		}
 	}
 
 	return $html;
@@ -200,7 +202,7 @@ function pbt_tabbed_content_callback() {
 	if ( ! isset( $options['tab_book_info'] ) ) {
 		$options['tab_book_info'] = 0;
 	}
-	if ( ! isset( $options['tab_attributions'] ) ) {
+	if ( ! isset( $options['tab_attributions'] ) ||  ! class_exists( 'Candela\Citation' ) ) {
 		$options['tab_attributions'] = 0;
 	}
 
@@ -213,8 +215,10 @@ function pbt_tabbed_content_callback() {
 	$html .= '<label for="tab_book_info"> ' . __( 'Display book information for each chapter with everyone.', 'opentextbooks' ) . '</label><br/>';
 
 	// tab citations
-	$html .= '<input type="checkbox" id="tab_attributions" name="pressbooks_theme_options_web[tab_attributions]" value="1"  ' . checked( 1, $options['tab_attributions'], false ) . '/>';
-	$html .= '<label for="tab_attributions"> ' . __( 'Display page attributions and licenses.', 'opentextbooks' ) . '</label>';
+	if ( class_exists( 'Candela\Citation' ) ) {
+		$html .= '<input type="checkbox" id="tab_attributions" name="pressbooks_theme_options_web[tab_attributions]" value="1"  ' . checked( 1, $options['tab_attributions'], false ) . '/>';
+		$html .= '<label for="tab_attributions"> ' . __( 'Display page attributions and licenses.', 'opentextbooks' ) . '</label>';
+	}
 
 	echo $html;
 }

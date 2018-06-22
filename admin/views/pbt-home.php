@@ -8,7 +8,8 @@
  *
  * @copyright 2014 Brad Payne
  */
-if ( ! defined( 'ABSPATH' ) ) { exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
 ?>
