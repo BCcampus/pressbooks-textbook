@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "59525ec2a1686b2112ee341e719878f7",
+    "content-hash": "74393916481f0318fb0e05719634891f",
     "packages": [
         {
             "name": "hypothesis/hypothesis",
@@ -1445,7 +1445,7 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.4.11",
+            "version": "v3.4.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
