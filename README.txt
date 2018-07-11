@@ -2,9 +2,9 @@
 Contributors: bdolor, aparedes
 Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution-guidelines
 Tags: pressbooks, textbook
-Requires at least: 4.9.5
-Tested up to: 4.9.6
-Stable tag: 4.1.0
+Requires at least: 4.9.6
+Tested up to: 4.9.7
+Stable tag: 4.1.1
 Requires PHP: 7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -89,6 +89,11 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 4.1.1 (2018/07/11) =
+* fix for parent theme change - thanks @greatislander
+* compatibility with PB 5.4.0
+* support for new sidebar textboxes - thanks to @josieg for reporting
 
 = 4.1.0 (2018/06/22) =
 * add oembed support for bcc instance of kaltura
