@@ -12,14 +12,17 @@
 
 .bcc-box.bcc-highlight h3 {
     background-color: #111111;
+	margin-top: -2% !important;
 }
 
 .bcc-box.bcc-info h3 {
     background-color: #0B6396;
+	margin-top: -2% !important;
 }
 
-.bcc-box.bcc-success h3 {
+.bcc-box.bcc-success h3:first-child {
     background-color: #3A7A33;
+	margin-top: -2% !important;
 }
 
 .bcc-box {
@@ -45,7 +48,7 @@
     padding-bottom: 15px;
     padding-left: 0;
     padding-right: 0;
-    padding-top: 15px;
+    padding-top: 0;
     text-align: center;
 }
 
