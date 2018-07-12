@@ -22,7 +22,7 @@ class Textbook {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	const VERSION = '4.0.5';
+	const VERSION = '4.1.1';
 
 	/**
 	 * Unique identifier for plugin.
@@ -182,9 +182,9 @@ class Textbook {
 	 */
 	private function getUserOptions() {
 
-		(array) $other = get_option( 'pbt_other_settings' );
-		(array) $reuse = get_option( 'pbt_reuse_settings' );
-		(array) $redistribute = get_option( 'pbt_redistribute_settings' );
+		$other = get_option( 'pbt_other_settings', [] );
+		$reuse = get_option( 'pbt_reuse_settings', [] );
+		$redistribute = get_option( 'pbt_redistribute_settings', [] );
 
 		$result = @array_merge( $other, $reuse, $redistribute );
 
