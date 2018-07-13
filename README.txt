@@ -4,7 +4,7 @@ Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution
 Tags: pressbooks, textbook
 Requires at least: 4.9.6
 Tested up to: 4.9.7
-Stable tag: 4.1.1
+Stable tag: 4.1.2
 Requires PHP: 7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -89,6 +89,10 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 4.1.2 (2018/07/12) =
+* markup parity for textboxes
+* bump up otb theme to 2.1.4
 
 = 4.1.1 (2018/07/11) =
 * fix for parent theme change - thanks @greatislander
