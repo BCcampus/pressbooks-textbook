@@ -22,7 +22,7 @@ class Textbook {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	const VERSION = '4.1.1';
+	const VERSION = '4.1.2';
 
 	/**
 	 * Unique identifier for plugin.
@@ -94,9 +94,9 @@ class Textbook {
 	 */
 	function includes() {
 		$pbt_plugin = [
-			'mce-textbook-buttons/mce-textbook-buttons.php'       => 1,
-			'hypothesis/hypothesis.php'                           => 1,
-			'tinymce-spellcheck/tinymce-spellcheck.php'           => 1
+			'mce-textbook-buttons/class-textbookbuttons.php' => 1,
+			'hypothesis/hypothesis.php'                      => 1,
+			'tinymce-spellcheck/tinymce-spellcheck.php'      => 1,
 		];
 
 		$pbt_plugin = $this->filterPlugins( $pbt_plugin );
@@ -134,7 +134,7 @@ class Textbook {
 
 		// activate only if one of our themes is being used
 		if ( false == self::isTextbookTheme() ) {
-			unset( $pbt_plugin['mce-textbook-buttons/mce-textbook-buttons.php'] );
+			unset( $pbt_plugin['mce-textbook-buttons/class-textbookbuttons.php'] );
 			unset( $pbt_plugin['hypothesis/hypothesis.php'] );
 			unset( $pbt_plugin['tinymce-spellcheck/tinymce-spellcheck.php'] );
 		}

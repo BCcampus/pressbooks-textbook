@@ -1,5 +1,4 @@
 <?php
-
 /**
  * MCE Textbook Buttons for Pressbooks
  *
@@ -11,12 +10,12 @@
  * @wordpress-plugin
  * Plugin Name:       MCE Textbook Buttons for PressBooks
  * Description:       Adds buttons to TinyMCE for textbook specific sytles in PressBooks
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Brad Payne
  * Text Domain:       mce-textbook-buttons
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Pressbooks tested up to: 5.2.1
+ * Pressbooks tested up to: 5.4.0
  */
 
 namespace PBT\Plugins;
@@ -29,7 +28,7 @@ class TextbookButtons {
 		// Load translations
 
 		// Hook in our bits
-		add_action( 'admin_init', array( $this, 'addFilters' ) );
+		add_action( 'admin_init', [ $this, 'addFilters' ] );
 	}
 
 	function addFilters() {
@@ -39,9 +38,9 @@ class TextbookButtons {
 		}
 
 		if ( get_user_option( 'rich_editing' ) == 'true' ) {
-			add_filter( 'mce_external_plugins', array( $this, 'addTextbookButtons' ) );
-			add_filter( 'mce_buttons_3', array( $this, 'registerTBButtons' ) );
-			add_filter( 'mce_css', array( $this, 'textbookStyles' ) );
+			add_filter( 'mce_external_plugins', [ $this, 'addTextbookButtons' ] );
+			add_filter( 'mce_buttons_3', [ $this, 'registerTBButtons' ] );
+			add_filter( 'mce_css', [ $this, 'textbookStyles' ] );
 		}
 	}
 
@@ -78,7 +77,8 @@ class TextbookButtons {
 	 */
 	function textbookStyles( $mce_css ) {
 
-		if ( ! empty( $mce_css ) ) { $mce_css .= ',';
+		if ( ! empty( $mce_css ) ) {
+			$mce_css .= ',';
 		}
 		$mce_css .= PBT_PLUGIN_URL . 'symbionts/mce-textbook-buttons/assets/css/editor-style.css';
 
@@ -87,5 +87,5 @@ class TextbookButtons {
 
 }
 
-$textbook_buttons = new \PBT\Plugins\TextbookButtons();
+new TextbookButtons();
 
