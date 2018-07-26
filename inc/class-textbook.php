@@ -63,6 +63,8 @@ class Textbook {
 		add_filter( 'allowed_themes', [ $this, 'filterChildThemes' ], 11 );
 		add_action( 'pressbooks_new_blog', [ $this, 'newBook' ] );
 		add_filter( 'pb_publisher_catalog_query_args', [ $this, 'rootThemeQuery' ] );
+		// customize new user notification email for admins
+		add_filter( 'newuser_notify_siteadmin', [ $this, 'custom_wp_new_user_notification_email'] , 10, 3 );
 
 		$this->update();
 
@@ -459,5 +461,19 @@ class Textbook {
 
 	}
 
+	/**
+	 * Prepend the users email in the admin new user notification
+	 *
+	 * @param $msg
+	 * @param $user
+	 *
+	 * @return string
+	 */
+	function custom_wp_new_user_notification_email( $msg, $user ) {
+
+		$new_message = 'Email: ' . $user->user_email . "\r\n" . $msg;
+
+		return $new_message;
+	}
 
 }
