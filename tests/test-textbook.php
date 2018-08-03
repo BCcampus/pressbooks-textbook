@@ -3,8 +3,11 @@
 
 class TextbookTest extends WP_UnitTestCase {
 
+	protected $pbt;
+
 	public function setUp() {
 		parent::setUp();
+		$this->pbt = \PBT\Textbook::get_instance();
 	}
 
 	public function tearDown() {
@@ -14,6 +17,7 @@ class TextbookTest extends WP_UnitTestCase {
 	public function test_getInstance() {
 		$this->assertInstanceOf( '\PBT\Textbook', $this->pbt );
 	}
+
 
 	function test_isTexbookTheme() {
 		register_theme_directory( __DIR__ . '/data/themes' );
