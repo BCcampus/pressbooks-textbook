@@ -6,7 +6,7 @@
  * @package   Pressbooks_Textbook
  * @author    Brad Payne
  * @license   GPL-2.0+
- * @copyright 2014 Brad Payne
+ * @copyright Brad Payne
  *
  * @wordpress-plugin
  * Plugin Name:       Textbooks for Pressbooks

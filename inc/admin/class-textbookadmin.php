@@ -6,7 +6,7 @@
  * @package   Pressbooks_Textbook
  * @author    Brad Payne
  * @license   GPL-2.0+
- * @copyright 2014 Brad Payne
+ * @copyright Brad Payne
  *
  */
 namespace PBT\Admin;
@@ -48,10 +48,10 @@ class TextbookAdmin extends PBT\Textbook {
 		if ( \Pressbooks\Book::isBook() ) {
 			add_menu_page( __( 'Import', $this->plugin_slug ), __( 'Import', $this->plugin_slug ), 'edit_posts', 'pb_import', '\Pressbooks\Admin\Laf\display_import', 'dashicons-upload', 15 );
 			add_options_page( __( 'Textbooks for Pressbooks Settings', $this->plugin_slug ), __( 'Textbooks for PB', $this->plugin_slug ), 'manage_options', $this->plugin_slug . '-settings', [ $this, 'displayPluginAdminPage' ] );
-			add_menu_page( __( 'Textbooks for Pressbooks', $this->plugin_slug ), __( 'Textbooks for PB', $this->plugin_slug ), 'edit_posts', $this->plugin_slug , [ $this, 'displayPBTPage' ], 'dashicons-tablet', 64 );
+			add_menu_page( __( 'Textbooks for Pressbooks', $this->plugin_slug ), __( 'Textbooks for PB', $this->plugin_slug ), 'edit_posts', $this->plugin_slug, [ $this, 'displayPBTPage' ], 'dashicons-tablet', 64 );
 			// check if the functionality we need is available
 			if ( class_exists( '\Pressbooks\Modules\Api_v1\Api' ) ) {
-				add_submenu_page( $this->plugin_slug, __( 'Search and Import', $this->plugin_slug ), __( 'Search and Import', $this->plugin_slug ), 'edit_posts', 'api_search_import',[ $this, 'displayApiSearchPage' ], '', 65 );
+				add_submenu_page( $this->plugin_slug, __( 'Search and Import', $this->plugin_slug ), __( 'Search and Import', $this->plugin_slug ), 'edit_posts', 'api_search_import', [ $this, 'displayApiSearchPage' ], '', 65 );
 			}
 			add_submenu_page( $this->plugin_slug, __( 'Download Textbooks', $this->plugin_slug ), __( 'Download Textbooks', $this->plugin_slug ), 'edit_posts', 'download_textbooks', [ $this, 'displayDownloadTextbooks' ], '', 66 );
 			if ( version_compare( PB_PLUGIN_VERSION, '2.7' ) >= 0 ) {
@@ -70,8 +70,6 @@ class TextbookAdmin extends PBT\Textbook {
 	function adminSettings() {
 
 		$this->remixSettings();
-		$this->otherSettings();
-		$this->reuseSettings();
 		$this->allowedPostTags();
 	}
 
@@ -137,7 +135,7 @@ class TextbookAdmin extends PBT\Textbook {
 	 * Options for functionality that support remix
 	 */
 	private function remixSettings() {
-		$page = $option = 'pbt_remix_settings';
+		$page    = $option = 'pbt_remix_settings';
 		$section = 'pbt_remix_section';
 
 		// Remix
@@ -177,66 +175,6 @@ class TextbookAdmin extends PBT\Textbook {
 
 	}
 
-
-	/**
-	 * Options for plugins that support 'other' textbook functionality
-	 *
-	 * @since 1.0.2
-	 */
-	private function otherSettings() {
-		$page = $option = 'pbt_other_settings';
-		$section = 'other_section';
-
-		// Hypothesis
-		$defaults = [
-			'pbt_hypothesis_active' => 0,
-		];
-
-		if ( false == get_option( 'pbt_other_settings' ) ) {
-			add_option( 'pbt_other_settings', $defaults );
-		}
-
-		add_settings_section(
-			$section,
-			'Hypothesis',
-			'\PBT\Settings\pbt_other_section_callback',
-			$page
-		);
-
-		add_settings_field(
-			'pbt_hypothesis_active',
-			__( 'Hypothesis', $this->plugin_slug ),
-			'\PBT\Settings\pbt_hypothesis_active_callback',
-			$page,
-			$section
-		);
-
-		register_setting(
-			$option,
-			$option,
-			'\PBT\Settings\other_absint_sanitize'
-		);
-	}
-
-	/**
-	 * Options for plugins that support reuse
-	 *
-	 * @since 1.0.2
-	 */
-	private function reuseSettings() {
-		$page = $option = 'pbt_reuse_settings';
-		$section = 'reuse_section';
-
-		// Creative Commons
-		add_settings_section(
-			$section,
-			'Add a Creative Commons license',
-			'\PBT\Settings\pbt_reuse_section_callback',
-			$page
-		);
-
-	}
-
 	/**
 	 * Modifies a global variable to prevent wp_kses from stripping it out
 	 *
@@ -260,17 +198,17 @@ class TextbookAdmin extends PBT\Textbook {
 			'name' => true,
 		];
 
-		$allowedposttags['div'] += $microdata_atts;
-		$allowedposttags['a'] += $microdata_atts;
-		$allowedposttags['img'] += $microdata_atts;
-		$allowedposttags['h3'] += $microdata_atts;
+		$allowedposttags['div']  += $microdata_atts;
+		$allowedposttags['a']    += $microdata_atts;
+		$allowedposttags['img']  += $microdata_atts;
+		$allowedposttags['h3']   += $microdata_atts;
 		$allowedposttags['span'] += [
 			'content' => true,
 		] + $microdata_atts;
-		$allowedposttags['meta'] = [
+		$allowedposttags['meta']  = [
 			'content' => true,
 		] + $microdata_atts;
-		$allowedposttags['time'] = [
+		$allowedposttags['time']  = [
 			'datetime' => true,
 		] + $microdata_atts;
 	}

@@ -13,13 +13,13 @@ namespace PBT\Modules\Catalogue;
 
 class Filter {
 
-	private $baseURL = '';
+	private $baseURL     = '';
 	private $resultsData = [];
-	private $size = 0;
+	private $size        = 0;
 	private $uuid;
-	private $keyword = '';
-	private $subject = '';
-	private $contributor = '';
+	private $keyword       = '';
+	private $subject       = '';
+	private $contributor   = '';
 	private $authorBaseURL = 'http://solr.bccampus.ca:8001/bcc/access/searching.do?doc=';
 	private $authorSearch1 = '%3Cxml%3E%3Ccontributordetails%3E%3Cname%3E';
 	private $authorSearch2 = '%3C%2Fname%3E%3C%2Fcontributordetails%3E%3Clom%3E%3Clifecycle%3E%3Ccontribute%3E%3Ccentity%3E%3Cvcard%3E';
@@ -38,8 +38,8 @@ class Filter {
 	public function __construct( EquellaFetch $response ) {
 		/* get results from an equella array */
 		$this->resultsData = $response->getResults();
-		$this->size = count( $this->resultsData );
-		$this->uuid = $response->getUuid();
+		$this->size        = count( $this->resultsData );
+		$this->uuid        = $response->getUuid();
 
 		if ( $response->getKeywordFlag() == true ) {
 			$this->keyword = $subject;
@@ -58,7 +58,7 @@ class Filter {
 	 */
 	private function determineFileSize( $number ) {
 		$result = '';
-		$num = '';
+		$num    = '';
 
 		//bail if nothing is passed.
 		if ( empty( $number ) ) {
@@ -72,10 +72,10 @@ class Filter {
 		//only process if it's bigger than zero
 		if ( $num > 0 ) {
 			//return in Megabytes
-			$result = ($num / 1000000);
+			$result = ( $num / 1000000 );
 			//account for the fact that it might be less than 1MB
-			($result <= 1) ? $result = round( $result, 2 ) : $result = intval( $result );
-			$result = '(' . $result . ' MB)';
+			( $result <= 1 ) ? $result = round( $result, 2 ) : $result = intval( $result );
+			$result                    = '(' . $result . ' MB)';
 		}
 		return $result;
 	}
@@ -271,8 +271,8 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 	 * @return String with HTML
 	 */
 	public function displayBySubject( $start = 0, $limit = 0 ) {
-		$html = '';
-		$i = 0;
+		$html    = '';
+		$i       = 0;
 		$reviews = '';
 
 		//just in case a start value is passed that is greater than what is available
@@ -282,7 +282,7 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 		}
 
 		// necessary to see the last record
-		$start = ($start == $this->size ? $start = $start - 1 : $start = $start);
+		$start = ( $start == $this->size ? $start = $start - 1 : $start = $start );
 
 		// if we're displaying all of the results (from a search form request)
 		if ( $limit == 0 ) {
@@ -294,8 +294,8 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 
 		// check if it's been reviewed
 		while ( $i < $limit ) {
-			$desc = (strlen( $this->resultsData[ $start ]['description'] ) > 500) ? substr( $this->resultsData[ $start ]['description'], 0, 499 ) . '...' : $this->resultsData[ $start ]['description'];
-			( false === strpos( $this->resultsData[ $start ]['metadata'], 'REVIEWED149df27a3ba8b2ddeff0d7ed1e6e54e4' )) ? $reviews = '' : $reviews = ' <sup><small> Faculty reviewed</small></sup>';
+			$desc = ( strlen( $this->resultsData[ $start ]['description'] ) > 500 ) ? substr( $this->resultsData[ $start ]['description'], 0, 499 ) . '...' : $this->resultsData[ $start ]['description'];
+			( false === strpos( $this->resultsData[ $start ]['metadata'], 'REVIEWED149df27a3ba8b2ddeff0d7ed1e6e54e4' ) ) ? $reviews = '' : $reviews = ' <sup><small> Faculty reviewed</small></sup>';
 			$authors = EquellaFetch::arrayToCSV( $this->resultsData[ $start ]['drm']['options']['contentOwners'], 'name' );
 
 			$html .= '<li>';
@@ -308,7 +308,7 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 			$attachments = $this->reOrderAttachments( $this->resultsData[ $start ]['attachments'] );
 
 			foreach ( $attachments  as $attachment ) {
-				(array_key_exists( 'size', $attachment )) ? $file_size = $this->determineFileSize( $attachment['size'] ) : $file_size = '';
+				( array_key_exists( 'size', $attachment ) ) ? $file_size = $this->determineFileSize( $attachment['size'] ) : $file_size = '';
 
 				$html .= "<li><a class='btn btn-small' href='" . $attachment['links']['view'] . "' title='" . $attachment['description'] . "'>
 				" . $this->addLogo( $attachment['description'] ) . '</a> '
