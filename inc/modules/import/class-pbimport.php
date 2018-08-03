@@ -129,8 +129,8 @@ class PBImport {
 	 */
 	protected function setPostMeta( $pid, array $metadata ) {
 
-		if ( ! empty( $metadata['pb_section_author'] ) ) {
-			update_post_meta( $pid, 'pb_authors', $metadata['pb_section_author'] );
+		if ( ! empty( $metadata['pb_authors'] ) ) {
+			update_post_meta( $pid, 'pb_authors', $metadata['pb_authors'] );
 		}
 
 		if ( ! empty( $metadata['pb_section_license'] ) ) {
@@ -293,7 +293,7 @@ class PBImport {
 				$posts_to_import[ $i ]['post_title']         = $old_post->post_title;
 				$posts_to_import[ $i ]['post_content']       = $old_post->post_content;
 				$posts_to_import[ $i ]['post_type']          = $info['type'];
-				$posts_to_import[ $i ]['pb_section_author']  = $info['author'];
+				$posts_to_import[ $i ]['pb_authors']         = $info['author'];
 				$posts_to_import[ $i ]['pb_section_license'] = $info['license'];
 				$posts_to_import[ $i ]['post_status']        = 'draft';
 				$posts_to_import[ $i ]['meta']               = $old_meta;
