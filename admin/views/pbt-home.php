@@ -6,7 +6,7 @@
  * @author Brad Payne
  * @license   GPL-2.0+
  *
- * @copyright 2014 Brad Payne
+ * @copyright Brad Payne
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -26,9 +26,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<p>Open Textbooks are important because they have the potential to:</p>
 
 	<ol>
-		<li>increase access to higher education by reducing student costs;</li>
-		<li>give faculty more control over their instructional resources;</li>
-		<li>move the OER agenda forward in a meaningful, measurable way.</li>
+		<li>Increase access to higher education by reducing student costs;</li>
+		<li>Give faculty more control over their instructional resources;</li>
+		<li>Move the OER agenda forward in a meaningful, measurable way.</li>
 	</ol>
 	<h3>What are Open Textbooks/OER?</h3>
 	<p>Open Textbooks are open educational resources (OER); they are instructional resources created and shared in ways so that more people have access to them. That’s a different model than traditionally-copyrighted materials. OER are defined as&nbsp;“teaching, learning, and research resources that reside in the public domain or have been released under an intellectual property license that permits their free use and re-purposing by others” (<a href="http://www.hewlett.org/programs/education/open-educational-resources" target="_blank">Hewlett Foundation</a>).</p>

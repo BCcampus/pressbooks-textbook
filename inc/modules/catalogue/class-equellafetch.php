@@ -14,23 +14,23 @@ namespace PBT\Modules\Catalogue;
 
 class EquellaFetch {
 
-	private $apiBaseUrl = 'http://solr.bccampus.ca:8001/bcc/api/';
-	private $subjectPath1 = '/xml/item/subject_class_level1';
-	private $subjectPath2 = '/xml/item/subject_class_level2';
-	private $contributorPath = '/xml/contributordetails/institution';
-	private $keywordPath = '/xml/item/keywords';
-	private $whereClause = '';
-	private $url = '';
+	private $apiBaseUrl         = 'http://solr.bccampus.ca:8001/bcc/api/';
+	private $subjectPath1       = '/xml/item/subject_class_level1';
+	private $subjectPath2       = '/xml/item/subject_class_level2';
+	private $contributorPath    = '/xml/contributordetails/institution';
+	private $keywordPath        = '/xml/item/keywords';
+	private $whereClause        = '';
+	private $url                = '';
 	private $justTheResultsMaam = [];
-	private $availableResults = 0;
-	private $searchTerm = '';
-	private $keywordFlag = false;
-	private $byContributorFlag = false;
-	private $uuid = '';
-	private $collectionUuid = '7567d816-90cc-4547-af7a-3dbd43277639';
+	private $availableResults   = 0;
+	private $searchTerm         = '';
+	private $keywordFlag        = false;
+	private $byContributorFlag  = false;
+	private $uuid               = '';
+	private $collectionUuid     = '7567d816-90cc-4547-af7a-3dbd43277639';
 
-	const OPR_IS = ' is ';
-	const OPR_OR = ' OR ';
+	const OPR_IS      = ' is ';
+	const OPR_OR      = ' OR ';
 	const ALL_RECORDS = '_ALL';
 
 	/**
@@ -103,23 +103,23 @@ class EquellaFetch {
 	 */
 	private function searchBySubject( $anyQuery = '', $order = 'modified', $start = 0, $info = [ 'basic', 'metadata', 'detail', 'attachment', 'drm' ], $limit = 0 ) {
 		$availableResults = 0;
-		$loop = 0;
-		$result = [];
+		$loop             = 0;
+		$result           = [];
 
 		//the limit for the API is 50 items, so we need 50 or less. 0 is 'limitless' so we need to set
 		//it to the max and loop until we reach all available results, 50 at a time.
-		$limit = ($limit == 0 || $limit > 50 ? $limit = 50 : $limit = $limit);
+		$limit = ( $limit == 0 || $limit > 50 ? $limit = 50 : $limit = $limit );
 
-		$firstSubjectPath = '';
+		$firstSubjectPath  = '';
 		$secondSubjectPath = '';
-		$is = $this->rawUrlEncode( self::OPR_IS );
-		$or = $this->rawUrlEncode( self::OPR_OR );
-		$optionalParam = '&info=' . $this->arrayToCSV( $info ) . '';
+		$is                = $this->rawUrlEncode( self::OPR_IS );
+		$or                = $this->rawUrlEncode( self::OPR_OR );
+		$optionalParam     = '&info=' . $this->arrayToCSV( $info ) . '';
 
 		// if there's a specified user query, deal with it, change the order
 		// to relevance as opposed to 'modified' (default)
 		if ( $anyQuery != '' ) {
-			$order = 'relevance';
+			$order    = 'relevance';
 			$anyQuery = $this->rawUrlEncode( $anyQuery );
 			$anyQuery = 'q=' . $anyQuery . '&';
 		}
@@ -135,17 +135,17 @@ class EquellaFetch {
 			$firstSubjectPath = $this->urlEncode( $this->keywordPath );
 			//oh, the API is case sensitive so this broadens our results, which we want
 			$secondWhere = strtolower( $this->whereClause );
-			$firstWhere = ucwords( $this->whereClause );
-			$this->url = $this->apiBaseUrl . $searchWhere . $firstSubjectPath . $is . "'" . $firstWhere . "'" . $or . $firstSubjectPath . $is . "'" . $secondWhere . "'" . $optionalParam;  //add the base url, put it all together
+			$firstWhere  = ucwords( $this->whereClause );
+			$this->url   = $this->apiBaseUrl . $searchWhere . $firstSubjectPath . $is . "'" . $firstWhere . "'" . $or . $firstSubjectPath . $is . "'" . $secondWhere . "'" . $optionalParam;  //add the base url, put it all together
 		} // 2
 		elseif ( $this->byContributorFlag == true ) {
 			$firstSubjectPath = $this->urlEncode( $this->contributorPath );
-			$this->url = $this->apiBaseUrl . $searchWhere . $firstSubjectPath . $is . "'" . $this->whereClause . "'" . $optionalParam;
+			$this->url        = $this->apiBaseUrl . $searchWhere . $firstSubjectPath . $is . "'" . $this->whereClause . "'" . $optionalParam;
 		} // 3
 		else {
-			$firstSubjectPath = $this->urlEncode( $this->subjectPath1 );
+			$firstSubjectPath  = $this->urlEncode( $this->subjectPath1 );
 			$secondSubjectPath = $this->urlEncode( $this->subjectPath2 );
-			$this->url = $this->apiBaseUrl . $searchWhere . $firstSubjectPath . $is . "'" . $this->whereClause . "'" . $or . $secondSubjectPath . $is . "'" . $this->whereClause . "'" . $optionalParam;  //add the base url, put it all together
+			$this->url         = $this->apiBaseUrl . $searchWhere . $firstSubjectPath . $is . "'" . $this->whereClause . "'" . $or . $secondSubjectPath . $is . "'" . $this->whereClause . "'" . $optionalParam;  //add the base url, put it all together
 		}
 
 		// go and get it
@@ -165,20 +165,20 @@ class EquellaFetch {
 		//if the # of results we get back is less than the max we asked for
 		if ( $result['length'] != 50 ) {
 
-			$this->availableResults = $result['available'];
+			$this->availableResults   = $result['available'];
 			$this->justTheResultsMaam = $result['results'];
 		} else {
 
 			// is the available amount greater than the what was returned? Get more!
 			$availableResults = $result['available'];
-			$start = $result['start'];
-			$limit = $result['length'];
+			$start            = $result['start'];
+			$limit            = $result['length'];
 
 			if ( $availableResults > $limit ) {
 				$loop = intval( $availableResults / $limit );
 
 				for ( $i = 0; $i < $loop; $i ++ ) {
-					$start = $start + 50;
+					$start       = $start + 50;
 					$searchWhere = 'search?' . $anyQuery . '&collections=' . $this->collectionUuid . '&start=' . $start . '&length=' . $limit . '&order=' . $order . '&where=';   //length 50 is the max results allowed by the API
 					//Three different scenarios here, depending..
 					//1
@@ -211,7 +211,7 @@ class EquellaFetch {
 		} /* end of else */
 		curl_close( $ch );
 
-		$this->availableResults = $result['available'];
+		$this->availableResults   = $result['available'];
 		$this->justTheResultsMaam = $result['results'];
 	}
 
@@ -238,7 +238,7 @@ class EquellaFetch {
 			} else {
 				foreach ( $anyArray as $value ) {
 					//names in db sometimes contain usernames [inbrackets], strip 'em out!
-					$tmp = ( ! strpos( $value[ $key ], '[' )) ? $value[ $key ] : rtrim( strstr( $value[ $key ], '[', true ) );
+					$tmp     = ( ! strpos( $value[ $key ], '[' ) ) ? $value[ $key ] : rtrim( strstr( $value[ $key ], '[', true ) );
 					$result .= $tmp . ', ';
 				}
 			}

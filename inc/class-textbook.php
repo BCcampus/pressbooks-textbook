@@ -22,7 +22,7 @@ class Textbook {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	const VERSION = '4.1.2';
+	const VERSION = '4.2.0';
 
 	/**
 	 * Unique identifier for plugin.
@@ -95,7 +95,6 @@ class Textbook {
 	function includes() {
 		$pbt_plugin = [
 			'mce-textbook-buttons/class-textbookbuttons.php' => 1,
-			'hypothesis/hypothesis.php'                      => 1,
 			'tinymce-spellcheck/tinymce-spellcheck.php'      => 1,
 		];
 
@@ -135,7 +134,6 @@ class Textbook {
 		// activate only if one of our themes is being used
 		if ( false == self::isTextbookTheme() ) {
 			unset( $pbt_plugin['mce-textbook-buttons/class-textbookbuttons.php'] );
-			unset( $pbt_plugin['hypothesis/hypothesis.php'] );
 			unset( $pbt_plugin['tinymce-spellcheck/tinymce-spellcheck.php'] );
 		}
 
@@ -182,8 +180,8 @@ class Textbook {
 	 */
 	private function getUserOptions() {
 
-		$other = get_option( 'pbt_other_settings', [] );
-		$reuse = get_option( 'pbt_reuse_settings', [] );
+		$other        = get_option( 'pbt_other_settings', [] );
+		$reuse        = get_option( 'pbt_reuse_settings', [] );
 		$redistribute = get_option( 'pbt_redistribute_settings', [] );
 
 		$result = @array_merge( $other, $reuse, $redistribute );

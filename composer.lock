@@ -4,74 +4,37 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "74393916481f0318fb0e05719634891f",
-    "packages": [
-        {
-            "name": "hypothesis/hypothesis",
-            "version": "v0.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/hypothesis/wp-hypothesis.git",
-                "reference": "90a7562ba8cc320168ffc7bc21508dc55c06dc75"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/hypothesis/wp-hypothesis/zipball/90a7562ba8cc320168ffc7bc21508dc55c06dc75",
-                "reference": "90a7562ba8cc320168ffc7bc21508dc55c06dc75",
-                "shasum": ""
-            },
-            "require-dev": {
-                "squizlabs/php_codesniffer": "^2.7",
-                "wp-coding-standards/wpcs": "^0.10"
-            },
-            "type": "wordpress-plugin",
-            "scripts": {
-                "test": [
-                    "vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
-                    "vendor/bin/phpcs --standard=phpcs.xml --extensions=php ."
-                ]
-            },
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "description": "An open platform for the collaborative evaluation of knowledge.",
-            "homepage": "https://github.com/hypothesis/wp-hypothesis",
-            "support": {
-                "issues": "https://github.com/hypothesis/wp-hypothesis/issues",
-                "source": "https://github.com/hypothesis/wp-hypothesis/"
-            },
-            "time": "2016-12-19T19:13:50+00:00"
-        }
-    ],
+    "content-hash": "995fd2a6293f40b4203d0207c37a1d0c",
+    "packages": [],
     "packages-dev": [
         {
             "name": "doctrine/instantiator",
-            "version": "1.0.5",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d"
+                "reference": "185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/8e884e78f9f0eb1329e445619e04456e64d8051d",
-                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda",
+                "reference": "185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3,<8.0-DEV"
+                "php": "^7.1"
             },
             "require-dev": {
                 "athletic/athletic": "~0.1.8",
                 "ext-pdo": "*",
                 "ext-phar": "*",
-                "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "~2.0"
+                "phpunit/phpunit": "^6.2.3",
+                "squizlabs/php_codesniffer": "^3.0.2"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.2.x-dev"
                 }
             },
             "autoload": {
@@ -96,7 +59,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2015-06-14T21:17:01+00:00"
+            "time": "2017-07-22T11:58:36+00:00"
         },
         {
             "name": "fig-r/psr2r-sniffer",
@@ -146,22 +109,22 @@
         },
         {
             "name": "humanmade/coding-standards",
-            "version": "0.3.0",
+            "version": "v0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/humanmade/coding-standards.git",
-                "reference": "741d77bef32ca39fdc0c7dd77b95fb4b838f170a"
+                "reference": "b35747249bcc727a9eff22f746aaf9758d8a90ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/humanmade/coding-standards/zipball/741d77bef32ca39fdc0c7dd77b95fb4b838f170a",
-                "reference": "741d77bef32ca39fdc0c7dd77b95fb4b838f170a",
+                "url": "https://api.github.com/repos/humanmade/coding-standards/zipball/b35747249bcc727a9eff22f746aaf9758d8a90ce",
+                "reference": "b35747249bcc727a9eff22f746aaf9758d8a90ce",
                 "shasum": ""
             },
             "require": {
                 "fig-r/psr2r-sniffer": "^0.5.0",
                 "squizlabs/php_codesniffer": "^3.1",
-                "wp-coding-standards/wpcs": "^0.13.1"
+                "wp-coding-standards/wpcs": "^0.14.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^5.7"
@@ -172,29 +135,32 @@
                 "GPL-2.0-or-later"
             ],
             "description": "Human Made coding standards",
-            "time": "2018-01-19T02:57:52+00:00"
+            "time": "2018-05-22T13:24:47+00:00"
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.7.0",
+            "version": "1.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e"
+                "reference": "3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e",
-                "reference": "3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8",
+                "reference": "3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.6 || ^7.0"
+                "php": "^7.1"
+            },
+            "replace": {
+                "myclabs/deep-copy": "self.version"
             },
             "require-dev": {
                 "doctrine/collections": "^1.0",
                 "doctrine/common": "^2.6",
-                "phpunit/phpunit": "^4.1"
+                "phpunit/phpunit": "^7.1"
             },
             "type": "library",
             "autoload": {
@@ -217,7 +183,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2017-10-19T19:58:43+00:00"
+            "time": "2018-06-11T23:09:50+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -1339,16 +1305,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.3.0",
+            "version": "3.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "d86873af43b4aa9d1f39a3601cc0cfcf02b25266"
+                "reference": "628a481780561150481a9ec74709092b9759b3ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/d86873af43b4aa9d1f39a3601cc0cfcf02b25266",
-                "reference": "d86873af43b4aa9d1f39a3601cc0cfcf02b25266",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/628a481780561150481a9ec74709092b9759b3ec",
+                "reference": "628a481780561150481a9ec74709092b9759b3ec",
                 "shasum": ""
             },
             "require": {
@@ -1386,7 +1352,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2018-06-06T23:58:19+00:00"
+            "time": "2018-07-26T23:47:18+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -1445,16 +1411,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.4.12",
+            "version": "v3.4.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "c5010cc1692ce1fa328b1fb666961eb3d4a85bb0"
+                "reference": "810af2d35fc72b6cf5c01116806d2b65ccaaf2e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/c5010cc1692ce1fa328b1fb666961eb3d4a85bb0",
-                "reference": "c5010cc1692ce1fa328b1fb666961eb3d4a85bb0",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/810af2d35fc72b6cf5c01116806d2b65ccaaf2e2",
+                "reference": "810af2d35fc72b6cf5c01116806d2b65ccaaf2e2",
                 "shasum": ""
             },
             "require": {
@@ -1500,7 +1466,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-03T23:18:14+00:00"
+            "time": "2018-07-26T11:19:56+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -1554,16 +1520,16 @@
         },
         {
             "name": "wp-coding-standards/wpcs",
-            "version": "0.13.1",
+            "version": "0.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git",
-                "reference": "1f64b1a0b5b789822d0303436ee4e30e0135e4dc"
+                "reference": "cf6b310caad735816caef7573295f8a534374706"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WordPress-Coding-Standards/WordPress-Coding-Standards/zipball/1f64b1a0b5b789822d0303436ee4e30e0135e4dc",
-                "reference": "1f64b1a0b5b789822d0303436ee4e30e0135e4dc",
+                "url": "https://api.github.com/repos/WordPress-Coding-Standards/WordPress-Coding-Standards/zipball/cf6b310caad735816caef7573295f8a534374706",
+                "reference": "cf6b310caad735816caef7573295f8a534374706",
                 "shasum": ""
             },
             "require": {
@@ -1571,7 +1537,7 @@
                 "squizlabs/php_codesniffer": "^2.9.0 || ^3.0.2"
             },
             "suggest": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.4.1"
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.4.3"
             },
             "type": "phpcodesniffer-standard",
             "notification-url": "https://packagist.org/downloads/",
@@ -1590,7 +1556,7 @@
                 "standards",
                 "wordpress"
             ],
-            "time": "2017-08-05T16:08:58+00:00"
+            "time": "2018-02-16T01:57:48+00:00"
         }
     ],
     "aliases": [],
@@ -1599,10 +1565,10 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.0"
+        "php": ">=7.1"
     },
     "platform-dev": [],
     "platform-overrides": {
-        "php": "7.0.30"
+        "php": "7.1"
     }
 }

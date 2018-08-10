@@ -2,10 +2,10 @@
 Contributors: bdolor, aparedes
 Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution-guidelines
 Tags: pressbooks, textbook
-Requires at least: 4.9.6
+Requires at least: 4.9.7
 Tested up to: 4.9.7
-Stable tag: 4.1.2
-Requires PHP: 7
+Stable tag: 4.2.0
+Requires PHP: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,9 +18,7 @@ Textbooks for Pressbooks adds functionality to the Pressbooks plugin to make it 
 * Optional tabbed content (page citations, revision history, book information)
 * TinyMCE textbook buttons
 * TinyMCE spell check
-* Creative Commons license attribution
 * Prominent admin buttons (Import, Plugin)
-* Annotation functionality
 * Download links to openly licensed textbooks, ready to remix.
 * A remix 'eco-system' — Search and Import chapters from both local and remote instances of Pressbooks
 
@@ -34,7 +32,7 @@ IMPORTANT!
 You must first install [Pressbooks](https://github.com/pressbooks/pressbooks). This plugin won't work without it.
 The Pressbooks github repository is updated frequently. [Stay up to date](https://github.com/pressbooks/pressbooks/tree/master).
 
-Most of the functionality of this plugin, like textbook buttons and annotation, are tied directly to the `Open Textbooks` theme. Network Activate the `Open Textbooks`
+Some of the functionality of this plugin, like textbook buttons, are tied directly to the `Open Textbooks` theme. Network Activate the `Open Textbooks`
 theme, then activate at the book level. You'll have access to those features and more.
 
 = Using Git =
@@ -89,6 +87,12 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 4.2.0 (2018/08/03) =
+* remove hypothesis plugin as a bundled dependency
+* increase minimum php version
+* update dependencies
+* apply coding standards
 
 = 4.1.2 (2018/07/12) =
 * markup parity for textboxes

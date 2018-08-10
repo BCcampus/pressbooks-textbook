@@ -7,7 +7,7 @@
  * @author Brad Payne
  * @license   GPL-2.0+
  *
- * @copyright 2014 Brad Payne
+ * @copyright Brad Payne
  */
 
 namespace PBT\Modules\Search;
@@ -53,7 +53,7 @@ class ApiSearch {
 			return;
 		}
 
-		$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=api_search_import';
+		$redirect_url   = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=api_search_import';
 		$current_import = get_option( 'pbt_current_import' );
 
 		// determine stage of import, revoke if necessary
@@ -65,7 +65,7 @@ class ApiSearch {
 		// do chapter import if that's where we're at
 		if ( $_GET['import'] && isset( $_POST['chapters'] ) && is_array( $_POST['chapters'] ) && is_array( $current_import ) && check_admin_referer( 'pbt-import' ) ) {
 
-			$keys = array_keys( $_POST['chapters'] );
+			$keys  = array_keys( $_POST['chapters'] );
 			$books = [];
 
 			// Comes in as:
@@ -85,10 +85,10 @@ class ApiSearch {
 				}
 
 				// set the post_id and type
-				$chapter[ $id ]['type'] = $_POST['chapters'][ $id ]['type'];
+				$chapter[ $id ]['type']    = $_POST['chapters'][ $id ]['type'];
 				$chapter[ $id ]['license'] = $_POST['chapters'][ $id ]['license'];
-				$chapter[ $id ]['author'] = $_POST['chapters'][ $id ]['author'];
-				$chapter[ $id ]['link'] = $_POST['chapters'][ $id ]['link'];
+				$chapter[ $id ]['author']  = $_POST['chapters'][ $id ]['author'];
+				$chapter[ $id ]['link']    = $_POST['chapters'][ $id ]['link'];
 
 				// add it to the blog_id to which it belongs
 				$books[ $_POST['chapters'][ $id ]['book'] ][ $id ] = $chapter[ $id ];
@@ -106,13 +106,13 @@ class ApiSearch {
 			 *  )
 			 */
 			// Decide which import local/remote, evaluate the domain
-			$host = parse_url( network_site_url(), PHP_URL_HOST );
+			$host  = parse_url( network_site_url(), PHP_URL_HOST );
 			$local = strcmp( $_POST['domain'], $host );
 
 			// local import
 			if ( 0 === $local ) {
 				$importer = new Import\PBImport();
-				$ok = $importer->import( $books );
+				$ok       = $importer->import( $books );
 			} else { // do something remote
 				/**
 				 * take $books array, convert it into something that xhtml import can use
@@ -135,32 +135,32 @@ class ApiSearch {
 						foreach ( $chapters as $key => $chapter ) {
 							$id = $key;
 
-							$remote_import['file'] = $chapter['link'];
+							$remote_import['file']      = $chapter['link'];
 							$remote_import['file_type'] = 'text/html';
-							$remote_import['type_of'] = 'html';
-							$remote_import['chapters'] = [
+							$remote_import['type_of']   = 'html';
+							$remote_import['chapters']  = [
 								$key => 'title_placeholder',
 							];
-							$all_chapters[] = $remote_import;
+							$all_chapters[]             = $remote_import;
 						}
 					} else {
 						$id = array_keys( $chapters );
 
-						$remote_import['file'] = $chapters[ $id[0] ]['link'];
+						$remote_import['file']      = $chapters[ $id[0] ]['link'];
 						$remote_import['file_type'] = 'text/html';
-						$remote_import['type_of'] = 'html';
-						$remote_import['chapters'] = [
+						$remote_import['type_of']   = 'html';
+						$remote_import['chapters']  = [
 							$id[0] => 'title_placeholder',
 						];
-						$all_chapters[] = $remote_import;
+						$all_chapters[]             = $remote_import;
 					}
 				}
 
 				$importer = new Import\RemoteImport();
-				$ok = $importer->import( $all_chapters );
+				$ok       = $importer->import( $all_chapters );
 			}
 
-			$msg = 'Tried to import a post from this Pressbooks instance and ';
+			$msg  = 'Tried to import a post from this Pressbooks instance and ';
 			$msg .= ( $ok ) ? 'succeeded :)' : 'failed :(';
 
 			if ( $ok ) {
@@ -173,15 +173,15 @@ class ApiSearch {
 		} elseif ( $_GET['import'] && isset( $_POST['book'] ) && is_array( $current_import ) && check_admin_referer( 'pbt-import' ) ) {
 
 			// get the one book that we are importing
-			$book_id = $_POST['book'];
-			$fqdn = network_home_url();
+			$book_id  = $_POST['book'];
+			$fqdn     = network_home_url();
 			$endpoint = $fqdn . '/api/' . self::$version . '/books/' . $book_id . '/';
 
 			// remote call to the API using book id
-			$args         = [
+			$args     = [
 				'timeout' => '20',
 			];
-			$response = wp_remote_get( $endpoint , $args );
+			$response = wp_remote_get( $endpoint, $args );
 
 			// response gets all chapters, types
 			if ( is_wp_error( $response ) ) {
@@ -200,9 +200,9 @@ class ApiSearch {
 			$all_chapters = self::getAllChapters( $import_chapters, $book_id );
 
 			$importer = new Import\RemoteImport();
-			$ok = $importer->import( $all_chapters );
+			$ok       = $importer->import( $all_chapters );
 
-			$msg = 'Tried to import a post from this Pressbooks instance and ';
+			$msg  = 'Tried to import a post from this Pressbooks instance and ';
 			$msg .= ( $ok ) ? 'succeeded :)' : 'failed :(';
 
 			if ( $ok ) {
@@ -217,7 +217,7 @@ class ApiSearch {
 
 			// find out what domain we are handling
 			$endpoint = $_POST['endpoint'] . 'api/' . self::$version . '/';
-			$domain = parse_url( $_POST['endpoint'], PHP_URL_HOST );
+			$domain   = parse_url( $_POST['endpoint'], PHP_URL_HOST );
 
 			// filter post values
 			$search = filter_input( INPUT_POST, 'search_api', FILTER_SANITIZE_STRING );
@@ -279,64 +279,64 @@ class ApiSearch {
 	static function getAllChapters( $import_chapters, $book_id ) {
 
 		$all_chapters = [];
-		$fm = $import_chapters['data'][ $book_id ]['book_toc']['front-matter'];
-		$chap = $import_chapters['data'][ $book_id ]['book_toc']['part'];
-		$bm = $import_chapters['data'][ $book_id ]['book_toc']['back-matter'];
-		$parts_count = count( $chap );
+		$fm           = $import_chapters['data'][ $book_id ]['book_toc']['front-matter'];
+		$chap         = $import_chapters['data'][ $book_id ]['book_toc']['part'];
+		$bm           = $import_chapters['data'][ $book_id ]['book_toc']['back-matter'];
+		$parts_count  = count( $chap );
 
 		// front-matter
 		foreach ( $fm as $chapters ) {
 
-			$remote_import['file'] = $chapters['post_link'];
+			$remote_import['file']      = $chapters['post_link'];
 			$remote_import['file_type'] = 'text/html';
-			$remote_import['type_of'] = 'html';
-			$remote_import['type'] = 'front-matter';
-			$remote_import['chapters'] = [
+			$remote_import['type_of']   = 'html';
+			$remote_import['type']      = 'front-matter';
+			$remote_import['chapters']  = [
 				$chapters['post_id'] => $chapters['post_title'],
 			];
-			$all_chapters[] = $remote_import;
+			$all_chapters[]             = $remote_import;
 		}
 
 		// parts, chapters
 		for ( $i = 0; $i < $parts_count; $i ++ ) {
 			// parts
 
-			$part_import['file'] = $chap[ $i ]['post_link'];
+			$part_import['file']      = $chap[ $i ]['post_link'];
 			$part_import['file_type'] = 'text/html';
-			$part_import['type_of'] = 'html';
-			$part_import['type'] = 'part';
-			$part_import['chapters'] = [
+			$part_import['type_of']   = 'html';
+			$part_import['type']      = 'part';
+			$part_import['chapters']  = [
 				// @TODO - this misses chapters nested inside the part
 				// loop in to grab 'post_id'
 				$chap[ $i ]['post_id'] => $chap['post_title'],
 			];
-			$all_chapters[] = $part_import;
+			$all_chapters[]           = $part_import;
 
 			// chapters
 			foreach ( $chap[ $i ]['chapters'] as $chapters ) {
 
-				$remote_import['file'] = $chapters['post_link'];
+				$remote_import['file']      = $chapters['post_link'];
 				$remote_import['file_type'] = 'text/html';
-				$remote_import['type_of'] = 'html';
-				$remote_import['type'] = 'chapter';
-				$remote_import['chapters'] = [
+				$remote_import['type_of']   = 'html';
+				$remote_import['type']      = 'chapter';
+				$remote_import['chapters']  = [
 					$chapters['post_id'] => $chapters['post_title'],
 				];
-				$all_chapters[] = $remote_import;
+				$all_chapters[]             = $remote_import;
 			}
 		}
 
 		// back-matter
 		foreach ( $bm as $chapters ) {
 
-			$remote_import['file'] = $chapters['post_link'];
+			$remote_import['file']      = $chapters['post_link'];
 			$remote_import['file_type'] = 'text/html';
-			$remote_import['type_of'] = 'html';
-			$remote_import['type'] = 'back-matter';
-			$remote_import['chapters'] = [
+			$remote_import['type_of']   = 'html';
+			$remote_import['type']      = 'back-matter';
+			$remote_import['chapters']  = [
 				$chapters['post_id'] => $chapters['post_title'],
 			];
-			$all_chapters[] = $remote_import;
+			$all_chapters[]             = $remote_import;
 		}
 
 		return $all_chapters;
@@ -359,10 +359,10 @@ class ApiSearch {
 	 *  )
 	 */
 	static function getPublicBooks( $endpoint, $search = '' ) {
-		$books = [];
+		$books        = [];
 		$current_book = get_current_blog_id();
-		$domain = parse_url( $endpoint, PHP_URL_HOST );
-		$titles = ( ! empty( $search ) ) ? '?titles=' . $search : '';
+		$domain       = parse_url( $endpoint, PHP_URL_HOST );
+		$titles       = ( ! empty( $search ) ) ? '?titles=' . $search : '';
 
 		// build the url, get list of public books
 		$args         = [
@@ -422,18 +422,18 @@ class ApiSearch {
 	static function getPublicChapters( $books, $endpoint, $search = '' ) {
 		$chapters = [];
 		$blog_ids = array_keys( $books );
-		$titles = ( ! empty( $search ) ) ? '?titles=' . $search : '';
+		$titles   = ( ! empty( $search ) ) ? '?titles=' . $search : '';
 
 		// iterate through books, search for string match in chapter titles
 		foreach ( $blog_ids as $id ) {
-			$request = $endpoint . 'books/' . $id . '/' . $titles;
-			$args         = [
+			$request  = $endpoint . 'books/' . $id . '/' . $titles;
+			$args     = [
 				'timeout' => '20',
 			];
-			$response = wp_remote_get( $request , $args );
-			$body = json_decode( $response['body'], true );
+			$response = wp_remote_get( $request, $args );
+			$body     = json_decode( $response['body'], true );
 			if ( ! empty( $body ) && 1 == $body['success'] ) {
-				$chapters[ $id ] = $books[ $id ];
+				$chapters[ $id ]             = $books[ $id ];
 				$chapters[ $id ]['chapters'] = $body['data'];
 			}
 		}
@@ -484,8 +484,8 @@ class ApiSearch {
 		$subject = '[ PBT Search and Import Log ]';
 		// send to superadmin
 		$admin_email = get_site_option( 'admin_email' );
-		$from = 'From: no-reply@' . get_blog_details()->domain;
-		$logs_email = [
+		$from        = 'From: no-reply@' . get_blog_details()->domain;
+		$logs_email  = [
 			$admin_email,
 		];
 
