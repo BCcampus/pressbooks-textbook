@@ -352,7 +352,7 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 			}
 
 			if ( isset( $attachment['url'] ) ) {
-				$sfu = parse_url( $attachment['url'] );
+				$sfu = wp_parse_url( $attachment['url'] );
 				if ( isset( $sfu['host'] ) && 0 == strcmp( 'opentextbook.docsol.sfu.ca', $sfu['host'] ) ) {
 					$filetype = '.print';
 				}

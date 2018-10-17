@@ -1,14 +1,15 @@
 <?xml version="1.0"?>
 <ruleset>
-    <!-- Scan only PHP files -->
-    <arg name="extensions" value="php"/>
-
-    <!-- Show colors in console -->
-    <arg value="-colors"/>
-
-    <!-- Show progress -->
-    <arg value="p"/>
-
+	<!-- Scan only PHP files -->
+	<arg name="extensions" value="php"/>
+	<!-- Show colors in console -->
+	<arg value="-colors"/>
+	<!-- Show progress -->
+	<arg value="p"/>
+	<!-- Be quiet -->
+	<arg value="q"/>
+	<!-- Include source codes in the report -->
+	<arg value="s"/>
     <!-- Use HM Coding Standards -->
     <rule ref="vendor/humanmade/coding-standards">
         <!-- Disable all ESLint checks -->
