@@ -90,7 +90,9 @@ See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more det
 
 = 4.2.1 (2018/10/17) =
 * compatibility with PB 5.5.3
-*
+* update deps
+* apply coding standards
+
 = 4.2.0 (2018/08/03) =
 * remove hypothesis plugin as a bundled dependency
 * increase minimum php version
