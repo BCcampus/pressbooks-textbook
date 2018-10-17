@@ -106,7 +106,7 @@ class ApiSearch {
 			 *  )
 			 */
 			// Decide which import local/remote, evaluate the domain
-			$host  = parse_url( network_site_url(), PHP_URL_HOST );
+			$host  = wp_parse_url( network_site_url(), PHP_URL_HOST );
 			$local = strcmp( $_POST['domain'], $host );
 
 			// local import
@@ -217,7 +217,7 @@ class ApiSearch {
 
 			// find out what domain we are handling
 			$endpoint = $_POST['endpoint'] . 'api/' . self::$version . '/';
-			$domain   = parse_url( $_POST['endpoint'], PHP_URL_HOST );
+			$domain   = wp_parse_url( $_POST['endpoint'], PHP_URL_HOST );
 
 			// filter post values
 			$search = filter_input( INPUT_POST, 'search_api', FILTER_SANITIZE_STRING );
@@ -361,7 +361,7 @@ class ApiSearch {
 	static function getPublicBooks( $endpoint, $search = '' ) {
 		$books        = [];
 		$current_book = get_current_blog_id();
-		$domain       = parse_url( $endpoint, PHP_URL_HOST );
+		$domain       = wp_parse_url( $endpoint, PHP_URL_HOST );
 		$titles       = ( ! empty( $search ) ) ? '?titles=' . $search : '';
 
 		// build the url, get list of public books

@@ -62,7 +62,7 @@ class RemoteImport extends Html\Xhtml {
 				continue;
 			}
 
-			$url = parse_url( $import['file'] );
+			$url = wp_parse_url( $import['file'] );
 			// get parent directory (with forward slash e.g. /parent)
 			$path = dirname( $url['path'] );
 
