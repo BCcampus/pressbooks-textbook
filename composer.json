@@ -2,7 +2,7 @@
   "name": "bccampus/pressbooks-textbook",
   "description": "Adds functionality to Pressbooks to make it easier to author textbooks",
   "type": "wordpress-plugin",
-  "version": "4.2.1",
+  "version": "4.2.2",
   "homepage": "https://github.com/bccampus/pressbooks-textbook",
   "authors": [
     {

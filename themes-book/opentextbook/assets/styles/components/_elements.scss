@@ -26,7 +26,8 @@
 $body-line-height: 1.5em !default;
 
 // Heading 1
-$h1-font-size: 1.3rem !default;
+//$h1-font-size: 1.3rem !default;
+$h1-font-size: (epub: 1.3em, prince: 1.3em, web: 1.3rem) !default;
 //$h1-font-family: $font-3 !default;
 //$h1-font-style: normal !default;
 //$h1-font-weight: bold !default;
@@ -35,7 +36,8 @@ $h1-align: left !default;
 
 // Heading 2
 //$h2-font-family: $font-3 !default;
-$h2-font-size: 1.2rem !default;
+//$h2-font-size: 1.2rem !default;
+$h2-font-size: (epub: 1.2em, prince: 1.2em, web: 1.2rem) !default;
 //$h2-font-style: normal !default;
 //$h2-font-weight: normal !default;
 //$h2-text-transform: uppercase !default;
