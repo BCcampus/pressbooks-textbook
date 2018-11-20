@@ -14,20 +14,20 @@ namespace PBT\Modules\Catalogue;
 
 class EquellaFetch {
 
-	private $apiBaseUrl         = 'http://solr.bccampus.ca:8001/bcc/api/';
-	private $subjectPath1       = '/xml/item/subject_class_level1';
-	private $subjectPath2       = '/xml/item/subject_class_level2';
-	private $contributorPath    = '/xml/contributordetails/institution';
-	private $keywordPath        = '/xml/item/keywords';
-	private $whereClause        = '';
-	private $url                = '';
-	private $justTheResultsMaam = [];
-	private $availableResults   = 0;
-	private $searchTerm         = '';
-	private $keywordFlag        = false;
-	private $byContributorFlag  = false;
-	private $uuid               = '';
-	private $collectionUuid     = '7567d816-90cc-4547-af7a-3dbd43277639';
+	private $api_base_url          = 'http://solr.bccampus.ca:8001/bcc/api/';
+	private $subject_path_1        = '/xml/item/subject_class_level1';
+	private $subject_path_2        = '/xml/item/subject_class_level2';
+	private $contributor_path      = '/xml/contributordetails/institution';
+	private $keyword_path          = '/xml/item/keywords';
+	private $where_clause          = '';
+	private $url                   = '';
+	private $just_the_results_maam = [];
+	private $available_results     = 0;
+	private $search_term           = '';
+	private $keyword_flag          = false;
+	private $by_contributor_flag   = false;
+	private $uuid                  = '';
+	private $collection_uuid       = '7567d816-90cc-4547-af7a-3dbd43277639';
 
 	const OPR_IS      = ' is ';
 	const OPR_OR      = ' OR ';
@@ -37,7 +37,7 @@ class EquellaFetch {
 	 *
 	 */
 	public function __construct() {
-		$this->searchBySubject( $this->searchTerm );
+		$this->searchBySubject( $this->search_term );
 	}
 
 	public function getUuid() {
@@ -45,19 +45,19 @@ class EquellaFetch {
 	}
 
 	public function getKeywordFlag() {
-		return $this->keywordFlag;
+		return $this->keyword_flag;
 	}
 
 	public function getContributorFlag() {
-		return $this->byContributorFlag;
+		return $this->by_contributor_flag;
 	}
 
 	public function getResults() {
-		return $this->justTheResultsMaam;
+		return $this->just_the_results_maam;
 	}
 
 	public function getWhereClause() {
-		return $this->whereClause;
+		return $this->where_clause;
 	}
 
 	/**
@@ -66,10 +66,10 @@ class EquellaFetch {
 	 *
 	 * @return the encoded item
 	 */
-	private function urlEncode( $anyString ) {
+	private function urlEncode( $any_string ) {
 		$result = '';
-		if ( ! empty( $anyString ) ) {
-			$result = urlencode( $anyString );
+		if ( ! empty( $any_string ) ) {
+			$result = urlencode( $any_string );
 			return $result;
 		} else {
 			return false;
@@ -78,12 +78,14 @@ class EquellaFetch {
 
 	/**
 	 * Private helper function that rawURL encodes (with %20 as spaces)
-	 * @param type $anyString
+	 *
+	 * @param string $any_string
+	 *
 	 * @return string - the encoded item, or false if it's empty
 	 */
-	private function rawUrlEncode( $anyString ) {
-		if ( ! empty( $anyString ) ) {
-			return rawurlencode( $anyString );
+	private function rawUrlEncode( $any_string ) {
+		if ( ! empty( $any_string ) ) {
+			return rawurlencode( $any_string );
 		} else {
 			return false;
 		}
@@ -93,7 +95,7 @@ class EquellaFetch {
 	 * Makes a request to the API for resources by subject/or keyword. This method builds the
 	 * REST url and sets the response (json to an associative array) and size in instance variables
 	 *
-	 * @param string $anyQuery
+	 * @param string $any_query
 	 * @param string $order
 	 * @param int $start
 	 * @param array $info
@@ -101,51 +103,48 @@ class EquellaFetch {
 	 *
 	 * @throws \Exception
 	 */
-	private function searchBySubject( $anyQuery = '', $order = 'modified', $start = 0, $info = [ 'basic', 'metadata', 'detail', 'attachment', 'drm' ], $limit = 0 ) {
-		$availableResults = 0;
-		$loop             = 0;
-		$result           = [];
+	private function searchBySubject( $any_query = '', $order = 'modified', $start = 0, $info = [ 'basic', 'metadata', 'detail', 'attachment', 'drm' ], $limit = 0 ) {
 
 		//the limit for the API is 50 items, so we need 50 or less. 0 is 'limitless' so we need to set
 		//it to the max and loop until we reach all available results, 50 at a time.
 		$limit = ( $limit == 0 || $limit > 50 ? $limit = 50 : $limit = $limit );
 
-		$firstSubjectPath  = '';
-		$secondSubjectPath = '';
-		$is                = $this->rawUrlEncode( self::OPR_IS );
-		$or                = $this->rawUrlEncode( self::OPR_OR );
-		$optionalParam     = '&info=' . $this->arrayToCSV( $info ) . '';
+		$first_subject_path  = '';
+		$second_subject_path = '';
+		$is                  = $this->rawUrlEncode( self::OPR_IS );
+		$or                  = $this->rawUrlEncode( self::OPR_OR );
+		$optional_param      = '&info=' . $this->arrayToCSV( $info ) . '';
 
 		// if there's a specified user query, deal with it, change the order
 		// to relevance as opposed to 'modified' (default)
-		if ( $anyQuery != '' ) {
-			$order    = 'relevance';
-			$anyQuery = $this->rawUrlEncode( $anyQuery );
-			$anyQuery = 'q=' . $anyQuery . '&';
+		if ( $any_query != '' ) {
+			$order     = 'relevance';
+			$any_query = $this->rawUrlEncode( $any_query );
+			$any_query = 'q=' . $any_query . '&';
 		}
 
 		// start building the URL
-		$searchWhere = 'search?' . $anyQuery . '&collections=' . $this->collectionUuid . '&start=' . $start . '&length=' . $limit . '&order=' . $order . '&where=';   //limit 50 is the max results allowed by the API
+		$search_where = 'search?' . $any_query . '&collections=' . $this->collection_uuid . '&start=' . $start . '&length=' . $limit . '&order=' . $order . '&where=';   //limit 50 is the max results allowed by the API
 		//switch the API url, depending on whether you are searching for a keyword or a subject.
-		if ( empty( $this->whereClause ) ) {
-			$this->url = $this->apiBaseUrl . $searchWhere . $optionalParam;
+		if ( empty( $this->where_clause ) ) {
+			$this->url = $this->api_base_url . $search_where . $optional_param;
 		} // SCENARIOS, require three distinct request urls depending...
 		// 1
-		elseif ( $this->keywordFlag == true ) {
-			$firstSubjectPath = $this->urlEncode( $this->keywordPath );
+		elseif ( $this->keyword_flag == true ) {
+			$first_subject_path = $this->urlEncode( $this->keyword_path );
 			//oh, the API is case sensitive so this broadens our results, which we want
-			$secondWhere = strtolower( $this->whereClause );
-			$firstWhere  = ucwords( $this->whereClause );
-			$this->url   = $this->apiBaseUrl . $searchWhere . $firstSubjectPath . $is . "'" . $firstWhere . "'" . $or . $firstSubjectPath . $is . "'" . $secondWhere . "'" . $optionalParam;  //add the base url, put it all together
+			$second_where = strtolower( $this->where_clause );
+			$first_where  = ucwords( $this->where_clause );
+			$this->url    = $this->api_base_url . $search_where . $first_subject_path . $is . "'" . $first_where . "'" . $or . $first_subject_path . $is . "'" . $second_where . "'" . $optional_param;  //add the base url, put it all together
 		} // 2
-		elseif ( $this->byContributorFlag == true ) {
-			$firstSubjectPath = $this->urlEncode( $this->contributorPath );
-			$this->url        = $this->apiBaseUrl . $searchWhere . $firstSubjectPath . $is . "'" . $this->whereClause . "'" . $optionalParam;
+		elseif ( $this->by_contributor_flag == true ) {
+			$first_subject_path = $this->urlEncode( $this->contributor_path );
+			$this->url          = $this->api_base_url . $search_where . $first_subject_path . $is . "'" . $this->where_clause . "'" . $optional_param;
 		} // 3
 		else {
-			$firstSubjectPath  = $this->urlEncode( $this->subjectPath1 );
-			$secondSubjectPath = $this->urlEncode( $this->subjectPath2 );
-			$this->url         = $this->apiBaseUrl . $searchWhere . $firstSubjectPath . $is . "'" . $this->whereClause . "'" . $or . $secondSubjectPath . $is . "'" . $this->whereClause . "'" . $optionalParam;  //add the base url, put it all together
+			$first_subject_path  = $this->urlEncode( $this->subject_path_1 );
+			$second_subject_path = $this->urlEncode( $this->subject_path_2 );
+			$this->url           = $this->api_base_url . $search_where . $first_subject_path . $is . "'" . $this->where_clause . "'" . $or . $second_subject_path . $is . "'" . $this->where_clause . "'" . $optional_param;  //add the base url, put it all together
 		}
 
 		// go and get it
@@ -165,31 +164,31 @@ class EquellaFetch {
 		//if the # of results we get back is less than the max we asked for
 		if ( $result['length'] != 50 ) {
 
-			$this->availableResults   = $result['available'];
-			$this->justTheResultsMaam = $result['results'];
+			$this->available_results     = $result['available'];
+			$this->just_the_results_maam = $result['results'];
 		} else {
 
 			// is the available amount greater than the what was returned? Get more!
-			$availableResults = $result['available'];
-			$start            = $result['start'];
-			$limit            = $result['length'];
+			$available_results = $result['available'];
+			$start             = $result['start'];
+			$limit             = $result['length'];
 
-			if ( $availableResults > $limit ) {
-				$loop = intval( $availableResults / $limit );
+			if ( $available_results > $limit ) {
+				$loop = intval( $available_results / $limit );
 
 				for ( $i = 0; $i < $loop; $i ++ ) {
-					$start       = $start + 50;
-					$searchWhere = 'search?' . $anyQuery . '&collections=' . $this->collectionUuid . '&start=' . $start . '&length=' . $limit . '&order=' . $order . '&where=';   //length 50 is the max results allowed by the API
+					$start        = $start + 50;
+					$search_where = 'search?' . $any_query . '&collections=' . $this->collection_uuid . '&start=' . $start . '&length=' . $limit . '&order=' . $order . '&where=';   //length 50 is the max results allowed by the API
 					//Three different scenarios here, depending..
 					//1
-					if ( ! empty( $this->whereClause ) && $this->byContributorFlag == true ) {
-						$this->url = $this->apiBaseUrl . $searchWhere . $firstSubjectPath . $is . "'" . $this->whereClause . "'" . $optionalParam;
+					if ( ! empty( $this->where_clause ) && $this->by_contributor_flag == true ) {
+						$this->url = $this->api_base_url . $search_where . $first_subject_path . $is . "'" . $this->where_clause . "'" . $optional_param;
 					} //2
-					elseif ( ! empty( $this->whereClause ) ) {
-						$this->url = $this->apiBaseUrl . $searchWhere . $firstSubjectPath . $is . "'" . $this->whereClause . "'" . $or . $secondSubjectPath . $is . "'" . $this->whereClause . "'" . $optionalParam;  //add the base url, put it all together
+					elseif ( ! empty( $this->where_clause ) ) {
+						$this->url = $this->api_base_url . $search_where . $first_subject_path . $is . "'" . $this->where_clause . "'" . $or . $second_subject_path . $is . "'" . $this->where_clause . "'" . $optional_param;  //add the base url, put it all together
 					} //3
 					else {
-						$this->url = $this->apiBaseUrl . $searchWhere . $optionalParam;
+						$this->url = $this->api_base_url . $search_where . $optional_param;
 					}
 					// modify the url
 					curl_setopt( $ch, CURLOPT_URL, $this->url );
@@ -199,11 +198,11 @@ class EquellaFetch {
 						throw new \Exception( 'Something went wrong with the API call to SOLR' );
 					}
 
-					$nextResult = json_decode( $ok2, true );
+					$next_result = json_decode( $ok2, true );
 
 					// push each new result onto the existing array
-					$partOfNextResult = $nextResult['results'];
-					foreach ( $partOfNextResult as $val ) {
+					$part_of_next_result = $next_result['results'];
+					foreach ( $part_of_next_result as $val ) {
 						array_push( $result['results'], $val );
 					}
 				}
@@ -211,32 +210,33 @@ class EquellaFetch {
 		} /* end of else */
 		curl_close( $ch );
 
-		$this->availableResults   = $result['available'];
-		$this->justTheResultsMaam = $result['results'];
+		$this->available_results     = $result['available'];
+		$this->just_the_results_maam = $result['results'];
 	}
 
 	/**
 	 * Helper function to turn an array into a comma separated value. If it's passed
 	 * a key (mostly an author's name) it will strip out the equella user name
 	 *
-	 * @param Array - an array of values
+	 * @param array $any_array
 	 * @param String $key - the key of the associative array you want returned
+	 *
 	 * @return String of comma separated values
 	 */
-	public static function arrayToCSV( $anyArray = [], $key = '' ) {
+	public static function arrayToCSV( $any_array = [], $key = '' ) {
 		$result = '';
 
-		if ( is_array( $anyArray ) ) {
+		if ( is_array( $any_array ) ) {
 			//if it's not being passed a key from an associative array
 			//NOTE adding a space to either side of the comma below will break the
 			//integrity of the url given to get_file_contents above.
 			if ( $key == '' ) {
-				foreach ( $anyArray as $value ) {
+				foreach ( $any_array as $value ) {
 					$result .= $value . ',';
 				}
 				//return the value at the key in the associative array
 			} else {
-				foreach ( $anyArray as $value ) {
+				foreach ( $any_array as $value ) {
 					//names in db sometimes contain usernames [inbrackets], strip 'em out!
 					$tmp     = ( ! strpos( $value[ $key ], '[' ) ) ? $value[ $key ] : rtrim( strstr( $value[ $key ], '[', true ) );
 					$result .= $tmp . ', ';

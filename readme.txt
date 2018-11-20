@@ -90,6 +90,8 @@ See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more det
 
 = 4.2.2 (2018/11/19) =
 * fix fontsize response to a11y function
+* update dependencies
+* update OTB theme 2.1.5
 * compatibility with PB 5.6.0
 
 = 4.2.1 (2018/10/17) =
@@ -105,7 +107,7 @@ See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more det
 
 = 4.1.2 (2018/07/12) =
 * markup parity for textboxes
-* bump up otb theme to 2.1.4
+* bump up OTB theme to 2.1.4
 
 = 4.1.1 (2018/07/11) =
 * fix for parent theme change - thanks @greatislander

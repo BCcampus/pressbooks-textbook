@@ -16,7 +16,7 @@
 //$image-caption-font-family: $font-1 !default;
 //// Font size for image captions.
 //// @type String
-//$image-caption-font-size: .8em !default;
+$image-caption-font-size: (epub: .88em, prince: .88em, web: .88rem) !default;
 //// Font style for image captions.
 //// @type String
 //$image-caption-font-style: normal !default;
