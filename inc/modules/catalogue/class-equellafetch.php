@@ -14,20 +14,20 @@ namespace PBT\Modules\Catalogue;
 
 class EquellaFetch {
 
-	private $api_base_url          = 'http://solr.bccampus.ca:8001/bcc/api/';
-	private $subject_path_1        = '/xml/item/subject_class_level1';
-	private $subject_path_2        = '/xml/item/subject_class_level2';
-	private $contributor_path      = '/xml/contributordetails/institution';
-	private $keyword_path          = '/xml/item/keywords';
-	private $where_clause          = '';
-	private $url                   = '';
-	private $just_the_results_maam = [];
-	private $available_results     = 0;
-	private $search_term           = '';
-	private $keyword_flag          = false;
-	private $by_contributor_flag   = false;
-	private $uuid                  = '';
-	private $collection_uuid       = '7567d816-90cc-4547-af7a-3dbd43277639';
+	private $apiBaseUri         = 'http://solr.bccampus.ca:8001/bcc/api/';
+	private $subjectPath1       = '/xml/item/subject_class_level1';
+	private $subjectPath2       = '/xml/item/subject_class_level2';
+	private $contributorPath    = '/xml/contributordetails/institution';
+	private $keywordPath        = '/xml/item/keywords';
+	private $whereClause        = '';
+	private $url                = '';
+	private $justTheResultsMaam = [];
+	private $availableResults   = 0;
+	private $searchTerm         = '';
+	private $keywordFlag        = false;
+	private $byContributorFlag  = false;
+	private $uuid               = '';
+	private $collectionUuid     = '7567d816-90cc-4547-af7a-3dbd43277639';
 
 	const OPR_IS      = ' is ';
 	const OPR_OR      = ' OR ';
@@ -37,7 +37,7 @@ class EquellaFetch {
 	 *
 	 */
 	public function __construct() {
-		$this->searchBySubject( $this->search_term );
+		$this->searchBySubject( $this->searchTerm );
 	}
 
 	public function getUuid() {
@@ -45,19 +45,19 @@ class EquellaFetch {
 	}
 
 	public function getKeywordFlag() {
-		return $this->keyword_flag;
+		return $this->keywordFlag;
 	}
 
 	public function getContributorFlag() {
-		return $this->by_contributor_flag;
+		return $this->byContributorFlag;
 	}
 
 	public function getResults() {
-		return $this->just_the_results_maam;
+		return $this->justTheResultsMaam;
 	}
 
 	public function getWhereClause() {
-		return $this->where_clause;
+		return $this->whereClause;
 	}
 
 	/**
@@ -124,27 +124,27 @@ class EquellaFetch {
 		}
 
 		// start building the URL
-		$search_where = 'search?' . $any_query . '&collections=' . $this->collection_uuid . '&start=' . $start . '&length=' . $limit . '&order=' . $order . '&where=';   //limit 50 is the max results allowed by the API
+		$search_where = 'search?' . $any_query . '&collections=' . $this->collectionUuid . '&start=' . $start . '&length=' . $limit . '&order=' . $order . '&where=';   //limit 50 is the max results allowed by the API
 		//switch the API url, depending on whether you are searching for a keyword or a subject.
-		if ( empty( $this->where_clause ) ) {
-			$this->url = $this->api_base_url . $search_where . $optional_param;
+		if ( empty( $this->whereClause ) ) {
+			$this->url = $this->apiBaseUri . $search_where . $optional_param;
 		} // SCENARIOS, require three distinct request urls depending...
 		// 1
-		elseif ( $this->keyword_flag == true ) {
-			$first_subject_path = $this->urlEncode( $this->keyword_path );
+		elseif ( $this->keywordFlag == true ) {
+			$first_subject_path = $this->urlEncode( $this->keywordPath );
 			//oh, the API is case sensitive so this broadens our results, which we want
-			$second_where = strtolower( $this->where_clause );
-			$first_where  = ucwords( $this->where_clause );
-			$this->url    = $this->api_base_url . $search_where . $first_subject_path . $is . "'" . $first_where . "'" . $or . $first_subject_path . $is . "'" . $second_where . "'" . $optional_param;  //add the base url, put it all together
+			$second_where = strtolower( $this->whereClause );
+			$first_where  = ucwords( $this->whereClause );
+			$this->url    = $this->apiBaseUri . $search_where . $first_subject_path . $is . "'" . $first_where . "'" . $or . $first_subject_path . $is . "'" . $second_where . "'" . $optional_param;  //add the base url, put it all together
 		} // 2
-		elseif ( $this->by_contributor_flag == true ) {
-			$first_subject_path = $this->urlEncode( $this->contributor_path );
-			$this->url          = $this->api_base_url . $search_where . $first_subject_path . $is . "'" . $this->where_clause . "'" . $optional_param;
+		elseif ( $this->byContributorFlag == true ) {
+			$first_subject_path = $this->urlEncode( $this->contributorPath );
+			$this->url          = $this->apiBaseUri . $search_where . $first_subject_path . $is . "'" . $this->whereClause . "'" . $optional_param;
 		} // 3
 		else {
-			$first_subject_path  = $this->urlEncode( $this->subject_path_1 );
-			$second_subject_path = $this->urlEncode( $this->subject_path_2 );
-			$this->url           = $this->api_base_url . $search_where . $first_subject_path . $is . "'" . $this->where_clause . "'" . $or . $second_subject_path . $is . "'" . $this->where_clause . "'" . $optional_param;  //add the base url, put it all together
+			$first_subject_path  = $this->urlEncode( $this->subjectPath1 );
+			$second_subject_path = $this->urlEncode( $this->subjectPath2 );
+			$this->url           = $this->apiBaseUri . $search_where . $first_subject_path . $is . "'" . $this->whereClause . "'" . $or . $second_subject_path . $is . "'" . $this->whereClause . "'" . $optional_param;  //add the base url, put it all together
 		}
 
 		// go and get it
@@ -164,8 +164,8 @@ class EquellaFetch {
 		//if the # of results we get back is less than the max we asked for
 		if ( $result['length'] != 50 ) {
 
-			$this->available_results     = $result['available'];
-			$this->just_the_results_maam = $result['results'];
+			$this->availableResults   = $result['available'];
+			$this->justTheResultsMaam = $result['results'];
 		} else {
 
 			// is the available amount greater than the what was returned? Get more!
@@ -178,17 +178,17 @@ class EquellaFetch {
 
 				for ( $i = 0; $i < $loop; $i ++ ) {
 					$start        = $start + 50;
-					$search_where = 'search?' . $any_query . '&collections=' . $this->collection_uuid . '&start=' . $start . '&length=' . $limit . '&order=' . $order . '&where=';   //length 50 is the max results allowed by the API
+					$search_where = 'search?' . $any_query . '&collections=' . $this->collectionUuid . '&start=' . $start . '&length=' . $limit . '&order=' . $order . '&where=';   //length 50 is the max results allowed by the API
 					//Three different scenarios here, depending..
 					//1
-					if ( ! empty( $this->where_clause ) && $this->by_contributor_flag == true ) {
-						$this->url = $this->api_base_url . $search_where . $first_subject_path . $is . "'" . $this->where_clause . "'" . $optional_param;
+					if ( ! empty( $this->whereClause ) && $this->byContributorFlag == true ) {
+						$this->url = $this->apiBaseUri . $search_where . $first_subject_path . $is . "'" . $this->whereClause . "'" . $optional_param;
 					} //2
-					elseif ( ! empty( $this->where_clause ) ) {
-						$this->url = $this->api_base_url . $search_where . $first_subject_path . $is . "'" . $this->where_clause . "'" . $or . $second_subject_path . $is . "'" . $this->where_clause . "'" . $optional_param;  //add the base url, put it all together
+					elseif ( ! empty( $this->whereClause ) ) {
+						$this->url = $this->apiBaseUri . $search_where . $first_subject_path . $is . "'" . $this->whereClause . "'" . $or . $second_subject_path . $is . "'" . $this->whereClause . "'" . $optional_param;  //add the base url, put it all together
 					} //3
 					else {
-						$this->url = $this->api_base_url . $search_where . $optional_param;
+						$this->url = $this->apiBaseUri . $search_where . $optional_param;
 					}
 					// modify the url
 					curl_setopt( $ch, CURLOPT_URL, $this->url );
@@ -210,8 +210,8 @@ class EquellaFetch {
 		} /* end of else */
 		curl_close( $ch );
 
-		$this->available_results     = $result['available'];
-		$this->just_the_results_maam = $result['results'];
+		$this->availableResults   = $result['available'];
+		$this->justTheResultsMaam = $result['results'];
 	}
 
 	/**
