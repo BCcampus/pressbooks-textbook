@@ -88,10 +88,11 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
 
-= 4.2.2 (2018/11/19) =
+= 4.2.2 (2018/11/22) =
 * fix fontsize response to a11y function
 * update dependencies
 * update OTB theme 2.1.5
+* support for cnx import styles
 * compatibility with PB 5.6.0
 
 = 4.2.1 (2018/10/17) =
