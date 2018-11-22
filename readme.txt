@@ -4,7 +4,7 @@ Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution
 Tags: pressbooks, textbook
 Requires at least: 4.9.8
 Tested up to: 4.9.8
-Stable tag: 4.2.1
+Stable tag: 4.2.2
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -88,6 +88,13 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
 
+= 4.2.2 (2018/11/22) =
+* fix fontsize response to a11y function
+* update dependencies
+* update OTB theme 2.1.5
+* support for cnx import styles
+* compatibility with PB 5.6.0
+
 = 4.2.1 (2018/10/17) =
 * compatibility with PB 5.5.3
 * update deps
@@ -101,7 +108,7 @@ See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more det
 
 = 4.1.2 (2018/07/12) =
 * markup parity for textboxes
-* bump up otb theme to 2.1.4
+* bump up OTB theme to 2.1.4
 
 = 4.1.1 (2018/07/11) =
 * fix for parent theme change - thanks @greatislander

@@ -124,7 +124,7 @@
 //$section-break-page-invisible-margin-bottom: 1em !default;
 //
 //// Textboxes
-$textbox-font-size: 1em !default;
+$textbox-font-size: 1rem !default;
 //$textbox-font-style: normal !default;
 //$textbox-font-weight: normal !default;
 //$textbox-line-height: 1.2em;
@@ -345,4 +345,9 @@ div.equation {
 
 [data-type="term"] {
   font-weight: bold;
+}
+
+[data-type="note"]{
+  padding: 1rem;
+  background-color: #eeeeee;
 }

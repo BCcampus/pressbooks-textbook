@@ -182,7 +182,6 @@ $back-matter-title-align: left !default;
 
 .entry-title {
   font-family: $font-3;
-  font-size: 1.6em;
   font-weight: normal;
   text-align: left;
   margin: 100px 0 80px;
@@ -195,8 +194,13 @@ $back-matter-title-align: left !default;
   width: 20%;
 }
 
+@if $type == 'web' {
+  .chapter_subtitle {
+    font-size: 1rem;
+  }
+}
+
 .chapter_subtitle {
-  font-size: 1em;
   font-style: italic;
   font-weight: normal;
   margin: -80px 0 100px;

@@ -46,14 +46,14 @@ class TextbookAdmin extends PBT\Textbook {
 	 */
 	function adminMenuAdjuster() {
 		if ( \Pressbooks\Book::isBook() ) {
-			add_menu_page( __( 'Import', $this->plugin_slug ), __( 'Import', $this->plugin_slug ), 'edit_posts', 'pb_import', '\Pressbooks\Admin\Laf\display_import', 'dashicons-upload', 15 );
-			add_options_page( __( 'Textbooks for Pressbooks Settings', $this->plugin_slug ), __( 'Textbooks for PB', $this->plugin_slug ), 'manage_options', $this->plugin_slug . '-settings', [ $this, 'displayPluginAdminPage' ] );
-			add_menu_page( __( 'Textbooks for Pressbooks', $this->plugin_slug ), __( 'Textbooks for PB', $this->plugin_slug ), 'edit_posts', $this->plugin_slug, [ $this, 'displayPBTPage' ], 'dashicons-tablet', 64 );
+			add_menu_page( __( 'Import', 'pressbooks-textbook' ), __( 'Import', 'pressbooks-textbook' ), 'edit_posts', 'pb_import', '\Pressbooks\Admin\Laf\display_import', 'dashicons-upload', 15 );
+			add_options_page( __( 'Textbooks for Pressbooks Settings', 'pressbooks-textbook' ), __( 'Textbooks for PB', 'pressbooks-textbook' ), 'manage_options', $this->plugin_slug . '-settings', [ $this, 'displayPluginAdminPage' ] );
+			add_menu_page( __( 'Textbooks for Pressbooks', 'pressbooks-textbook' ), __( 'Textbooks for PB', 'pressbooks-textbook' ), 'edit_posts', $this->plugin_slug, [ $this, 'displayPBTPage' ], 'dashicons-tablet', 64 );
 			// check if the functionality we need is available
 			if ( class_exists( '\Pressbooks\Modules\Api_v1\Api' ) ) {
-				add_submenu_page( $this->plugin_slug, __( 'Search and Import', $this->plugin_slug ), __( 'Search and Import', $this->plugin_slug ), 'edit_posts', 'api_search_import', [ $this, 'displayApiSearchPage' ], '', 65 );
+				add_submenu_page( $this->plugin_slug, __( 'Search and Import', 'pressbooks-textbook' ), __( 'Search and Import', 'pressbooks-textbook' ), 'edit_posts', 'api_search_import', [ $this, 'displayApiSearchPage' ], '', 65 );
 			}
-			add_submenu_page( $this->plugin_slug, __( 'Download Textbooks', $this->plugin_slug ), __( 'Download Textbooks', $this->plugin_slug ), 'edit_posts', 'download_textbooks', [ $this, 'displayDownloadTextbooks' ], '', 66 );
+			add_submenu_page( $this->plugin_slug, __( 'Download Textbooks', 'pressbooks-textbook' ), __( 'Download Textbooks', 'pressbooks-textbook' ), 'edit_posts', 'download_textbooks', [ $this, 'displayDownloadTextbooks' ], '', 66 );
 			if ( version_compare( PB_PLUGIN_VERSION, '2.7' ) >= 0 ) {
 				remove_menu_page( 'pb_publish' );
 			} else {
@@ -110,7 +110,7 @@ class TextbookAdmin extends PBT\Textbook {
 		// remove PB news from their blog
 		remove_meta_box( 'pb_dashboard_widget_metadata', 'dashboard', 'side' );
 		// add our own
-		add_meta_box( 'pbt_news_feed', __( 'Open Textbook News', $this->plugin_slug ), [ $this, 'displayOtbFeed' ], 'dashboard', 'side', 'high' );
+		add_meta_box( 'pbt_news_feed', __( 'Open Textbook News', 'pressbooks-textbook' ), [ $this, 'displayOtbFeed' ], 'dashboard', 'side', 'high' );
 	}
 
 	/**
@@ -122,7 +122,7 @@ class TextbookAdmin extends PBT\Textbook {
 		wp_widget_rss_output(
 			[
 				'url' => 'https://open.bccampus.ca/feed/',
-				'title' => __( 'Open Textbook News', $this->plugin_slug ),
+				'title' => __( 'Open Textbook News', 'pressbooks-textbook' ),
 				'items' => 5,
 				'show_summary' => 1,
 				'show_author' => 0,
@@ -160,7 +160,7 @@ class TextbookAdmin extends PBT\Textbook {
 		// $id, $title, $callback, $page, $section
 		add_settings_field(
 			'add_api_endpoint',
-			__( 'Add an endpoint to your network', $this->plugin_slug ),
+			__( 'Add an endpoint to your network', 'pressbooks-textbook' ),
 			'\PBT\Settings\api_endpoint_public_callback',
 			$page,
 			$section
@@ -263,7 +263,7 @@ class TextbookAdmin extends PBT\Textbook {
 
 		return array_merge(
 			[
-				'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug . '-settings' ) . '">' . __( 'Settings', $this->plugin_slug ) . '</a>',
+				'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_slug . '-settings' ) . '">' . __( 'Settings', 'pressbooks-textbook' ) . '</a>',
 			], $links
 		);
 	}

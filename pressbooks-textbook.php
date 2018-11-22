@@ -11,7 +11,7 @@
  * @wordpress-plugin
  * Plugin Name:       Textbooks for Pressbooks
  * Description:       A plugin that extends Pressbooks for textbook authoring
- * Version:           4.2.1
+ * Version:           4.2.2
  * Author:            Brad Payne
  * Author URI:        http://github.com/bdolor
  * Text Domain:       pressbooks-textbook
@@ -20,7 +20,7 @@
  * Domain Path:       /languages
  * GitHub Plugin URI: https://github.com/BCcampus/pressbooks-textbook
  * Tags: pressbooks, OER, publishing, textbooks
- * Pressbooks tested up to: 5.5.3
+ * Pressbooks tested up to: 5.6.0
  */
 
 // If file is called directly, abort.
