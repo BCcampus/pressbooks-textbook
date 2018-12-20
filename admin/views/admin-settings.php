@@ -18,17 +18,15 @@
 	get_settings_errors();
 
 	// message about functionality being tied to theme
-	if ( false == \PBT\Textbook::isTextbookTheme() ) {
+	if ( false === \PBT\Textbook::isTextbookTheme() ) {
 		echo "<div class='updated'><p>To access many features of this plugin, first <a href='themes.php'>activate one of our themes</a>, such as the Open Textbook theme.</p></div>";
 	}
 	?>
-	<?php $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'remix'; ?>
+	<?php $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'remix'; //@codingStandardsIgnoreLine ?>
 
 	<div id="icon-options-general" class="icon32"></div>
 	<h2 class="nav-tab-wrapper">
-		<a href="?page=pressbooks-textbook-settings&tab=remix"
-		   class="nav-tab <?php echo $active_tab == 'remix' ? 'nav-tab-active' : ''; ?>">Search
-			and Import</a>
+		<a href="?page=pressbooks-textbook-settings&tab=remix" class="nav-tab <?php echo $active_tab === 'remix' ? 'nav-tab-active' : ''; ?>">Search and Import</a>
 	</h2>
 	<!-- Create the form that will be used to modify display options -->
 	<form method="post" action="options.php" name="pbt_settings">
@@ -53,7 +51,7 @@
 				break;
 
 		}
-		if ( ! in_array( $active_tab, [ 'revise' ] ) ) {
+		if ( ! in_array( $active_tab, [ 'revise' ], true ) ) {
 			submit_button();
 		}
 		?>

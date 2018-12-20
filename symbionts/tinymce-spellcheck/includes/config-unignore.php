@@ -67,7 +67,7 @@ function TSpell_display_unignore_form() {
 	}
 
 	$ignores = TSpell_get_setting( $user->ID, 'TSpell_ignored_phrases' );
-?>
+	?>
 <script>
 function atd_show_phrases( ignored )
 {
@@ -151,5 +151,5 @@ else
 	  </tr>
    </table>
 
-<?php
+	<?php
 }

@@ -132,10 +132,10 @@ function TSpell_change_mce_settings( $init_array ) {
 	$init_array['atd_rpc_url']        = admin_url( 'admin-ajax.php?action=proxy_atd&_wpnonce=' . wp_create_nonce( 'proxy_atd' ) . '&url=' );
 	$init_array['atd_ignore_rpc_url'] = admin_url( 'admin-ajax.php?action=atd_ignore&_wpnonce=' . wp_create_nonce( 'tspell_ignore' ) . '&phrase=' );
 	$init_array['atd_rpc_id']         = 'WPORG-' . md5( get_bloginfo( 'wpurl' ) );
-	$init_array['atd_theme']          = 'wordpress';
+	$init_array['atd_theme']          = 'WordPress';
 	$init_array['atd_ignore_enable']  = 'true';
 	$init_array['atd_strip_on_get']   = 'true';
-	$init_array['atd_ignore_strings'] = json_encode( explode( ',',  TSpell_get_setting( $user->ID, 'TSpell_ignored_phrases' ) ) );
+	$init_array['atd_ignore_strings'] = json_encode( explode( ',', TSpell_get_setting( $user->ID, 'TSpell_ignored_phrases' ) ) );
 	$init_array['atd_show_types']     = TSpell_get_setting( $user->ID, 'TSpell_options' );
 	$init_array['gecko_spellcheck']   = 'false';
 
@@ -181,11 +181,11 @@ function TSpell_load_javascripts() {
 		return;
 	}
 
-	wp_enqueue_script( 'TSpell_core', plugins_url( '/js/atd.core.js', __FILE__ ), array(), TSPELL_VERSION );
-	wp_enqueue_script( 'TSpell_quicktags', plugins_url( '/js/atd-nonvis-editor-plugin.js', __FILE__ ), array( 'quicktags' ), TSPELL_VERSION );
-	wp_enqueue_script( 'TSpell_jquery', plugins_url( '/js/jquery.atd.js', __FILE__ ), array( 'jquery' ), TSPELL_VERSION );
-	wp_enqueue_script( 'TSpell_settings', admin_url() . 'admin-ajax.php?action=atd_settings', array( 'TSpell_jquery' ), TSPELL_VERSION );
-	wp_enqueue_script( 'TSpell_autoproofread', plugins_url( '/js/atd-autoproofread.js', __FILE__ ), array( 'TSpell_jquery' ), TSPELL_VERSION );
+	wp_enqueue_script( 'TSpell_core', plugins_url( '/js/atd.core.js', __FILE__ ), [], TSPELL_VERSION );
+	wp_enqueue_script( 'TSpell_quicktags', plugins_url( '/js/atd-nonvis-editor-plugin.js', __FILE__ ), [ 'quicktags' ], TSPELL_VERSION );
+	wp_enqueue_script( 'TSpell_jquery', plugins_url( '/js/jquery.atd.js', __FILE__ ), [ 'jquery' ], TSPELL_VERSION );
+	wp_enqueue_script( 'TSpell_settings', admin_url() . 'admin-ajax.php?action=atd_settings', [ 'TSpell_jquery' ], TSPELL_VERSION );
+	wp_enqueue_script( 'TSpell_autoproofread', plugins_url( '/js/atd-autoproofread.js', __FILE__ ), [ 'TSpell_jquery' ], TSPELL_VERSION );
 }
 
 /* Spits out user options for auto-proofreading on publish/update */
@@ -201,7 +201,7 @@ function TSpell_load_submit_check_javascripts() {
 		$atd_check_when = TSpell_get_setting( $user->ID, 'TSpell_check_when' );
 
 		if ( ! empty( $atd_check_when ) ) {
-			$check_when = array();
+			$check_when = [];
 			/* Set up the options in json */
 			foreach ( explode( ',', $atd_check_when ) as $option ) {
 				$check_when[ $option ] = true;
@@ -239,7 +239,7 @@ function TSpell_load_css() {
 function TSpell_should_load_on_page() {
 	global $pagenow, $current_screen;
 
-	$pages = array( 'post.php', 'post-new.php', 'page.php', 'page-new.php', 'admin.php', 'profile.php' );
+	$pages = [ 'post.php', 'post-new.php', 'page.php', 'page-new.php', 'admin.php', 'profile.php' ];
 
 	if ( in_array( $pagenow, $pages ) ) {
 		if ( isset( $current_screen->post_type ) && $current_screen->post_type ) {
@@ -254,7 +254,11 @@ function TSpell_should_load_on_page() {
 // add button to DFW
 add_filter( 'wp_fullscreen_buttons', 'TSpell_fullscreen' );
 function TSpell_fullscreen( $buttons ) {
-	$buttons['spellchecker'] = array( 'title' => __( 'Proofread Writing', 'tinymce-spellcheck' ), 'onclick' => "tinyMCE.execCommand('mceWritingImprovementTool');", 'both' => false );
+	$buttons['spellchecker'] = [
+		'title' => __( 'Proofread Writing', 'tinymce-spellcheck' ),
+		'onclick' => "tinyMCE.execCommand('mceWritingImprovementTool');",
+		'both' => false,
+	];
 	return $buttons;
 }
 
@@ -280,5 +284,5 @@ include( 'includes/atd-l10n.php' );
 // Load i18n
 add_action( 'plugins_loaded', 'TSpell_languages' );
 function TSpell_languages() {
-	load_plugin_textdomain( 'tinymce-spellcheck', false , dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	load_plugin_textdomain( 'tinymce-spellcheck', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }

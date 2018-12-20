@@ -8,31 +8,31 @@
  * Based on a function from Akismet
  */
 function TSpell_http_post( $request, $host, $path, $port = 80 ) {
-	$http_args = array(
+	$http_args  = [
 		'body'                 => $request,
-		'headers'              => array(
+		'headers'              => [
 			'Content-Type' => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
 			'Host'         => $host,
 			'User-Agent'   => 'AtD/0.1',
-		),
+		],
 		'httpversion'          => '1.0',
 		'timeout'              => apply_filters( 'atd_http_post_timeout', 15 ),
-	);
+	];
 	$TSpell_url = "http://{$host}{$path}";
-	$response = wp_remote_post( $TSpell_url, $http_args );
-	$code = (int) wp_remote_retrieve_response_code( $response );
+	$response   = wp_remote_post( $TSpell_url, $http_args );
+	$code       = (int) wp_remote_retrieve_response_code( $response );
 
 	if ( is_wp_error( $response ) ) {
 		do_action( 'atd_http_post_error', 'http-error' );
-		return array();
+		return [];
 	} elseif ( 200 != $code ) {
 		do_action( 'atd_http_post_error', $code );
 	}
 
-	return array(
+	return [
 		wp_remote_retrieve_headers( $response ),
 		wp_remote_retrieve_body( $response ),
-	);
+	];
 }
 
 /*
@@ -57,7 +57,7 @@ function TSpell_redirect_call() {
 			$service = 'fr.service.afterthedeadline.com';
 		}
 	}
-	$user = wp_get_current_user();
+	$user  = wp_get_current_user();
 	$guess = strcmp( TSpell_get_setting( $user->ID, 'TSpell_guess_lang' ), 'true' ) == 0 ? 'true' : 'false';
 
 	$data = TSpell_http_post( $postText . "&guess=$guess", defined( 'ATD_HOST' ) ? ATD_HOST : $service, $url, defined( 'ATD_PORT' ) ? ATD_PORT : 80 );

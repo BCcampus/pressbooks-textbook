@@ -20,7 +20,7 @@ function pbt_enqueue_scripts() {
 
 	// scripts only required if on a single page and user has configured theme options
 	if ( is_single() && ! empty( pbt_get_web_options_tab() ) ) {
-		wp_enqueue_script( 'pb-tabs', get_stylesheet_directory_uri() . '/assets/js/tabs.js', array( 'jquery' ), null, false );
+		wp_enqueue_script( 'pb-tabs', get_stylesheet_directory_uri() . '/assets/js/tabs.js', [ 'jquery' ], null, false );
 		wp_enqueue_script( 'jquery-ui-tabs' );
 		wp_enqueue_style( 'revisions', ABSPATH . '/wp-admin/css/revisions.css' );
 	}
@@ -44,11 +44,11 @@ add_action( 'wp_enqueue_scripts', 'pbt_enqueue_scripts' );
  */
 function pbt_tab_revision_history( $post ) {
 	$html    = '';
-	$args    = array(
+	$args    = [
 		'order'         => 'DESC',
 		'orderby'       => 'date ID',
 		'check_enabled' => false,
-	);
+	];
 	$enabled = wp_revisions_enabled( $post );
 	$limit   = 3;
 	$i       = 0;
@@ -94,7 +94,7 @@ function pbt_tab_revision_history( $post ) {
 
 		if ( ! empty( $diff ) ) {
 			$human_readable_date = date( 'M j, Y', strtotime( $revision->post_date_gmt ) );
-			$html                .= "<b>{$human_readable_date}</b>{$diff}";
+			$html               .= "<b>{$human_readable_date}</b>{$diff}";
 		}
 
 		$i ++;
@@ -114,7 +114,7 @@ function pbt_tab_revision_history( $post ) {
 function pbt_tab_book_info() {
 	$html      = '';
 	$book_meta = \Pressbooks\Book::getBookInformation();
-	$expected  = array(
+	$expected  = [
 		'pb_title',
 		'pb_authors',
 		'pb_contributors',
@@ -128,16 +128,16 @@ function pbt_tab_book_info() {
 		'pb_book_licence',
 		'pb_keywords_tags',
 		'pb_bisac_subject',
-	);
-	$html      .= '<dl class="dl-horizontal">';
+	];
+	$html     .= '<dl class="dl-horizontal">';
 	foreach ( $book_meta as $key => $val ) {
 		// skip stuff we don't want
 		if ( ! in_array( $key, $expected ) ) {
 			continue;
 		}
 		$title = pbt_explode_on_underscores( $key, 'first' );
-		$html  .= "<dt>{$title}</dt>";
-		$html  .= "<dd>{$val}</dd>";
+		$html .= "<dt>{$title}</dt>";
+		$html .= "<dd>{$val}</dd>";
 	}
 	$html .= '</dl>';
 
@@ -202,12 +202,12 @@ function pbt_tabbed_content_callback() {
 	if ( ! isset( $options['tab_book_info'] ) ) {
 		$options['tab_book_info'] = 0;
 	}
-	if ( ! isset( $options['tab_attributions'] ) ||  ! class_exists( 'Candela\Citation' ) ) {
+	if ( ! isset( $options['tab_attributions'] ) || ! class_exists( 'Candela\Citation' ) ) {
 		$options['tab_attributions'] = 0;
 	}
 
 	// revision history
-	$html = '<input type="checkbox" id="tab_revision_history" name="pressbooks_theme_options_web[tab_revision_history]" value="1" ' . checked( 1, $options['tab_revision_history'], false ) . '/>';
+	$html  = '<input type="checkbox" id="tab_revision_history" name="pressbooks_theme_options_web[tab_revision_history]" value="1" ' . checked( 1, $options['tab_revision_history'], false ) . '/>';
 	$html .= '<label for="tab_revision_history"> ' . __( 'Display revision history for each chapter with everyone.', 'opentextbooks' ) . '</label><br/>';
 
 	// book info
@@ -275,7 +275,7 @@ function pbt_get_web_options_tab() {
 	$web_option_keys = array_keys( $options );
 	$prefix          = 'tab_';
 	$length          = strlen( $prefix );
-	$tabs            = array();
+	$tabs            = [];
 
 	// compare first four characters and check tab option is true
 	foreach ( $web_option_keys as $key ) {

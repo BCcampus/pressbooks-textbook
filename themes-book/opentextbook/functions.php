@@ -151,7 +151,7 @@ function pbt_fix_img_relative( $content ) {
 	static $searches = [
 		'#<(?:img) .*?src=[\'"]\Khttp://[^\'"]+#i',
 	];
-	$content = preg_replace_callback( $searches, 'pbt_fix_img_relative_callback', $content );
+	$content         = preg_replace_callback( $searches, 'pbt_fix_img_relative_callback', $content );
 
 	return $content;
 }

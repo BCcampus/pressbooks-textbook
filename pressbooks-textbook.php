@@ -133,7 +133,7 @@ if ( file_exists( $composer ) ) {
 |
 |
 */
-require PBT_PLUGIN_DIR . 'inc/pbt-settings.php';
+require PBT_PLUGIN_DIR . 'inc/settings/namespace.php';
 
 /*
 |--------------------------------------------------------------------------
