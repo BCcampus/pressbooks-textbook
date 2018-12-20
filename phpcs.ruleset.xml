@@ -20,8 +20,6 @@
         <exclude name="WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar"/>
         <exclude name="WordPress.VIP.SessionVariableUsage"/>
         <exclude name="WordPress.VIP.SessionFunctionsUsage"/>
-        <!-- Disable LayoutOrder until humanmade/coding-standards#5 is fixed -->
-        <exclude name="HM.Layout.Order.WrongOrder"/>
     </rule>
 
     <!-- Re-enable rules we agree with -->
@@ -30,11 +28,13 @@
     <!-- Disable Side Effects rule for bootstrapping file, extends WordPress core, cron scripts -->
     <rule ref="PSR1.Files.SideEffects">
         <exclude-pattern>/bin/*</exclude-pattern>
+        <exclude-pattern>/themes-book/opentextbook/functions.php</exclude-pattern>
     </rule>
 
     <!-- Disable Namespaced Functions for cron scripts -->
     <rule ref="HM.Functions.NamespacedFunctions">
         <exclude-pattern>/bin/*</exclude-pattern>
+        <exclude-pattern>/themes-book/opentextbook/functions.php</exclude-pattern>
     </rule>
 
     <exclude-pattern>/vendor/*</exclude-pattern>

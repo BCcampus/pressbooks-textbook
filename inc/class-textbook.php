@@ -22,7 +22,7 @@ class Textbook {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	const VERSION = '4.2.2';
+	const VERSION = '4.2.3';
 
 	/**
 	 * Unique identifier for plugin.
@@ -369,7 +369,7 @@ class Textbook {
 		update_option( 'pressbooks_theme_options_ebook', $epub_compress_images );
 
 		// modify the book description
-		update_option( 'blogdescription', __( 'Open Textbook', $this->plugin_slug ) );
+		update_option( 'blogdescription', __( 'Open Textbook', 'pressbooks-textbook' ) );
 
 		// redistribute latest exports
 		update_option( 'pbt_redistribute_settings', $redistribute_files );

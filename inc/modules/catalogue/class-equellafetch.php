@@ -126,22 +126,19 @@ class EquellaFetch {
 		// start building the URL
 		$search_where = 'search?' . $any_query . '&collections=' . $this->collectionUuid . '&start=' . $start . '&length=' . $limit . '&order=' . $order . '&where=';   //limit 50 is the max results allowed by the API
 		//switch the API url, depending on whether you are searching for a keyword or a subject.
+		// SCENARIOS, require three distinct request urls depending...
 		if ( empty( $this->whereClause ) ) {
 			$this->url = $this->apiBaseUri . $search_where . $optional_param;
-		} // SCENARIOS, require three distinct request urls depending...
-		// 1
-		elseif ( $this->keywordFlag == true ) {
+		} elseif ( $this->keywordFlag == true ) {
 			$first_subject_path = $this->urlEncode( $this->keywordPath );
 			//oh, the API is case sensitive so this broadens our results, which we want
 			$second_where = strtolower( $this->whereClause );
 			$first_where  = ucwords( $this->whereClause );
 			$this->url    = $this->apiBaseUri . $search_where . $first_subject_path . $is . "'" . $first_where . "'" . $or . $first_subject_path . $is . "'" . $second_where . "'" . $optional_param;  //add the base url, put it all together
-		} // 2
-		elseif ( $this->byContributorFlag == true ) {
+		} elseif ( $this->byContributorFlag == true ) {
 			$first_subject_path = $this->urlEncode( $this->contributorPath );
 			$this->url          = $this->apiBaseUri . $search_where . $first_subject_path . $is . "'" . $this->whereClause . "'" . $optional_param;
-		} // 3
-		else {
+		} else {
 			$first_subject_path  = $this->urlEncode( $this->subjectPath1 );
 			$second_subject_path = $this->urlEncode( $this->subjectPath2 );
 			$this->url           = $this->apiBaseUri . $search_where . $first_subject_path . $is . "'" . $this->whereClause . "'" . $or . $second_subject_path . $is . "'" . $this->whereClause . "'" . $optional_param;  //add the base url, put it all together
@@ -180,14 +177,11 @@ class EquellaFetch {
 					$start        = $start + 50;
 					$search_where = 'search?' . $any_query . '&collections=' . $this->collectionUuid . '&start=' . $start . '&length=' . $limit . '&order=' . $order . '&where=';   //length 50 is the max results allowed by the API
 					//Three different scenarios here, depending..
-					//1
 					if ( ! empty( $this->whereClause ) && $this->byContributorFlag == true ) {
 						$this->url = $this->apiBaseUri . $search_where . $first_subject_path . $is . "'" . $this->whereClause . "'" . $optional_param;
-					} //2
-					elseif ( ! empty( $this->whereClause ) ) {
+					} elseif ( ! empty( $this->whereClause ) ) {
 						$this->url = $this->apiBaseUri . $search_where . $first_subject_path . $is . "'" . $this->whereClause . "'" . $or . $second_subject_path . $is . "'" . $this->whereClause . "'" . $optional_param;  //add the base url, put it all together
-					} //3
-					else {
+					} else {
 						$this->url = $this->apiBaseUri . $search_where . $optional_param;
 					}
 					// modify the url

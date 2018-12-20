@@ -135,7 +135,8 @@ class TextbookAdmin extends PBT\Textbook {
 	 * Options for functionality that support remix
 	 */
 	private function remixSettings() {
-		$page    = $option = 'pbt_remix_settings';
+		$page    = 'pbt_remix_settings';
+		$option  = 'pbt_remix_setings';
 		$section = 'pbt_remix_section';
 
 		// Remix
