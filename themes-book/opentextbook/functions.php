@@ -1,25 +1,4 @@
 <?php
-/*
-|--------------------------------------------------------------------------
-| Include tab functionality
-|--------------------------------------------------------------------------
-|
-| Tabs
-|
-|
-*/
-require get_stylesheet_directory() . '/inc/tab-functions.php';
-
-/*
-|--------------------------------------------------------------------------
-| Automatically update web theme if necessary
-|--------------------------------------------------------------------------
-|
-|
-|
-|
-*/
-
 /**
  * Automatically update theme files/regenerate scss compile based on theme
  * version number
@@ -76,7 +55,7 @@ function pbt_get_seo_meta_elements() {
 	foreach ( $meta_mapping as $name => $content ) {
 		if ( array_key_exists( $content, $metadata ) ) {
 			$html .= "<meta name='" . $name . "' content='" . $metadata[ $content ] . "'>\n";
-		} elseif ( 'citation_pdf_url' == $name ) {
+		} elseif ( 'citation_pdf_url' === $name ) {
 			$html .= "<meta name='" . $name . "' content='" . $content . "'>\n";
 		}
 	}
@@ -95,10 +74,10 @@ function pbt_get_citation_pdf_url() {
 		$files = \Pressbooks\Utility\latest_exports();
 
 		$options = get_option( 'pbt_redistribute_settings' );
-		if ( ! empty( $files ) && ( true == $options['latest_files_public'] ) ) {
+		if ( ! empty( $files ) && ( true === $options['latest_files_public'] ) ) {
 
 			foreach ( $files as $filetype => $filename ) {
-				if ( 'pdf' == $filetype || 'mpdf' == $filetype ) {
+				if ( 'pdf' === $filetype || 'mpdf' === $filetype ) {
 					$filename = preg_replace( '/(-\d{10})(.*)/ui', '$1', $filename );
 					// rewrite rule
 					$url = $domain . "/open/download?filename={$filename}&type={$filetype}";
@@ -115,7 +94,8 @@ function pbt_get_citation_pdf_url() {
  */
 function pbt_get_microdata_meta_elements() {
 	// map items that are already captured
-	$html = $metadata = '';
+	$html     = '';
+	$metadata = '';
 
 	// add elements that aren't captured, and don't need user input
 	$edu_align = ( isset( $metadata['pb_bisac_subject'] ) ) ? $metadata['pb_bisac_subject'] : '';
@@ -151,7 +131,7 @@ function pbt_fix_img_relative( $content ) {
 	static $searches = [
 		'#<(?:img) .*?src=[\'"]\Khttp://[^\'"]+#i',
 	];
-	$content = preg_replace_callback( $searches, 'pbt_fix_img_relative_callback', $content );
+	$content         = preg_replace_callback( $searches, 'pbt_fix_img_relative_callback', $content );
 
 	return $content;
 }
@@ -197,7 +177,7 @@ add_action( 'wp_head', 'pbt_add_metadata' );
 function pbt_add_openstax() {
 	// tmp fix, rush job
 	$openstax = get_bloginfo( 'url' );
-	if ( 'https://opentextbc.ca/anatomyandphysiology' == $openstax ) {
+	if ( 'https://opentextbc.ca/anatomyandphysiology' === $openstax ) {
 		echo "<small class='aligncenter'>";
 		__( 'Download for free at http://cnx.org/contents/14fb4ad7-39a1-4eee-ab6e-3ef2482e3e22@8.24', 'pressbooks-textbook' );
 		echo '</small>';
@@ -240,7 +220,7 @@ function pbt_explode_on_underscores( $string, $exclude = '' ) {
 		return $string;
 	}
 	// exclude the first or the last element
-	if ( in_array( $exclude, $expected ) ) {
+	if ( in_array( $exclude, $expected, true ) ) {
 		if ( 0 === strcasecmp( 'first', $exclude ) && count( $parts ) >= 2 ) {
 			array_shift( $parts );
 		}
@@ -281,3 +261,280 @@ add_action(
 		get_template_part( 'tabs', 'content' );
 	}
 );
+
+/*
+|--------------------------------------------------------------------------
+| Include tab functionality
+|--------------------------------------------------------------------------
+|
+| Tabs
+|
+|
+*/
+
+/**
+ * enable footer tabs
+ */
+function pbt_enqueue_scripts() {
+
+	// scripts only required if on a single page and user has configured theme options
+	if ( is_single() && ! empty( pbt_get_web_options_tab() ) ) {
+		wp_enqueue_script( 'pb-tabs', get_stylesheet_directory_uri() . '/assets/js/tabs.js', [ 'jquery' ], null, false );
+		wp_enqueue_script( 'jquery-ui-tabs' );
+		wp_enqueue_style( 'revisions', ABSPATH . '/wp-admin/css/revisions.css' );
+	}
+}
+
+add_action( 'wp_enqueue_scripts', 'pbt_enqueue_scripts' );
+
+/**
+ * @param $post
+ *
+ * @return string
+ */
+function pbt_tab_revision_history( $post ) {
+	$html    = '';
+	$args    = [
+		'order'         => 'DESC',
+		'orderby'       => 'date ID',
+		'check_enabled' => false,
+	];
+	$enabled = wp_revisions_enabled( $post );
+	$limit   = 3;
+	$i       = 0;
+	if ( false === $enabled ) {
+		$html .= '<p>' . __( 'Revisions are not enabled', 'pressbooks' ) . '</p>';
+
+		// these are not the revisions you're looking for
+		return $html;
+	}
+
+	// wp_get_post_revisions returns an empty array if there are no revisions
+	$revisions = wp_get_post_revisions( $post->ID, $args );
+
+	// could be empty
+	if ( empty( $revisions && true === $enabled ) ) {
+		$html .= '<p>' . __( 'There are currently no revisions', 'pressbooks' ) . '</p>';
+
+		return $html;
+	}
+
+	foreach ( $revisions as $revision ) {
+
+		// skip autosave revisions
+		if ( true === wp_is_post_autosave( $revision->ID ) ) {
+			continue;
+		}
+		// save revision id
+		$ids[] = $revision->ID;
+
+		// special if it's the first loop
+		if ( 0 === $i ) {
+			$prev = 0;
+			$new  = $post->post_content;
+		} else {
+			$prev = $i - 1;
+			$new  = $revision->post_content;
+		}
+
+		// get previous revision
+		$old_rev = wp_get_post_revision( $ids[ $prev ] );
+
+		$diff = wp_text_diff( $new, $old_rev->post_content );
+
+		if ( ! empty( $diff ) ) {
+			$human_readable_date = date( 'M j, Y', strtotime( $revision->post_date_gmt ) );
+			$html               .= "<b>{$human_readable_date}</b>{$diff}";
+		}
+
+		$i ++;
+		if ( $limit === $i ) {
+			break;
+		}
+	}
+
+	return $html;
+}
+
+/**
+ * Displays some book information
+ *
+ * @return string
+ */
+function pbt_tab_book_info() {
+	$html      = '';
+	$book_meta = \Pressbooks\Book::getBookInformation();
+	$expected  = [
+		'pb_title',
+		'pb_authors',
+		'pb_contributors',
+		'pb_editors',
+		'pb_short_title',
+		'pb_subtitle',
+		'pb_publisher',
+		'pb_publisher_city',
+		'pb_copyright_year',
+		'pb_copyright_holder',
+		'pb_book_licence',
+		'pb_keywords_tags',
+		'pb_bisac_subject',
+	];
+	$html     .= '<dl class="dl-horizontal">';
+	foreach ( $book_meta as $key => $val ) {
+		// skip stuff we don't want
+		if ( ! in_array( $key, $expected, true ) ) {
+			continue;
+		}
+		$title = pbt_explode_on_underscores( $key, 'first' );
+		$html .= "<dt>{$title}</dt>";
+		$html .= "<dd>{$val}</dd>";
+	}
+	$html .= '</dl>';
+
+	return $html;
+}
+
+/**
+ *
+ * @return string
+ */
+function pbt_tab_attributions() {
+	global $post;
+	$html = '';
+
+	if ( class_exists( 'Candela\Citation' ) ) {
+		$citation = \Candela\Citation::renderCitation( $post->ID );
+		if ( $citation ) {
+			$html .= '<section role="contentinfo"><div class="post-citations">' . $citation . '</div></section>';
+		}
+	}
+
+	return $html;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Tab Settings
+|--------------------------------------------------------------------------
+|
+| Displays in Theme Options -> Web
+|
+|
+*/
+/**
+ * Add our field to settings section
+ *
+ * @param $_page
+ */
+function pbt_theme_options_web_add_settings_fields( $_page ) {
+
+	add_settings_field(
+		'tabbed_content',
+		__( 'Tabbed Content', 'open-textbooks' ),
+		'pbt_tabbed_content_callback',
+		$_page,
+		'web_options_section'
+	);
+
+}
+
+add_action( 'pb_theme_options_web_add_settings_fields', 'pbt_theme_options_web_add_settings_fields' );
+
+/**
+ * Displays tabbed content options in web options
+ */
+function pbt_tabbed_content_callback() {
+	$options = get_option( 'pressbooks_theme_options_web' );
+
+	// add default if not set
+	if ( ! isset( $options['tab_revision_history'] ) ) {
+		$options['tab_revision_history'] = 0;
+	}
+	if ( ! isset( $options['tab_book_info'] ) ) {
+		$options['tab_book_info'] = 0;
+	}
+	if ( ! isset( $options['tab_attributions'] ) || ! class_exists( 'Candela\Citation' ) ) {
+		$options['tab_attributions'] = 0;
+	}
+
+	// revision history
+	$html  = '<input type="checkbox" id="tab_revision_history" name="pressbooks_theme_options_web[tab_revision_history]" value="1" ' . checked( 1, $options['tab_revision_history'], false ) . '/>';
+	$html .= '<label for="tab_revision_history"> ' . __( 'Display revision history for each chapter with everyone.', 'opentextbooks' ) . '</label><br/>';
+
+	// book info
+	$html .= '<input type="checkbox" id="tab_book_info" name="pressbooks_theme_options_web[tab_book_info]" value="1"  ' . checked( 1, $options['tab_book_info'], false ) . '/>';
+	$html .= '<label for="tab_book_info"> ' . __( 'Display book information for each chapter with everyone.', 'opentextbooks' ) . '</label><br/>';
+
+	// tab citations
+	if ( class_exists( 'Candela\Citation' ) ) {
+		$html .= '<input type="checkbox" id="tab_attributions" name="pressbooks_theme_options_web[tab_attributions]" value="1"  ' . checked( 1, $options['tab_attributions'], false ) . '/>';
+		$html .= '<label for="tab_attributions"> ' . __( 'Display page attributions and licenses.', 'opentextbooks' ) . '</label>';
+	}
+
+	echo $html;
+}
+
+/**
+ * Add our defaults to pb hook
+ *
+ * @param array $args
+ *
+ * @return mixed
+ */
+function pbt_web_defaults( $args ) {
+
+	$args['tab_revision_history'] = 1;
+	$args['tab_book_info']        = 1;
+	$args['tab_attributions']     = 1;
+
+	return $args;
+}
+
+add_filter( 'pb_theme_options_web_defaults', 'pbt_web_defaults' );
+
+/**
+ * Add our boolean options to pb hook
+ *
+ * @param $args
+ *
+ * @return mixed
+ */
+function pbt_boolean_options( $args ) {
+	array_push( $args, 'tab_revision_history', 'tab_book_info', 'tab_attributions' );
+
+	return $args;
+}
+
+add_filter( 'pb_theme_options_web_booleans', 'pbt_boolean_options' );
+
+/*
+|--------------------------------------------------------------------------
+| Utility
+|--------------------------------------------------------------------------
+|
+|
+|
+|
+*/
+/**
+ * Return an array of web theme options related to tabbed content
+ *
+ * @return array
+ */
+function pbt_get_web_options_tab() {
+	$options         = get_option( 'pressbooks_theme_options_web' );
+	$web_option_keys = array_keys( $options );
+	$prefix          = 'tab_';
+	$length          = strlen( $prefix );
+	$tabs            = [];
+
+	// compare first four characters and check tab option is true
+	foreach ( $web_option_keys as $key ) {
+		if ( strncmp( $prefix, $key, $length ) === 0 && $options[ $key ] === 1 ) {
+			$tabs[ $key ] = $options[ $key ];
+
+		}
+	}
+
+	return $tabs;
+}

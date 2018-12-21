@@ -2,7 +2,7 @@
   "name": "bccampus/pressbooks-textbook",
   "description": "Adds functionality to Pressbooks to make it easier to author textbooks",
   "type": "wordpress-plugin",
-  "version": "4.2.2",
+  "version": "4.2.3",
   "homepage": "https://github.com/bccampus/pressbooks-textbook",
   "authors": [
     {
@@ -28,7 +28,7 @@
       "@standards"
     ],
     "standards": [
-      "vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/"
+      "vendor/bin/phpcs --standard=phpcs.ruleset.xml ."
     ]
   }
 }

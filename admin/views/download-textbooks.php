@@ -16,7 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="wrap">
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
-	
 	<?php
 	require( PBT_PLUGIN_DIR . 'inc/modules/catalogue/class-equellafetch.php' );
 	require( PBT_PLUGIN_DIR . 'inc/modules/catalogue/class-filter.php' );
@@ -31,9 +30,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 		echo $textbooks;
 	} else {
 		try {
-			$equellaFetch = new \PBT\Modules\Catalogue\EquellaFetch();
-			$filter = new \PBT\Modules\Catalogue\Filter( $equellaFetch );
-			$textbooks = $filter->displayBySubject();
+			$equella_fetch = new \PBT\Modules\Catalogue\EquellaFetch();
+			$filter        = new \PBT\Modules\Catalogue\Filter( $equella_fetch );
+			$textbooks     = $filter->displayBySubject();
 
 		} catch ( Exception $exc ) {
 			echo $exc->getMessage();

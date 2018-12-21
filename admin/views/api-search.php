@@ -20,11 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
 
 	<?php
-	$pbt_import_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/options-general.php?page=api_search_import&import=1', 'pbt-import' );
-	$pbt_revoke_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/options-general.php?page=api_search_import&revoke=1', 'pbt-revoke-import' );
+	$pbt_import_url     = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/options-general.php?page=api_search_import&import=1', 'pbt-import' );
+	$pbt_revoke_url     = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/options-general.php?page=api_search_import&revoke=1', 'pbt-revoke-import' );
 	$pbt_current_import = get_option( 'pbt_current_import' );
-	$not_found = get_option( 'pbt_terms_not_found' );
-	$remix = get_option( 'pbt_remix_settings' );
+	$not_found          = get_option( 'pbt_terms_not_found' );
+	$remix              = get_option( 'pbt_remix_settings' );
 
 	// IMPORT show only if there is an import in progress
 	if ( is_array( $pbt_current_import ) ) {
@@ -87,10 +87,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 					foreach ( $pbt_current_import as $book_id => $book ) {
 						// set book title, author, license
-						$book_title = $book['title'];
+						$book_title   = $book['title'];
 						$book_license = $book['license'];
-						$book_author = $book['author'];
-						$book_domain = $book['domain'];
+						$book_author  = $book['author'];
+						$book_domain  = $book['domain'];
 
 						// do chapters
 						if ( isset( $book['chapters'] ) ) {
@@ -109,8 +109,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 								<?php
 								if ( $i % 2 ) {
 									echo 'class="alt"';}
-?>
- >
+								?>
+								>
 
 									<td><input type='checkbox' id='selective_import_<?php echo $i; ?>' name='chapters[<?php echo $key; ?>][import]' value='1'></td>
 							<input type='hidden' name='chapters[<?php echo $key; ?>][book]' value='<?php echo $book_id; ?>'>
@@ -125,34 +125,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='chapter' checked='checked'></td>
 							<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='back-matter'></td>
 							</tr>
-							<?php
-							++ $i;
+								<?php
+								++ $i;
 							}
 							// do books
 						} else {
-						?>
+							?>
 								<tr 
 								<?php
 								if ( $i % 2 ) {
 									echo 'class="alt"';}
-?>
- >
-							
-								<td><input type="radio" id="selective_import_<?php echo $i; ?>" name="book" value="<?php echo $book_id ; ?>" /></td>
+								?>
+								>
+								<td><input type="radio" id="selective_import_<?php echo $i; ?>" name="book" value="<?php echo $book_id; ?>" /></td>
 								<input type='hidden' name='domain' value='<?php echo $book_domain; ?>'>
 								<td><label>-----</label></td>
-								<td><label for="selective_import_<?php echo $i ; ?>"><?php echo $book_title . ', by ' . $book_author ; ?></label>
+								<td><label for="selective_import_<?php echo $i; ?>"><?php echo $book_title . ', by ' . $book_author; ?></label>
 								<td><label><?php echo $book_license; ?></label></td>
 								<td><label>-----</label></td>
 								<td><label>-----</label></td>
 								<td><label>-----</label></td>
 								</tr>
-						
 							<?php
 							$i++;
 						}
 					}
-				?>
+					?>
 				</tbody>
 			</table>
 
@@ -161,7 +159,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			submit_button( __( 'Start', 'pressbooks-textbook' ), 'primary', 'submit', false );
 			echo ' &nbsp; '; // Space
 			submit_button( __( 'Cancel', 'pressbooks-textbook' ), 'delete', 'abort_button', false );
-				?>
+			?>
 				</p>
 
 		</form>
@@ -169,7 +167,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php
 	} else {
 
-		if ( false != $not_found ) {
+		if ( false !== $not_found ) {
 			?>
 
 			<div class="error">
