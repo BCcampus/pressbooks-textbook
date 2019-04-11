@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Textbooks for Pressbooks
  * Description:       A plugin that extends Pressbooks for textbook authoring
- * Version:           4.2.3
+ * Version:           4.3.0
  * Author:            BCcampus
  * Author URI:        http://github.com/BCcampus
  * Text Domain:       pressbooks-textbook
@@ -19,34 +19,6 @@ if ( ! defined( 'WPINC' ) ) {
 	return;
 }
 
-/*
-|--------------------------------------------------------------------------
-| Constants
-|--------------------------------------------------------------------------
-|
-|
-|
-|
-*/
-if ( ! defined( 'PBT_PLUGIN_DIR' ) ) {
-	define( 'PBT_PLUGIN_DIR', __DIR__ . '/' );
-}
-if ( ! defined( 'PBT_PLUGIN_URL' ) ) {
-	define( 'PBT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-}
-
-// Must have trailing slash!
-if ( ! defined( 'PB_PLUGIN_DIR' ) ) {
-	define( 'PB_PLUGIN_DIR', WP_PLUGIN_DIR . '/pressbooks/' );
-}
-
-// Allow override in wp-config.php
-if ( ! defined( 'WP_DEFAULT_THEME' ) ) {
-	define( 'WP_DEFAULT_THEME', 'opentextbook' );
-};
-
-// Hide PB cover promotion
-define( 'PB_HIDE_COVER_PROMO', true );
 
 /*
 |--------------------------------------------------------------------------
@@ -61,8 +33,8 @@ define( 'PB_HIDE_COVER_PROMO', true );
 if ( ! include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
 	add_action(
 		'admin_notices', function () {
-		echo '<div id="message" class="error fade"><p>' . __( 'PBT cannot find a Pressbooks install.', 'pressbooks-textbook' ) . '</p></div>';
-	}
+			echo '<div id="message" class="error fade"><p>' . __( 'PBT cannot find a Pressbooks install.', 'pressbooks-textbook' ) . '</p></div>';
+		}
 	);
 
 	return;
@@ -72,8 +44,8 @@ if ( function_exists( 'pb_meets_minimum_requirements' ) ) {
 	if ( ! pb_meets_minimum_requirements() ) { // This PB function checks for both multisite, PHP and WP minimum versions.
 		add_action(
 			'admin_notices', function () {
-			echo '<div id="message" class="error fade"><p>' . __( 'Your PHP or WP version may not be up to date.', 'pressbooks-textbook' ) . '</p></div>';
-		}
+				echo '<div id="message" class="error fade"><p>' . __( 'Your PHP or WP version may not be up to date.', 'pressbooks-textbook' ) . '</p></div>';
+			}
 		);
 
 		return;
@@ -83,19 +55,19 @@ if ( function_exists( 'pb_meets_minimum_requirements' ) ) {
 add_filter(
 	'init', function () {
 
-	if ( ! version_compare( PB_PLUGIN_VERSION, '5.0.0', '>=' ) ) {
-		add_action(
-			'admin_notices', function () {
-			echo '<div id="message" class="error fade"><p>' . __( 'Textbooks for Pressbooks requires Pressbooks 5.0.0 or greater.', 'pressbooks-textbook' ) . '</p></div>';
+		if ( ! version_compare( PB_PLUGIN_VERSION, '5.0.0', '>=' ) ) {
+			add_action(
+				'admin_notices', function () {
+					echo '<div id="message" class="error fade"><p>' . __( 'Textbooks for Pressbooks requires Pressbooks 5.0.0 or greater.', 'pressbooks-textbook' ) . '</p></div>';
+				}
+			);
+
+			return;
 		}
-		);
+		// need version number outside of init hook
+		update_site_option( 'pbt_pb_version', PB_PLUGIN_VERSION );
 
-		return;
 	}
-	// need version number outside of init hook
-	update_site_option( 'pbt_pb_version', PB_PLUGIN_VERSION );
-
-}
 );
 
 /*
@@ -126,6 +98,7 @@ if ( file_exists( $composer ) ) {
 |
 |
 */
+require __DIR__ . '/constants.php';
 require __DIR__ . '/inc/settings/namespace.php';
 
 /*

@@ -13,7 +13,6 @@ A plugin that extends Pressbooks for textbook authoring.
 * Extended Citation functionality
 * TinyMCE textbook buttons (learning objectives, key terms, exercises)
 * TinyMCE spell check
-* Prominent admin buttons (Import, Plugin)
 * Annotation functionality
 * Download links to openly licensed textbooks, ready to remix.
 * A remix 'eco-system' — Search and Import chapters from both local and remote instances of Pressbooks

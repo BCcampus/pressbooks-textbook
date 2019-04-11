@@ -16,8 +16,14 @@ use \Pressbooks\Book;
 
 class TextbookAdmin {
 
-	protected $plugin_slug     = 'pressbooks-textbook';
-	const VERSION              = '4.2.3';
+	/**
+	 * @var string
+	 */
+	protected $plugin_slug = 'pressbooks-textbook';
+
+	/**
+	 * @var null
+	 */
 	protected static $instance = null;
 
 	/**
@@ -112,7 +118,7 @@ class TextbookAdmin {
 	 * @since    1.0.0
 	 */
 	function enqueueAdminStyles() {
-		wp_register_style( 'pbt-import-button', PBT_PLUGIN_URL . 'admin/assets/css/menu.css', '', self::VERSION );
+		wp_register_style( 'pbt-import-button', PBT_PLUGIN_URL . 'admin/assets/css/menu.css', '', '' );
 		wp_enqueue_style( 'pbt-import-button' );
 	}
 

@@ -24,7 +24,7 @@ class Textbook {
 	 * @since 1.0.0
 	 * @var string
 	 */
-	const VERSION = '4.2.3';
+	const VERSION = '4.3.0';
 
 	/**
 	 * Unique identifier for plugin.
@@ -52,6 +52,10 @@ class Textbook {
 
 		// Load translations
 		add_action( 'init', [ $this, 'loadPluginTextDomain' ] );
+
+		// Set up our activation/deactivation hooks
+		register_activation_hook( __FILE__, [ $this, 'activate' ] );
+		register_deactivation_hook( __FILE__, [ $this, 'deactivate' ] );
 
 		// Hook in our pieces
 		add_action( 'plugins_loaded', [ $this, 'includes' ] );
@@ -212,6 +216,31 @@ class Textbook {
 	function pbtInit() {
 		// Register theme directory
 		register_theme_directory( PBT_PLUGIN_DIR . 'themes-book' );
+	}
+
+	/**
+	 * Fired when the plugin is activated.
+	 *
+	 * @since    1.0.0
+	 */
+	function activate() {
+		if ( ! current_user_can( 'activate_plugins' ) ) {
+			return;
+		}
+
+		add_site_option( 'pressbooks-textbook-activated', true );
+	}
+
+	/**
+	 * Fired when the plugin is deactivated.
+	 *
+	 * @since    1.0.0
+	 */
+	function deactivate() {
+		if ( ! current_user_can( 'activate_plugins' ) ) {
+			return;
+		}
+		delete_site_option( 'pressbooks-textbook-activated' );
 	}
 
 	/**
@@ -407,6 +436,5 @@ class Textbook {
 		}
 
 	}
-
 
 }
