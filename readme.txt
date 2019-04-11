@@ -1,9 +1,8 @@
 === Textbooks for Pressbooks ===
-Contributors: bdolor, aparedes
-Donation link: https://github.com/BCcampus/pressbooks-textbook/wiki/Contribution-guidelines
+Contributors: BCcampus
 Tags: pressbooks, textbook
-Requires at least: 4.9.8
-Tested up to: 5.0.2
+Requires at least: 5.1.1
+Tested up to: 5.1.1
 Stable tag: 4.2.3
 Requires PHP: 7.1
 License: GPLv2 or later
@@ -23,7 +22,7 @@ Textbooks for Pressbooks adds functionality to the Pressbooks plugin to make it 
 * A remix 'eco-system' — Search and Import chapters from both local and remote instances of Pressbooks
 
 Textbooks have functional and styling considerations above and beyond regular books. Open textbooks are those that are licensed with a [creative commons license](http://creativecommons.org).
-This plugin was built primarily to support the creation, remixing and distribution of open textbooks for the [open textbook project in BC](http://open.bccampus.ca/about-2/).
+This plugin was built primarily to support the creation, remixing and distribution of open textbooks for the [open textbook project in BC](https://open.bccampus.ca/what-is-open-education/what-are-open-textbooks/).
 
 == Installation ==
 

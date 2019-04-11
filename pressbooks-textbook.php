@@ -1,26 +1,17 @@
 <?php
-
 /**
- * Textbooks for Pressbooks
- *
- * @package   Pressbooks_Textbook
- * @author    Brad Payne
- * @license   GPL-2.0+
- * @copyright Brad Payne
- *
- * @wordpress-plugin
  * Plugin Name:       Textbooks for Pressbooks
  * Description:       A plugin that extends Pressbooks for textbook authoring
  * Version:           4.2.3
- * Author:            Brad Payne
- * Author URI:        http://github.com/bdolor
+ * Author:            BCcampus
+ * Author URI:        http://github.com/BCcampus
  * Text Domain:       pressbooks-textbook
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages
  * GitHub Plugin URI: https://github.com/BCcampus/pressbooks-textbook
  * Tags: pressbooks, OER, publishing, textbooks
- * Pressbooks tested up to: 5.6.3
+ * Pressbooks tested up to: 5.7.0
  */
 
 // If file is called directly, abort.
