@@ -14,6 +14,8 @@
 
 namespace PBT;
 
+use \Pressbooks\Book;
+
 class Textbook {
 
 	/**
@@ -51,18 +53,12 @@ class Textbook {
 		// Load translations
 		add_action( 'init', [ $this, 'loadPluginTextDomain' ] );
 
-		// Setup our activation and deactivation hooks
-		register_activation_hook( __FILE__, [ $this, 'activate' ] );
-		register_deactivation_hook( __FILE__, [ $this, 'deactivate' ] );
-
 		// Hook in our pieces
 		add_action( 'plugins_loaded', [ $this, 'includes' ] );
 		add_action( 'pressbooks_register_theme_directory', [ $this, 'pbtInit' ] );
 		add_action( 'wp_enqueue_style', [ $this, 'registerChildThemes' ] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueueScriptsnStyles' ] );
 		add_filter( 'allowed_themes', [ $this, 'filterChildThemes' ], 11 );
 		add_action( 'pressbooks_new_blog', [ $this, 'newBook' ] );
-		add_filter( 'pb_publisher_catalog_query_args', [ $this, 'rootThemeQuery' ] );
 
 		$this->update();
 
@@ -219,38 +215,10 @@ class Textbook {
 	}
 
 	/**
-	 * Fired when the plugin is activated.
-	 *
-	 * @since    1.0.0
-	 */
-	function activate() {
-		if ( ! current_user_can( 'activate_plugins' ) ) {
-			return;
-		}
-		// @TODO - update timezone and tagline
-		// update_option('blogdescription', 'The Open Textbook Project provides flexible and affordable access to higher education resources');
-
-		add_site_option( 'pressbooks-textbook-activated', true );
-	}
-
-	/**
-	 * Fired when the plugin is deactivated.
-	 *
-	 * @since    1.0.0
-	 */
-	function deactivate() {
-		if ( ! current_user_can( 'activate_plugins' ) ) {
-			return;
-		}
-
-		delete_site_option( 'pressbooks-textbook-activated' );
-	}
-
-	/**
 	 * Return the plugin slug.
 	 *
 	 * @since    1.0.0
-	 * @return    Plugin slug variable.
+	 * @return   string slug variable.
 	 */
 	function getPluginSlug() {
 		return $this->plugin_slug;
@@ -291,7 +259,7 @@ class Textbook {
 	function filterChildThemes( $themes ) {
 		$pbt_themes = [];
 
-		if ( \Pressbooks\Book::isBook() ) {
+		if ( Book::isBook() ) {
 			$registered_themes = search_theme_directories();
 
 			foreach ( $registered_themes as $key => $val ) {
@@ -306,11 +274,6 @@ class Textbook {
 		} else {
 			return $themes;
 		}
-	}
-
-	function enqueueScriptsnStyles() {
-		wp_enqueue_style( 'jquery-ui', '//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css', '', self::VERSION, 'screen, print' );
-		wp_enqueue_script( 'jquery-ui-tabs', '/wp-includes/js/jquery/ui/jquery.ui.tabs.min.js' );
 	}
 
 	/**
@@ -376,18 +339,6 @@ class Textbook {
 
 		// web theme options
 		update_option( 'pressbooks_theme_options_web', $web_options );
-	}
-
-	/**
-	 * Pass additional arguments to Publisher Root theme catalogue page
-	 * @return array
-	 */
-	function rootThemeQuery() {
-		return [
-			'number'  => 150,
-			'orderby' => 'last_updated',
-			'order'   => 'DESC',
-		];
 	}
 
 	/**

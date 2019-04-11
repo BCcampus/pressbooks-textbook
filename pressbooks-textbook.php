@@ -57,45 +57,45 @@ define( 'PB_HIDE_COVER_PROMO', true );
 |
 |
 */
+
+if ( ! include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
+	add_action(
+		'admin_notices', function () {
+		echo '<div id="message" class="error fade"><p>' . __( 'PBT cannot find a Pressbooks install.', 'pressbooks-textbook' ) . '</p></div>';
+	}
+	);
+
+	return;
+}
+
+if ( function_exists( 'pb_meets_minimum_requirements' ) ) {
+	if ( ! pb_meets_minimum_requirements() ) { // This PB function checks for both multisite, PHP and WP minimum versions.
+		add_action(
+			'admin_notices', function () {
+			echo '<div id="message" class="error fade"><p>' . __( 'Your PHP or WP version may not be up to date.', 'pressbooks-textbook' ) . '</p></div>';
+		}
+		);
+
+		return;
+	}
+}
+
 add_filter(
 	'init', function () {
-		$min_pb_compatibility_version = '5.0.0';
 
-		if ( ! include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
-			add_action(
-				'admin_notices', function () {
-					echo '<div id="message" class="error fade"><p>' . __( 'PBT cannot find a Pressbooks install.', 'pressbooks-textbook' ) . '</p></div>';
-				}
-			);
-
-			return;
+	if ( ! version_compare( PB_PLUGIN_VERSION, '5.0.0', '>=' ) ) {
+		add_action(
+			'admin_notices', function () {
+			echo '<div id="message" class="error fade"><p>' . __( 'Textbooks for Pressbooks requires Pressbooks 5.0.0 or greater.', 'pressbooks-textbook' ) . '</p></div>';
 		}
+		);
 
-		if ( function_exists( 'pb_meets_minimum_requirements' ) ) {
-			if ( ! pb_meets_minimum_requirements() ) { // This PB function checks for both multisite, PHP and WP minimum versions.
-				add_action(
-					'admin_notices', function () {
-						echo '<div id="message" class="error fade"><p>' . __( 'Your PHP or WP version may not be up to date.', 'pressbooks-textbook' ) . '</p></div>';
-					}
-				);
-
-				return;
-			}
-		}
-
-		if ( ! version_compare( PB_PLUGIN_VERSION, $min_pb_compatibility_version, '>=' ) ) {
-			add_action(
-				'admin_notices', function () {
-					echo '<div id="message" class="error fade"><p>' . __( 'Textbooks for Pressbooks requires Pressbooks 5.0.0 or greater.', 'pressbooks-textbook' ) . '</p></div>';
-				}
-			);
-
-			return;
-		}
-		// need version number outside of init hook
-		update_site_option( 'pbt_pb_version', PB_PLUGIN_VERSION );
-
+		return;
 	}
+	// need version number outside of init hook
+	update_site_option( 'pbt_pb_version', PB_PLUGIN_VERSION );
+
+}
 );
 
 /*
@@ -107,10 +107,12 @@ add_filter(
 |
 |
 */
-require PBT_PLUGIN_DIR . 'autoloader.php';
+if ( function_exists( '\HM\Autoloader\register_class_path' ) ) {
+	\HM\Autoloader\register_class_path( 'PBT', __DIR__ . '/inc' );
+}
 
 // Load Composer Dependencies
-$composer = PBT_PLUGIN_DIR . 'vendor/autoload.php';
+$composer = __DIR__ . '/vendor/autoload.php';
 if ( file_exists( $composer ) ) {
 	require_once( $composer );
 }
@@ -124,7 +126,7 @@ if ( file_exists( $composer ) ) {
 |
 |
 */
-require PBT_PLUGIN_DIR . 'inc/settings/namespace.php';
+require __DIR__ . '/inc/settings/namespace.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -137,5 +139,6 @@ require PBT_PLUGIN_DIR . 'inc/settings/namespace.php';
 */
 \PBT\Textbook::get_instance();
 if ( is_admin() ) {
-	new \PBT\Admin\TextbookAdmin;
+	\PBT\Admin\TextbookAdmin::get_instance();
 }
+

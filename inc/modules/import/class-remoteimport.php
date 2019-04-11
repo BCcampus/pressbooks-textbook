@@ -20,10 +20,6 @@ use PBT\Modules\Search;
 use Pressbooks\Book;
 use Pressbooks\Modules\Import\Html;
 
-if ( ! isset( $GLOBALS['pressbooks'] ) ) {
-	require_once \WP_PLUGIN_DIR . '/pressbooks/pressbooks.php';
-}
-
 class RemoteImport extends Html\Xhtml {
 
 	/**
