@@ -64,7 +64,7 @@ class ApiSearch {
 		}
 
 		// do chapter import if that's where we're at
-		if ( $_GET['import'] && isset( $_POST['chapters'] ) && is_array( $_POST['chapters'] ) && is_array( $current_import ) && check_admin_referer( 'pbt-import' ) ) {
+		if ( isset( $_GET['import'] ) && isset( $_POST['chapters'] ) && is_array( $_POST['chapters'] ) && is_array( $current_import ) && check_admin_referer( 'pbt-import' ) ) {
 
 			$keys  = array_keys( $_POST['chapters'] );
 			$books = [];
@@ -175,7 +175,7 @@ class ApiSearch {
 				Redirect\location( $success_url );
 			}
 			// do book import
-		} elseif ( $_GET['import'] && isset( $_POST['book'] ) && is_array( $current_import ) && check_admin_referer( 'pbt-import' ) ) {
+		} elseif ( isset( $_GET['import'] ) && isset( $_POST['book'] ) && is_array( $current_import ) && check_admin_referer( 'pbt-import' ) ) {
 
 			// get the one book that we are importing
 			$book_id  = $_POST['book'];
@@ -218,7 +218,7 @@ class ApiSearch {
 			}
 
 			// return results from user's search
-		} elseif ( $_GET['import'] && $_POST['search_api'] && check_admin_referer( 'pbt-import' ) ) {
+		} elseif ( isset( $_GET['import'] ) && $_POST['search_api'] && check_admin_referer( 'pbt-import' ) ) {
 
 			// find out what domain we are handling
 			$endpoint = $_POST['endpoint'] . 'api/' . self::$version . '/';
@@ -448,12 +448,13 @@ class ApiSearch {
 
 	/**
 	 * Simple check to see if the form submission is valid
+	 * nonce verification happens @see formSubmit()
 	 *
 	 * @return boolean
 	 */
 	static function isFormSubmission() {
 
-		if ( 'api_search_import' !== $_REQUEST['page'] ) { //@codingStandardsIgnoreLine
+		if ( isset( $_REQUEST['page'] ) && 'api_search_import' !== $_REQUEST['page'] ) { //@codingStandardsIgnoreLine
 			return false;
 		}
 

@@ -34,7 +34,8 @@ class EquellaFetch {
 	const ALL_RECORDS = '_ALL';
 
 	/**
-	 *
+	 * EquellaFetch constructor.
+	 * @throws \Exception
 	 */
 	public function __construct() {
 		$this->searchBySubject( $this->searchTerm );
@@ -62,14 +63,14 @@ class EquellaFetch {
 
 	/**
 	 * Private helper function that url encodes input (with + signs as spaces)
-	 * @param item that needs encoding
 	 *
-	 * @return the encoded item
+	 * @param $any_string
+	 *
+	 * @return bool|string
 	 */
 	private function urlEncode( $any_string ) {
-		$result = '';
 		if ( ! empty( $any_string ) ) {
-			$result = urlencode( $any_string );
+			$result = urlencode( $any_string ); //@codingStandardsIgnoreLine
 			return $result;
 		} else {
 			return false;
@@ -79,9 +80,9 @@ class EquellaFetch {
 	/**
 	 * Private helper function that rawURL encodes (with %20 as spaces)
 	 *
-	 * @param string $any_string
+	 * @param $any_string
 	 *
-	 * @return string - the encoded item, or false if it's empty
+	 * @return bool|string
 	 */
 	private function rawUrlEncode( $any_string ) {
 		if ( ! empty( $any_string ) ) {
@@ -107,7 +108,7 @@ class EquellaFetch {
 
 		//the limit for the API is 50 items, so we need 50 or less. 0 is 'limitless' so we need to set
 		//it to the max and loop until we reach all available results, 50 at a time.
-		$limit = ( $limit == 0 || $limit > 50 ? $limit = 50 : $limit = $limit );
+		$limit = ( $limit === 0 || $limit > 50 ) ? $limit = 50 : $limit;
 
 		$first_subject_path  = '';
 		$second_subject_path = '';
@@ -117,7 +118,7 @@ class EquellaFetch {
 
 		// if there's a specified user query, deal with it, change the order
 		// to relevance as opposed to 'modified' (default)
-		if ( $any_query != '' ) {
+		if ( $any_query !== '' ) {
 			$order     = 'relevance';
 			$any_query = $this->rawUrlEncode( $any_query );
 			$any_query = 'q=' . $any_query . '&';
@@ -129,13 +130,13 @@ class EquellaFetch {
 		// SCENARIOS, require three distinct request urls depending...
 		if ( empty( $this->whereClause ) ) {
 			$this->url = $this->apiBaseUri . $search_where . $optional_param;
-		} elseif ( $this->keywordFlag == true ) {
+		} elseif ( $this->keywordFlag === true ) {
 			$first_subject_path = $this->urlEncode( $this->keywordPath );
 			//oh, the API is case sensitive so this broadens our results, which we want
 			$second_where = strtolower( $this->whereClause );
 			$first_where  = ucwords( $this->whereClause );
 			$this->url    = $this->apiBaseUri . $search_where . $first_subject_path . $is . "'" . $first_where . "'" . $or . $first_subject_path . $is . "'" . $second_where . "'" . $optional_param;  //add the base url, put it all together
-		} elseif ( $this->byContributorFlag == true ) {
+		} elseif ( $this->byContributorFlag === true ) {
 			$first_subject_path = $this->urlEncode( $this->contributorPath );
 			$this->url          = $this->apiBaseUri . $search_where . $first_subject_path . $is . "'" . $this->whereClause . "'" . $optional_param;
 		} else {
@@ -145,21 +146,17 @@ class EquellaFetch {
 		}
 
 		// go and get it
-		$ch = curl_init();
-		curl_setopt( $ch, CURLOPT_URL, $this->url );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
-		curl_setopt( $ch, CURLOPT_TIMEOUT, 10 );
-		$ok = curl_exec( $ch );
+		$ok = wp_remote_get( $this->url, [ 'timeout' => 10 ] );
 
-		if ( false == $ok ) {
-			throw new \Exception( 'Sorry, something went wrong with the API call to SOLR. <p>Visit <b>https://open.bccampus.ca/find-open-textbooks/</b> to discover and download free textbooks.</p>' );
+		if ( is_wp_error( $ok ) ) {
+			throw new \Exception( 'Sorry, something went wrong with the API call to SOLR. <p>Visit <b>https://open.bccampus.ca/find-open-textbooks/</b> to discover and download free textbooks.</p>' . $ok->get_error_message() );
 		}
 
 		//get the array back from the API call
-		$result = json_decode( $ok, true );
+		$result = json_decode( $ok['body'], true );
 
 		//if the # of results we get back is less than the max we asked for
-		if ( $result['length'] != 50 ) {
+		if ( $result['length'] !== 50 ) {
 
 			$this->availableResults   = $result['available'];
 			$this->justTheResultsMaam = $result['results'];
@@ -177,22 +174,21 @@ class EquellaFetch {
 					$start        = $start + 50;
 					$search_where = 'search?' . $any_query . '&collections=' . $this->collectionUuid . '&start=' . $start . '&length=' . $limit . '&order=' . $order . '&where=';   //length 50 is the max results allowed by the API
 					//Three different scenarios here, depending..
-					if ( ! empty( $this->whereClause ) && $this->byContributorFlag == true ) {
+					if ( ! empty( $this->whereClause ) && $this->byContributorFlag === true ) {
 						$this->url = $this->apiBaseUri . $search_where . $first_subject_path . $is . "'" . $this->whereClause . "'" . $optional_param;
 					} elseif ( ! empty( $this->whereClause ) ) {
 						$this->url = $this->apiBaseUri . $search_where . $first_subject_path . $is . "'" . $this->whereClause . "'" . $or . $second_subject_path . $is . "'" . $this->whereClause . "'" . $optional_param;  //add the base url, put it all together
 					} else {
 						$this->url = $this->apiBaseUri . $search_where . $optional_param;
 					}
-					// modify the url
-					curl_setopt( $ch, CURLOPT_URL, $this->url );
-					$ok2 = curl_exec( $ch );
 
-					if ( false == $ok ) {
-						throw new \Exception( 'Something went wrong with the API call to SOLR' );
+					$ok2 = wp_remote_get( $this->url, [ 'timeout' => 10 ] );
+
+					if ( is_wp_error( $ok2 ) ) {
+						throw new \Exception( 'Sorry, something went wrong with the API call to SOLR. <p>Visit <b>https://open.bccampus.ca/find-open-textbooks/</b> to discover and download free textbooks.</p>' . $ok2->get_error_message() );
 					}
 
-					$next_result = json_decode( $ok2, true );
+					$next_result = json_decode( $ok2['body'], true );
 
 					// push each new result onto the existing array
 					$part_of_next_result = $next_result['results'];
@@ -202,7 +198,6 @@ class EquellaFetch {
 				}
 			} /* end of if */
 		} /* end of else */
-		curl_close( $ch );
 
 		$this->availableResults   = $result['available'];
 		$this->justTheResultsMaam = $result['results'];
@@ -224,7 +219,7 @@ class EquellaFetch {
 			//if it's not being passed a key from an associative array
 			//NOTE adding a space to either side of the comma below will break the
 			//integrity of the url given to get_file_contents above.
-			if ( $key == '' ) {
+			if ( $key === '' ) {
 				foreach ( $any_array as $value ) {
 					$result .= $value . ',';
 				}
