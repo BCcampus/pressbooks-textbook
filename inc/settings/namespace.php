@@ -16,9 +16,8 @@ namespace PBT\Settings;
  *
  */
 function remix_section_callback() {
-	echo '<p>If you know of another Pressbooks instance, and you know they also have Creative Commons licensed materials, here is where you add their domain.'
-		 . " Having a list of domains will enable <a href='admin.php?page=api_search_import'>searching and importing</a> against their collection, the same way that you can search and import against your own collection.</p>";
-
+	echo "<p>If you know of another Pressbooks instance, and you know they also have Creative Commons licensed materials, here is where you add their domain. 
+Having a list of domains will enable <a href='admin.php?page=api_search_import'>searching and importing</a> against their collection, the same way that you can search and import against your own collection.</p>";
 }
 
 /**
@@ -35,17 +34,17 @@ function api_endpoint_public_callback() {
 	$html = '';
 
 	foreach ( $options['pbt_api_endpoints'] as $key => $endpoint ) {
-		if ( 0 == $key ) {
-			$html .= '<input id="' . $key . '" disabled="true" class="regular-text highlight" type="url" name="pbt_remix_settings[pbt_api_endpoints][' . $key . ']" value="' . $endpoint . '" />'
-					 . '<input onclick="addRow(this.form);" type="button" value="Add URL" />';
+		if ( 0 === $key ) {
+			$html .= '<input id="' . $key . '" disabled="true" class="regular-text highlight" type="url" name="pbt_remix_settings[pbt_api_endpoints][' . $key . ']" value="' . $endpoint . '" />
+			<input onclick="addRow(this.form);" type="button" value="Add URL" />';
 
 			// hidden value, because disabled inputs don't make it to $_POST
 			$html .= '<input type="hidden" name="pbt_remix_settings[pbt_api_endpoints][0]" value="' . network_home_url() . '"/>';
 		} else {
-			$html .= '<tr class="endpoints-' . $key . '">'
-					 . '<th>' . $key . '</th>'
-					 . '<td><input id="' . $key . '" class="regular-text highlight" type="url" name="pbt_remix_settings[pbt_api_endpoints][' . $key . ']" value="' . $endpoint . '" />'
-					 . '<input type="button" value="Add URL" onclick="addRow();" /><input type="button" value="Remove URL" onclick="removeRow(' . $key . ');" /></td></tr>';
+			$html .= '<tr class="endpoints-' . $key . '">
+			<th>' . $key . '</th>
+			<td><input id="' . $key . '" class="regular-text highlight" type="url" name="pbt_remix_settings[pbt_api_endpoints][' . $key . ']" value="' . $endpoint . '" />
+			<input type="button" value="Add URL" onclick="addRow();" /><input type="button" value="Remove URL" onclick="removeRow(' . $key . ')" /></td></tr>';
 		}
 	}
 
@@ -93,7 +92,7 @@ function remix_url_sanitize( $input ) {
 	}
 
 	// before returning, force this PB instance to be preserved
-	if ( network_home_url() != $valid['pbt_api_endpoints'][0] ) {
+	if ( network_home_url() !== $valid['pbt_api_endpoints'][0] ) {
 		$valid['pbt_api_endpoints'][0] = network_home_url();
 	}
 

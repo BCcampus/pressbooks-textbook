@@ -30,6 +30,7 @@ before_script:
 - bash bin/install-wp-tests.sh pbt_test root '' localhost $WP_VERSION
 script:
 - vendor/bin/phpunit --configuration=phpunit.xml
+- vendor/bin/phpcs --configuration=phpcs.ruleset.xml .
 before_deploy:
 - export TRAVIS_PROJECT_SLUG="$(basename $TRAVIS_BUILD_DIR)"
 - curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
