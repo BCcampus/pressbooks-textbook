@@ -13,27 +13,15 @@ namespace PBT\Modules\Catalogue;
 
 class Filter {
 
-	private $baseURL     = '';
 	private $resultsData = [];
 	private $size        = 0;
 	private $uuid;
-	private $keyword       = '';
-	private $subject       = '';
-	private $contributor   = '';
-	private $authorBaseURL = 'http://solr.bccampus.ca:8001/bcc/access/searching.do?doc=';
-	private $authorSearch1 = '%3Cxml%3E%3Ccontributordetails%3E%3Cname%3E';
-	private $authorSearch2 = '%3C%2Fname%3E%3C%2Fcontributordetails%3E%3Clom%3E%3Clifecycle%3E%3Ccontribute%3E%3Ccentity%3E%3Cvcard%3E';
-	private $authorSearch3 = '%3C%2Fvcard%3E%3C%2Fcentity%3E%3C%2Fcontribute%3E%3C%2Flifecycle%3E%3Cgeneral%3E%3Ckeyword%2F%3E%3C%2Fgeneral%3E%3C%2Flom%3E%3Citem%3E%3Crights%3E%3Coffer%3E%3Cparty%3E%3Ccontext%3E%3Cname%3E';
-	private $authorSearch4 = '%3C%2Fname%3E%3C%2Fcontext%3E%3C%2Fparty%3E%3C%2Foffer%3E%3C%2Frights%3E%3Ckeywords%2F%3E%3Csubject_class_level1%2F%3E%3Csubject_class_level2%2F%3E%3Csubject_class_level1b%2F%3E%3Csubject_class_level2b%2F%3E';
-	private $authorSearch5 = '%3C%2Fitem%3E%3COPDF%3E%3CBC_Course_Name%2F%3E%3COPDF_Tracking%2F%3E%3C%2FOPDF%3E%3C%2Fxml%3E&#38;in=Pae0d5e05-41bb-ccea-a5fd-f68a0ce34629&#38;q=&#38;sort=rank&#38;dr=AFTER';
+	private $subject = '';
 
 	/**
-	 * This class needs an array of values and takes care of displaying those values
-	 * in different ways depending on what you need.
-	 * @param bool $keywordFlag
-	 * @param array $anyArray
-	 * @param string $subject either a keyword, subject or contributor details
-	 * @param string $uuid
+	 * Filter constructor.
+	 *
+	 * @param EquellaFetch $response
 	 */
 	public function __construct( EquellaFetch $response ) {
 		/* get results from an equella array */
@@ -41,20 +29,14 @@ class Filter {
 		$this->size        = count( $this->resultsData );
 		$this->uuid        = $response->getUuid();
 
-		if ( $response->getKeywordFlag() == true ) {
-			$this->keyword = $subject;
-		}
-		if ( $response->getContributorFlag() == true ) {
-			$this->contributor = $subject;
-		} elseif ( $response->getContributorFlag() == false && $response->getKeywordFlag() == false ) {
-			$this->subject = $response->getWhereClause();
-		}
+		$this->subject = $response->getWhereClause();
+
 	}
 
 	/**
+	 * @param $number
 	 *
-	 * @param type $number
-	 * @return string
+	 * @return float|int|string
 	 */
 	private function determineFileSize( $number ) {
 		$result = '';
@@ -62,7 +44,7 @@ class Filter {
 
 		//bail if nothing is passed.
 		if ( empty( $number ) ) {
-			return;
+			return $result;
 		}
 
 		//if it's a number
@@ -83,65 +65,92 @@ class Filter {
 	/**
 	 * Helper function to evaluate the type of document and add the appropriate logo
 	 *
-	 * @param type $string
-	 * @return string
+	 * @param $string
+	 *
+	 * @return array
 	 */
 	private function addLogo( $string ) {
 
-		if ( ! stristr( $string, 'print copy' ) == false ) {
-			$result = "PRINT <i class='icon-print'></i>";
+		if ( ! stristr( $string, 'print copy' ) === false ) {
+			$result = [
+				'string' => "PRINT <i class='fa fa-print'></i>",
+				'type'   => 'print',
+			];
 		} else {
-			$result = " WEBSITE <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-code.png' alt='External website. This icon is licensed under a Creative Commons
-		Attribution 3.0 License. Copyright Yusuke Kamiyamane. '/>";
+			$result = [
+				'string' => "<i class='fa fa-globe'></i> WEBSITE <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-code.png' alt='External website. This icon is licensed under a Creative Commons
+		Attribution 3.0 License. Copyright Yusuke Kamiyamane. '/>",
+				'type'   => 'url',
+			];
 		}
 
 		//if it's a zip
-		if ( ! stristr( $string, '.zip' ) == false || ! stristr( $string, '.tbz' ) == false ) {
-			$result = "<img src='" . PBT_PLUGIN_URL . "admin/assets/img/drive-download.png'/> DOWNLOAD <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-zipper.png' alt='ZIP file. This icon is licensed under a Creative Commons
-Attribution 3.0 License. Copyright Yusuke Kamiyamane. '/>";
+		if ( ! stristr( $string, '.zip' ) === false || ! stristr( $string, '.tbz' ) === false ) {
+			$result = [
+				'string' => "<i class='fa fa-download'></i> <span class='small-for-mobile'>DOWNLOAD</span> <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-zipper.png' alt='ZIP file '/>",
+				'type'   => 'zip',
+			];
 		}
 		//if it's a word file
-		if ( ! stristr( $string, '.doc' ) == false ) {
-			$result = "<img src='" . PBT_PLUGIN_URL . "admin/assets/img/drive-download.png'/> DOWNLOAD <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-word.png' alt='WORD file. This icon is licensed under a Creative Commons
-Attribution 3.0 License. Copyright Yusuke Kamiyamane.'/>";
+		if ( ! stristr( $string, 'Word' ) === false || ! stristr( $string, '.rtf' ) === false ) {
+			$result = [
+				'string' => "<i class='fa fa-download'></i> <span class='small-for-mobile'>DOWNLOAD</span> <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-word.png' alt='WORD file'/>",
+				'type'   => 'doc',
+			];
 		}
 		//if it's a pdf
-		if ( ! stristr( $string, '.pdf' ) == false ) {
-			$result = "<img src='" . PBT_PLUGIN_URL . "admin/assets/img/drive-download.png'/> DOWNLOAD <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-pdf.png' alt='PDF file. This icon is licensed under a Creative Commons
-Attribution 3.0 License. Copyright Yusuke Kamiyamane.'/>";
+		if ( ! stristr( $string, 'PDF' ) === false ) {
+			$result = [
+				'string' => "<i class='fa fa-download'></i> <span class='small-for-mobile'>DOWNLOAD</span> <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-pdf.png' alt='PDF file'/>",
+				'type'   => 'pdf',
+			];
 		}
 		//if it's an epub
-		if ( ! stristr( $string, '.epub' ) == false ) {
-			$result = "<img src='" . PBT_PLUGIN_URL . "admin/assets/img/drive-download.png'/> DOWNLOAD <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-epub.png' alt='EPUB file. This icon is licensed under a Creative Commons
-Attribution 3.0 License. Copyright Yusuke Kamiyamane.'/>";
+		if ( ! stristr( $string, 'eReader' ) === false ) {
+			$result = [
+				'string' => "<i class='fa fa-download'></i> <span class='small-for-mobile'>DOWNLOAD</span> <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-epub.png' alt='EPUB file'/>",
+				'type'   => 'epub',
+			];
 		}
 		//if it's a mobi
-		if ( ! stristr( $string, '.mobi' ) == false ) {
-			$result = "<img src='" . PBT_PLUGIN_URL . "admin/assets/img/drive-download.png'/> DOWNLOAD <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-mobi.png' alt='MOBI file. This icon is licensed under a Creative Commons
-Attribution 3.0 License. Copyright Yusuke Kamiyamane.'/>";
+		if ( ! stristr( $string, 'Kindle' ) === false ) {
+			$result = [
+				'string' => "<i class='fa fa-download'></i> <span class='small-for-mobile'>DOWNLOAD</span> <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-mobi.png' alt='MOBI file'/>",
+				'type'   => 'mobi',
+			];
 		}
 		// if it's a wxr
-		if ( ! stristr( $string, '.xml' ) == false ) {
-			$result = "<img src='" . PBT_PLUGIN_URL . "admin/assets/img/drive-download.png'/> DOWNLOAD <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-xml.png' alt='XML file. This icon is licensed under a Creative Commons
-Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
+		if ( ! stristr( $string, 'XML' ) === false ) {
+			$result = [
+				'string' => "<i class='fa fa-download'></i> <span class='small-for-mobile'>DOWNLOAD</span> <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-xml.png' alt='XML file' />",
+				'type'   => 'xml',
+			];
 		}
 		// if it's an odt
-		if ( ! stristr( $string, '.odt' ) == false ) {
-			$result = "<img src='" . PBT_PLUGIN_URL . "admin/assets/img/drive-download.png'/> DOWNLOAD <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document.png' alt='ODT file. This icon is licensed under a Creative Commons
-Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
+		if ( ! stristr( $string, 'OpenDocument Text' ) === false ) {
+			$result = [
+				'string' => "<i class='fa fa-download'></i> <span class='small-for-mobile'>DOWNLOAD</span> <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document.png' alt='ODT file' />",
+				'type'   => 'odt',
+			];
 		}
-		if ( ! stristr( $string, '.hpub' ) == false ) {
-			$result = "<img src='" . PBT_PLUGIN_URL . "admin/assets/img/drive-download.png'/> DOWNLOAD <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document.png' alt='HPUB file. This icon is licensed under a Creative Commons
-Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
+		if ( ! stristr( $string, '.hpub' ) === false ) {
+			$result = [
+				'string' => "<i class='fa fa-download'></i> <span class='small-for-mobile'>DOWNLOAD</span> <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document.png' alt='HPUB file' />",
+				'type'   => 'hpub',
+			];
 		}
-		if ( ! stristr( $string, '.html' ) == false ) {
-			$result = "<img src='" . PBT_PLUGIN_URL . "admin/assets/img/drive-download.png'/> DOWNLOAD <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-code.png' alt='HTML file. This icon is licensed under a Creative Commons
-Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
+		if ( ! stristr( $string, 'HTML' ) === false ) {
+			$result = [
+				'string' => "<i class='fa fa-download'></i> <span class='small-for-mobile'>DOWNLOAD</span> <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-code.png' alt='XHTML file' />",
+				'type'   => 'html',
+			];
 		}
 		// if it's a tex
-		if ( ! stristr( $string, '.tex' ) == false ) {
-			$result = "<img src='" . PBT_PLUGIN_URL . "admin/assets/img/drive-download.png' /> DOWNLOAD <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-tex.png' alt='TEX file. This icon is licensed under a Creative Commons
-Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
+		if ( ! stristr( $string, '.tex' ) === false ) {
+			$result = [
+				'string' => "<i class='fa fa-download'></i> <span class='small-for-mobile'>DOWNLOAD</span> <img src='" . PBT_PLUGIN_URL . "admin/assets/img/document-tex.png' alt='TEX file' />",
+				'type'   => 'tex',
+			];
 		}
 
 		return $result;
@@ -170,8 +179,10 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 	/**
 	 * Helper function to display whichever license applies
 	 *
-	 * @param string
+	 * @param $string
+	 *
 	 * @return string
+	 * @throws \Exception
 	 */
 	private function licensePicker( $string ) {
 		$result = 'license error';
@@ -265,15 +276,15 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 	 * Filters through an array by the keys you pass it, with a default limit of 10
 	 * and unless specified otherwise, starting at the beginning of the array
 	 *
-	 * @param Int $start - where in the array you'd like to start from
-	 * @param Int $limit - how many results you want, pass a zero if you want all
-	 * the results.
-	 * @return String with HTML
+	 * @param int $start
+	 * @param int $limit
+	 *
+	 * @return string
+	 * @throws \Exception
 	 */
 	public function displayBySubject( $start = 0, $limit = 0 ) {
-		$html    = '';
-		$i       = 0;
-		$reviews = '';
+		$html = '';
+		$i    = 0;
 
 		//just in case a start value is passed that is greater than what is available
 		if ( $start > $this->size ) {
@@ -282,10 +293,10 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 		}
 
 		// necessary to see the last record
-		$start = ( $start == $this->size ? $start = $start - 1 : $start = $start );
+		$start = ( $start === $this->size ) ? $start = $start - 1 : $start;
 
 		// if we're displaying all of the results (from a search form request)
-		if ( $limit == 0 ) {
+		if ( $limit === 0 ) {
 			$limit = $this->size;
 			$html .= '<ol>';
 		} else {
@@ -309,9 +320,9 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 
 			foreach ( $attachments  as $attachment ) {
 				( array_key_exists( 'size', $attachment ) ) ? $file_size = $this->determineFileSize( $attachment['size'] ) : $file_size = '';
-
-				$html .= "<li><a class='btn btn-small' href='" . $attachment['links']['view'] . "' title='" . $attachment['description'] . "'>
-				" . $this->addLogo( $attachment['description'] ) . '</a> '
+				$logo_type = $this->addLogo( $attachment['description'] );
+				$html     .= "<li><a class='btn btn-small' href='" . $attachment['links']['view'] . "' title='" . $attachment['description'] . "'>
+				" . $logo_type['string'] . '</a> '
 					. $attachment['description'] . ' ' . $file_size . '</li>';
 			}
 			$html .= '</ul>';
@@ -324,7 +335,7 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 			$start ++;
 			$i ++;
 		}
-		if ( $limit == $this->size ) {
+		if ( $limit === $this->size ) {
 			$html .= '</ol>';
 		} else {
 			$html .= '</ul>';
@@ -353,7 +364,7 @@ Attribution 3.0 License. Copyright Yusuke Kamiyamane.' />";
 
 			if ( isset( $attachment['url'] ) ) {
 				$sfu = wp_parse_url( $attachment['url'] );
-				if ( isset( $sfu['host'] ) && 0 == strcmp( 'opentextbook.docsol.sfu.ca', $sfu['host'] ) ) {
+				if ( isset( $sfu['host'] ) && 0 === strcmp( 'opentextbook.docsol.sfu.ca', $sfu['host'] ) ) {
 					$filetype = '.print';
 				}
 			}
