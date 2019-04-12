@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Textbooks for Pressbooks
  * Description:       A plugin that extends Pressbooks for textbook authoring
- * Version:           4.3.0
+ * Version:           4.3.1
  * Author:            BCcampus
  * Author URI:        http://github.com/BCcampus
  * Text Domain:       pressbooks-textbook

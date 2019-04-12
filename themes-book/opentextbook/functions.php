@@ -279,8 +279,14 @@ function pbt_enqueue_scripts() {
 
 	// scripts only required if on a single page and user has configured theme options
 	if ( is_single() && ! empty( pbt_get_web_options_tab() ) ) {
-		wp_enqueue_script( 'pb-tabs', get_stylesheet_directory_uri() . '/assets/js/tabs.js', [ 'jquery' ], null, false );
 		wp_enqueue_script( 'jquery-ui-tabs' );
+		wp_enqueue_script(
+			'pb-tabs', get_stylesheet_directory_uri() . '/assets/js/tabs.js', [
+				'jquery',
+				'jquery-ui-tabs',
+			], null, true
+		);
+		wp_enqueue_style( 'jquery-ui-css', '//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css', '', '', 'screen, print' );
 		wp_enqueue_style( 'revisions', ABSPATH . '/wp-admin/css/revisions.css' );
 	}
 }

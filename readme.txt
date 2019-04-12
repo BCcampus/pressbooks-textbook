@@ -3,7 +3,7 @@ Contributors: BCcampus
 Tags: pressbooks, textbook
 Requires at least: 5.1.1
 Tested up to: 5.1.1
-Stable tag: 4.3.0
+Stable tag: 4.3.1
 Requires PHP: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -86,6 +86,10 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 == Changelog ==
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
+
+= 4.3.1 (2019/04/12) =
+* update OTB theme to 2.1.6
+* fix for footer tabs
 
 = 4.3.0 (2019/04/12) =
 * compatibility with PB 5.7.0
