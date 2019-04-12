@@ -14,7 +14,7 @@
 
 namespace PBT;
 
-use \Pressbooks\Book;
+use Pressbooks\Book;
 
 class Textbook {
 
@@ -80,7 +80,7 @@ class Textbook {
 	public static function get_instance() {
 
 		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance ) {
+		if ( null === self::$instance ) {
 			self::$instance = new self;
 		}
 
@@ -107,14 +107,6 @@ class Textbook {
 					require_once( PBT_PLUGIN_DIR . 'symbionts/' . $key );
 				}
 			}
-			// check vendor directory
-			foreach ( $pbt_plugin as $key => $val ) {
-				$parts     = explode( '/', $key );
-				$directory = strstr( $parts[1], '.php', true );
-				if ( file_exists( PBT_PLUGIN_DIR . 'vendor/' . $parts[0] . '/' . $directory . '/' . $parts[1] ) ) {
-					require_once( PBT_PLUGIN_DIR . 'vendor/' . $parts[0] . '/' . $directory . '/' . $parts[1] );
-				}
-			}
 		}
 	}
 
@@ -132,7 +124,7 @@ class Textbook {
 		$network_already_active = get_site_option( 'active_sitewide_plugins' );
 
 		// activate only if one of our themes is being used
-		if ( false == self::isTextbookTheme() ) {
+		if ( false === self::isTextbookTheme() ) {
 			unset( $pbt_plugin['mce-textbook-buttons/class-textbookbuttons.php'] );
 			unset( $pbt_plugin['tinymce-spellcheck/tinymce-spellcheck.php'] );
 		}
@@ -140,53 +132,13 @@ class Textbook {
 		// don't include plugins already active at the site level, network level
 		if ( ! empty( $pbt_plugin ) ) {
 			foreach ( $pbt_plugin as $key => $val ) {
-				if ( in_array( $key, $already_active ) || array_key_exists( $key, $network_already_active ) ) {
+				if ( in_array( $key, $already_active, true ) || array_key_exists( $key, $network_already_active ) ) {
 					unset( $pbt_plugin[ $key ] );
 				}
 			}
 		}
 
-		// don't include plugins if the user doesn't want them
-		if ( ! empty( $pbt_plugin ) ) {
-
-			// get user options
-			$user_options = $this->getUserOptions();
-
-			if ( is_array( $user_options ) ) {
-				foreach ( $pbt_plugin as $key => $val ) {
-
-					$name       = strstr( $key, '/', true );
-					$pbt_option = 'pbt_' . $name . '_active';
-
-					// either it doesn't exist, or the client doesn't want it
-					if ( array_key_exists( $pbt_option, $user_options ) ) {
-						// check the value
-						if ( false == $user_options[ $pbt_option ] ) {
-							unset( $pbt_plugin[ $key ] );
-						}
-					}
-				}
-			}
-		}
-
 		return $pbt_plugin;
-	}
-
-	/**
-	 * Returns merged array of all PBT user options
-	 *
-	 * @since 1.0.2
-	 * @return array
-	 */
-	private function getUserOptions() {
-
-		$other        = get_option( 'pbt_other_settings', [] );
-		$reuse        = get_option( 'pbt_reuse_settings', [] );
-		$redistribute = get_option( 'pbt_redistribute_settings', [] );
-
-		$result = @array_merge( $other, $reuse, $redistribute );
-
-		return $result;
 	}
 
 	/**
@@ -201,7 +153,7 @@ class Textbook {
 			$style = $obj->get_stylesheet();
 		}
 		$t = ( null === $obj ) ? wp_get_theme()->Tags : wp_get_theme( $style )->Tags;
-		if ( is_array( $t ) && in_array( 'Textbooks for Pressbooks', $t ) ) {
+		if ( is_array( $t ) && in_array( 'Textbooks for Pressbooks', $t, true ) ) {
 			return true;
 		}
 
@@ -292,7 +244,7 @@ class Textbook {
 			$registered_themes = search_theme_directories();
 
 			foreach ( $registered_themes as $key => $val ) {
-				if ( $val['theme_root'] == PBT_PLUGIN_DIR . 'themes-book' ) {
+				if ( $val['theme_root'] === PBT_PLUGIN_DIR . 'themes-book' ) {
 					$pbt_themes[ $key ] = 1;
 				}
 			}
@@ -401,7 +353,7 @@ class Textbook {
 		}
 
 		// triggers a site event once for version 3.0.1
-		if ( version_compare( '3.0.1', self::VERSION ) == 0 ) {
+		if ( version_compare( '3.0.1', self::VERSION ) === 0 ) {
 			$part_title = [
 				'part_title' => 1,
 			];
@@ -427,7 +379,7 @@ class Textbook {
 				switch_to_blog( $site->blog_id );
 				$root  = get_option( 'template_root' );
 				$theme = get_option( 'stylesheet' );
-				if ( strcmp( $root, '/plugins/pressbooks/themes-book' ) == 0 && strcmp( $theme, 'opentextbook' ) == 0 ) {
+				if ( strcmp( $root, '/plugins/pressbooks/themes-book' ) === 0 && strcmp( $theme, 'opentextbook' ) === 0 ) {
 					update_option( 'template_root', '/themes' );
 				}
 				restore_current_blog();

@@ -55,6 +55,7 @@ if ( function_exists( 'pb_meets_minimum_requirements' ) ) {
 add_filter(
 	'init', function () {
 
+		// the constants below should be available in the init hook
 		if ( ! version_compare( PB_PLUGIN_VERSION, '5.0.0', '>=' ) ) {
 			add_action(
 				'admin_notices', function () {
@@ -64,9 +65,8 @@ add_filter(
 
 			return;
 		}
-		// need version number outside of init hook
-		update_site_option( 'pbt_pb_version', PB_PLUGIN_VERSION );
 
+		update_site_option( 'pbt_pb_version', PB_PLUGIN_VERSION );
 	}
 );
 
@@ -83,7 +83,6 @@ if ( function_exists( '\HM\Autoloader\register_class_path' ) ) {
 	\HM\Autoloader\register_class_path( 'PBT', __DIR__ . '/inc' );
 }
 
-// Load Composer Dependencies
 $composer = __DIR__ . '/vendor/autoload.php';
 if ( file_exists( $composer ) ) {
 	require_once( $composer );
