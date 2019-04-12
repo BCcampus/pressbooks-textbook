@@ -87,6 +87,13 @@ When creating Open Textbooks and other OERs, we feel it is best to adhere to the
 
 See: https://github.com/BCcampus/pressbooks-textbook/commits/master for more detail
 
+= 4.3.0 (2019/04/12) =
+* compatibility with PB 5.7.0
+* fix import bug
+* enforce php coding standards
+* fix settings page for federated search
+* better icons for download textbook page
+
 = 4.2.3 (2018/12/20) =
 * compatibility with PB 5.6.3
 * improved coding standards compliance
