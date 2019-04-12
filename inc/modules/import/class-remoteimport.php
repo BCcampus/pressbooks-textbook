@@ -25,7 +25,7 @@ class RemoteImport extends Html\Xhtml {
 	/**
 	 * @param array $current_import
 	 *
-	 * @return Search\type
+	 * @return bool
 	 */
 	function import( array $current_import ) {
 		if ( ! isset( $parent ) ) {
@@ -53,8 +53,7 @@ class RemoteImport extends Html\Xhtml {
 				} else {
 					$error_message = 'An unknown error occurred';
 				}
-				error_log( '\PBT\Modules\Import\RemoteImport\import() error with wp_remote_get(): ' . $error_message );
-				$html = ''; // Set empty string
+				error_log( '\PBT\Modules\Import\RemoteImport\import() error with wp_remote_get(): ' . $error_message ); //@codingStandardsIgnoreLine
 				continue;
 			}
 
@@ -69,7 +68,7 @@ class RemoteImport extends Html\Xhtml {
 
 			// chapter is the exception, needs a post_parent other than 0
 			// front-matter, back-matter, parts all have post parent = 0;
-			if ( 'chapter' == $post_type ) {
+			if ( 'chapter' === $post_type ) {
 				$chapter_parent = $this->getChapterParent();
 			} else {
 				$chapter_parent = $parent;
@@ -78,7 +77,7 @@ class RemoteImport extends Html\Xhtml {
 			$pid = $this->kneadandInsert( $html, $post_type, $chapter_parent, $domain, 'web-only', $title );
 
 			// set variable with Post ID of the last Part
-			if ( 'part' == $post_type ) {
+			if ( 'part' === $post_type ) {
 				$parent = $pid;
 			}
 		}
@@ -138,7 +137,7 @@ class RemoteImport extends Html\Xhtml {
 		$new_post['post_content'] = $body;
 
 		// chapters are exceptional, need a chapter_parent
-		if ( 'chapter' == $post_type ) {
+		if ( 'chapter' === $post_type ) {
 			$new_post['post_parent'] = $chapter_parent;
 		}
 

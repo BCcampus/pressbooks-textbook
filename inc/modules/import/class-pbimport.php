@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Uses the v1/API to search titles based on a user defined search term
  *
@@ -15,11 +14,9 @@
 
 namespace PBT\Modules\Import;
 
-if ( ! function_exists( 'media_handle_sideload' ) ) {
-	require_once( ABSPATH . 'wp-admin/includes/image.php' );
-	require_once( ABSPATH . 'wp-admin/includes/file.php' );
-	require_once( ABSPATH . 'wp-admin/includes/media.php' );
-}
+use PBT\Modules;
+use Pressbooks\Book;
+use Pressbooks\Redirect;
 
 class PBImport {
 
@@ -41,23 +38,19 @@ class PBImport {
 	];
 
 	public function __construct() {
-
+		if ( ! function_exists( 'media_handle_sideload' ) ) {
+			require_once( ABSPATH . 'wp-admin/includes/image.php' );
+			require_once( ABSPATH . 'wp-admin/includes/file.php' );
+			require_once( ABSPATH . 'wp-admin/includes/media.php' );
+		}
 	}
 
 	/**
-	 *  Imports user selected chapters from an instance of PB
+	 * Imports user selected chapters from an instance of PB
 	 *
 	 * @param array $chapters
-	 * Array(
-	 * [5] => Array(
-	 * [222] => chapter
-	 * )
-	 * [14] => Array(
-	 * [164] => front-matter
-	 * )
-	 * )
 	 *
-	 * @return type
+	 * @return bool
 	 */
 	function import( array $chapters ) {
 
@@ -99,7 +92,7 @@ class PBImport {
 			];
 
 			// set post parent
-			if ( 'chapter' == $new_post['post_type'] ) {
+			if ( 'chapter' === $new_post['post_type'] ) {
 				$post_parent                = $this->getChapterParent();
 				$import_post['post_parent'] = $post_parent;
 			}
@@ -109,18 +102,18 @@ class PBImport {
 
 			// check for errors, redirect and record
 			if ( is_wp_error( $pid ) ) {
-				error_log( '\PBT\Modules\Import\PBImport()->import error at `wp_insert_post()`: ' . $pid->get_error_message() );
-				\PBT\Modules\Search\ApiSearch::revokeCurrentImport();
-				\Pressbooks\Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=api_search_import' );
+				error_log( '\PBT\Modules\Import\PBImport()->import error at `wp_insert_post()`: ' . $pid->get_error_message() ); //@codingStandardsIgnoreLine
+				Modules\Search\ApiSearch::revokeCurrentImport();
+				Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=api_search_import' );
 			}
 
 			// set post metadata
 			$this->setPostMeta( $pid, $new_post );
 
-			\Pressbooks\Book::consolidatePost( $pid, get_post( $pid ) );
+			Book::consolidatePost( $pid, get_post( $pid ) );
 		}
 
-		return \PBT\Modules\Search\ApiSearch::revokeCurrentImport();
+		return Modules\Search\ApiSearch::revokeCurrentImport();
 	}
 
 	/**
@@ -254,7 +247,7 @@ class PBImport {
 			$src = ''; // Change false to empty string
 		}
 		$already_done[ $remote_img_location ] = $src;
-		@unlink( $tmp_name );
+		unlink( $tmp_name );
 
 		return $src;
 	}
@@ -332,12 +325,12 @@ class PBImport {
 	}
 
 	/**
+	 * @param $id
 	 *
-	 * @param type $id
-	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	static function flaggedForImport( $id ) {
+		// phpcs:disable WordPress.CSRF.NonceVerification.NoNonceVerification
 
 		if ( ! is_array( $_POST['chapters'] ) ) {
 			return false;
@@ -347,7 +340,9 @@ class PBImport {
 			return false;
 		}
 
-		return ( 1 == $_POST['chapters'][ $id ]['import'] ? true : false );
+		// phpcs:enable WordPress.CSRF.NonceVerification.NoNonceVerification
+
+		return ( 1 == $_POST['chapters'][ $id ]['import'] ? true : false ); //@codingStandardsIgnoreLine
 	}
 
 }

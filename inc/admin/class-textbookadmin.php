@@ -12,7 +12,7 @@
 
 namespace PBT\Admin;
 
-use \Pressbooks\Book;
+use Pressbooks\Book;
 
 class TextbookAdmin {
 
@@ -35,6 +35,7 @@ class TextbookAdmin {
 	function __construct() {
 
 		// Add the options page and menu item.
+		add_action( 'admin_menu', [ $this, 'addAdminMenu' ] );
 		add_action( 'admin_menu', [ $this, 'adminMenuAdjuster' ] );
 		add_action( 'admin_init', [ $this, 'adminSettings' ] );
 		add_action( 'init', '\PBT\Modules\Search\ApiSearch::formSubmit', 51 );
@@ -49,14 +50,27 @@ class TextbookAdmin {
 		add_filter( 'plugin_action_links_' . $plugin_basename, [ $this, 'addActionLinks' ] );
 	}
 
+	/**
+	 * @return TextbookAdmin|null
+	 */
 	public static function get_instance() {
 
 		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance ) {
+		if ( null === self::$instance ) {
 			self::$instance = new self;
 		}
 
 		return self::$instance;
+	}
+
+	function addAdminMenu() {
+		add_options_page(
+			__( 'Textbooks for Pressbooks Settings', 'pressbooks-textbook' ),
+			__( 'Federated Network', 'pressbooks-textbook' ),
+			'manage_options',
+			$this->plugin_slug . '-settings',
+			[ $this, 'displayPluginAdminPage' ]
+		);
 	}
 
 	/**
@@ -66,12 +80,6 @@ class TextbookAdmin {
 	 */
 	function adminMenuAdjuster() {
 		if ( Book::isBook() ) {
-			add_options_page(
-				__( 'Textbooks for Pressbooks Settings', 'pressbooks-textbook' ), __( 'Federated Network', 'pressbooks-textbook' ), 'manage_options', $this->plugin_slug . '-settings', [
-					$this,
-					'displayPluginAdminPage',
-				]
-			);
 			add_menu_page(
 				__( 'Textbooks for Pressbooks', 'pressbooks-textbook' ), __( 'Textbooks for PB', 'pressbooks-textbook' ), 'edit_posts', $this->plugin_slug, [
 					$this,
@@ -182,7 +190,7 @@ class TextbookAdmin {
 	 */
 	private function remixSettings() {
 		$page    = 'pbt_remix_settings';
-		$option  = 'pbt_remix_setings';
+		$option  = 'pbt_remix_settings';
 		$section = 'pbt_remix_section';
 
 		// Remix
@@ -190,12 +198,17 @@ class TextbookAdmin {
 			'pbt_api_endpoints' => [ network_home_url() ],
 		];
 
-		if ( false == get_option( 'pbt_remix_settings' ) ) {
+		if ( false === get_option( 'pbt_remix_settings' ) ) {
 			add_option( 'pbt_remix_settings', $defaults );
 		}
 
+		register_setting(
+			$option,
+			$option,
+			'\PBT\Settings\remix_url_sanitize'
+		);
+
 		// group of settings
-		// $id, $title, $callback, $page(menu slug)
 		add_settings_section(
 			$section,
 			'Manage Federated Network of Pressbooks sites',
@@ -204,20 +217,12 @@ class TextbookAdmin {
 		);
 
 		// register a settings field to a settings page and section
-		// $id, $title, $callback, $page, $section
 		add_settings_field(
 			'add_api_endpoint',
 			__( 'Add an endpoint to your network', 'pressbooks-textbook' ),
 			'\PBT\Settings\api_endpoint_public_callback',
 			$page,
 			$section
-		);
-
-		// $option_group(group name), $option_name, $sanitize_callback
-		register_setting(
-			$option,
-			$option,
-			'\PBT\Settings\remix_url_sanitize'
 		);
 
 	}

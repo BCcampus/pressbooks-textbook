@@ -71,7 +71,7 @@ class ApiSearch {
 
 			// Comes in as:
 			/** Array (
-			 *    [103] => Array(
+			 *  [103] => Array(
 			 *  [import] => 1
 			 *  [book] => 6
 			 *  [license] =>
@@ -448,13 +448,19 @@ class ApiSearch {
 
 	/**
 	 * Simple check to see if the form submission is valid
-	 * nonce verification happens @see formSubmit()
-	 *
+	 * nonce verification happens
 	 * @return boolean
+	 *@see formSubmit()
+	 *
 	 */
 	static function isFormSubmission() {
+		// phpcs:disable WordPress.CSRF.NonceVerification.NoNonceVerification
 
-		if ( isset( $_REQUEST['page'] ) && 'api_search_import' !== $_REQUEST['page'] ) { //@codingStandardsIgnoreLine
+		if ( empty( $_REQUEST['page'] ) ) {
+			return false;
+		}
+
+		if ( 'api_search_import' !== $_REQUEST['page'] ) {
 			return false;
 		}
 
@@ -462,9 +468,11 @@ class ApiSearch {
 			return true;
 		}
 
-		if ( count( $_GET ) > 1 ) { //@codingStandardsIgnoreLine
+		if ( count( $_GET ) > 1 ) {
 			return true;
 		}
+
+		// phpcs:enable WordPress.CSRF.NonceVerification.NoNonceVerification
 
 		return false;
 	}

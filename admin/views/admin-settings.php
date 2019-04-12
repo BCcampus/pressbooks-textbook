@@ -13,7 +13,6 @@
 <div class="wrap">
 
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
-	<!-- display settings errors -->
 	<?php
 	get_settings_errors();
 
@@ -29,7 +28,7 @@
 		<a href="?page=pressbooks-textbook-settings&tab=remix" class="nav-tab <?php echo $active_tab === 'remix' ? 'nav-tab-active' : ''; ?>">Search and Import</a>
 	</h2>
 	<!-- Create the form that will be used to modify display options -->
-	<form method="post" action="options.php" name="pbt_settings">
+	<form method="post" action="options.php">
 		<?php
 		$current_theme = wp_get_theme()->Name;
 		$pbt_theme     = \PBT\Textbook::isTextbookTheme();
