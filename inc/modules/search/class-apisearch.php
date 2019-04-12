@@ -13,6 +13,8 @@
 namespace PBT\Modules\Search;
 
 use PBT\Modules\Import;
+use Pressbooks\Book;
+use Pressbooks\Redirect;
 
 /**
  * Description of class-pb-apisearch
@@ -24,14 +26,14 @@ class ApiSearch {
 	/**
 	 * API version number
 	 *
-	 * @var type
+	 * @var string
 	 */
 	private static $version = 'v1';
 
 	/**
 	 * User defined search terms
 	 *
-	 * @var type
+	 * @var string
 	 */
 	private static $search_terms = '';
 
@@ -44,12 +46,11 @@ class ApiSearch {
 
 	/**
 	 *
-	 * @return type
 	 */
 	static function formSubmit() {
 
 		// evaluate POST DATA
-		if ( false == static::isFormSubmission() || false == current_user_can( 'edit_posts' ) ) {
+		if ( false === static::isFormSubmission() || false === current_user_can( 'edit_posts' ) ) {
 			return;
 		}
 
@@ -57,9 +58,9 @@ class ApiSearch {
 		$current_import = get_option( 'pbt_current_import' );
 
 		// determine stage of import, revoke if necessary
-		if ( isset( $_GET['revoke'] ) && 1 == $_GET['revoke'] && check_admin_referer( 'pbt-revoke-import' ) ) {
+		if ( isset( $_GET['revoke'] ) && 1 == $_GET['revoke'] && check_admin_referer( 'pbt-revoke-import' ) ) { //@codingStandardsIgnoreLine
 			self::revokeCurrentImport();
-			\Pressbooks\Redirect\location( $redirect_url );
+			Redirect\location( $redirect_url );
 		}
 
 		// do chapter import if that's where we're at
@@ -93,18 +94,22 @@ class ApiSearch {
 				// add it to the blog_id to which it belongs
 				$books[ $_POST['chapters'][ $id ]['book'] ][ $id ] = $chapter[ $id ];
 			}
-			// Modified as:
-			/** Array(
-			 *   [103] => Array (
+
+			/**
+			 * Modified as:
+			 *
+			 * Array(
+			 *  [103] => Array (
 			 *  [6] => Array(
 			 *  [type] => chapter
 			 *  [license] => cc-by
 			 *  [author] => Brad Payne
 			 *  [link] => http://opentextbc.ca/modernphilosophy/chapter/background-to-modern-philosophy/
 			 *  )
-			 *    )
-			 *  )
+			 * )
+			 *
 			 */
+
 			// Decide which import local/remote, evaluate the domain
 			$host  = wp_parse_url( network_site_url(), PHP_URL_HOST );
 			$local = strcmp( $_POST['domain'], $host );
@@ -167,7 +172,7 @@ class ApiSearch {
 				// Success! Redirect to organize page
 				$success_url = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_organize';
 				self::log( $msg, $books );
-				\Pressbooks\Redirect\location( $success_url );
+				Redirect\location( $success_url );
 			}
 			// do book import
 		} elseif ( $_GET['import'] && isset( $_POST['book'] ) && is_array( $current_import ) && check_admin_referer( 'pbt-import' ) ) {
@@ -185,14 +190,14 @@ class ApiSearch {
 
 			// response gets all chapters, types
 			if ( is_wp_error( $response ) ) {
-				error_log( '\PBT\Search\formSubmit error: ' . $response['response']['message'] );
-				\Pressbooks\Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=api_search_import' );
+				error_log( '\PBT\Search\formSubmit error: ' . $response['response']['message'] ); //@codingStandardsIgnoreLine
+				Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=api_search_import' );
 			}
 
 			$import_chapters = json_decode( $response['body'], true );
 
 			// something goes wrong at the API level/response
-			if ( 0 == $import_chapters['success'] ) {
+			if ( 0 == $import_chapters['success'] ) { //@codingStandardsIgnoreLine
 				return;
 			}
 
@@ -209,7 +214,7 @@ class ApiSearch {
 				// Success! Redirect to organize page
 				$success_url = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_organize';
 				self::log( $msg, $import_chapters['data'][ $book_id ]['book_toc'] );
-				\Pressbooks\Redirect\location( $success_url );
+				Redirect\location( $success_url );
 			}
 
 			// return results from user's search
@@ -230,7 +235,7 @@ class ApiSearch {
 
 			// discover if we are searching for books, or chapters
 			// do books
-			if ( 0 == strcmp( 'books', $_POST['collection'] ) ) {
+			if ( 0 === strcmp( 'books', $_POST['collection'] ) ) {
 				// no cache, assumes search term will be unique
 				$books = self::getPublicBooks( $endpoint, self::$search_terms );
 
@@ -266,7 +271,7 @@ class ApiSearch {
 		}
 
 		// redirect back to import page
-		\Pressbooks\Redirect\location( $redirect_url );
+		Redirect\location( $redirect_url );
 	}
 
 	/**
@@ -371,14 +376,14 @@ class ApiSearch {
 		$public_books = wp_remote_get( $endpoint . 'books' . $titles, $args );
 
 		if ( is_wp_error( $public_books ) ) {
-			error_log( '\PBT\Search\getPublicBooks error: ' . $public_books->get_error_message() );
-			\Pressbooks\Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=api_search_import' );
+			error_log( '\PBT\Search\getPublicBooks error: ' . $public_books->get_error_message() ); //@codingStandardsIgnoreLine
+			Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=api_search_import' );
 		}
 
 		$public_books_array = json_decode( $public_books['body'], true );
 
 		// something goes wrong at the API level/response
-		if ( 0 == $public_books_array['success'] ) {
+		if ( 0 == $public_books_array['success'] ) { //@codingStandardsIgnoreLine
 			return;
 		}
 
@@ -398,7 +403,7 @@ class ApiSearch {
 		}
 
 		// don't return results from the book where the search is happening, only if searching this instance of PB
-		if ( isset( $books[ $current_book ] ) && $endpoint == network_home_url() ) {
+		if ( isset( $books[ $current_book ] ) && $endpoint === network_home_url() ) {
 			unset( $books[ $current_book ] );
 		}
 
@@ -432,7 +437,7 @@ class ApiSearch {
 			];
 			$response = wp_remote_get( $request, $args );
 			$body     = json_decode( $response['body'], true );
-			if ( ! empty( $body ) && 1 == $body['success'] ) {
+			if ( ! empty( $body ) && 1 == $body['success'] ) { //@codingStandardsIgnoreLine
 				$chapters[ $id ]             = $books[ $id ];
 				$chapters[ $id ]['chapters'] = $body['data'];
 			}
@@ -448,15 +453,15 @@ class ApiSearch {
 	 */
 	static function isFormSubmission() {
 
-		if ( 'api_search_import' != @$_REQUEST['page'] ) {
+		if ( 'api_search_import' !== $_REQUEST['page'] ) { //@codingStandardsIgnoreLine
 			return false;
 		}
 
-		if ( ! empty( $_POST ) ) {
+		if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 			return true;
 		}
 
-		if ( count( $_GET ) > 1 ) {
+		if ( count( $_GET ) > 1 ) { //@codingStandardsIgnoreLine
 			return true;
 		}
 
@@ -466,18 +471,18 @@ class ApiSearch {
 	/**
 	 * Simple revoke of an import (user hits the 'cancel' button)
 	 *
-	 * @return type
+	 * @return bool
 	 */
 	static function revokeCurrentImport() {
 
-		\Pressbooks\Book::deleteBookObjectCache();
+		Book::deleteBookObjectCache();
 		return delete_option( 'pbt_current_import' );
 	}
 
 	/**
 	 * Log for the import functionality, for tracking bugs
 	 *
-	 * @param type $message
+	 * @param string $message
 	 * @param array $more_info
 	 */
 	static function log( $message, array $more_info ) {
@@ -495,14 +500,14 @@ class ApiSearch {
 			'site_url' => site_url(),
 		];
 
-		$msg = print_r( array_merge( $info, $more_info ), true ) . $message;
+		$msg = print_r( array_merge( $info, $more_info ), true ) . $message; //@codingStandardsIgnoreLine
 
 		// Write to error log
-		error_log( $subject . "\n" . $msg );
+		error_log( $subject . "\n" . $msg ); //@codingStandardsIgnoreLine
 
 		// Email logs
 		foreach ( $logs_email as $email ) {
-			error_log( $time . ' - ' . $msg, 1, $email, $from );
+			error_log( $time . ' - ' . $msg, 1, $email, $from ); //@codingStandardsIgnoreLine
 		}
 	}
 

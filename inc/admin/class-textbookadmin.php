@@ -67,7 +67,7 @@ class TextbookAdmin {
 	function adminMenuAdjuster() {
 		if ( Book::isBook() ) {
 			add_options_page(
-				__( 'Textbooks for Pressbooks Settings', 'pressbooks-textbook' ), __( 'Textbooks for PB', 'pressbooks-textbook' ), 'manage_options', $this->plugin_slug . '-settings', [
+				__( 'Textbooks for Pressbooks Settings', 'pressbooks-textbook' ), __( 'Federated Network', 'pressbooks-textbook' ), 'manage_options', $this->plugin_slug . '-settings', [
 					$this,
 					'displayPluginAdminPage',
 				]
