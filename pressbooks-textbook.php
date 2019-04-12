@@ -81,6 +81,8 @@ add_filter(
 */
 if ( function_exists( '\HM\Autoloader\register_class_path' ) ) {
 	\HM\Autoloader\register_class_path( 'PBT', __DIR__ . '/inc' );
+} else {
+	require_once( __DIR__ . '/autoloader.php' );
 }
 
 $composer = __DIR__ . '/vendor/autoload.php';
